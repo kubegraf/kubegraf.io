@@ -1635,6 +1635,65 @@
                 flex-direction: column;
             }
         }
+
+        /* Used By Section */
+        .used-by-section {
+            padding: 4rem 0;
+            background: var(--darker);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .used-by-section .section-header {
+            margin-bottom: 2.5rem;
+        }
+
+        .used-by-section .section-header p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .logos-grid {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 3rem;
+        }
+
+        .logo-item {
+            opacity: 0.5;
+            transition: opacity 0.3s;
+            filter: grayscale(100%);
+        }
+
+        .logo-item:hover {
+            opacity: 1;
+            filter: grayscale(0%);
+        }
+
+        .logo-item svg {
+            height: 32px;
+            width: auto;
+        }
+
+        .logo-placeholder {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .logos-grid {
+                gap: 2rem;
+            }
+        }
     </style>
 
     <!-- Hero Section -->
@@ -1746,6 +1805,40 @@
                     </div>
                     <div class="stat-value">3</div>
                     <div class="stat-label">UI Modes</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Used By Section -->
+    <section class="used-by-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Trusted by Engineers</h2>
+                <p>Join teams using KubeGraf to manage their Kubernetes clusters</p>
+            </div>
+
+            <div class="logos-grid">
+                <!-- Placeholder logos - replace with real company logos -->
+                <div class="logo-placeholder">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg>
+                    <span>Your Company</span>
+                </div>
+                <div class="logo-placeholder">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg>
+                    <span>Your Company</span>
+                </div>
+                <div class="logo-placeholder">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg>
+                    <span>Your Company</span>
+                </div>
+                <div class="logo-placeholder">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg>
+                    <span>Your Company</span>
+                </div>
+                <div class="logo-placeholder">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg>
+                    <span>Your Company</span>
                 </div>
             </div>
         </div>
