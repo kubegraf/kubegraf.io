@@ -1,0 +1,6 @@
+# Robots.txt for kubegraf.io
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://kubegraf.io/sitemap.xml

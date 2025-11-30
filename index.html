@@ -6,14 +6,58 @@
     <title>KubeGraf - Advanced Kubernetes Visualization Tool</title>
     <meta name="description" content="KubeGraf is a powerful Kubernetes visualization tool with terminal UI and web dashboard for monitoring and managing your clusters.">
     <meta name="keywords" content="kubernetes, k8s, visualization, monitoring, dashboard, cli, terminal, devops">
+    <meta name="author" content="KubeGraf">
+    <meta name="theme-color" content="#326ce5">
+
+    <!-- Open Graph / Facebook -->
     <meta property="og:title" content="KubeGraf - Advanced Kubernetes Visualization">
     <meta property="og:description" content="Visualize and manage your Kubernetes clusters with an intuitive terminal UI and modern web dashboard.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://kubegraf.io">
+    <meta property="og:image" content="https://kubegraf.io/assets/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="KubeGraf">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="KubeGraf - Advanced Kubernetes Visualization">
+    <meta name="twitter:description" content="Visualize and manage your Kubernetes clusters with an intuitive terminal UI and modern web dashboard.">
+    <meta name="twitter:image" content="https://kubegraf.io/assets/images/og-image.png">
+
     <link rel="canonical" href="https://kubegraf.io">
+    <link rel="icon" type="image/png" href="/assets/icons/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/icons/icon-192.png">
+    <link rel="manifest" href="/manifest.json">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "KubeGraf",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Linux, macOS, Windows",
+        "description": "Advanced Kubernetes visualization tool with terminal UI and web dashboard for monitoring and managing clusters.",
+        "url": "https://kubegraf.io",
+        "downloadUrl": "https://github.com/kubegraf/kubegraf/releases",
+        "softwareVersion": "1.0.0",
+        "author": {
+            "@type": "Organization",
+            "name": "KubeGraf"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "license": "https://opensource.org/licenses/Apache-2.0"
+    }
+    </script>
     <style>
         :root {
             --primary: #326ce5;
@@ -31,6 +75,48 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        /* Skip link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0 0 8px 8px;
+            z-index: 10000;
+            font-weight: 600;
+            text-decoration: none;
+            transition: top 0.3s;
+        }
+
+        .skip-link:focus {
+            top: 0;
+            outline: 2px solid var(--secondary);
+            outline-offset: 2px;
+        }
+
+        /* Focus states for accessibility */
+        a:focus-visible,
+        button:focus-visible,
+        .btn:focus-visible,
+        .demo-tab:focus-visible,
+        .doc-card:focus-visible {
+            outline: 2px solid var(--secondary);
+            outline-offset: 2px;
+        }
+
+        /* Remove default outline and add custom focus ring */
+        :focus {
+            outline: none;
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--secondary);
+            outline-offset: 2px;
         }
 
         body {
@@ -971,13 +1057,16 @@
     </style>
 </head>
 <body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Mouse-following gradient -->
-    <div class="mouse-gradient" id="mouseGradient"></div>
+    <div class="mouse-gradient" id="mouseGradient" aria-hidden="true"></div>
 
     <!-- Navigation -->
-    <nav>
+    <nav role="navigation" aria-label="Main navigation">
         <div class="nav-content">
-            <a href="/" class="logo">
+            <a href="/" class="logo" aria-label="KubeGraf Home">
                 <span class="logo-icon"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#22d3ee"/><stop offset="50%" style="stop-color:#3b82f6"/><stop offset="100%" style="stop-color:#d946ef"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="1.5" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><g filter="url(#glow)"><path d="M80 30 L60 12 L35 12 L12 30 L12 70 L35 88 L60 88 L80 70 L80 50 L55 50" fill="none" stroke="url(#logoGrad)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="80" cy="30" r="5" fill="#22d3ee"/><circle cx="60" cy="12" r="5" fill="#06b6d4"/><circle cx="35" cy="12" r="5" fill="#3b82f6"/><circle cx="12" cy="30" r="5" fill="#3b82f6"/><circle cx="12" cy="70" r="5" fill="#6366f1"/><circle cx="35" cy="88" r="5" fill="#8b5cf6"/><circle cx="60" cy="88" r="5" fill="#a855f7"/><circle cx="80" cy="70" r="5" fill="#c026d3"/><circle cx="80" cy="50" r="5" fill="#d946ef"/><circle cx="55" cy="50" r="5" fill="#d946ef"/></g><path d="M42 22 L62 34 L42 46 L22 34 Z" fill="#22d3ee" stroke="#fff" stroke-width="1.5"/><path d="M42 46 L62 34 L62 54 L42 66 Z" fill="#8b5cf6" stroke="#fff" stroke-width="1.5"/><path d="M42 46 L22 34 L22 54 L42 66 Z" fill="#3b82f6" stroke="#fff" stroke-width="1.5"/></svg></span>
                 <span>KubeGraf</span>
             </a>
@@ -1348,11 +1437,11 @@
     </style>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <main id="main-content" class="hero" role="main">
         <!-- Animated canvas background -->
-        <canvas id="heroCanvas" class="hero-canvas"></canvas>
+        <canvas id="heroCanvas" class="hero-canvas" aria-hidden="true"></canvas>
         <!-- Grid overlay -->
-        <div class="grid-overlay"></div>
+        <div class="grid-overlay" aria-hidden="true"></div>
         <div class="container">
             <span class="hero-badge">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
@@ -1407,7 +1496,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </main>
 
     <!-- Stats Section -->
     <section class="stats-section">
@@ -1790,15 +1879,18 @@
                 <p>Experience the power of KubeGraf</p>
             </div>
 
-            <div class="demo-tabs">
-                <button class="demo-tab active" onclick="switchDemo('tui')">Terminal UI</button>
-                <button class="demo-tab" onclick="switchDemo('web')">Web Dashboard</button>
-                <button class="demo-tab" onclick="switchDemo('solid')">Solid.js UI</button>
-                <button class="demo-tab" onclick="switchDemo('topology')">Topology View</button>
+            <div class="demo-tabs" role="tablist" aria-label="Demo views">
+                <button class="demo-tab active" onclick="switchDemo('tui')" role="tab" aria-selected="true" aria-controls="demo-display">Terminal UI</button>
+                <button class="demo-tab" onclick="switchDemo('web')" role="tab" aria-selected="false" aria-controls="demo-display">Web Dashboard</button>
+                <button class="demo-tab" onclick="switchDemo('solid')" role="tab" aria-selected="false" aria-controls="demo-display">Solid.js UI</button>
+                <button class="demo-tab" onclick="switchDemo('topology')" role="tab" aria-selected="false" aria-controls="demo-display">Topology View</button>
             </div>
 
-            <div class="demo-content" id="demo-display">
-                <img src="dashboard-screenshot.png" alt="KubeGraf Web Dashboard" style="max-width: 100%; border-radius: 12px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.1);">
+            <div class="demo-content" id="demo-display" role="tabpanel" aria-label="Demo preview">
+                <picture>
+                    <source srcset="assets/images/dashboard-screenshot.webp" type="image/webp">
+                    <img src="assets/images/dashboard-screenshot.png" alt="KubeGraf Web Dashboard showing cluster resources and metrics" loading="lazy" style="max-width: 100%; border-radius: 12px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.1);">
+                </picture>
             </div>
         </div>
     </section>
@@ -1936,38 +2028,38 @@
             </div>
 
             <div class="docs-grid">
-                <a href="getting-started.html" class="doc-card">
+                <a href="https://github.com/kubegraf/kubegraf#readme" class="doc-card" target="_blank" rel="noopener">
                     <h3>🚀 Getting Started</h3>
                     <p>Installation, configuration, and your first steps with KubeGraf</p>
                 </a>
 
-                <a href="terminal-ui.html" class="doc-card">
+                <a href="https://github.com/kubegraf/kubegraf/blob/main/docs/terminal-ui.md" class="doc-card" target="_blank" rel="noopener">
                     <h3>🖥️ Terminal UI Guide</h3>
                     <p>Keyboard shortcuts, navigation, and TUI features</p>
                 </a>
 
-                <a href="web-dashboard.html" class="doc-card">
+                <a href="https://github.com/kubegraf/kubegraf/blob/main/docs/web-dashboard.md" class="doc-card" target="_blank" rel="noopener">
                     <h3>🌐 Web Dashboard</h3>
                     <p>Using the classic web interface for cluster management</p>
                 </a>
 
-                <a href="solid-ui.html" class="doc-card">
+                <a href="https://github.com/kubegraf/kubegraf/blob/main/docs/solid-ui.md" class="doc-card" target="_blank" rel="noopener">
                     <h3>⚡ Solid.js UI</h3>
                     <p>Modern reactive UI with themes, AI insights, and security</p>
                 </a>
 
-                <a href="topology.html" class="doc-card">
+                <a href="https://github.com/kubegraf/kubegraf/blob/main/docs/topology.md" class="doc-card" target="_blank" rel="noopener">
                     <h3>🗺️ Topology Visualization</h3>
                     <p>Understanding the interactive cluster topology</p>
                 </a>
 
-                <a href="configuration.html" class="doc-card">
+                <a href="https://github.com/kubegraf/kubegraf/blob/main/docs/configuration.md" class="doc-card" target="_blank" rel="noopener">
                     <h3>⚙️ Configuration</h3>
                     <p>Customizing KubeGraf for your workflow</p>
                 </a>
 
-                <a href="https://github.com/kubegraf/kubegraf" class="doc-card">
-                    <h3>📖 GitHub</h3>
+                <a href="https://github.com/kubegraf/kubegraf" class="doc-card" target="_blank" rel="noopener">
+                    <h3>📖 GitHub Repository</h3>
                     <p>Source code, issues, and contributions</p>
                 </a>
             </div>
@@ -1975,11 +2067,11 @@
     </section>
 
     <!-- Footer -->
-    <footer>
+    <footer role="contentinfo">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
-                    <a href="/" class="logo">
+                    <a href="/" class="logo" aria-label="KubeGraf Home">
                         <span class="logo-icon"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="footerLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#22d3ee"/><stop offset="50%" style="stop-color:#3b82f6"/><stop offset="100%" style="stop-color:#d946ef"/></linearGradient><filter id="footerGlow"><feGaussianBlur stdDeviation="1.5" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><g filter="url(#footerGlow)"><path d="M80 30 L60 12 L35 12 L12 30 L12 70 L35 88 L60 88 L80 70 L80 50 L55 50" fill="none" stroke="url(#footerLogoGrad)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="80" cy="30" r="5" fill="#22d3ee"/><circle cx="60" cy="12" r="5" fill="#06b6d4"/><circle cx="35" cy="12" r="5" fill="#3b82f6"/><circle cx="12" cy="30" r="5" fill="#3b82f6"/><circle cx="12" cy="70" r="5" fill="#6366f1"/><circle cx="35" cy="88" r="5" fill="#8b5cf6"/><circle cx="60" cy="88" r="5" fill="#a855f7"/><circle cx="80" cy="70" r="5" fill="#c026d3"/><circle cx="80" cy="50" r="5" fill="#d946ef"/><circle cx="55" cy="50" r="5" fill="#d946ef"/></g><path d="M42 22 L62 34 L42 46 L22 34 Z" fill="#22d3ee" stroke="#fff" stroke-width="1.5"/><path d="M42 46 L62 34 L62 54 L42 66 Z" fill="#8b5cf6" stroke="#fff" stroke-width="1.5"/><path d="M42 46 L22 34 L22 54 L42 66 Z" fill="#3b82f6" stroke="#fff" stroke-width="1.5"/></svg></span>
                         <span>KubeGraf</span>
                     </a>
@@ -2019,9 +2111,9 @@
 
             <div class="footer-bottom">
                 <span>&copy; 2025 KubeGraf. Apache License 2.0.</span>
-                <div class="social-links">
-                    <a href="https://github.com/kubegraf/kubegraf" title="GitHub">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <div class="social-links" aria-label="Social media links">
+                    <a href="https://github.com/kubegraf/kubegraf" aria-label="KubeGraf on GitHub" target="_blank" rel="noopener">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                             <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                         </svg>
                     </a>
@@ -2060,8 +2152,12 @@
 
         // Demo tabs
         function switchDemo(type) {
-            document.querySelectorAll('.demo-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.demo-tab').forEach(tab => {
+                tab.classList.remove('active');
+                tab.setAttribute('aria-selected', 'false');
+            });
             event.target.classList.add('active');
+            event.target.setAttribute('aria-selected', 'true');
 
             // Demo content
             const demos = {
@@ -2092,7 +2188,10 @@
             // Show screenshot for web dashboard and solid.js UI
             if (type === 'web' || type === 'solid') {
                 document.getElementById('demo-display').innerHTML = `
-                    <img src="dashboard-screenshot.png" alt="KubeGraf ${demo.title}" style="max-width: 100%; border-radius: 12px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <picture>
+                        <source srcset="assets/images/dashboard-screenshot.webp" type="image/webp">
+                        <img src="assets/images/dashboard-screenshot.png" alt="KubeGraf ${demo.title}" loading="lazy" style="max-width: 100%; border-radius: 12px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.1);">
+                    </picture>
                 `;
             } else {
                 document.getElementById('demo-display').innerHTML = `
