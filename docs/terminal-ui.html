@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal UI - KubeGraf Documentation</title>
+    <meta name="description" content="Master the KubeGraf terminal UI with vim-style keybindings and keyboard-driven navigation.">
+    <link rel="icon" type="image/png" href="/assets/icons/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #326ce5; --secondary: #00d4aa; --accent: #8b5cf6; --text: #f1f5f9; --text-muted: #94a3b8; --bg: #0a0f1a; --bg-secondary: #0f172a; --bg-tertiary: #1e293b; --border: rgba(255, 255, 255, 0.08); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+
+        /* Floating orbs */
+        .floating-orbs { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
+        .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.12; animation: float 20s ease-in-out infinite; }
+        .orb-1 { width: 500px; height: 500px; background: var(--primary); top: -150px; right: -100px; }
+        .orb-2 { width: 350px; height: 350px; background: var(--secondary); bottom: 30%; left: 200px; animation-delay: -5s; }
+        .orb-3 { width: 400px; height: 400px; background: var(--accent); top: 60%; right: -100px; animation-delay: -10s; }
+        @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 25% { transform: translate(20px, -20px) scale(1.03); } 50% { transform: translate(-15px, 15px) scale(0.97); } 75% { transform: translate(15px, 20px) scale(1.01); } }
+
+        /* Hero header */
+        .docs-hero { position: relative; padding: 3rem 0 2rem; margin-bottom: 1rem; overflow: hidden; }
+        .docs-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(50, 108, 229, 0.15), transparent), radial-gradient(ellipse 60% 40% at 80% 50%, rgba(0, 212, 170, 0.08), transparent); pointer-events: none; }
+        .docs-hero .grid-pattern { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(50, 108, 229, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(50, 108, 229, 0.03) 1px, transparent 1px); background-size: 50px 50px; mask-image: radial-gradient(ellipse 70% 70% at 50% 30%, black 0%, transparent 70%); -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 30%, black 0%, transparent 70%); }
+        .docs-hero h1 { position: relative; z-index: 1; animation: heroFadeIn 0.8s ease-out; }
+        .docs-hero h1 span { background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent)); background-size: 200% 200%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: gradientShift 5s ease infinite; }
+        .docs-hero .intro { position: relative; z-index: 1; animation: heroFadeIn 0.8s ease-out 0.2s both; }
+        .docs-hero h1::after { content: ''; display: block; width: 80px; height: 3px; background: linear-gradient(90deg, var(--primary), var(--secondary)); margin-top: 1rem; border-radius: 2px; animation: expandLine 0.8s ease-out 0.4s both; }
+        @keyframes gradientShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+        @keyframes heroFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes expandLine { from { width: 0; opacity: 0; } to { width: 80px; opacity: 1; } }
+
+        a { color: var(--primary); text-decoration: none; } a:hover { text-decoration: underline; }
+        .docs-layout { display: flex; min-height: 100vh; }
+        .sidebar { width: 280px; background: var(--bg-secondary); border-right: 1px solid var(--border); padding: 1.5rem; position: fixed; height: 100vh; overflow-y: auto; }
+        .sidebar-logo { display: flex; align-items: center; gap: 0.5rem; font-size: 1.25rem; font-weight: 700; color: var(--text); text-decoration: none; margin-bottom: 2rem; }
+        .sidebar-logo svg { width: 28px; height: 28px; }
+        .sidebar-section { margin-bottom: 1.5rem; } .sidebar-section h3 { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 0.75rem; }
+        .sidebar-section ul { list-style: none; } .sidebar-section a { display: block; padding: 0.5rem 0.75rem; color: var(--text-muted); border-radius: 6px; font-size: 0.9rem; transition: all 0.2s; }
+        .sidebar-section a:hover { background: var(--bg-tertiary); color: var(--text); text-decoration: none; } .sidebar-section a.active { background: rgba(50, 108, 229, 0.15); color: var(--primary); }
+        .docs-content { flex: 1; margin-left: 280px; padding: 3rem 4rem; max-width: 900px; }
+        .docs-content h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; }
+        .docs-content h2 { font-size: 1.5rem; font-weight: 600; margin: 2.5rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+        .docs-content h3 { font-size: 1.1rem; font-weight: 600; margin: 1.5rem 0 0.75rem; color: var(--text); }
+        .docs-content p { color: var(--text-muted); margin-bottom: 1rem; }
+        .docs-content code { font-family: 'JetBrains Mono', monospace; font-size: 0.875rem; background: var(--bg-tertiary); padding: 0.2rem 0.4rem; border-radius: 4px; color: var(--secondary); }
+        .docs-content pre { background: var(--bg-tertiary); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.25rem; overflow-x: auto; margin: 1rem 0; }
+        .docs-content pre code { background: none; padding: 0; color: #e2e8f0; }
+        .intro { font-size: 1.15rem; color: var(--text); margin-bottom: 2rem; }
+        kbd { display: inline-block; padding: 0.25rem 0.5rem; background: var(--bg-tertiary); border: 1px solid var(--border); border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; margin: 0 0.1rem; }
+        .keybind-table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        .keybind-table th, .keybind-table td { text-align: left; padding: 0.6rem 1rem; border-bottom: 1px solid var(--border); }
+        .keybind-table th { color: var(--text); font-weight: 600; background: var(--bg-secondary); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.03em; }
+        .keybind-table td { color: var(--text-muted); }
+        .tip { background: rgba(0, 212, 170, 0.1); border-left: 3px solid var(--secondary); padding: 1rem 1.25rem; margin: 1.5rem 0; border-radius: 0 8px 8px 0; }
+        .tip p { margin: 0; color: var(--text); }
+        @media (max-width: 900px) { .sidebar { display: none; } .docs-content { margin-left: 0; padding: 2rem 1.5rem; } }
+    </style>
+</head>
+<body>
+    <div class="docs-layout">
+        <aside class="sidebar">
+            <a href="/" class="sidebar-logo">
+                <svg viewBox="0 0 100 100"><path d="M42 22 L62 34 L42 46 L22 34 Z" fill="#326ce5"/><path d="M42 46 L62 34 L62 54 L42 66 Z" fill="#00d4aa"/><path d="M42 46 L22 34 L22 54 L42 66 Z" fill="#2756b8"/></svg>
+                KubeGraf
+            </a>
+            <div class="sidebar-section"><h3>Getting Started</h3><ul><li><a href="/docs/">Overview</a></li><li><a href="/docs/installation.html">Installation</a></li><li><a href="/docs/quickstart.html">Quick Start</a></li></ul></div>
+            <div class="sidebar-section"><h3>User Guide</h3><ul><li><a href="/docs/terminal-ui.html" class="active">Terminal UI</a></li><li><a href="/docs/web-dashboard.html">Web Dashboard</a></li><li><a href="/docs/commands.html">Commands</a></li><li><a href="/docs/configuration.html">Configuration</a></li></ul></div>
+            <div class="sidebar-section"><h3>Features</h3><ul><li><a href="/docs/resource-map.html">Resource Map</a></li><li><a href="/docs/security.html">Security Analysis</a></li><li><a href="/docs/plugins.html">Plugins</a></li></ul></div>
+            <div class="sidebar-section"><h3>Resources</h3><ul><li><a href="https://github.com/kubegraf/kubegraf">GitHub</a></li><li><a href="https://github.com/kubegraf/kubegraf/releases">Releases</a></li></ul></div>
+        </aside>
+
+        <div class="floating-orbs">
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+            <div class="orb orb-3"></div>
+        </div>
+
+        <main class="docs-content">
+            <div class="docs-hero">
+                <div class="grid-pattern"></div>
+                <h1><span>Terminal UI</span> Guide</h1>
+                <p class="intro">
+                    The KubeGraf terminal UI provides a fast, keyboard-driven interface for managing Kubernetes clusters.
+                    Inspired by vim, it's designed for engineers who prefer staying in the terminal.
+                </p>
+            </div>
+
+            <h2>Launching the TUI</h2>
+            <pre><code>kubegraf</code></pre>
+            <p>The TUI automatically connects to your current kubectl context.</p>
+
+            <h2>Navigation</h2>
+            <table class="keybind-table">
+                <tr><th>Key</th><th>Action</th></tr>
+                <tr><td><kbd>j</kbd> / <kbd>↓</kbd></td><td>Move down</td></tr>
+                <tr><td><kbd>k</kbd> / <kbd>↑</kbd></td><td>Move up</td></tr>
+                <tr><td><kbd>g</kbd></td><td>Go to top</td></tr>
+                <tr><td><kbd>G</kbd></td><td>Go to bottom</td></tr>
+                <tr><td><kbd>Ctrl+d</kbd></td><td>Page down</td></tr>
+                <tr><td><kbd>Ctrl+u</kbd></td><td>Page up</td></tr>
+                <tr><td><kbd>Tab</kbd></td><td>Next tab</td></tr>
+                <tr><td><kbd>Shift+Tab</kbd></td><td>Previous tab</td></tr>
+                <tr><td><kbd>1-9</kbd></td><td>Jump to tab by number</td></tr>
+            </table>
+
+            <h2>Resource Tabs</h2>
+            <p>Switch between resource types using <kbd>Tab</kbd> or number keys:</p>
+            <table class="keybind-table">
+                <tr><th>Key</th><th>Resource</th></tr>
+                <tr><td><kbd>1</kbd></td><td>Pods</td></tr>
+                <tr><td><kbd>2</kbd></td><td>Deployments</td></tr>
+                <tr><td><kbd>3</kbd></td><td>Services</td></tr>
+                <tr><td><kbd>4</kbd></td><td>Ingresses</td></tr>
+                <tr><td><kbd>5</kbd></td><td>ConfigMaps</td></tr>
+                <tr><td><kbd>6</kbd></td><td>Secrets</td></tr>
+                <tr><td><kbd>7</kbd></td><td>Nodes</td></tr>
+            </table>
+
+            <h2>Actions</h2>
+            <table class="keybind-table">
+                <tr><th>Key</th><th>Action</th></tr>
+                <tr><td><kbd>Enter</kbd></td><td>View resource details / YAML</td></tr>
+                <tr><td><kbd>l</kbd></td><td>View logs (pods only)</td></tr>
+                <tr><td><kbd>s</kbd></td><td>Shell into container</td></tr>
+                <tr><td><kbd>d</kbd></td><td>Describe resource</td></tr>
+                <tr><td><kbd>e</kbd></td><td>Edit resource (opens $EDITOR)</td></tr>
+                <tr><td><kbd>y</kbd></td><td>Copy resource YAML to clipboard</td></tr>
+                <tr><td><kbd>Delete</kbd></td><td>Delete resource (with confirmation)</td></tr>
+            </table>
+
+            <h2>Filtering & Search</h2>
+            <table class="keybind-table">
+                <tr><th>Key</th><th>Action</th></tr>
+                <tr><td><kbd>/</kbd></td><td>Start search/filter</td></tr>
+                <tr><td><kbd>Esc</kbd></td><td>Clear filter</td></tr>
+                <tr><td><kbd>n</kbd></td><td>Change namespace</td></tr>
+                <tr><td><kbd>c</kbd></td><td>Change context/cluster</td></tr>
+            </table>
+
+            <h2>Workload Operations</h2>
+            <table class="keybind-table">
+                <tr><th>Key</th><th>Action</th></tr>
+                <tr><td><kbd>R</kbd></td><td>Restart deployment/statefulset (rollout restart)</td></tr>
+                <tr><td><kbd>S</kbd></td><td>Scale replicas</td></tr>
+                <tr><td><kbd>p</kbd></td><td>Port forward</td></tr>
+            </table>
+
+            <h2>General</h2>
+            <table class="keybind-table">
+                <tr><th>Key</th><th>Action</th></tr>
+                <tr><td><kbd>r</kbd></td><td>Refresh</td></tr>
+                <tr><td><kbd>?</kbd></td><td>Show help / all keybindings</td></tr>
+                <tr><td><kbd>:</kbd></td><td>Command mode</td></tr>
+                <tr><td><kbd>q</kbd></td><td>Quit</td></tr>
+            </table>
+
+            <div class="tip">
+                <p><strong>Pro tip:</strong> Press <kbd>?</kbd> at any time to see context-sensitive keybindings for the current view.</p>
+            </div>
+
+            <h2>Log Viewer</h2>
+            <p>When viewing logs (<kbd>l</kbd> on a pod):</p>
+            <table class="keybind-table">
+                <tr><th>Key</th><th>Action</th></tr>
+                <tr><td><kbd>f</kbd></td><td>Toggle follow mode</td></tr>
+                <tr><td><kbd>w</kbd></td><td>Toggle line wrap</td></tr>
+                <tr><td><kbd>/</kbd></td><td>Search in logs</td></tr>
+                <tr><td><kbd>n</kbd></td><td>Next search match</td></tr>
+                <tr><td><kbd>N</kbd></td><td>Previous search match</td></tr>
+                <tr><td><kbd>t</kbd></td><td>Toggle timestamps</td></tr>
+                <tr><td><kbd>Esc</kbd> / <kbd>q</kbd></td><td>Exit log viewer</td></tr>
+            </table>
+
+            <h2>Customization</h2>
+            <p>You can customize keybindings in the configuration file. See <a href="/docs/configuration.html">Configuration</a> for details.</p>
+        </main>
+    </div>
+</body>
+</html>

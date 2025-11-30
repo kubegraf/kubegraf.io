@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plugins - KubeGraf Documentation</title>
+    <meta name="description" content="Extend KubeGraf with plugins for Helm, ArgoCD, Flux, and more.">
+    <link rel="icon" type="image/png" href="/assets/icons/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #326ce5; --secondary: #00d4aa; --accent: #8b5cf6; --text: #f1f5f9; --text-muted: #94a3b8; --bg: #0a0f1a; --bg-secondary: #0f172a; --bg-tertiary: #1e293b; --border: rgba(255, 255, 255, 0.08); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+
+        /* Floating orbs */
+        .floating-orbs { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
+        .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.12; animation: float 20s ease-in-out infinite; }
+        .orb-1 { width: 500px; height: 500px; background: var(--primary); top: -150px; right: -100px; }
+        .orb-2 { width: 350px; height: 350px; background: var(--secondary); bottom: 30%; left: 200px; animation-delay: -5s; }
+        .orb-3 { width: 400px; height: 400px; background: var(--accent); top: 60%; right: -100px; animation-delay: -10s; }
+        @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 25% { transform: translate(20px, -20px) scale(1.03); } 50% { transform: translate(-15px, 15px) scale(0.97); } 75% { transform: translate(15px, 20px) scale(1.01); } }
+
+        /* Hero header */
+        .docs-hero { position: relative; padding: 3rem 0 2rem; margin-bottom: 1rem; overflow: hidden; }
+        .docs-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(50, 108, 229, 0.15), transparent), radial-gradient(ellipse 60% 40% at 80% 50%, rgba(0, 212, 170, 0.08), transparent); pointer-events: none; }
+        .docs-hero .grid-pattern { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(50, 108, 229, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(50, 108, 229, 0.03) 1px, transparent 1px); background-size: 50px 50px; mask-image: radial-gradient(ellipse 70% 70% at 50% 30%, black 0%, transparent 70%); -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 30%, black 0%, transparent 70%); }
+        .docs-hero h1 { position: relative; z-index: 1; animation: heroFadeIn 0.8s ease-out; }
+        .docs-hero h1 span { background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent)); background-size: 200% 200%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: gradientShift 5s ease infinite; }
+        .docs-hero .intro { position: relative; z-index: 1; animation: heroFadeIn 0.8s ease-out 0.2s both; }
+        .docs-hero h1::after { content: ''; display: block; width: 80px; height: 3px; background: linear-gradient(90deg, var(--primary), var(--secondary)); margin-top: 1rem; border-radius: 2px; animation: expandLine 0.8s ease-out 0.4s both; }
+        @keyframes gradientShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+        @keyframes heroFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes expandLine { from { width: 0; opacity: 0; } to { width: 80px; opacity: 1; } }
+
+        a { color: var(--primary); text-decoration: none; } a:hover { text-decoration: underline; }
+        .docs-layout { display: flex; min-height: 100vh; }
+        .sidebar { width: 280px; background: var(--bg-secondary); border-right: 1px solid var(--border); padding: 1.5rem; position: fixed; height: 100vh; overflow-y: auto; }
+        .sidebar-logo { display: flex; align-items: center; gap: 0.5rem; font-size: 1.25rem; font-weight: 700; color: var(--text); text-decoration: none; margin-bottom: 2rem; }
+        .sidebar-logo svg { width: 28px; height: 28px; }
+        .sidebar-section { margin-bottom: 1.5rem; } .sidebar-section h3 { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 0.75rem; }
+        .sidebar-section ul { list-style: none; } .sidebar-section a { display: block; padding: 0.5rem 0.75rem; color: var(--text-muted); border-radius: 6px; font-size: 0.9rem; transition: all 0.2s; }
+        .sidebar-section a:hover { background: var(--bg-tertiary); color: var(--text); text-decoration: none; } .sidebar-section a.active { background: rgba(50, 108, 229, 0.15); color: var(--primary); }
+        .docs-content { flex: 1; margin-left: 280px; padding: 3rem 4rem; max-width: 900px; }
+        .docs-content h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; }
+        .docs-content h2 { font-size: 1.5rem; font-weight: 600; margin: 2.5rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+        .docs-content h3 { font-size: 1.2rem; font-weight: 600; margin: 2rem 0 0.75rem; color: var(--secondary); }
+        .docs-content p { color: var(--text-muted); margin-bottom: 1rem; }
+        .docs-content ul { color: var(--text-muted); margin: 1rem 0 1rem 1.5rem; }
+        .docs-content li { margin-bottom: 0.5rem; }
+        .docs-content code { font-family: 'JetBrains Mono', monospace; font-size: 0.875rem; background: var(--bg-tertiary); padding: 0.2rem 0.4rem; border-radius: 4px; color: var(--secondary); }
+        .docs-content pre { background: var(--bg-tertiary); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.25rem; overflow-x: auto; margin: 1rem 0; }
+        .docs-content pre code { background: none; padding: 0; color: #e2e8f0; }
+        .intro { font-size: 1.15rem; color: var(--text); margin-bottom: 2rem; }
+        .plugin-card { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin: 1rem 0; }
+        .plugin-card h3 { color: var(--text); margin: 0 0 0.5rem 0; display: flex; align-items: center; gap: 0.75rem; }
+        .plugin-card .badge { display: inline-block; padding: 0.2rem 0.5rem; background: rgba(0, 212, 170, 0.15); color: var(--secondary); border-radius: 4px; font-size: 0.7rem; font-weight: 600; }
+        .plugin-card p { color: var(--text-muted); margin: 0.5rem 0; }
+        .plugin-card ul { margin: 0.5rem 0 0 1.25rem; }
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        th, td { text-align: left; padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); }
+        th { color: var(--text); font-weight: 600; background: var(--bg-secondary); font-size: 0.85rem; }
+        td { color: var(--text-muted); } td code { font-size: 0.8rem; }
+        .tip { background: rgba(0, 212, 170, 0.1); border-left: 3px solid var(--secondary); padding: 1rem 1.25rem; margin: 1.5rem 0; border-radius: 0 8px 8px 0; }
+        .tip p { margin: 0; color: var(--text); }
+        @media (max-width: 900px) { .sidebar { display: none; } .docs-content { margin-left: 0; padding: 2rem 1.5rem; } }
+    </style>
+</head>
+<body>
+    <div class="docs-layout">
+        <aside class="sidebar">
+            <a href="/" class="sidebar-logo">
+                <svg viewBox="0 0 100 100"><path d="M42 22 L62 34 L42 46 L22 34 Z" fill="#326ce5"/><path d="M42 46 L62 34 L62 54 L42 66 Z" fill="#00d4aa"/><path d="M42 46 L22 34 L22 54 L42 66 Z" fill="#2756b8"/></svg>
+                KubeGraf
+            </a>
+            <div class="sidebar-section"><h3>Getting Started</h3><ul><li><a href="/docs/">Overview</a></li><li><a href="/docs/installation.html">Installation</a></li><li><a href="/docs/quickstart.html">Quick Start</a></li></ul></div>
+            <div class="sidebar-section"><h3>User Guide</h3><ul><li><a href="/docs/terminal-ui.html">Terminal UI</a></li><li><a href="/docs/web-dashboard.html">Web Dashboard</a></li><li><a href="/docs/commands.html">Commands</a></li><li><a href="/docs/configuration.html">Configuration</a></li></ul></div>
+            <div class="sidebar-section"><h3>Features</h3><ul><li><a href="/docs/resource-map.html">Resource Map</a></li><li><a href="/docs/security.html">Security Analysis</a></li><li><a href="/docs/plugins.html" class="active">Plugins</a></li></ul></div>
+            <div class="sidebar-section"><h3>Resources</h3><ul><li><a href="https://github.com/kubegraf/kubegraf">GitHub</a></li><li><a href="https://github.com/kubegraf/kubegraf/releases">Releases</a></li></ul></div>
+        </aside>
+
+        <div class="floating-orbs">
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+            <div class="orb orb-3"></div>
+        </div>
+
+        <main class="docs-content">
+            <div class="docs-hero">
+                <div class="grid-pattern"></div>
+                <h1><span>Plugins</span></h1>
+                <p class="intro">
+                    Extend KubeGraf with plugins for popular Kubernetes ecosystem tools. Plugins add new views,
+                    commands, and integrations while maintaining the same fast, intuitive experience.
+                </p>
+            </div>
+
+            <h2>Available Plugins</h2>
+
+            <div class="plugin-card">
+                <h3>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                    Helm
+                    <span class="badge">Built-in</span>
+                </h3>
+                <p>View and manage Helm releases across your cluster.</p>
+                <ul>
+                    <li>List releases with status and revision</li>
+                    <li>View release history and values</li>
+                    <li>Rollback to previous versions</li>
+                    <li>Uninstall releases</li>
+                </ul>
+            </div>
+
+            <div class="plugin-card">
+                <h3>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                    ArgoCD
+                    <span class="badge">Built-in</span>
+                </h3>
+                <p>Monitor ArgoCD applications and sync status.</p>
+                <ul>
+                    <li>View application health and sync status</li>
+                    <li>Trigger sync operations</li>
+                    <li>View application resources</li>
+                    <li>Access ArgoCD UI links</li>
+                </ul>
+            </div>
+
+            <div class="plugin-card">
+                <h3>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    Flux
+                    <span class="badge">Built-in</span>
+                </h3>
+                <p>Monitor Flux GitOps resources and reconciliation.</p>
+                <ul>
+                    <li>View GitRepositories and HelmRepositories</li>
+                    <li>Monitor Kustomizations and HelmReleases</li>
+                    <li>Check reconciliation status</li>
+                    <li>Trigger manual reconciliation</li>
+                </ul>
+            </div>
+
+            <div class="plugin-card">
+                <h3>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                    Istio
+                </h3>
+                <p>Visualize Istio service mesh configuration.</p>
+                <ul>
+                    <li>View VirtualServices and DestinationRules</li>
+                    <li>Monitor Gateway configurations</li>
+                    <li>Visualize traffic routing</li>
+                    <li>Check sidecar injection status</li>
+                </ul>
+            </div>
+
+            <div class="plugin-card">
+                <h3>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    Cert-Manager
+                </h3>
+                <p>Monitor TLS certificates and issuers.</p>
+                <ul>
+                    <li>View Certificate status and expiration</li>
+                    <li>Monitor CertificateRequests</li>
+                    <li>Check Issuer/ClusterIssuer status</li>
+                    <li>Trigger certificate renewal</li>
+                </ul>
+            </div>
+
+            <h2>Enabling Plugins</h2>
+            <pre><code># config.yaml
+plugins:
+  enabled:
+    - helm
+    - argocd
+    - flux
+    - istio
+    - cert-manager</code></pre>
+
+            <p>Or enable via command line:</p>
+            <pre><code># Enable a plugin
+kubegraf plugins enable argocd
+
+# Disable a plugin
+kubegraf plugins disable argocd
+
+# List available plugins
+kubegraf plugins list</code></pre>
+
+            <h2>Plugin Configuration</h2>
+            <p>Each plugin can have specific configuration:</p>
+
+            <h3>Helm Plugin</h3>
+            <pre><code>plugins:
+  helm:
+    # Path to helm binary (default: helm in PATH)
+    binary: "/usr/local/bin/helm"
+    # Show all namespaces by default
+    allNamespaces: true</code></pre>
+
+            <h3>ArgoCD Plugin</h3>
+            <pre><code>plugins:
+  argocd:
+    # ArgoCD server URL (auto-detected if not set)
+    server: "https://argocd.example.com"
+    # Use grpc-web for communication
+    grpcWeb: true
+    # Authentication token (or use ARGOCD_AUTH_TOKEN env)
+    # token: ""</code></pre>
+
+            <h3>Flux Plugin</h3>
+            <pre><code>plugins:
+  flux:
+    # Flux namespace (default: flux-system)
+    namespace: "flux-system"
+    # Show suspended resources
+    showSuspended: true</code></pre>
+
+            <h3>Istio Plugin</h3>
+            <pre><code>plugins:
+  istio:
+    # Istio system namespace
+    namespace: "istio-system"
+    # Show proxy status
+    showProxyStatus: true</code></pre>
+
+            <h2>Using Plugins</h2>
+
+            <h3>Terminal UI</h3>
+            <p>Plugins add new tabs to the TUI. Access them with number keys or Tab:</p>
+            <table>
+                <tr><th>Key</th><th>Plugin Tab</th></tr>
+                <tr><td><kbd>8</kbd></td><td>Helm Releases</td></tr>
+                <tr><td><kbd>9</kbd></td><td>ArgoCD Apps</td></tr>
+                <tr><td><kbd>0</kbd></td><td>Flux Resources</td></tr>
+            </table>
+
+            <h3>Web Dashboard</h3>
+            <p>Plugins appear in the sidebar under their respective sections. Each plugin provides dedicated views and actions.</p>
+
+            <h3>CLI Commands</h3>
+            <p>Plugins extend the CLI with new commands:</p>
+            <pre><code># Helm commands
+kubegraf helm list
+kubegraf helm status my-release
+kubegraf helm rollback my-release 2
+
+# ArgoCD commands
+kubegraf argocd list
+kubegraf argocd sync my-app
+kubegraf argocd diff my-app
+
+# Flux commands
+kubegraf flux list
+kubegraf flux reconcile kustomization my-app</code></pre>
+
+            <h2>Plugin Actions</h2>
+
+            <h3>Helm Actions</h3>
+            <table>
+                <tr><th>Key</th><th>Action</th></tr>
+                <tr><td><kbd>Enter</kbd></td><td>View release details</td></tr>
+                <tr><td><kbd>v</kbd></td><td>View values</td></tr>
+                <tr><td><kbd>h</kbd></td><td>View history</td></tr>
+                <tr><td><kbd>r</kbd></td><td>Rollback</td></tr>
+                <tr><td><kbd>Delete</kbd></td><td>Uninstall</td></tr>
+            </table>
+
+            <h3>ArgoCD Actions</h3>
+            <table>
+                <tr><th>Key</th><th>Action</th></tr>
+                <tr><td><kbd>Enter</kbd></td><td>View application</td></tr>
+                <tr><td><kbd>s</kbd></td><td>Sync application</td></tr>
+                <tr><td><kbd>d</kbd></td><td>View diff</td></tr>
+                <tr><td><kbd>o</kbd></td><td>Open in ArgoCD UI</td></tr>
+                <tr><td><kbd>r</kbd></td><td>Refresh</td></tr>
+            </table>
+
+            <h3>Flux Actions</h3>
+            <table>
+                <tr><th>Key</th><th>Action</th></tr>
+                <tr><td><kbd>Enter</kbd></td><td>View resource</td></tr>
+                <tr><td><kbd>r</kbd></td><td>Reconcile</td></tr>
+                <tr><td><kbd>p</kbd></td><td>Suspend/Resume</td></tr>
+                <tr><td><kbd>l</kbd></td><td>View logs</td></tr>
+            </table>
+
+            <h2>Developing Plugins</h2>
+            <p>KubeGraf supports custom plugins written in Go. Plugins implement the Plugin interface:</p>
+            <pre><code>// Plugin interface
+type Plugin interface {
+    // Metadata
+    Name() string
+    Version() string
+    Description() string
+
+    // Lifecycle
+    Init(ctx context.Context, client kubernetes.Interface) error
+    Shutdown() error
+
+    // Resources
+    Resources() []Resource
+    GetResource(kind, namespace, name string) (*Resource, error)
+    ListResources(kind, namespace string) ([]Resource, error)
+
+    // Actions
+    Actions(resource *Resource) []Action
+    Execute(action string, resource *Resource) error
+
+    // UI (optional)
+    Columns(kind string) []Column
+    Render(resource *Resource) string
+}</code></pre>
+
+            <p>See the <a href="https://github.com/kubegraf/kubegraf/tree/main/docs/plugin-development.md">Plugin Development Guide</a> for details.</p>
+
+            <div class="tip">
+                <p><strong>Tip:</strong> Use <code>kubegraf plugins create my-plugin</code> to scaffold a new plugin project.</p>
+            </div>
+
+            <h2>Installing Third-Party Plugins</h2>
+            <pre><code># Install from GitHub
+kubegraf plugins install github.com/user/kubegraf-plugin
+
+# Install from local path
+kubegraf plugins install ./my-plugin
+
+# Update a plugin
+kubegraf plugins update my-plugin
+
+# Remove a plugin
+kubegraf plugins remove my-plugin</code></pre>
+
+            <h2>Plugin Directory</h2>
+            <p>Plugins are stored in:</p>
+            <ul>
+                <li>macOS/Linux: <code>~/.config/kubegraf/plugins/</code></li>
+                <li>Windows: <code>%APPDATA%\kubegraf\plugins\</code></li>
+            </ul>
+        </main>
+    </div>
+</body>
+</html>
