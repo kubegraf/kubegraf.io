@@ -1880,16 +1880,16 @@
             </div>
 
             <div class="demo-tabs" role="tablist" aria-label="Demo views">
-                <button class="demo-tab active" onclick="switchDemo('tui')" role="tab" aria-selected="true" aria-controls="demo-display">Terminal UI</button>
-                <button class="demo-tab" onclick="switchDemo('web')" role="tab" aria-selected="false" aria-controls="demo-display">Web Dashboard</button>
+                <button class="demo-tab active" onclick="switchDemo('web')" role="tab" aria-selected="true" aria-controls="demo-display">Web Dashboard</button>
+                <button class="demo-tab" onclick="switchDemo('tui')" role="tab" aria-selected="false" aria-controls="demo-display">Terminal UI</button>
                 <button class="demo-tab" onclick="switchDemo('solid')" role="tab" aria-selected="false" aria-controls="demo-display">Solid.js UI</button>
                 <button class="demo-tab" onclick="switchDemo('topology')" role="tab" aria-selected="false" aria-controls="demo-display">Topology View</button>
             </div>
 
             <div class="demo-content" id="demo-display" role="tabpanel" aria-label="Demo preview">
                 <picture>
-                    <source srcset="assets/images/terminal-ui-screenshot.webp" type="image/webp">
-                    <img src="assets/images/terminal-ui-screenshot.png" alt="KubeGraf Terminal UI showing Kubernetes cluster resources" loading="lazy" style="max-width: 100%; border-radius: 12px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <source srcset="assets/images/web-dashboard-screenshot.webp" type="image/webp">
+                    <img src="assets/images/web-dashboard-screenshot.png" alt="KubeGraf Web Dashboard showing Kubernetes cluster visualization" loading="lazy" style="max-width: 100%; border-radius: 12px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.1);">
                 </picture>
             </div>
         </div>
@@ -2187,9 +2187,9 @@
 
             // Screenshots for each demo type
             const screenshots = {
-                tui: { png: 'assets/images/terminal-ui-screenshot.png', webp: 'assets/images/terminal-ui-screenshot.webp' },
-                web: { png: 'assets/images/dashboard-screenshot.png', webp: 'assets/images/dashboard-screenshot.webp' },
-                solid: { png: 'assets/images/dashboard-screenshot.png', webp: 'assets/images/dashboard-screenshot.webp' },
+                web: { png: 'assets/images/web-dashboard-screenshot.png', webp: 'assets/images/web-dashboard-screenshot.webp' },
+                tui: null, // No screenshot yet
+                solid: { png: 'assets/images/web-dashboard-screenshot.png', webp: 'assets/images/web-dashboard-screenshot.webp' },
                 topology: null // No screenshot yet
             };
 
