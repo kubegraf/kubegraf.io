@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KubeGraf - Advanced Kubernetes Visualization Tool</title>
-    <meta name="description" content="KubeGraf is a powerful Kubernetes visualization tool with terminal UI and web dashboard for monitoring and managing your clusters.">
+    <title>KubeGraf - The Intelligent Kubernetes Control Center</title>
+    <meta name="description" content="KubeGraf combines TUI speed with web insights. AI-powered diagnostics, resource map visualization, and zero bloat - all in a single binary.">
     <meta name="keywords" content="kubernetes, k8s, visualization, monitoring, dashboard, cli, terminal, devops">
     <meta name="author" content="KubeGraf">
     <meta name="theme-color" content="#326ce5">
 
     <!-- Open Graph / Facebook -->
-    <meta property="og:title" content="KubeGraf - Advanced Kubernetes Visualization">
-    <meta property="og:description" content="Visualize and manage your Kubernetes clusters with an intuitive terminal UI and modern web dashboard.">
+    <meta property="og:title" content="KubeGraf - The Intelligent Kubernetes Control Center">
+    <meta property="og:description" content="TUI speed meets web insights. AI-powered diagnostics and resource map visualization in a single binary.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://kubegraf.io">
     <meta property="og:image" content="https://kubegraf.io/assets/images/og-image.png">
@@ -21,8 +21,8 @@
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="KubeGraf - Advanced Kubernetes Visualization">
-    <meta name="twitter:description" content="Visualize and manage your Kubernetes clusters with an intuitive terminal UI and modern web dashboard.">
+    <meta name="twitter:title" content="KubeGraf - The Intelligent Kubernetes Control Center">
+    <meta name="twitter:description" content="TUI speed meets web insights. AI-powered diagnostics and resource map visualization in a single binary.">
     <meta name="twitter:image" content="https://kubegraf.io/assets/images/og-image.png">
 
     <link rel="canonical" href="https://kubegraf.io">
@@ -42,7 +42,7 @@
         "name": "KubeGraf",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Linux, macOS, Windows",
-        "description": "Advanced Kubernetes visualization tool with terminal UI and web dashboard for monitoring and managing clusters.",
+        "description": "The Intelligent Kubernetes Control Center. TUI speed meets web insights with AI-powered diagnostics and resource map visualization in a single binary.",
         "url": "https://kubegraf.io",
         "downloadUrl": "https://github.com/kubegraf/kubegraf/releases",
         "softwareVersion": "1.0.0",
@@ -1492,77 +1492,6 @@
             color: var(--secondary);
         }
 
-        /* Testimonials */
-        .testimonials-section {
-            padding: 6rem 0;
-            background: var(--dark);
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .testimonial-card {
-            background: var(--darker);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 2rem;
-            position: relative;
-        }
-
-        .testimonial-card::before {
-            content: '"';
-            position: absolute;
-            top: 1rem;
-            left: 1.5rem;
-            font-size: 4rem;
-            color: var(--primary);
-            opacity: 0.3;
-            font-family: Georgia, serif;
-            line-height: 1;
-        }
-
-        .testimonial-content {
-            font-size: 1rem;
-            color: var(--light);
-            line-height: 1.7;
-            margin-bottom: 1.5rem;
-            padding-top: 1rem;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .testimonial-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: var(--gradient);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            font-size: 1.25rem;
-        }
-
-        .testimonial-info h4 {
-            color: var(--light);
-            font-size: 1rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .testimonial-info p {
-            color: var(--gray);
-            font-size: 0.875rem;
-        }
-
         /* Use Cases */
         .usecases-section {
             padding: 6rem 0;
@@ -1650,48 +1579,9 @@
                 padding: 0.75rem 0.5rem;
             }
 
-            .testimonials-grid {
-                grid-template-columns: 1fr;
-            }
-
             .usecases-grid {
                 grid-template-columns: 1fr;
             }
-        }
-
-        /* Rotating text animation */
-        .rotating-words {
-            display: inline-flex;
-            flex-direction: column;
-            height: 1.2em;
-            overflow: hidden;
-            line-height: 1.2em;
-            vertical-align: bottom;
-        }
-
-        .rotating-words span {
-            display: block;
-            height: 1.2em;
-            background: linear-gradient(135deg, #06b6d4, #8b5cf6, #ec4899);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: cycleWords 10s ease-in-out infinite, gradientShift 3s ease infinite;
-        }
-
-        @keyframes cycleWords {
-            0%, 16% { transform: translateY(0); }
-            20%, 36% { transform: translateY(-100%); }
-            40%, 56% { transform: translateY(-200%); }
-            60%, 76% { transform: translateY(-300%); }
-            80%, 96% { transform: translateY(-400%); }
-            100% { transform: translateY(0); }
-        }
-
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
         }
 
         /* How It Works Section */
@@ -1895,62 +1785,24 @@
             }
         }
 
-        /* Used By Section */
-        .used-by-section {
-            padding: 4rem 0;
-            background: var(--darker);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        /* Why Card Hover Styles */
+        .why-card:hover {
+            border-color: rgba(50, 108, 229, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
 
-        .used-by-section .section-header {
-            margin-bottom: 2.5rem;
-        }
-
-        .used-by-section .section-header p {
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-
-        .logos-grid {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 3rem;
-        }
-
-        .logo-item {
-            opacity: 0.5;
-            transition: opacity 0.3s;
-            filter: grayscale(100%);
-        }
-
-        .logo-item:hover {
-            opacity: 1;
-            filter: grayscale(0%);
-        }
-
-        .logo-item svg {
-            height: 32px;
-            width: auto;
-        }
-
-        .logo-placeholder {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px dashed rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            color: var(--gray);
-            font-size: 0.85rem;
+        /* Community Link Hover Styles */
+        .community-link:hover {
+            border-color: var(--primary);
+            background: rgba(50, 108, 229, 0.1);
+            transform: translateY(-2px);
         }
 
         @media (max-width: 768px) {
-            .logos-grid {
-                gap: 2rem;
+            .community-section .container > div:last-child {
+                flex-direction: column;
+                align-items: stretch;
             }
         }
     </style>
@@ -1966,16 +1818,8 @@
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
                 <span>Open Source</span>
             </span>
-            <h1>Kubernetes<br>
-                <span class="rotating-words">
-                    <span>Monitoring</span>
-                    <span>Visualization</span>
-                    <span>Debugging</span>
-                    <span>Management</span>
-                    <span>Security</span>
-                </span>
-            </h1>
-            <p>Monitor, debug, and manage your Kubernetes clusters with an intuitive terminal UI or modern web dashboard. Built for engineers who value speed and clarity.</p>
+            <h1>Kubernetes Visualization<br>Made Simple</h1>
+            <p>Monitor, debug, and manage your Kubernetes clusters with an intuitive terminal UI or modern web dashboard.</p>
             <div class="hero-buttons">
                 <a href="#installation" class="btn btn-primary">Get Started</a>
                 <a href="https://github.com/kubegraf/kubegraf" class="btn btn-secondary" style="padding: 0.75rem 1.25rem; font-size: 0.9rem;">
@@ -2011,45 +1855,22 @@
         </div>
     </main>
 
-    <!-- Stats Section -->
+    <!-- Feature Highlights Section -->
     <section class="stats-section">
         <div class="container">
             <div class="stats-grid animate-on-scroll">
                 <div class="stat-card">
                     <div class="stat-icon">
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2">
-                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
                         </svg>
                     </div>
-                    <div class="stat-value" id="github-stars">1.2K+</div>
-                    <div class="stat-label">GitHub Stars</div>
+                    <div class="stat-value">1</div>
+                    <div class="stat-label">Single Binary</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                            <polyline points="7 10 12 15 17 10"/>
-                            <line x1="12" y1="15" x2="12" y2="3"/>
-                        </svg>
-                    </div>
-                    <div class="stat-value">10K+</div>
-                    <div class="stat-label">Downloads</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                            <circle cx="9" cy="7" r="4"/>
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                        </svg>
-                    </div>
-                    <div class="stat-value">500+</div>
-                    <div class="stat-label">Active Users</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2">
                             <rect x="3" y="3" width="7" height="7"/>
                             <rect x="14" y="3" width="7" height="7"/>
                             <rect x="14" y="14" width="7" height="7"/>
@@ -2059,40 +1880,111 @@
                     <div class="stat-value">3</div>
                     <div class="stat-label">UI Modes</div>
                 </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                        </svg>
+                    </div>
+                    <div class="stat-value">Real-time</div>
+                    <div class="stat-label">Live Updates</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M8 12l2 2 4-4"/>
+                        </svg>
+                    </div>
+                    <div class="stat-value">Zero</div>
+                    <div class="stat-label">Dependencies</div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Used By Section -->
-    <section class="used-by-section">
+    <!-- Why KubeGraf Section -->
+    <section class="why-section" style="padding: 5rem 0; background: var(--dark);">
         <div class="container">
             <div class="section-header animate-on-scroll">
-                <h2>Trusted by Engineers</h2>
-                <p>Join teams using KubeGraf to manage their Kubernetes clusters</p>
+                <h2>Why KubeGraf?</h2>
+                <p>The only Kubernetes tool that combines terminal speed with web-based insights</p>
             </div>
 
-            <div class="logos-grid">
-                <!-- Placeholder logos - replace with real company logos -->
-                <div class="logo-placeholder">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg>
-                    <span>Your Company</span>
+            <div class="why-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem;">
+                <div class="why-card animate-on-scroll" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 2rem; transition: all 0.3s;">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(50, 108, 229, 0.15); display: flex; align-items: center; justify-content: center;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M7 8h4M7 12h2"/></svg>
+                        </div>
+                        <h3 style="font-size: 1.1rem; color: var(--light); margin: 0;">Dual Interface, Zero Compromise</h3>
+                    </div>
+                    <p style="color: var(--gray); font-size: 0.95rem; line-height: 1.6; margin: 0;">The only tool offering both a lightning-fast terminal UI and a blazing-fast modern web dashboard. Choose your interface, same speed.</p>
                 </div>
-                <div class="logo-placeholder">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg>
-                    <span>Your Company</span>
+
+                <div class="why-card animate-on-scroll" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 2rem; transition: all 0.3s;">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(0, 212, 170, 0.15); display: flex; align-items: center; justify-content: center;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2"><circle cx="12" cy="12" r="3"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><path d="M10.4 10.4L6.6 17.4M13.6 10.4l3.8 7"/></svg>
+                        </div>
+                        <h3 style="font-size: 1.1rem; color: var(--light); margin: 0;">See Your Cluster, Not Just Resources</h3>
+                    </div>
+                    <p style="color: var(--gray); font-size: 0.95rem; line-height: 1.6; margin: 0;">Resource Map visualization shows relationships between pods, services, and deployments. Understand how your cluster actually works.</p>
                 </div>
-                <div class="logo-placeholder">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg>
-                    <span>Your Company</span>
+
+                <div class="why-card animate-on-scroll" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 2rem; transition: all 0.3s;">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(139, 92, 246, 0.15); display: flex; align-items: center; justify-content: center;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2"><path d="M12 2a4 4 0 0 1 4 4c0 1.1-.5 2-1 2.6V10h1a3 3 0 0 1 3 3v1h2v4h-2v1a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3v-1H3v-4h2v-1a3 3 0 0 1 3-3h1V8.6c-.5-.6-1-1.5-1-2.6a4 4 0 0 1 4-4z"/><circle cx="9" cy="15" r="1"/><circle cx="15" cy="15" r="1"/></svg>
+                        </div>
+                        <h3 style="font-size: 1.1rem; color: var(--light); margin: 0;">AI-Powered Diagnostics</h3>
+                    </div>
+                    <p style="color: var(--gray); font-size: 0.95rem; line-height: 1.6; margin: 0;">Understand problems, not just see them. Get intelligent recommendations for security issues, resource limits, and misconfigurations.</p>
                 </div>
-                <div class="logo-placeholder">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg>
-                    <span>Your Company</span>
+
+                <div class="why-card animate-on-scroll" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 2rem; transition: all 0.3s;">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(50, 108, 229, 0.15); display: flex; align-items: center; justify-content: center;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                        </div>
+                        <h3 style="font-size: 1.1rem; color: var(--light); margin: 0;">Single Binary, Zero Bloat</h3>
+                    </div>
+                    <p style="color: var(--gray); font-size: 0.95rem; line-height: 1.6; margin: 0;">Unlike Electron-based tools, KubeGraf is a single ~15MB Go binary. No runtime dependencies, no heavy frameworks, no bloat.</p>
                 </div>
-                <div class="logo-placeholder">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg>
-                    <span>Your Company</span>
-                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section class="community-section" style="padding: 4rem 0; background: var(--darker); border-top: 1px solid rgba(255, 255, 255, 0.05); border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+        <div class="container">
+            <div class="section-header animate-on-scroll" style="margin-bottom: 2rem;">
+                <h2>Join the Community</h2>
+                <p>Get help, share feedback, and contribute to KubeGraf</p>
+            </div>
+
+            <div style="display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;">
+                <a href="https://github.com/kubegraf/kubegraf" class="community-link" style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem 1.5rem; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; color: var(--light); text-decoration: none; transition: all 0.3s;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    <div>
+                        <div style="font-weight: 600;">GitHub</div>
+                        <div style="font-size: 0.8rem; color: var(--gray);">Star & Contribute</div>
+                    </div>
+                </a>
+                <a href="https://github.com/kubegraf/kubegraf/discussions" class="community-link" style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem 1.5rem; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; color: var(--light); text-decoration: none; transition: all 0.3s;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    <div>
+                        <div style="font-weight: 600;">Discussions</div>
+                        <div style="font-size: 0.8rem; color: var(--gray);">Ask Questions</div>
+                    </div>
+                </a>
+                <a href="https://github.com/kubegraf/kubegraf/issues" class="community-link" style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem 1.5rem; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; color: var(--light); text-decoration: none; transition: all 0.3s;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+                    <div>
+                        <div style="font-weight: 600;">Issues</div>
+                        <div style="font-size: 0.8rem; color: var(--gray);">Report Bugs</div>
+                    </div>
+                </a>
             </div>
         </div>
     </section>
@@ -2101,7 +1993,7 @@
     <section class="how-it-works">
         <div class="container">
             <div class="section-header animate-on-scroll">
-                <h2 class="gradient-text-animated">Get Started in 3 Steps</h2>
+                <h2>Get Started in 3 Steps</h2>
                 <p>From installation to visualization in under a minute</p>
             </div>
 
@@ -2922,55 +2814,6 @@
         }, observerOptions);
 
         featureCards.forEach(card => observer.observe(card));
-
-        // ============ ANIMATED STATS COUNTER ============
-        function animateCounter(element, target, suffix = '') {
-            const duration = 2000;
-            const start = 0;
-            const increment = target / (duration / 16);
-            let current = start;
-
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    current = target;
-                    clearInterval(timer);
-                }
-
-                if (target >= 1000) {
-                    element.textContent = (current / 1000).toFixed(1) + 'K+';
-                } else {
-                    element.textContent = Math.floor(current) + suffix;
-                }
-            }, 16);
-        }
-
-        // Observe stats section
-        const statsSection = document.querySelector('.stats-section');
-        let statsAnimated = false;
-
-        const statsObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !statsAnimated) {
-                    statsAnimated = true;
-
-                    // Animate each stat
-                    const statValues = document.querySelectorAll('.stat-value');
-                    const targets = [1200, 10000, 500, 3]; // Stars, Downloads, Users, Modes
-                    const suffixes = ['', '', '+', ''];
-
-                    statValues.forEach((el, i) => {
-                        if (targets[i] >= 1000) {
-                            animateCounter(el, targets[i], '');
-                        } else {
-                            animateCounter(el, targets[i], suffixes[i]);
-                        }
-                    });
-                }
-            });
-        }, { threshold: 0.5 });
-
-        if (statsSection) statsObserver.observe(statsSection);
 
         // ============ NEWSLETTER HANDLER ============
         function handleNewsletter(event) {
