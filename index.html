@@ -1659,17 +1659,8 @@
             </h1>
             <p>Monitor, debug, and manage your Kubernetes clusters with an intuitive terminal UI or modern web dashboard. Built for engineers who value speed and clarity.</p>
             <div class="hero-buttons">
-                <div class="cta-wrapper">
-                    <a href="#installation" class="btn btn-primary">Get Started</a>
-                    <span class="cta-micro">Free forever. No credit card required.</span>
-                </div>
-                <a href="https://github.com/kubegraf/kubegraf" class="btn btn-secondary">View on GitHub</a>
-            </div>
-
-            <!-- Open Source Badge -->
-            <div class="oss-badge">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                <span>100% Open Source — Apache 2.0 License</span>
+                <a href="#installation" class="btn btn-primary">Get Started</a>
+                <a href="https://github.com/kubegraf/kubegraf" class="btn btn-secondary" style="padding: 0.75rem 1.25rem; font-size: 0.9rem;">View on GitHub</a>
             </div>
 
             <!-- GitHub Badge -->
@@ -1772,21 +1763,21 @@
                 <div class="step-card">
                     <div class="step-number">1</div>
                     <h3>Install</h3>
-                    <p>One command installation on macOS, Linux, or Windows</p>
-                    <code>brew install kubegraf</code>
+                    <p>Quick install script for macOS, Linux, and Windows</p>
+                    <code>curl -sSL kubegraf.io/install.sh | bash</code>
                 </div>
 
                 <div class="step-card">
                     <div class="step-number">2</div>
                     <h3>Connect</h3>
-                    <p>Automatically detects your kubeconfig and available clusters</p>
+                    <p>Automatically detects your kubeconfig and clusters</p>
                     <code>kubegraf</code>
                 </div>
 
                 <div class="step-card">
                     <div class="step-number">3</div>
                     <h3>Visualize</h3>
-                    <p>Browse pods, services, and deployments with real-time updates</p>
+                    <p>Browse pods, services, and deployments in real-time</p>
                     <code>kubegraf --web</code>
                 </div>
             </div>
