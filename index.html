@@ -1888,8 +1888,8 @@
 
             <div class="demo-content" id="demo-display" role="tabpanel" aria-label="Demo preview">
                 <picture>
-                    <source srcset="assets/images/dashboard-screenshot.webp" type="image/webp">
-                    <img src="assets/images/dashboard-screenshot.png" alt="KubeGraf Web Dashboard showing cluster resources and metrics" loading="lazy" style="max-width: 100%; border-radius: 12px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <source srcset="assets/images/terminal-ui-screenshot.webp" type="image/webp">
+                    <img src="assets/images/terminal-ui-screenshot.png" alt="KubeGraf Terminal UI showing Kubernetes cluster resources" loading="lazy" style="max-width: 100%; border-radius: 12px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.1);">
                 </picture>
             </div>
         </div>
@@ -2185,12 +2185,21 @@
 
             const demo = demos[type];
 
-            // Show screenshot for web dashboard and solid.js UI
-            if (type === 'web' || type === 'solid') {
+            // Screenshots for each demo type
+            const screenshots = {
+                tui: { png: 'assets/images/terminal-ui-screenshot.png', webp: 'assets/images/terminal-ui-screenshot.webp' },
+                web: { png: 'assets/images/dashboard-screenshot.png', webp: 'assets/images/dashboard-screenshot.webp' },
+                solid: { png: 'assets/images/dashboard-screenshot.png', webp: 'assets/images/dashboard-screenshot.webp' },
+                topology: null // No screenshot yet
+            };
+
+            const screenshot = screenshots[type];
+
+            if (screenshot) {
                 document.getElementById('demo-display').innerHTML = `
                     <picture>
-                        <source srcset="assets/images/dashboard-screenshot.webp" type="image/webp">
-                        <img src="assets/images/dashboard-screenshot.png" alt="KubeGraf ${demo.title}" loading="lazy" style="max-width: 100%; border-radius: 12px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.1);">
+                        <source srcset="${screenshot.webp}" type="image/webp">
+                        <img src="${screenshot.png}" alt="KubeGraf ${demo.title}" loading="lazy" style="max-width: 100%; border-radius: 12px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.1);">
                     </picture>
                 `;
             } else {
