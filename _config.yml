@@ -1,0 +1,8 @@
+# GitHub Pages configuration for kubegraf.io
+include:
+  - install.sh
+
+# Set proper content type for shell scripts
+plugins:
+  - jekyll-redirect-from
+
