@@ -1,0 +1,2273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KubeGraf - Advanced Kubernetes Visualization Tool</title>
+    <meta name="description" content="KubeGraf is a powerful Kubernetes visualization tool with terminal UI and web dashboard for monitoring and managing your clusters.">
+    <meta name="keywords" content="kubernetes, k8s, visualization, monitoring, dashboard, cli, terminal, devops">
+    <meta property="og:title" content="KubeGraf - Advanced Kubernetes Visualization">
+    <meta property="og:description" content="Visualize and manage your Kubernetes clusters with an intuitive terminal UI and modern web dashboard.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kubegraf.io">
+    <link rel="canonical" href="https://kubegraf.io">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #326ce5;
+            --primary-dark: #2756b8;
+            --secondary: #00d4aa;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gradient: linear-gradient(135deg, #326ce5 0%, #00d4aa 100%);
+            --gradient-dark: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--darker);
+            color: var(--light);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(2, 6, 23, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--light);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon svg {
+            width: 36px;
+            height: 36px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--light);
+        }
+
+        .nav-cta {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(50, 108, 229, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--light);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 10rem 0 6rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(50, 108, 229, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(50, 108, 229, 0.1);
+            border: 1px solid rgba(50, 108, 229, 0.3);
+            border-radius: 50px;
+            font-size: 0.875rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hero-buttons .btn {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+        }
+
+        /* Terminal Preview */
+        .terminal-preview {
+            margin: 4rem auto 0;
+            max-width: 900px;
+            background: var(--dark);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 25px 100px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot.red { background: #ff5f56; }
+        .terminal-dot.yellow { background: #ffbd2e; }
+        .terminal-dot.green { background: #27c93f; }
+
+        .terminal-body {
+            padding: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            line-height: 1.8;
+        }
+
+        .terminal-body .prompt {
+            color: var(--secondary);
+        }
+
+        .terminal-body .command {
+            color: var(--light);
+        }
+
+        .terminal-body .output {
+            color: var(--gray);
+        }
+
+        .terminal-body .highlight {
+            color: var(--primary);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--gray);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--dark);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: rgba(50, 108, 229, 0.5);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-card p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* Installation Section */
+        .installation {
+            padding: 6rem 0;
+            background: var(--dark);
+        }
+
+        .install-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .install-card {
+            background: var(--darker);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .install-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-block code {
+            color: var(--secondary);
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: var(--gray);
+            padding: 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--light);
+        }
+
+        /* Demo Section */
+        .demo {
+            padding: 6rem 0;
+        }
+
+        .demo-tabs {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .demo-tab {
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--gray);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .demo-tab.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .demo-content {
+            background: var(--dark);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 16/9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+        }
+
+        .demo-placeholder {
+            text-align: center;
+        }
+
+        .demo-placeholder p {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Docs Section */
+        .docs {
+            padding: 6rem 0;
+            background: var(--dark);
+        }
+
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .doc-card {
+            display: block;
+            background: var(--darker);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .doc-card:hover {
+            border-color: rgba(50, 108, 229, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .doc-card h3 {
+            color: var(--light);
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .doc-card p {
+            color: var(--gray);
+            font-size: 0.875rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 0 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand {
+            max-width: 300px;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            color: var(--gray);
+            font-size: 0.875rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 4rem;
+        }
+
+        .footer-column h4 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+            color: var(--gray);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column a {
+            color: var(--light);
+            text-decoration: none;
+            font-size: 0.95rem;
+            display: block;
+            padding: 0.25rem 0;
+            transition: color 0.2s;
+        }
+
+        .footer-column a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray);
+            font-size: 0.875rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: var(--gray);
+            font-size: 1.25rem;
+            transition: color 0.2s;
+        }
+
+        .social-links a:hover {
+            color: var(--light);
+        }
+
+        /* Responsive */
+        /* Canvas and Animated Background */
+        .hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .mouse-gradient {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(50, 108, 229, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s;
+        }
+
+        .grid-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(50, 108, 229, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(50, 108, 229, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Feature card animations */
+        .feature-card {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .feature-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature-card:hover {
+            border-color: rgba(50, 108, 229, 0.5);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(50, 108, 229, 0.15);
+        }
+
+        /* Badge pulse animation */
+        .hero-badge {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(50, 108, 229, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(50, 108, 229, 0); }
+        }
+
+        /* Floating animation for nodes */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--darker);
+            z-index: 1001;
+            padding: 2rem;
+            flex-direction: column;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .mobile-menu-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .mobile-menu-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-size: 1.25rem;
+            font-weight: 500;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: block;
+        }
+
+        /* Tablet Styles */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .install-methods {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            /* Navigation */
+            .nav-links {
+                display: none;
+            }
+
+            .nav-cta {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-content {
+                padding: 0.75rem 1rem;
+            }
+
+            .logo {
+                font-size: 1.25rem;
+            }
+
+            .logo-icon {
+                width: 28px;
+                height: 28px;
+            }
+
+            .logo-icon svg {
+                width: 28px;
+                height: 28px;
+            }
+
+            /* Hero Section */
+            .hero {
+                padding: 7rem 0 4rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+                line-height: 1.2;
+            }
+
+            .hero p {
+                font-size: 1rem;
+                padding: 0 0.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.75rem;
+            }
+
+            .hero-buttons .btn {
+                width: 100%;
+                max-width: 280px;
+                text-align: center;
+            }
+
+            /* Hide canvas on mobile for performance */
+            .hero-canvas {
+                display: none;
+            }
+
+            .mouse-gradient {
+                display: none;
+            }
+
+            /* GitHub badge */
+            .hero > .container > div[style*="margin-top: 2rem"] a {
+                font-size: 0.75rem;
+                padding: 0.4rem 0.75rem;
+            }
+
+            /* Terminal Preview */
+            .terminal-preview {
+                margin: 2rem auto 0;
+                border-radius: 8px;
+            }
+
+            .terminal-body {
+                padding: 1rem;
+                font-size: 0.7rem;
+                line-height: 1.6;
+                overflow-x: auto;
+            }
+
+            /* Features */
+            .features {
+                padding: 4rem 0;
+            }
+
+            .section-header h2 {
+                font-size: 1.75rem;
+            }
+
+            .section-header p {
+                font-size: 1rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .feature-card {
+                padding: 1.5rem;
+            }
+
+            .feature-icon svg {
+                width: 28px;
+                height: 28px;
+            }
+
+            .feature-card h3 {
+                font-size: 1.1rem;
+            }
+
+            .feature-card p {
+                font-size: 0.875rem;
+            }
+
+            /* Built With Section */
+            .built-with .container > div {
+                gap: 1.5rem !important;
+            }
+
+            .built-with .container > div > div {
+                font-size: 0.875rem;
+            }
+
+            /* Installation */
+            .installation {
+                padding: 4rem 0;
+            }
+
+            .install-methods {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .install-card {
+                padding: 1.5rem;
+            }
+
+            .install-card h3 {
+                font-size: 1rem;
+            }
+
+            .code-block {
+                padding: 0.75rem;
+                font-size: 0.75rem;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .code-block code {
+                white-space: pre;
+                display: block;
+            }
+
+            .copy-btn {
+                padding: 0.4rem;
+                font-size: 0.7rem;
+            }
+
+            /* Demo Section */
+            .demo {
+                padding: 4rem 0;
+            }
+
+            .demo-tabs {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            .demo-tab {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+                flex: 1;
+                min-width: calc(50% - 0.5rem);
+                text-align: center;
+            }
+
+            .demo-content {
+                aspect-ratio: 4/3;
+            }
+
+            /* Docs */
+            .docs {
+                padding: 4rem 0;
+            }
+
+            .docs-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .doc-card {
+                padding: 1.25rem;
+            }
+
+            /* Footer */
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .footer-brand {
+                max-width: 100%;
+                text-align: center;
+            }
+
+            .footer-brand .logo {
+                justify-content: center;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1.5rem;
+                width: 100%;
+            }
+
+            .footer-column {
+                text-align: center;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            /* Getting Started Section */
+            .installation > .container > div[style*="margin-top: 4rem"] {
+                margin-top: 2rem !important;
+            }
+
+            .installation > .container > div[style*="margin-top: 4rem"] > div {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        /* Small Mobile */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .hero-badge {
+                font-size: 0.75rem;
+                padding: 0.4rem 0.75rem;
+            }
+
+            .terminal-body {
+                font-size: 0.6rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .feature-card {
+                padding: 1.25rem;
+            }
+
+            /* Primary install card */
+            .installation > .container > div:first-of-type {
+                margin-bottom: 2rem !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Mouse-following gradient -->
+    <div class="mouse-gradient" id="mouseGradient"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-content">
+            <a href="/" class="logo">
+                <span class="logo-icon"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#06b6d4"/><stop offset="50%" style="stop-color:#3b82f6"/><stop offset="100%" style="stop-color:#8b5cf6"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="2" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><circle cx="50" cy="50" r="46" fill="rgba(6, 182, 212, 0.1)" stroke="url(#logoGrad)" stroke-width="2"/><g filter="url(#glow)"><circle cx="50" cy="50" r="12" fill="url(#logoGrad)"/><line x1="50" y1="38" x2="50" y2="18" stroke="url(#logoGrad)" stroke-width="4" stroke-linecap="round"/><line x1="61" y1="41" x2="76" y2="26" stroke="url(#logoGrad)" stroke-width="4" stroke-linecap="round"/><line x1="62" y1="54" x2="80" y2="60" stroke="url(#logoGrad)" stroke-width="4" stroke-linecap="round"/><line x1="56" y1="61" x2="64" y2="80" stroke="url(#logoGrad)" stroke-width="4" stroke-linecap="round"/><line x1="44" y1="61" x2="36" y2="80" stroke="url(#logoGrad)" stroke-width="4" stroke-linecap="round"/><line x1="38" y1="54" x2="20" y2="60" stroke="url(#logoGrad)" stroke-width="4" stroke-linecap="round"/><line x1="39" y1="41" x2="24" y2="26" stroke="url(#logoGrad)" stroke-width="4" stroke-linecap="round"/><circle cx="50" cy="16" r="5" fill="#06b6d4"/><circle cx="78" cy="24" r="5" fill="#22d3ee"/><circle cx="82" cy="62" r="5" fill="#3b82f6"/><circle cx="66" cy="82" r="5" fill="#6366f1"/><circle cx="34" cy="82" r="5" fill="#8b5cf6"/><circle cx="18" cy="62" r="5" fill="#a855f7"/><circle cx="22" cy="24" r="5" fill="#06b6d4"/><line x1="50" y1="16" x2="78" y2="24" stroke="#06b6d4" stroke-width="1.5" opacity="0.4"/><line x1="78" y1="24" x2="82" y2="62" stroke="#3b82f6" stroke-width="1.5" opacity="0.4"/><line x1="82" y1="62" x2="66" y2="82" stroke="#6366f1" stroke-width="1.5" opacity="0.4"/><line x1="66" y1="82" x2="34" y2="82" stroke="#8b5cf6" stroke-width="1.5" opacity="0.4"/><line x1="34" y1="82" x2="18" y2="62" stroke="#a855f7" stroke-width="1.5" opacity="0.4"/><line x1="18" y1="62" x2="22" y2="24" stroke="#06b6d4" stroke-width="1.5" opacity="0.4"/><line x1="22" y1="24" x2="50" y2="16" stroke="#06b6d4" stroke-width="1.5" opacity="0.4"/></g></svg></span>
+                <span>KubeGraf</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#installation">Installation</a></li>
+                <li><a href="#demo">Demo</a></li>
+                <li><a href="#docs">Documentation</a></li>
+            </ul>
+            <div class="nav-cta">
+                <a href="https://github.com/kubegraf/kubegraf" class="btn btn-secondary">GitHub</a>
+                <a href="#installation" class="btn btn-primary">Get Started</a>
+            </div>
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 12h18M3 6h18M3 18h18"/>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <a href="/" class="logo">
+                <span class="logo-icon">
+                    <svg viewBox="0 0 100 100" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+                        <defs><linearGradient id="mobileLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#06b6d4"/><stop offset="50%" style="stop-color:#3b82f6"/><stop offset="100%" style="stop-color:#8b5cf6"/></linearGradient></defs>
+                        <circle cx="50" cy="50" r="46" fill="rgba(6, 182, 212, 0.1)" stroke="url(#mobileLogoGrad)" stroke-width="2"/>
+                        <circle cx="50" cy="50" r="12" fill="url(#mobileLogoGrad)"/>
+                    </svg>
+                </span>
+                <span>KubeGraf</span>
+            </a>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Close menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <ul class="mobile-menu-links">
+            <li><a href="#features" onclick="toggleMobileMenu()">Features</a></li>
+            <li><a href="#installation" onclick="toggleMobileMenu()">Installation</a></li>
+            <li><a href="#demo" onclick="toggleMobileMenu()">Demo</a></li>
+            <li><a href="#docs" onclick="toggleMobileMenu()">Documentation</a></li>
+            <li><a href="https://github.com/kubegraf/kubegraf">GitHub</a></li>
+        </ul>
+        <div style="margin-top: auto; padding-top: 2rem;">
+            <a href="#installation" class="btn btn-primary" style="width: 100%; text-align: center;" onclick="toggleMobileMenu()">Get Started</a>
+        </div>
+    </div>
+
+    <!-- Stats Section Styles -->
+    <style>
+        /* Stats Section */
+        .stats-section {
+            padding: 4rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .stat-icon {
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+        }
+
+        /* Comparison Table */
+        .comparison-section {
+            padding: 6rem 0;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 3rem;
+            background: var(--dark);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .comparison-table th {
+            background: rgba(50, 108, 229, 0.1);
+            padding: 1.25rem 1rem;
+            text-align: center;
+            font-weight: 600;
+            color: var(--light);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .comparison-table th:first-child {
+            text-align: left;
+        }
+
+        .comparison-table th:not(:first-child) {
+            min-width: 90px;
+        }
+
+        .comparison-table td {
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--gray);
+        }
+
+        .comparison-table td:first-child {
+            text-align: left;
+            font-weight: 500;
+            color: var(--light);
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table tr:hover {
+            background: rgba(50, 108, 229, 0.05);
+        }
+
+        .check-icon {
+            color: var(--secondary);
+            font-size: 1.25rem;
+        }
+
+        .x-icon {
+            color: #6b7280;
+            font-size: 1.25rem;
+        }
+
+        .kubegraf-highlight {
+            background: linear-gradient(135deg, rgba(50, 108, 229, 0.15), rgba(0, 212, 170, 0.15));
+        }
+
+        .kubegraf-highlight th {
+            color: var(--secondary);
+        }
+
+        /* Testimonials */
+        .testimonials-section {
+            padding: 6rem 0;
+            background: var(--dark);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            background: var(--darker);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 1rem;
+            left: 1.5rem;
+            font-size: 4rem;
+            color: var(--primary);
+            opacity: 0.3;
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .testimonial-content {
+            font-size: 1rem;
+            color: var(--light);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            padding-top: 1rem;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .testimonial-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1.25rem;
+        }
+
+        .testimonial-info h4 {
+            color: var(--light);
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .testimonial-info p {
+            color: var(--gray);
+            font-size: 0.875rem;
+        }
+
+        /* Use Cases */
+        .usecases-section {
+            padding: 6rem 0;
+        }
+
+        .usecases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .usecase-card {
+            background: var(--dark);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .usecase-card:hover {
+            border-color: rgba(50, 108, 229, 0.5);
+            transform: translateY(-4px);
+        }
+
+        .usecase-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            background: rgba(50, 108, 229, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .usecase-card h3 {
+            color: var(--light);
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .usecase-card p {
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .usecase-card ul {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .usecase-card li {
+            color: var(--gray);
+            font-size: 0.875rem;
+            padding: 0.4rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .usecase-card li::before {
+            content: '→';
+            color: var(--secondary);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .stat-value {
+                font-size: 1.75rem;
+            }
+
+            .comparison-table {
+                font-size: 0.8rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 0.75rem 0.5rem;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .usecases-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Rotating text animation */
+        .rotating-words {
+            display: inline-flex;
+            flex-direction: column;
+            height: 1.2em;
+            overflow: hidden;
+            line-height: 1.2em;
+            vertical-align: bottom;
+        }
+
+        .rotating-words span {
+            display: block;
+            height: 1.2em;
+            background: linear-gradient(135deg, #06b6d4, #8b5cf6, #ec4899);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: cycleWords 10s ease-in-out infinite, gradientShift 3s ease infinite;
+        }
+
+        @keyframes cycleWords {
+            0%, 16% { transform: translateY(0); }
+            20%, 36% { transform: translateY(-100%); }
+            40%, 56% { transform: translateY(-200%); }
+            60%, 76% { transform: translateY(-300%); }
+            80%, 96% { transform: translateY(-400%); }
+            100% { transform: translateY(0); }
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+    </style>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <!-- Animated canvas background -->
+        <canvas id="heroCanvas" class="hero-canvas"></canvas>
+        <!-- Grid overlay -->
+        <div class="grid-overlay"></div>
+        <div class="container">
+            <span class="hero-badge">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                <span>Open Source</span>
+            </span>
+            <h1>Kubernetes<br>
+                <span class="rotating-words">
+                    <span>Monitoring</span>
+                    <span>Visualization</span>
+                    <span>Debugging</span>
+                    <span>Management</span>
+                    <span>Security</span>
+                </span>
+            </h1>
+            <p>Monitor, debug, and manage your Kubernetes clusters with an intuitive terminal UI or modern web dashboard. Built for engineers who value speed and clarity.</p>
+            <div class="hero-buttons">
+                <a href="#installation" class="btn btn-primary">Get Started</a>
+                <a href="https://github.com/kubegraf/kubegraf" class="btn btn-secondary">View on GitHub</a>
+            </div>
+
+            <!-- GitHub Badge -->
+            <div style="margin-top: 2rem;">
+                <a href="https://github.com/kubegraf/kubegraf" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; text-decoration: none; color: var(--light); font-size: 0.875rem; transition: all 0.2s;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    <span>Star on GitHub</span>
+                    <img src="https://img.shields.io/github/stars/kubegraf/kubegraf?style=social&label=" alt="GitHub stars" style="height: 20px;">
+                </a>
+            </div>
+
+            <div class="terminal-preview">
+                <div class="terminal-header">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                </div>
+                <div class="terminal-body">
+                    <div><span class="prompt">$</span> <span class="command">kubegraf</span></div>
+                    <br>
+                    <div class="output">
+                        <span class="highlight">⎈ KubeGraf v1.0.0</span> - Kubernetes Visualization Tool<br><br>
+                        ┌─────────────────────────────────────────────────────────────────┐<br>
+                        │ <span class="highlight">Pods</span> │ Deployments │ Services │ Ingresses │ ConfigMaps │ Nodes │<br>
+                        ├─────────────────────────────────────────────────────────────────┤<br>
+                        │ <span style="color: #27c93f;">✔</span> nginx-7bf98d-x2k4j     Running    10.0.0.15   2d    50Mi/128Mi │<br>
+                        │ <span style="color: #27c93f;">✔</span> api-server-5c9-4m2qz  Running    10.0.0.22   5h    128Mi/256Mi│<br>
+                        │ <span style="color: #ffbd2e;">◌</span> worker-batch-p9x2j    Pending    -           30s   -           │<br>
+                        │ <span style="color: #27c93f;">✔</span> redis-master-0        Running    10.0.0.8    7d    64Mi/128Mi  │<br>
+                        └─────────────────────────────────────────────────────────────────┘<br>
+                        <br>
+                        <span style="color: #64748b;">[q] Quit  [r] Refresh  [n] Namespace  [Tab] Switch Tab  [Enter] Details</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                        </svg>
+                    </div>
+                    <div class="stat-value" id="github-stars">1.2K+</div>
+                    <div class="stat-label">GitHub Stars</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7 10 12 15 17 10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                    </div>
+                    <div class="stat-value">10K+</div>
+                    <div class="stat-label">Downloads</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <div class="stat-value">500+</div>
+                    <div class="stat-label">Active Users</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="7"/>
+                            <rect x="14" y="3" width="7" height="7"/>
+                            <rect x="14" y="14" width="7" height="7"/>
+                            <rect x="3" y="14" width="7" height="7"/>
+                        </svg>
+                    </div>
+                    <div class="stat-value">3</div>
+                    <div class="stat-label">UI Modes</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Powerful Features</h2>
+                <p>Three interfaces, one powerful tool. Choose what works best for your workflow.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                    </div>
+                    <h3>Terminal UI</h3>
+                    <p>Fast keyboard-driven interface with vim-style navigation. Browse pods, deployments, and services without leaving your terminal.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    </div>
+                    <h3>Web Dashboard</h3>
+                    <p>Browser-based interface with real-time WebSocket updates, interactive topology graphs, and port-forward management.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    </div>
+                    <h3>Modern SPA</h3>
+                    <p>Reactive Solid.js application with multiple themes, plugin support for Helm/ArgoCD/Flux, and security posture analysis.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2"><circle cx="12" cy="12" r="3"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="5" cy="5" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 9V5M9.5 14.5L6.5 17.5M14.5 9.5L17.5 6.5M14.5 14.5L17.5 17.5M9.5 9.5L6.5 6.5"/></svg>
+                    </div>
+                    <h3>Topology Graphs</h3>
+                    <p>Interactive D3.js force-directed visualization showing relationships between pods, services, deployments, and ingresses.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+                    </div>
+                    <h3>Live Metrics</h3>
+                    <p>Real-time CPU, memory, and pod status with sparkline charts. Instant visibility into cluster health and resource utilization.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                    </div>
+                    <h3>Resource Operations</h3>
+                    <p>Execute shell commands, stream logs, restart workloads, scale replicas, and port-forward services directly from the UI.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                    </div>
+                    <h3>Multi-Namespace</h3>
+                    <p>Switch contexts and namespaces instantly. View resources across your entire cluster or filter to specific namespaces.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <h3>Security Analysis</h3>
+                    <p>Automated scanning for security best practices. Get actionable recommendations for SecurityContext, RBAC, and network policies.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Built With Section -->
+    <section class="built-with" style="padding: 4rem 0; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);">
+        <div class="container">
+            <p style="text-align: center; color: var(--gray); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 2rem;">Built With</p>
+            <div style="display: flex; justify-content: center; align-items: center; gap: 3rem; flex-wrap: wrap; opacity: 0.7;">
+                <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--light);">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#00ADD8"><path d="M1.811 10.231c-.047 0-.058-.023-.035-.059l.246-.315c.023-.035.081-.058.128-.058h4.172c.046 0 .058.035.035.07l-.199.303c-.023.036-.082.07-.117.07zM.047 11.306c-.047 0-.059-.023-.035-.058l.245-.316c.023-.035.082-.058.129-.058h5.328c.047 0 .07.035.058.07l-.093.28c-.012.047-.058.07-.105.07zm2.828 1.075c-.047 0-.059-.035-.035-.07l.163-.292c.023-.035.07-.07.117-.07h2.337c.047 0 .07.035.07.082l-.023.28c0 .047-.047.082-.082.082zm12.129-2.36c-.736.187-1.239.327-1.963.514-.176.046-.187.058-.34-.117-.176-.199-.304-.327-.548-.444-.737-.363-1.45-.257-2.115.175-.789.514-1.193 1.262-1.181 2.186.011.912.55 1.67 1.461 1.904.783.199 1.449.035 2.034-.467.117-.105.222-.222.34-.351H11.66c-.245 0-.304-.152-.222-.35.152-.352.432-.94.596-1.239.035-.07.117-.187.268-.187h4.382c-.023.257-.023.514-.058.77-.105.701-.327 1.357-.7 1.957-.632 1.017-1.507 1.72-2.652 2.08-.935.292-1.859.257-2.746-.093-1.181-.467-2.011-1.274-2.523-2.465-.433-1.006-.525-2.08-.198-3.166.397-1.31 1.18-2.36 2.36-3.095 1.017-.632 2.127-.854 3.307-.665.956.152 1.811.548 2.523 1.239.175.163.34.351.525.584zm2.711 4.382c.082-.013.152-.023.222-.023.665-.012 1.145.444 1.145 1.075 0 .525-.351.922-.817 1.04-.56.14-1.122-.198-1.298-.747-.14-.42.023-.934.491-1.193.082-.047.175-.082.257-.152z"/></svg>
+                    <span style="font-weight: 500;">Go</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--light);">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#2C4F7C"><circle cx="12" cy="12" r="10"/><path d="M7.5 16.5L12 7l4.5 9.5" fill="none" stroke="white" stroke-width="1.5"/><path d="M9 14h6" stroke="white" stroke-width="1.5"/></svg>
+                    <span style="font-weight: 500;">Solid.js</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--light);">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#F7DF1E"><rect width="24" height="24" rx="2"/><path d="M12 18.5l2.5-1.5c.3.8 1 1.3 1.8 1.3 1 0 1.5-.5 1.5-1.2 0-.8-.6-1.1-1.6-1.6l-.6-.3c-1.6-.7-2.6-1.5-2.6-3.3 0-1.6 1.2-2.9 3.2-2.9 1.4 0 2.4.5 3.1 1.8l-1.7 1.1c-.4-.7-.8-1-1.4-1-.6 0-1 .4-1 1 0 .7.4 1 1.3 1.4l.6.3c1.9.8 2.9 1.6 2.9 3.4 0 2-1.5 3-3.6 3-2 0-3.3-1-4-2.3zM6 18.3l1.7-1c.4.6.7 1.2 1.5 1.2.8 0 1.3-.3 1.3-1.5v-8h2.1v8c0 2.5-1.4 3.5-3.5 3.5-1.9 0-3-1-3.1-2.2z" fill="#000"/></svg>
+                    <span style="font-weight: 500;">TypeScript</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--light);">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#F9A03C"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248c-.14.092-.263.188-.404.262-.474.247-.986.414-1.507.517a5.97 5.97 0 0 1-1.57.112c-.157-.01-.314-.028-.47-.05a3.592 3.592 0 0 1-.974-.263c-.327-.132-.61-.33-.912-.498-.17-.094-.37-.134-.537-.236l-.088-.054.034-.025c.09-.07.175-.147.27-.21.323-.213.67-.382 1.028-.523.632-.249 1.303-.387 1.977-.467.513-.061 1.03-.082 1.544-.057.409.02.815.073 1.21.176.237.062.468.144.69.244.15.067.292.15.425.245l.054.036-.27.297-.096.106zm-4.932-.632c.09-.07.175-.147.27-.21.323-.213.67-.382 1.028-.523.632-.249 1.303-.387 1.977-.467.513-.061 1.03-.082 1.544-.057.409.02.815.073 1.21.176.237.062.468.144.69.244.15.067.292.15.425.245l.054.036-.27.297-.096.106c-.14.092-.263.188-.404.262-.474.247-.986.414-1.507.517a5.97 5.97 0 0 1-1.57.112c-.157-.01-.314-.028-.47-.05a3.592 3.592 0 0 1-.974-.263c-.327-.132-.61-.33-.912-.498-.17-.094-.37-.134-.537-.236l-.088-.054.034-.025zm-.8 3.416c.09-.07.175-.147.27-.21.323-.213.67-.382 1.028-.523.632-.249 1.303-.387 1.977-.467.513-.061 1.03-.082 1.544-.057.409.02.815.073 1.21.176.237.062.468.144.69.244.15.067.292.15.425.245l.054.036-.27.297-.096.106c-.14.092-.263.188-.404.262-.474.247-.986.414-1.507.517a5.97 5.97 0 0 1-1.57.112c-.157-.01-.314-.028-.47-.05a3.592 3.592 0 0 1-.974-.263c-.327-.132-.61-.33-.912-.498-.17-.094-.37-.134-.537-.236l-.088-.054.034-.025zm-.8 3.416c.09-.07.175-.147.27-.21.323-.213.67-.382 1.028-.523.632-.249 1.303-.387 1.977-.467.513-.061 1.03-.082 1.544-.057.409.02.815.073 1.21.176.237.062.468.144.69.244.15.067.292.15.425.245l.054.036-.27.297-.096.106c-.14.092-.263.188-.404.262-.474.247-.986.414-1.507.517a5.97 5.97 0 0 1-1.57.112c-.157-.01-.314-.028-.47-.05a3.592 3.592 0 0 1-.974-.263c-.327-.132-.61-.33-.912-.498-.17-.094-.37-.134-.537-.236l-.088-.054.034-.025z"/></svg>
+                    <span style="font-weight: 500;">D3.js</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--light);">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#326CE5"><path d="M10.204 14.35l.007.01-.999 2.413a5.171 5.171 0 0 1-2.075-2.597l2.578-.437.004.005a.44.44 0 0 1 .484.606zm-.833-2.129a.44.44 0 0 0 .173-.756l.002-.011L7.585 9.7a5.143 5.143 0 0 0-.73 3.255l2.514-.725.002-.009zm1.145-1.98a.44.44 0 0 0 .699-.337l.01-.005.15-2.62a5.144 5.144 0 0 0-3.01 1.442l2.147 1.523.004-.003zm2.369-.024l.01.006 2.142-1.53a5.144 5.144 0 0 0-3.006-1.434l.147 2.618a.44.44 0 0 0 .707.34zm1.17 1.378a.44.44 0 0 0 .167.755l.005.01 2.514.724a5.145 5.145 0 0 0-.724-3.252l-1.962 1.763zm-.525 2.377l.009-.005.576 2.455a5.171 5.171 0 0 0 2.074-2.598l-2.578-.437-.005.005a.44.44 0 0 0-.076.58zm5.094 2.095l-.005-.006c-.154-.21-.39-.335-.648-.335-.085 0-.17.011-.254.035l-.01.002-1.86.617.023-.062.09-.174c.317-.653.49-1.37.49-2.117 0-.748-.173-1.464-.49-2.117l-.09-.174-.023-.062 1.86.617.01.002c.085.024.17.035.254.035.259 0 .495-.125.649-.336l.004-.005 1.426-1.936c-1.063-1.063-2.493-1.68-3.927-1.68-.532 0-1.06.073-1.566.217l-.11.033-.052-.136a3.73 3.73 0 0 0-.655-1.09c-1.028-1.166-2.56-1.87-4.14-1.87-1.58 0-3.111.704-4.14 1.87-.272.308-.495.662-.655 1.09l-.052.136-.11-.033a5.155 5.155 0 0 0-1.566-.217c-1.434 0-2.864.617-3.927 1.68l1.426 1.936.004.005c.154.21.39.336.65.336.084 0 .168-.011.253-.035l.01-.002 1.86-.617-.023.062-.09.174c-.317.653-.49 1.37-.49 2.117 0 .748.173 1.465.49 2.117l.09.174.023.062-1.86-.617-.01-.002a.68.68 0 0 0-.254-.035.715.715 0 0 0-.649.336l-.004.005-1.426 1.936c1.063 1.063 2.493 1.68 3.927 1.68.532 0 1.06-.073 1.566-.217l.11-.033.052.136c.16.428.383.783.655 1.09 1.029 1.166 2.56 1.87 4.14 1.87 1.58 0 3.111-.704 4.14-1.87.272-.307.495-.662.655-1.09l.052-.136.11.033a5.155 5.155 0 0 0 1.566.217c1.434 0 2.864-.617 3.927-1.68l-1.426-1.936z"/></svg>
+                    <span style="font-weight: 500;">Kubernetes API</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section class="comparison-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Choose Your Interface</h2>
+                <p>KubeGraf offers multiple UI modes in a single lightweight binary</p>
+            </div>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Capability</th>
+                        <th class="kubegraf-highlight">KubeGraf</th>
+                        <th>kubectl</th>
+                        <th>k9s</th>
+                        <th>Lens</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Terminal UI (TUI)</td>
+                        <td class="kubegraf-highlight"><span class="check-icon">✓</span></td>
+                        <td><span class="x-icon">✗</span></td>
+                        <td><span class="check-icon">✓</span></td>
+                        <td><span class="x-icon">✗</span></td>
+                    </tr>
+                    <tr>
+                        <td>Web Browser UI</td>
+                        <td class="kubegraf-highlight"><span class="check-icon">✓</span></td>
+                        <td><span class="x-icon">✗</span></td>
+                        <td><span class="x-icon">✗</span></td>
+                        <td><span class="x-icon">✗</span></td>
+                    </tr>
+                    <tr>
+                        <td>Desktop GUI</td>
+                        <td class="kubegraf-highlight"><span class="x-icon">✗</span></td>
+                        <td><span class="x-icon">✗</span></td>
+                        <td><span class="x-icon">✗</span></td>
+                        <td><span class="check-icon">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Topology Graph</td>
+                        <td class="kubegraf-highlight"><span class="check-icon">✓</span></td>
+                        <td><span class="x-icon">✗</span></td>
+                        <td><span class="check-icon">✓</span></td>
+                        <td><span class="check-icon">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Single Binary</td>
+                        <td class="kubegraf-highlight"><span class="check-icon">✓</span></td>
+                        <td><span class="check-icon">✓</span></td>
+                        <td><span class="check-icon">✓</span></td>
+                        <td><span class="x-icon">✗</span></td>
+                    </tr>
+                    <tr>
+                        <td>Works over SSH</td>
+                        <td class="kubegraf-highlight"><span class="check-icon">✓</span></td>
+                        <td><span class="check-icon">✓</span></td>
+                        <td><span class="check-icon">✓</span></td>
+                        <td><span class="x-icon">✗</span></td>
+                    </tr>
+                    <tr>
+                        <td>No Electron</td>
+                        <td class="kubegraf-highlight"><span class="check-icon">✓</span></td>
+                        <td><span class="check-icon">✓</span></td>
+                        <td><span class="check-icon">✓</span></td>
+                        <td><span class="x-icon">✗</span></td>
+                    </tr>
+                    <tr>
+                        <td>Open Source</td>
+                        <td class="kubegraf-highlight"><span class="check-icon">✓</span></td>
+                        <td><span class="check-icon">✓</span></td>
+                        <td><span class="check-icon">✓</span></td>
+                        <td><span class="check-icon">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Resource Map</td>
+                        <td class="kubegraf-highlight"><span class="check-icon">✓</span></td>
+                        <td><span class="x-icon">✗</span></td>
+                        <td><span class="x-icon">✗</span></td>
+                        <td><span class="x-icon">✗</span></td>
+                    </tr>
+                    <tr>
+                        <td>Plugin System</td>
+                        <td class="kubegraf-highlight"><span class="check-icon">✓</span></td>
+                        <td><span class="x-icon">✗</span></td>
+                        <td><span class="x-icon">✗</span></td>
+                        <td><span class="check-icon">✓</span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="text-align: center; color: var(--gray); font-size: 0.875rem; margin-top: 1.5rem;">
+                Each tool has its strengths. KubeGraf's unique value: TUI + Web UI in one lightweight Go binary.
+            </p>
+        </div>
+    </section>
+
+    <!-- Installation Section -->
+    <section id="installation" class="installation">
+        <div class="container">
+            <div class="section-header">
+                <h2>Quick Installation</h2>
+                <p>Get up and running in seconds</p>
+            </div>
+
+            <!-- Primary Install Method -->
+            <div style="max-width: 600px; margin: 0 auto 3rem;">
+                <div class="install-card" style="border-color: rgba(50, 108, 229, 0.3);">
+                    <h3 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2"><path d="M4 17l6-6-6-6M12 19h8"/></svg>
+                        Quick Install (Recommended)
+                    </h3>
+                    <p style="color: var(--gray); font-size: 0.875rem; margin-bottom: 1rem;">Automatically detects your OS and architecture</p>
+                    <div class="code-block">
+                        <code>curl -sSL https://kubegraf.io/install.sh | bash</code>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                </div>
+            </div>
+
+            <p style="text-align: center; color: var(--gray); font-size: 0.875rem; margin-bottom: 2rem;">Or choose your platform:</p>
+
+            <div class="install-methods">
+                <div class="install-card">
+                    <h3>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z"/><path d="M12 6v6l4 2"/></svg>
+                        macOS
+                    </h3>
+                    <div class="code-block" style="margin-bottom: 1rem;">
+                        <code># Homebrew<br>brew install kubegraf/tap/kubegraf</code>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block">
+                        <code># Manual (Apple Silicon)<br>curl -LO https://github.com/kubegraf/kubegraf/releases/latest/download/kubegraf-darwin-arm64.tar.gz<br>tar xzf kubegraf-darwin-arm64.tar.gz<br>sudo mv kubegraf /usr/local/bin/</code>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                </div>
+
+                <div class="install-card">
+                    <h3>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v.01M12 8v4"/></svg>
+                        Linux
+                    </h3>
+                    <div class="code-block">
+                        <code># x86_64<br>curl -LO https://github.com/kubegraf/kubegraf/releases/latest/download/kubegraf-linux-amd64.tar.gz<br>tar xzf kubegraf-linux-amd64.tar.gz<br>sudo mv kubegraf /usr/local/bin/<br><br># ARM64<br>curl -LO https://github.com/kubegraf/kubegraf/releases/latest/download/kubegraf-linux-arm64.tar.gz<br>tar xzf kubegraf-linux-arm64.tar.gz<br>sudo mv kubegraf /usr/local/bin/</code>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                </div>
+
+                <div class="install-card">
+                    <h3>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                        Windows
+                    </h3>
+                    <div class="code-block" style="margin-bottom: 1rem;">
+                        <code># Scoop<br>scoop bucket add kubegraf https://github.com/kubegraf/scoop-bucket<br>scoop install kubegraf</code>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block">
+                        <code># Manual (PowerShell)<br>Invoke-WebRequest -Uri "https://github.com/kubegraf/kubegraf/releases/latest/download/kubegraf-windows-amd64.zip" -OutFile kubegraf.zip<br>Expand-Archive kubegraf.zip -DestinationPath $env:USERPROFILE\bin<br># Add $env:USERPROFILE\bin to PATH</code>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                </div>
+
+                <div class="install-card">
+                    <h3>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                        Go Install
+                    </h3>
+                    <p style="color: var(--gray); font-size: 0.875rem; margin-bottom: 1rem;">Requires Go 1.21+</p>
+                    <div class="code-block">
+                        <code>go install github.com/kubegraf/kubegraf@latest</code>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                </div>
+
+                <div class="install-card">
+                    <h3>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                        Build from Source
+                    </h3>
+                    <div class="code-block">
+                        <code>git clone https://github.com/kubegraf/kubegraf.git<br>cd kubegraf<br>make build<br>./kubegraf</code>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                </div>
+
+                <div class="install-card">
+                    <h3>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                        Docker
+                    </h3>
+                    <div class="code-block">
+                        <code>docker pull ghcr.io/kubegraf/kubegraf:latest<br>docker run -it --rm -v ~/.kube:/root/.kube ghcr.io/kubegraf/kubegraf</code>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Usage Section -->
+            <div style="margin-top: 4rem; max-width: 700px; margin-left: auto; margin-right: auto;">
+                <h3 style="text-align: center; margin-bottom: 1.5rem;">Getting Started</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                    <div class="code-block" style="text-align: left;">
+                        <p style="color: var(--gray); font-size: 0.75rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">Terminal UI</p>
+                        <code>kubegraf<br>kubegraf --context production</code>
+                    </div>
+                    <div class="code-block" style="text-align: left;">
+                        <p style="color: var(--gray); font-size: 0.75rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">Web Dashboard</p>
+                        <code>kubegraf --web<br>kubegraf --web --port 3000</code>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="demo">
+        <div class="container">
+            <div class="section-header">
+                <h2>See It In Action</h2>
+                <p>Experience the power of KubeGraf</p>
+            </div>
+
+            <div class="demo-tabs">
+                <button class="demo-tab active" onclick="switchDemo('tui')">Terminal UI</button>
+                <button class="demo-tab" onclick="switchDemo('web')">Web Dashboard</button>
+                <button class="demo-tab" onclick="switchDemo('solid')">Solid.js UI</button>
+                <button class="demo-tab" onclick="switchDemo('topology')">Topology View</button>
+            </div>
+
+            <div class="demo-content" id="demo-display">
+                <img src="dashboard-screenshot.png" alt="KubeGraf Web Dashboard" style="max-width: 100%; border-radius: 12px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.1);">
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>What Engineers Say</h2>
+                <p>Trusted by DevOps teams worldwide</p>
+            </div>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-content">KubeGraf has become our go-to tool for cluster debugging. The topology view helped us identify a misconfigured service mesh in minutes instead of hours.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">SR</div>
+                        <div class="testimonial-info">
+                            <h4>Sarah R.</h4>
+                            <p>Platform Engineer @ Fintech Startup</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <p class="testimonial-content">Finally a K8s tool that works over SSH without needing Electron! The terminal UI is fast and the web dashboard is perfect for sharing with the team.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">MK</div>
+                        <div class="testimonial-info">
+                            <h4>Michael K.</h4>
+                            <p>SRE @ E-commerce Platform</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <p class="testimonial-content">The security analysis feature caught several misconfigurations we missed during review. It's like having a security auditor built into your dashboard.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">AL</div>
+                        <div class="testimonial-info">
+                            <h4>Alex L.</h4>
+                            <p>DevSecOps Lead @ Healthcare Tech</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="usecases-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Built for Real Workflows</h2>
+                <p>See how teams use KubeGraf every day</p>
+            </div>
+
+            <div class="usecases-grid">
+                <div class="usecase-card">
+                    <div class="usecase-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="M21 21l-4.35-4.35"/>
+                        </svg>
+                    </div>
+                    <h3>Production Debugging</h3>
+                    <p>Quickly identify failing pods, check logs, and exec into containers without context-switching between terminals.</p>
+                    <ul>
+                        <li>Real-time pod status updates</li>
+                        <li>Instant log streaming</li>
+                        <li>One-click shell access</li>
+                    </ul>
+                </div>
+
+                <div class="usecase-card">
+                    <div class="usecase-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </div>
+                    <h3>Security Auditing</h3>
+                    <p>Automated scanning identifies security misconfigurations before they become vulnerabilities.</p>
+                    <ul>
+                        <li>SecurityContext analysis</li>
+                        <li>Privileged container detection</li>
+                        <li>Resource limits verification</li>
+                    </ul>
+                </div>
+
+                <div class="usecase-card">
+                    <div class="usecase-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"/>
+                            <circle cx="19" cy="5" r="2"/>
+                            <circle cx="5" cy="19" r="2"/>
+                            <path d="M12 9V5M9.5 14.5L6.5 17.5"/>
+                        </svg>
+                    </div>
+                    <h3>Architecture Review</h3>
+                    <p>Visualize service dependencies and understand cluster topology at a glance.</p>
+                    <ul>
+                        <li>D3.js force-directed graphs</li>
+                        <li>Service-to-pod relationships</li>
+                        <li>Cross-namespace visibility</li>
+                    </ul>
+                </div>
+
+                <div class="usecase-card">
+                    <div class="usecase-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <h3>Team Onboarding</h3>
+                    <p>Help new engineers understand cluster structure without overwhelming kubectl commands.</p>
+                    <ul>
+                        <li>Visual resource explorer</li>
+                        <li>Intuitive navigation</li>
+                        <li>Built-in documentation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Documentation Section -->
+    <section id="docs" class="docs">
+        <div class="container">
+            <div class="section-header">
+                <h2>Documentation</h2>
+                <p>Learn how to get the most out of KubeGraf</p>
+            </div>
+
+            <div class="docs-grid">
+                <a href="getting-started.html" class="doc-card">
+                    <h3>🚀 Getting Started</h3>
+                    <p>Installation, configuration, and your first steps with KubeGraf</p>
+                </a>
+
+                <a href="terminal-ui.html" class="doc-card">
+                    <h3>🖥️ Terminal UI Guide</h3>
+                    <p>Keyboard shortcuts, navigation, and TUI features</p>
+                </a>
+
+                <a href="web-dashboard.html" class="doc-card">
+                    <h3>🌐 Web Dashboard</h3>
+                    <p>Using the classic web interface for cluster management</p>
+                </a>
+
+                <a href="solid-ui.html" class="doc-card">
+                    <h3>⚡ Solid.js UI</h3>
+                    <p>Modern reactive UI with themes, AI insights, and security</p>
+                </a>
+
+                <a href="topology.html" class="doc-card">
+                    <h3>🗺️ Topology Visualization</h3>
+                    <p>Understanding the interactive cluster topology</p>
+                </a>
+
+                <a href="configuration.html" class="doc-card">
+                    <h3>⚙️ Configuration</h3>
+                    <p>Customizing KubeGraf for your workflow</p>
+                </a>
+
+                <a href="https://github.com/kubegraf/kubegraf" class="doc-card">
+                    <h3>📖 GitHub</h3>
+                    <p>Source code, issues, and contributions</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="/" class="logo">
+                        <span class="logo-icon"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#06b6d4"/><stop offset="50%" style="stop-color:#3b82f6"/><stop offset="100%" style="stop-color:#8b5cf6"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="2" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><circle cx="50" cy="50" r="46" fill="rgba(6, 182, 212, 0.1)" stroke="url(#logoGrad)" stroke-width="2"/><g filter="url(#glow)"><circle cx="50" cy="50" r="12" fill="url(#logoGrad)"/><line x1="50" y1="38" x2="50" y2="18" stroke="url(#logoGrad)" stroke-width="4" stroke-linecap="round"/><line x1="61" y1="41" x2="76" y2="26" stroke="url(#logoGrad)" stroke-width="4" stroke-linecap="round"/><line x1="62" y1="54" x2="80" y2="60" stroke="url(#logoGrad)" stroke-width="4" stroke-linecap="round"/><line x1="56" y1="61" x2="64" y2="80" stroke="url(#logoGrad)" stroke-width="4" stroke-linecap="round"/><line x1="44" y1="61" x2="36" y2="80" stroke="url(#logoGrad)" stroke-width="4" stroke-linecap="round"/><line x1="38" y1="54" x2="20" y2="60" stroke="url(#logoGrad)" stroke-width="4" stroke-linecap="round"/><line x1="39" y1="41" x2="24" y2="26" stroke="url(#logoGrad)" stroke-width="4" stroke-linecap="round"/><circle cx="50" cy="16" r="5" fill="#06b6d4"/><circle cx="78" cy="24" r="5" fill="#22d3ee"/><circle cx="82" cy="62" r="5" fill="#3b82f6"/><circle cx="66" cy="82" r="5" fill="#6366f1"/><circle cx="34" cy="82" r="5" fill="#8b5cf6"/><circle cx="18" cy="62" r="5" fill="#a855f7"/><circle cx="22" cy="24" r="5" fill="#06b6d4"/><line x1="50" y1="16" x2="78" y2="24" stroke="#06b6d4" stroke-width="1.5" opacity="0.4"/><line x1="78" y1="24" x2="82" y2="62" stroke="#3b82f6" stroke-width="1.5" opacity="0.4"/><line x1="82" y1="62" x2="66" y2="82" stroke="#6366f1" stroke-width="1.5" opacity="0.4"/><line x1="66" y1="82" x2="34" y2="82" stroke="#8b5cf6" stroke-width="1.5" opacity="0.4"/><line x1="34" y1="82" x2="18" y2="62" stroke="#a855f7" stroke-width="1.5" opacity="0.4"/><line x1="18" y1="62" x2="22" y2="24" stroke="#06b6d4" stroke-width="1.5" opacity="0.4"/><line x1="22" y1="24" x2="50" y2="16" stroke="#06b6d4" stroke-width="1.5" opacity="0.4"/></g></svg></span>
+                        <span>KubeGraf</span>
+                    </a>
+                    <p>Advanced Kubernetes visualization tool for developers and operators.</p>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Product</h4>
+                        <ul>
+                            <li><a href="#features">Features</a></li>
+                            <li><a href="#installation">Installation</a></li>
+                            <li><a href="#demo">Demo</a></li>
+                            <li><a href="https://github.com/kubegraf/kubegraf/releases">Releases</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="#docs">Documentation</a></li>
+                            <li><a href="https://github.com/kubegraf/kubegraf">GitHub</a></li>
+                            <li><a href="https://github.com/kubegraf/kubegraf/issues">Issues</a></li>
+                            <li><a href="https://github.com/kubegraf/kubegraf/blob/main/LICENSE">License</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Community</h4>
+                        <ul>
+                            <li><a href="https://github.com/kubegraf/kubegraf/discussions">Discussions</a></li>
+                            <li><a href="https://github.com/kubegraf/kubegraf/blob/main/CONTRIBUTING.md">Contributing</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span>&copy; 2025 KubeGraf. Apache License 2.0.</span>
+                <div class="social-links">
+                    <a href="https://github.com/kubegraf/kubegraf" title="GitHub">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+            document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        // Close mobile menu on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const menu = document.getElementById('mobileMenu');
+                if (menu.classList.contains('active')) {
+                    toggleMobileMenu();
+                }
+            }
+        });
+
+        // Copy code functionality
+        function copyCode(btn) {
+            const codeBlock = btn.parentElement.querySelector('code');
+            const text = codeBlock.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                btn.textContent = '✓';
+                setTimeout(() => btn.textContent = '📋', 2000);
+            });
+        }
+
+        // Demo tabs
+        function switchDemo(type) {
+            document.querySelectorAll('.demo-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Demo content
+            const demos = {
+                tui: {
+                    title: 'Terminal UI',
+                    desc: 'Lightning-fast TUI with vim-style keybindings',
+                    features: ['Navigate pods, deployments, services', 'Real-time metrics display', 'Shell, logs, YAML viewer', 'Works over SSH']
+                },
+                web: {
+                    title: 'Web Dashboard',
+                    desc: 'Classic browser-based interface',
+                    features: ['Real-time WebSocket updates', 'Interactive D3.js topology', 'Port forwarding management', 'Resource CRUD operations']
+                },
+                solid: {
+                    title: 'Solid.js UI',
+                    desc: 'Modern reactive single-page application',
+                    features: ['5 theme options (Dark, Light, Midnight, Cyberpunk, Ocean)', 'AI-powered insights dashboard', 'Security posture analysis with scoring', 'Plugins: Helm, ArgoCD, Flux']
+                },
+                topology: {
+                    title: 'Topology Visualization',
+                    desc: 'Interactive cluster resource graphs',
+                    features: ['Force-directed D3.js layout', 'Drag and zoom controls', 'Color-coded resource types', 'Real-time relationship mapping']
+                }
+            };
+
+            const demo = demos[type];
+
+            // Show screenshot for web dashboard and solid.js UI
+            if (type === 'web' || type === 'solid') {
+                document.getElementById('demo-display').innerHTML = `
+                    <img src="dashboard-screenshot.png" alt="KubeGraf ${demo.title}" style="max-width: 100%; border-radius: 12px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.1);">
+                `;
+            } else {
+                document.getElementById('demo-display').innerHTML = `
+                    <div class="demo-placeholder" style="text-align: left; padding: 3rem;">
+                        <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--light);">${demo.title}</h3>
+                        <p style="color: var(--gray); margin-bottom: 1.5rem;">${demo.desc}</p>
+                        <ul style="list-style: none;">
+                            ${demo.features.map(f => `<li style="padding: 0.5rem 0; color: var(--light); display: flex; align-items: center; gap: 0.75rem;"><span style="color: var(--secondary);">✓</span>${f}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // ============ ANIMATED CANVAS BACKGROUND ============
+        const canvas = document.getElementById('heroCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            const hero = document.querySelector('.hero');
+            canvas.width = hero.offsetWidth;
+            canvas.height = hero.offsetHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // Nodes representing Kubernetes resources
+        const nodes = [];
+        const connections = [];
+        const nodeCount = 20;
+        const connectionCount = 25;
+
+        // Colors for different resource types
+        const colors = ['#326ce5', '#00d4aa', '#06b6d4', '#3b82f6', '#8b5cf6', '#a855f7'];
+
+        // Initialize nodes
+        for (let i = 0; i < nodeCount; i++) {
+            nodes.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 4 + 2,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5,
+                pulsePhase: Math.random() * Math.PI * 2
+            });
+        }
+
+        // Initialize connections with particles
+        for (let i = 0; i < connectionCount; i++) {
+            const from = Math.floor(Math.random() * nodeCount);
+            let to = Math.floor(Math.random() * nodeCount);
+            while (to === from) to = Math.floor(Math.random() * nodeCount);
+
+            connections.push({
+                from: from,
+                to: to,
+                particles: [],
+                lastParticle: 0
+            });
+        }
+
+        // Animation loop
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Update and draw connections
+            connections.forEach(conn => {
+                const fromNode = nodes[conn.from];
+                const toNode = nodes[conn.to];
+
+                // Draw connection line
+                ctx.beginPath();
+                ctx.moveTo(fromNode.x, fromNode.y);
+                ctx.lineTo(toNode.x, toNode.y);
+                ctx.strokeStyle = 'rgba(50, 108, 229, 0.1)';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+
+                // Add new particle periodically
+                if (Date.now() - conn.lastParticle > 2000 + Math.random() * 3000) {
+                    conn.particles.push({ progress: 0 });
+                    conn.lastParticle = Date.now();
+                }
+
+                // Update and draw particles
+                conn.particles = conn.particles.filter(p => {
+                    p.progress += 0.005;
+                    if (p.progress > 1) return false;
+
+                    const x = fromNode.x + (toNode.x - fromNode.x) * p.progress;
+                    const y = fromNode.y + (toNode.y - fromNode.y) * p.progress;
+
+                    ctx.beginPath();
+                    ctx.arc(x, y, 2, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(0, 212, 170, ${1 - p.progress})`;
+                    ctx.fill();
+
+                    return true;
+                });
+            });
+
+            // Update and draw nodes
+            nodes.forEach(node => {
+                // Update position
+                node.x += node.vx;
+                node.y += node.vy;
+
+                // Bounce off edges
+                if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
+                if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
+
+                // Pulse effect
+                node.pulsePhase += 0.02;
+                const pulse = Math.sin(node.pulsePhase) * 0.3 + 1;
+
+                // Draw glow
+                const gradient = ctx.createRadialGradient(
+                    node.x, node.y, 0,
+                    node.x, node.y, node.radius * 3 * pulse
+                );
+                gradient.addColorStop(0, node.color + '40');
+                gradient.addColorStop(1, 'transparent');
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, node.radius * 3 * pulse, 0, Math.PI * 2);
+                ctx.fillStyle = gradient;
+                ctx.fill();
+
+                // Draw node
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, node.radius * pulse, 0, Math.PI * 2);
+                ctx.fillStyle = node.color;
+                ctx.fill();
+            });
+
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // ============ MOUSE-FOLLOWING GRADIENT ============
+        const mouseGradient = document.getElementById('mouseGradient');
+        document.addEventListener('mousemove', (e) => {
+            mouseGradient.style.left = e.clientX + 'px';
+            mouseGradient.style.top = e.clientY + 'px';
+        });
+
+        // ============ FEATURE CARD SCROLL ANIMATIONS ============
+        const featureCards = document.querySelectorAll('.feature-card');
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+
+        featureCards.forEach(card => observer.observe(card));
+    </script>
+</body>
+</html>
