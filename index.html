@@ -26,8 +26,10 @@
     <meta name="twitter:image" content="https://kubegraf.io/assets/images/og-image.png">
 
     <link rel="canonical" href="https://kubegraf.io">
-    <link rel="icon" type="image/png" href="/assets/icons/favicon.png">
-    <link rel="apple-touch-icon" href="/assets/icons/icon-192.png">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/icon-192.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="/assets/icons/icon-192.png">
     <link rel="manifest" href="/manifest.json">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,7 +50,13 @@
         "softwareVersion": "1.0.0",
         "author": {
             "@type": "Organization",
-            "name": "KubeGraf"
+            "name": "KubeGraf",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://kubegraf.io/assets/icons/icon-512.png",
+                "width": 512,
+                "height": 512
+            }
         },
         "offers": {
             "@type": "Offer",
