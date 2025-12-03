@@ -389,19 +389,274 @@
             width: 60px;
         }
 
+        /* ============ NEW ANIMATIONS ============ */
+
+        /* Animated marquee banner (Wallarm-inspired) */
+        .marquee-banner {
+            position: fixed;
+            top: 72px;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 0.75rem 0;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .marquee-content {
+            display: flex;
+            animation: marqueeScroll 40s linear infinite;
+            white-space: nowrap;
+        }
+
+        .marquee-item {
+            padding: 0 4rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        @keyframes marqueeScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Enhanced navbar scroll effects */
+        nav.scrolled {
+            background: rgba(2, 6, 23, 0.95);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            padding: 0.5rem 0;
+            transition: all 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+
+        nav.scrolled .nav-content {
+            padding: 0.5rem 2rem;
+        }
+
+        /* Animated connection lines background */
+        .connection-lines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.15;
+        }
+
+        .connection-node {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary);
+            animation: nodePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes nodePulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 1;
+            }
+        }
+
+        .connection-line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            height: 1px;
+            animation: lineFlow 4s ease-in-out infinite;
+        }
+
+        @keyframes lineFlow {
+            0%, 100% {
+                opacity: 0.2;
+            }
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        /* Interactive workflow tabs showcase */
+        .workflow-showcase {
+            position: relative;
+            margin: 3rem 0;
+        }
+
+        .workflow-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .workflow-tab {
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: var(--light);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .workflow-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .workflow-tab:hover::before {
+            left: 100%;
+        }
+
+        .workflow-tab:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+            box-shadow: 0 8px 20px rgba(50, 108, 229, 0.3);
+        }
+
+        .workflow-tab.active {
+            background: var(--gradient);
+            border-color: transparent;
+            box-shadow: var(--glow-primary);
+            transform: translateY(-4px);
+        }
+
+        .workflow-content {
+            display: none;
+            opacity: 0;
+            animation: fadeInUp 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+        }
+
+        .workflow-content.active {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Number counter animation */
+        .stat-number {
+            display: inline-block;
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-card.counting .stat-number {
+            animation: countPulse 0.5s ease-out;
+        }
+
+        @keyframes countPulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        /* Advanced button lift effects */
+        .btn {
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+
+        .btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Skeleton loader (Wallarm-inspired) */
+        .skeleton-loader {
+            position: relative;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .skeleton-loader::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: skeletonShimmer 2s infinite;
+        }
+
+        @keyframes skeletonShimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* Particle network effect */
+        .particle-network {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
         /* Reduced motion support */
         @media (prefers-reduced-motion: reduce) {
             .animate-on-scroll,
             .hero-content,
             .orb,
-            .gradient-text-animated {
+            .gradient-text-animated,
+            .marquee-content,
+            .connection-node,
+            .workflow-tab,
+            .stat-number {
                 animation: none;
                 transition: none;
                 opacity: 1;
                 transform: none;
             }
 
-            .btn-primary::before {
+            .btn-primary::before,
+            .workflow-tab::before,
+            .skeleton-loader::after {
                 display: none;
             }
         }
@@ -1228,6 +1483,45 @@
                 opacity: 0.05;
             }
 
+            /* New animations mobile responsiveness */
+            .marquee-banner {
+                top: 60px;
+                padding: 0.5rem 0;
+                font-size: 0.85rem;
+            }
+
+            .marquee-item {
+                padding: 0 2rem;
+                font-size: 0.8rem;
+            }
+
+            .connection-lines {
+                opacity: 0.08;
+            }
+
+            .workflow-tabs {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .workflow-tab {
+                padding: 0.75rem 1.5rem;
+                width: 100%;
+            }
+
+            .workflow-content > div {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+            }
+
+            .workflow-content h3 {
+                font-size: 1.5rem !important;
+            }
+
+            .workflow-content p {
+                font-size: 1rem !important;
+            }
+
             /* Make grid overlay more visible on mobile */
             .grid-overlay {
                 background-image:
@@ -1544,6 +1838,51 @@
             <a href="#installation" class="btn btn-primary" style="width: 100%; text-align: center;" onclick="toggleMobileMenu()">Get Started</a>
         </div>
     </div>
+
+    <!-- Animated Marquee Banner -->
+    <div class="marquee-banner" id="marqueeBanner" aria-hidden="true">
+        <div class="marquee-content">
+            <span class="marquee-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink: 0;">
+                    <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+                </svg>
+                🚀 KubeGraf v1.0 Released - Complete Kubernetes Management in a Single Binary
+            </span>
+            <span class="marquee-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink: 0;">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+                ⚡ Lightning-fast TUI meets powerful web dashboard
+            </span>
+            <span class="marquee-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink: 0;">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+                </svg>
+                🎯 AI-Powered Diagnostics for Instant Problem Resolution
+            </span>
+            <span class="marquee-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink: 0;">
+                    <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+                </svg>
+                🚀 KubeGraf v1.0 Released - Complete Kubernetes Management in a Single Binary
+            </span>
+            <span class="marquee-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink: 0;">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+                ⚡ Lightning-fast TUI meets powerful web dashboard
+            </span>
+            <span class="marquee-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink: 0;">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+                </svg>
+                🎯 AI-Powered Diagnostics for Instant Problem Resolution
+            </span>
+        </div>
+    </div>
+
+    <!-- Connection Lines Background -->
+    <div class="connection-lines" id="connectionLines" aria-hidden="true"></div>
 
     <!-- Stats Section Styles -->
     <style>
@@ -2068,6 +2407,147 @@
                         <h3 style="font-size: 1.1rem; color: var(--light); margin: 0;">Runs Locally, Your Data Stays Private</h3>
                     </div>
                     <p style="color: var(--gray); font-size: 0.95rem; line-height: 1.6; margin: 0;">Single ~15MB Go binary that runs entirely on your machine. No cloud services, no data sent externally. Your cluster data never leaves your local environment.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workflow Showcase Section -->
+    <section class="workflow-showcase" style="padding: 4rem 0; background: rgba(0, 0, 0, 0.2);">
+        <div class="container">
+            <div class="section-header animate-on-scroll" style="margin-bottom: 3rem;">
+                <h2>Three Powerful Interfaces, One Platform</h2>
+                <p>Choose the interface that fits your workflow. Switch seamlessly between terminal, web, and modern SPA.</p>
+            </div>
+
+            <div class="workflow-tabs">
+                <div class="workflow-tab">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 0.5rem;">
+                        <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
+                    </svg>
+                    Terminal UI
+                </div>
+                <div class="workflow-tab">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 0.5rem;">
+                        <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                    </svg>
+                    Web Dashboard
+                </div>
+                <div class="workflow-tab">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 0.5rem;">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                    </svg>
+                    Modern SPA
+                </div>
+            </div>
+
+            <div class="workflow-content" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 3rem;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
+                    <div>
+                        <h3 style="font-size: 2rem; margin-bottom: 1rem; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Lightning-Fast Terminal</h3>
+                        <p style="color: var(--gray); font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">Navigate your cluster at the speed of thought with vim-style keybindings. Browse pods, deployments, and services without leaving your terminal. Perfect for SSH sessions and remote work.</p>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; color: var(--light);">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                                Vim-style keybindings (j/k navigation)
+                            </li>
+                            <li style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; color: var(--light);">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                                Works over SSH with zero dependencies
+                            </li>
+                            <li style="display: flex; align-items: center; gap: 0.75rem; color: var(--light);">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                                Terminal canvas graph visualization
+                            </li>
+                        </ul>
+                    </div>
+                    <div style="background: rgba(0, 0, 0, 0.4); border-radius: 12px; padding: 1.5rem; border: 1px solid rgba(255, 255, 255, 0.1);">
+                        <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #00d4aa;">
+                            <div style="margin-bottom: 0.5rem;">$ kubegraf</div>
+                            <div style="color: var(--gray); margin-bottom: 1rem;">Loading namespace: default...</div>
+                            <div style="color: var(--light); margin-bottom: 0.5rem;">📦 Pods (5) | 🚀 Deployments (3) | ⚙️ Services (4)</div>
+                            <div style="color: var(--gray);">────────────────────────────────</div>
+                            <div style="color: var(--primary); margin-top: 0.5rem;">► nginx-deployment-1</div>
+                            <div style="color: var(--gray); margin-left: 1rem;">Status: Running | CPU: 45% | Mem: 128Mi</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="workflow-content" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 3rem;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
+                    <div>
+                        <h3 style="font-size: 2rem; margin-bottom: 1rem; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Real-Time Web Dashboard</h3>
+                        <p style="color: var(--gray); font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">Browser-based interface with live WebSocket updates, interactive D3.js topology graphs, and one-click port forwarding. Monitor your cluster metrics in real-time with visual feedback.</p>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; color: var(--light);">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                                Live CPU & memory metrics
+                            </li>
+                            <li style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; color: var(--light);">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                                Interactive D3.js topology visualization
+                            </li>
+                            <li style="display: flex; align-items: center; gap: 0.75rem; color: var(--light);">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                                One-click port forwarding management
+                            </li>
+                        </ul>
+                    </div>
+                    <div style="background: linear-gradient(135deg, rgba(50, 108, 229, 0.1), rgba(0, 212, 170, 0.1)); border-radius: 12px; padding: 2rem; border: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">
+                        <svg width="200" height="150" viewBox="0 0 200 150" style="max-width: 100%;">
+                            <circle cx="100" cy="75" r="30" fill="var(--primary)" opacity="0.3"/>
+                            <circle cx="50" cy="100" r="20" fill="var(--secondary)" opacity="0.4"/>
+                            <circle cx="150" cy="100" r="20" fill="var(--secondary)" opacity="0.4"/>
+                            <circle cx="75" cy="40" r="15" fill="#8b5cf6" opacity="0.4"/>
+                            <circle cx="125" cy="40" r="15" fill="#8b5cf6" opacity="0.4"/>
+                            <line x1="100" y1="75" x2="50" y2="100" stroke="var(--primary)" stroke-width="2" opacity="0.3"/>
+                            <line x1="100" y1="75" x2="150" y2="100" stroke="var(--primary)" stroke-width="2" opacity="0.3"/>
+                            <line x1="100" y1="75" x2="75" y2="40" stroke="var(--primary)" stroke-width="2" opacity="0.3"/>
+                            <line x1="100" y1="75" x2="125" y2="40" stroke="var(--primary)" stroke-width="2" opacity="0.3"/>
+                        </svg>
+                        <div style="margin-top: 1rem; color: var(--gray); font-size: 0.9rem;">Interactive Cluster Topology</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="workflow-content" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 3rem;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
+                    <div>
+                        <h3 style="font-size: 2rem; margin-bottom: 1rem; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Modern Reactive SPA</h3>
+                        <p style="color: var(--gray); font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">Built with Solid.js for blazing-fast performance. Features AI-powered insights, security analysis, cost management, and plugin support for Helm, ArgoCD, and Flux. Choose from 5 beautiful themes.</p>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; color: var(--light);">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                                AI-powered diagnostics & insights
+                            </li>
+                            <li style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; color: var(--light);">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                                Security posture analysis (0-100 score)
+                            </li>
+                            <li style="display: flex; align-items: center; gap: 0.75rem; color: var(--light);">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                                Multi-cloud cost estimation & drift detection
+                            </li>
+                        </ul>
+                    </div>
+                    <div style="background: rgba(0, 0, 0, 0.4); border-radius: 12px; padding: 2rem; border: 1px solid rgba(255, 255, 255, 0.1);">
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+                            <div style="background: rgba(50, 108, 229, 0.2); padding: 1rem; border-radius: 8px; text-align: center;">
+                                <div style="font-size: 1.5rem; font-weight: bold; color: var(--primary);">92</div>
+                                <div style="font-size: 0.75rem; color: var(--gray);">Security Score</div>
+                            </div>
+                            <div style="background: rgba(0, 212, 170, 0.2); padding: 1rem; border-radius: 8px; text-align: center;">
+                                <div style="font-size: 1.5rem; font-weight: bold; color: var(--secondary);">$1.2k</div>
+                                <div style="font-size: 0.75rem; color: var(--gray);">Monthly Cost</div>
+                            </div>
+                            <div style="background: rgba(139, 92, 246, 0.2); padding: 1rem; border-radius: 8px; text-align: center;">
+                                <div style="font-size: 1.5rem; font-weight: bold; color: #8b5cf6;">12</div>
+                                <div style="font-size: 0.75rem; color: var(--gray);">Active Pods</div>
+                            </div>
+                        </div>
+                        <div style="color: var(--gray); font-size: 0.85rem; text-align: center;">5 Themes • Helm • ArgoCD • Flux</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2676,6 +3156,145 @@ $env:Path += ";$env:USERPROFILE\bin"
                 ticking = true;
             }
         });
+
+        // ============ ENHANCED NAVBAR SCROLL EFFECTS ============
+        const nav = document.querySelector('nav');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+
+            lastScroll = currentScroll;
+        });
+
+        // ============ ANIMATED CONNECTION LINES BACKGROUND ============
+        function createConnectionLines() {
+            const container = document.getElementById('connectionLines');
+            if (!container) return;
+
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            const nodeCount = Math.floor((width * height) / 40000);
+
+            // Create nodes
+            const nodes = [];
+            for (let i = 0; i < nodeCount; i++) {
+                const node = document.createElement('div');
+                node.className = 'connection-node';
+                node.style.left = Math.random() * 100 + '%';
+                node.style.top = Math.random() * 100 + '%';
+                node.style.animationDelay = Math.random() * 3 + 's';
+                container.appendChild(node);
+                nodes.push({
+                    element: node,
+                    x: parseFloat(node.style.left),
+                    y: parseFloat(node.style.top)
+                });
+            }
+
+            // Create connecting lines between nearby nodes
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dx = nodes[j].x - nodes[i].x;
+                    const dy = nodes[j].y - nodes[i].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 25) {
+                        const line = document.createElement('div');
+                        line.className = 'connection-line';
+                        const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+                        line.style.width = distance + '%';
+                        line.style.left = nodes[i].x + '%';
+                        line.style.top = nodes[i].y + '%';
+                        line.style.transform = `rotate(${angle}deg)`;
+                        line.style.transformOrigin = '0 0';
+                        line.style.animationDelay = Math.random() * 4 + 's';
+                        container.appendChild(line);
+                    }
+                }
+            }
+        }
+
+        createConnectionLines();
+        window.addEventListener('resize', () => {
+            const container = document.getElementById('connectionLines');
+            if (container) {
+                container.innerHTML = '';
+                createConnectionLines();
+            }
+        });
+
+        // ============ NUMBER COUNTER ANIMATION ============
+        function animateCounter(element, target, duration = 2000) {
+            const start = 0;
+            const increment = target / (duration / 16);
+            let current = start;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target + (element.dataset.suffix || '');
+                    element.closest('.stat-card')?.classList.remove('counting');
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current) + (element.dataset.suffix || '');
+                }
+            }, 16);
+        }
+
+        // Observe stat numbers and trigger animation when visible
+        const statNumbers = document.querySelectorAll('.stat-number');
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.dataset.animated) {
+                    entry.target.dataset.animated = 'true';
+                    const target = parseInt(entry.target.dataset.count || entry.target.textContent);
+                    const suffix = entry.target.dataset.suffix || '';
+                    entry.target.dataset.suffix = suffix;
+                    entry.target.closest('.stat-card')?.classList.add('counting');
+                    animateCounter(entry.target, target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        statNumbers.forEach(el => statsObserver.observe(el));
+
+        // ============ WORKFLOW TABS INTERACTION ============
+        function initWorkflowTabs() {
+            const tabs = document.querySelectorAll('.workflow-tab');
+            const contents = document.querySelectorAll('.workflow-content');
+
+            tabs.forEach((tab, index) => {
+                tab.addEventListener('click', () => {
+                    // Remove active from all
+                    tabs.forEach(t => t.classList.remove('active'));
+                    contents.forEach(c => c.classList.remove('active'));
+
+                    // Add active to clicked
+                    tab.classList.add('active');
+                    contents[index]?.classList.add('active');
+                });
+            });
+
+            // Activate first tab by default
+            if (tabs.length > 0 && contents.length > 0) {
+                tabs[0].classList.add('active');
+                contents[0].classList.add('active');
+            }
+        }
+
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initWorkflowTabs);
+        } else {
+            initWorkflowTabs();
+        }
     </script>
 </body>
 </html>
