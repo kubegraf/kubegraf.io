@@ -647,7 +647,9 @@
             .marquee-content,
             .connection-node,
             .workflow-tab,
-            .stat-number {
+            .stat-number,
+            .code-block code,
+            .copy-btn {
                 animation: none;
                 transition: none;
                 opacity: 1;
@@ -656,8 +658,14 @@
 
             .btn-primary::before,
             .workflow-tab::before,
-            .skeleton-loader::after {
+            .skeleton-loader::after,
+            .code-block code::after {
                 display: none;
+            }
+
+            .code-block:hover,
+            .install-card:hover {
+                transform: none;
             }
         }
 
@@ -1026,15 +1034,35 @@
         }
 
         .code-block {
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 8px;
-            padding: 0.875rem;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4));
+            border-radius: 12px;
+            padding: 1rem 1rem 1rem 1.5rem;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.875rem;
             overflow-x: auto;
             position: relative;
             min-width: 0;
             word-break: break-word;
+            border: 1px solid rgba(0, 212, 170, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+
+        .code-block::before {
+            content: '$';
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary);
+            font-weight: bold;
+            opacity: 0.7;
+        }
+
+        .code-block:hover {
+            border-color: var(--secondary);
+            box-shadow: 0 8px 24px rgba(0, 212, 170, 0.2), 0 0 20px rgba(0, 212, 170, 0.1);
+            transform: translateY(-2px);
         }
 
         .code-block code {
@@ -1042,24 +1070,89 @@
             white-space: pre-wrap;
             word-break: break-all;
             display: block;
+            opacity: 0;
+            animation: typeIn 0.8s ease-out forwards;
+            text-shadow: 0 0 8px rgba(0, 212, 170, 0.3);
+        }
+
+        @keyframes typeIn {
+            from {
+                opacity: 0;
+                filter: blur(4px);
+            }
+            to {
+                opacity: 1;
+                filter: blur(0);
+            }
+        }
+
+        .code-block code::after {
+            content: '▊';
+            color: var(--secondary);
+            animation: blink 1s step-end infinite;
+            margin-left: 4px;
+        }
+
+        .install-card:hover .code-block code::after {
+            animation: blink 0.5s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
         }
 
         .copy-btn {
             position: absolute;
             top: 0.5rem;
             right: 0.5rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: var(--gray);
-            padding: 0.5rem;
-            border-radius: 4px;
+            background: linear-gradient(135deg, rgba(50, 108, 229, 0.3), rgba(0, 212, 170, 0.3));
+            border: 1px solid rgba(0, 212, 170, 0.4);
+            color: var(--light);
+            padding: 0.5rem 0.875rem;
+            border-radius: 6px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+            font-weight: 500;
+            font-size: 0.75rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
 
         .copy-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: linear-gradient(135deg, rgba(50, 108, 229, 0.5), rgba(0, 212, 170, 0.5));
+            border-color: var(--secondary);
             color: var(--light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 212, 170, 0.3);
+        }
+
+        .copy-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 212, 170, 0.2);
+        }
+
+        .copy-btn.copied {
+            background: linear-gradient(135deg, rgba(0, 212, 170, 0.6), rgba(0, 212, 170, 0.4));
+            border-color: var(--secondary);
+            animation: successPulse 0.6s ease-out;
+        }
+
+        @keyframes successPulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .install-card {
+            transition: all 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+
+        .install-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
         }
 
         /* Demo Section */
@@ -1633,22 +1726,38 @@
             }
 
             .code-block {
-                padding: 0.75rem;
+                padding: 0.75rem 0.75rem 0.75rem 1.25rem;
                 font-size: 0.75rem;
                 overflow-x: auto;
                 -webkit-overflow-scrolling: touch;
                 min-width: 0;
             }
 
+            .code-block::before {
+                left: 0.5rem;
+                font-size: 0.7rem;
+            }
+
+            .code-block:hover {
+                transform: none; /* Disable lift on mobile */
+            }
+
             .code-block code {
                 white-space: pre-wrap;
                 word-break: break-all;
                 display: block;
+                font-size: 0.7rem;
             }
 
             .copy-btn {
-                padding: 0.4rem;
-                font-size: 0.7rem;
+                padding: 0.4rem 0.6rem;
+                font-size: 0.65rem;
+                top: 0.4rem;
+                right: 0.4rem;
+            }
+
+            .install-card:hover {
+                transform: none; /* Disable lift on mobile */
             }
 
             /* Demo Section */
@@ -2827,10 +2936,24 @@ $env:Path += ";$env:USERPROFILE\bin"
         // Copy code functionality
         function copyCode(btn) {
             const codeBlock = btn.parentElement.querySelector('code');
-            const text = codeBlock.innerText;
+            const text = codeBlock.innerText.replace('▊', '').trim(); // Remove cursor
+
             navigator.clipboard.writeText(text).then(() => {
-                btn.textContent = '✓';
-                setTimeout(() => btn.textContent = '📋', 2000);
+                // Add success animation
+                btn.classList.add('copied');
+                const originalText = btn.textContent;
+                btn.textContent = '✓ Copied!';
+
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+                btn.textContent = '✗ Failed';
+                setTimeout(() => {
+                    btn.textContent = 'Copy';
+                }, 2000);
             });
         }
 
