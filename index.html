@@ -3272,6 +3272,13 @@ $env:Path += ";$env:USERPROFILE\bin"
 
         // ============ ANIMATED CANVAS BACKGROUND ============
         const canvas = document.getElementById('heroCanvas');
+
+        // Skip canvas animation on mobile for better performance
+        const isMobile = window.innerWidth <= 768;
+        if (isMobile) {
+            canvas.style.display = 'none';
+        }
+
         const ctx = canvas.getContext('2d');
 
         function resizeCanvas() {
@@ -3282,11 +3289,11 @@ $env:Path += ";$env:USERPROFILE\bin"
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
 
-        // Nodes representing Kubernetes resources
+        // Nodes representing Kubernetes resources (reduced for performance)
         const nodes = [];
         const connections = [];
-        const nodeCount = 20;
-        const connectionCount = 25;
+        const nodeCount = isMobile ? 0 : 12;  // Reduced from 20 to 12
+        const connectionCount = isMobile ? 0 : 15;  // Reduced from 25 to 15
 
         // Colors for different resource types
         const colors = ['#326ce5', '#00d4aa', '#06b6d4', '#3b82f6', '#8b5cf6', '#a855f7'];
@@ -3414,7 +3421,11 @@ $env:Path += ";$env:USERPROFILE\bin"
 
             requestAnimationFrame(animate);
         }
-        animate();
+
+        // Only run animation on desktop for performance
+        if (!isMobile) {
+            animate();
+        }
 
         // ============ MOUSE-FOLLOWING GRADIENT ============
         const mouseGradient = document.getElementById('mouseGradient');
@@ -3581,14 +3592,15 @@ $env:Path += ";$env:USERPROFILE\bin"
             }
         }
 
-        createConnectionLines();
-        window.addEventListener('resize', () => {
-            const container = document.getElementById('connectionLines');
-            if (container) {
-                container.innerHTML = '';
-                createConnectionLines();
-            }
-        });
+        // Disabled for performance - creating many DOM elements slows initial load
+        // createConnectionLines();
+        // window.addEventListener('resize', () => {
+        //     const container = document.getElementById('connectionLines');
+        //     if (container) {
+        //         container.innerHTML = '';
+        //         createConnectionLines();
+        //     }
+        // });
 
         // ============ NUMBER COUNTER ANIMATION ============
         function animateCounter(element, target, duration = 2000) {
@@ -3675,28 +3687,16 @@ $env:Path += ";$env:USERPROFILE\bin"
             }).join('<br>');
         }
 
-        // Magnetic button effect
+        // Simplified magnetic button effect (lightweight)
         function initMagneticButtons() {
-            const buttons = document.querySelectorAll('.btn');
+            const buttons = document.querySelectorAll('.btn-primary');
 
             buttons.forEach(btn => {
-                btn.classList.add('btn-magnetic', 'btn-press');
+                btn.classList.add('btn-press');
 
-                btn.addEventListener('mousemove', (e) => {
-                    const rect = btn.getBoundingClientRect();
-                    const x = e.clientX - rect.left - rect.width / 2;
-                    const y = e.clientY - rect.top - rect.height / 2;
-
-                    const distance = Math.sqrt(x * x + y * y);
-                    const maxDistance = 50;
-
-                    if (distance < maxDistance) {
-                        const strength = (maxDistance - distance) / maxDistance;
-                        const moveX = x * strength * 0.3;
-                        const moveY = y * strength * 0.3;
-
-                        btn.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.02)`;
-                    }
+                // Only subtle hover effect, no heavy calculations
+                btn.addEventListener('mouseenter', () => {
+                    btn.style.transform = 'scale(1.05)';
                 });
 
                 btn.addEventListener('mouseleave', () => {
@@ -3851,14 +3851,19 @@ $env:Path += ";$env:USERPROFILE\bin"
                 return;
             }
 
-            setTimeout(splitText, 100);
+            // Disabled for performance: splitText, initCustomCursor, initCardTilt
+            // These were causing slow page loads
+
+            // Only enable lightweight animations
             initMagneticButtons();
-            initCustomCursor();
             initScrollReveal();
-            initParallax();
             initNeonGlow();
-            initCardTilt();
             initTextShimmer();
+
+            // Parallax is optional - enable only on desktop
+            if (window.innerWidth > 1024) {
+                initParallax();
+            }
         }
 
         // Initialize Motion effects after DOM is ready
