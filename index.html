@@ -638,6 +638,230 @@
             z-index: -1;
         }
 
+        /* ============ MOTION.DEV INSPIRED ANIMATIONS ============ */
+
+        /* Split-text animation for hero heading */
+        .hero h1 {
+            overflow: hidden;
+        }
+
+        .hero h1 .char {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(50px) rotateX(-90deg);
+            animation: revealChar 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+        }
+
+        @keyframes revealChar {
+            to {
+                opacity: 1;
+                transform: translateY(0) rotateX(0);
+            }
+        }
+
+        /* Magnetic button effect */
+        .btn-magnetic {
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+
+        /* Enhanced neon glow - Motion.dev style */
+        .neon-glow {
+            box-shadow:
+                0 0 10px rgba(0, 212, 170, 0.3),
+                0 0 20px rgba(0, 212, 170, 0.2),
+                0 0 30px rgba(0, 212, 170, 0.1),
+                0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: box-shadow 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+
+        .neon-glow:hover {
+            box-shadow:
+                0 0 20px rgba(0, 212, 170, 0.5),
+                0 0 40px rgba(0, 212, 170, 0.3),
+                0 0 60px rgba(0, 212, 170, 0.2),
+                0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Spring-based bounce animation */
+        @keyframes springBounce {
+            0% {
+                transform: scale(0.8) translateY(20px);
+                opacity: 0;
+            }
+            40% {
+                transform: scale(1.05) translateY(-5px);
+                opacity: 1;
+            }
+            60% {
+                transform: scale(0.98) translateY(2px);
+            }
+            80% {
+                transform: scale(1.01) translateY(-1px);
+            }
+            100% {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .spring-bounce {
+            animation: springBounce 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        /* Staggered feature cards */
+        .feature-card.visible {
+            animation: springBounce 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+        .feature-card:nth-child(4) { animation-delay: 0.4s; }
+        .feature-card:nth-child(5) { animation-delay: 0.5s; }
+        .feature-card:nth-child(6) { animation-delay: 0.6s; }
+
+        /* Custom cursor trail */
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--secondary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.15s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+
+        .cursor-outline {
+            width: 32px;
+            height: 32px;
+            border: 2px solid var(--secondary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: all 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+            opacity: 0.5;
+        }
+
+        .cursor-outline.hover {
+            transform: scale(1.5);
+            opacity: 0.8;
+        }
+
+        /* Parallax layers */
+        .parallax-layer {
+            will-change: transform;
+            transition: transform 0.1s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+
+        /* Enhanced scroll reveal with scale */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(60px) scale(0.9);
+            transition: all 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Odometer effect for numbers */
+        .odometer-digit {
+            display: inline-block;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* Glowing accent lines */
+        .accent-line {
+            height: 2px;
+            background: linear-gradient(90deg,
+                transparent,
+                var(--secondary),
+                var(--primary),
+                var(--secondary),
+                transparent
+            );
+            box-shadow: 0 0 10px var(--secondary);
+            animation: lineShimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes lineShimmer {
+            0%, 100% {
+                opacity: 0.5;
+                transform: scaleX(0.8);
+            }
+            50% {
+                opacity: 1;
+                transform: scaleX(1);
+            }
+        }
+
+        /* Morphing gradient background */
+        .gradient-morph {
+            background: linear-gradient(
+                135deg,
+                rgba(50, 108, 229, 0.1),
+                rgba(0, 212, 170, 0.1),
+                rgba(139, 92, 246, 0.1)
+            );
+            background-size: 200% 200%;
+            animation: morphGradient 10s ease infinite;
+        }
+
+        @keyframes morphGradient {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        /* Hover tilt effect */
+        .tilt-card {
+            transform-style: preserve-3d;
+            transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+
+        /* Text gradient shimmer */
+        .text-shimmer {
+            background: linear-gradient(
+                90deg,
+                var(--primary),
+                var(--secondary),
+                var(--primary)
+            );
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: textShimmer 3s linear infinite;
+        }
+
+        @keyframes textShimmer {
+            0% {
+                background-position: -200% 0;
+            }
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        /* Button press effect */
+        .btn-press {
+            transform: scale(1);
+            transition: transform 0.1s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .btn-press:active {
+            transform: scale(0.95);
+        }
+
         /* Reduced motion support */
         @media (prefers-reduced-motion: reduce) {
             .animate-on-scroll,
@@ -649,8 +873,16 @@
             .workflow-tab,
             .stat-number,
             .code-block code,
-            .copy-btn {
-                animation: none;
+            .copy-btn,
+            .hero h1 .char,
+            .spring-bounce,
+            .scroll-reveal,
+            .cursor-dot,
+            .cursor-outline,
+            .accent-line,
+            .gradient-morph,
+            .text-shimmer {
+                animation: none !important;
                 transition: none;
                 opacity: 1;
                 transform: none;
@@ -666,6 +898,11 @@
             .code-block:hover,
             .install-card:hover {
                 transform: none;
+            }
+
+            .cursor-dot,
+            .cursor-outline {
+                display: none;
             }
         }
 
@@ -3417,6 +3654,218 @@ $env:Path += ";$env:USERPROFILE\bin"
             document.addEventListener('DOMContentLoaded', initWorkflowTabs);
         } else {
             initWorkflowTabs();
+        }
+
+        // ============ MOTION.DEV INSPIRED ANIMATIONS ============
+
+        // Split-text animation for hero heading
+        function splitText() {
+            const heading = document.querySelector('.hero h1');
+            if (!heading || heading.classList.contains('split')) return;
+
+            heading.classList.add('split');
+            const text = heading.innerHTML;
+            const lines = text.split('<br>');
+
+            heading.innerHTML = lines.map(line => {
+                return line.split('').map((char, i) => {
+                    if (char === ' ') return ' ';
+                    return `<span class="char" style="animation-delay: ${i * 0.03}s">${char}</span>`;
+                }).join('');
+            }).join('<br>');
+        }
+
+        // Magnetic button effect
+        function initMagneticButtons() {
+            const buttons = document.querySelectorAll('.btn');
+
+            buttons.forEach(btn => {
+                btn.classList.add('btn-magnetic', 'btn-press');
+
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+
+                    const distance = Math.sqrt(x * x + y * y);
+                    const maxDistance = 50;
+
+                    if (distance < maxDistance) {
+                        const strength = (maxDistance - distance) / maxDistance;
+                        const moveX = x * strength * 0.3;
+                        const moveY = y * strength * 0.3;
+
+                        btn.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.02)`;
+                    }
+                });
+
+                btn.addEventListener('mouseleave', () => {
+                    btn.style.transform = '';
+                });
+            });
+        }
+
+        // Custom cursor trail
+        function initCustomCursor() {
+            if (window.matchMedia('(pointer: coarse)').matches) return; // Skip on touch devices
+
+            const dot = document.createElement('div');
+            const outline = document.createElement('div');
+
+            dot.className = 'cursor-dot';
+            outline.className = 'cursor-outline';
+
+            document.body.appendChild(dot);
+            document.body.appendChild(outline);
+
+            let mouseX = 0, mouseY = 0;
+            let dotX = 0, dotY = 0;
+            let outlineX = 0, outlineY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            // Smooth animation loop
+            function animate() {
+                // Smooth follow with easing
+                dotX += (mouseX - dotX) * 0.25;
+                dotY += (mouseY - dotY) * 0.25;
+                outlineX += (mouseX - outlineX) * 0.15;
+                outlineY += (mouseY - outlineY) * 0.15;
+
+                dot.style.left = dotX + 'px';
+                dot.style.top = dotY + 'px';
+                outline.style.left = outlineX - 16 + 'px';
+                outline.style.top = outlineY - 16 + 'px';
+
+                requestAnimationFrame(animate);
+            }
+            animate();
+
+            // Hover effect on interactive elements
+            const interactiveElements = document.querySelectorAll('a, button, .btn, .copy-btn');
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => outline.classList.add('hover'));
+                el.addEventListener('mouseleave', () => outline.classList.remove('hover'));
+            });
+        }
+
+        // Enhanced scroll reveal with spring animation
+        function initScrollReveal() {
+            const reveals = document.querySelectorAll('.animate-on-scroll');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('spring-bounce');
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -100px 0px' });
+
+            reveals.forEach(el => observer.observe(el));
+        }
+
+        // Parallax effect on scroll
+        function initParallax() {
+            const parallaxElements = [
+                { selector: '.floating-orbs .orb-1', speed: 0.3 },
+                { selector: '.floating-orbs .orb-2', speed: 0.5 },
+                { selector: '.floating-orbs .orb-3', speed: 0.4 },
+                { selector: '.gradient-mesh', speed: 0.2 }
+            ];
+
+            let ticking = false;
+
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    requestAnimationFrame(() => {
+                        const scrollY = window.pageYOffset;
+
+                        parallaxElements.forEach(({ selector, speed }) => {
+                            const el = document.querySelector(selector);
+                            if (el) {
+                                el.style.transform = `translateY(${scrollY * speed}px)`;
+                            }
+                        });
+
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+        }
+
+        // Add neon glow to buttons and cards
+        function initNeonGlow() {
+            document.querySelectorAll('.btn-primary').forEach(btn => {
+                btn.classList.add('neon-glow');
+            });
+
+            document.querySelectorAll('.install-card').forEach(card => {
+                card.classList.add('gradient-morph');
+            });
+        }
+
+        // Card tilt effect on mouse move
+        function initCardTilt() {
+            const cards = document.querySelectorAll('.feature-card, .doc-card, .usecase-card');
+
+            cards.forEach(card => {
+                card.classList.add('tilt-card');
+
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+
+                    const rotateX = ((y - centerY) / centerY) * 5;
+                    const rotateY = ((x - centerX) / centerX) * 5;
+
+                    card.style.transform = `perspective(1000px) rotateX(${-rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = '';
+                });
+            });
+        }
+
+        // Add text shimmer to main heading on load
+        function initTextShimmer() {
+            const badge = document.querySelector('.hero-badge span:last-child');
+            if (badge) {
+                badge.classList.add('text-shimmer');
+            }
+        }
+
+        // Initialize all Motion.dev-inspired effects
+        function initMotionEffects() {
+            // Check if reduced motion is preferred
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                return;
+            }
+
+            setTimeout(splitText, 100);
+            initMagneticButtons();
+            initCustomCursor();
+            initScrollReveal();
+            initParallax();
+            initNeonGlow();
+            initCardTilt();
+            initTextShimmer();
+        }
+
+        // Initialize Motion effects after DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initMotionEffects);
+        } else {
+            initMotionEffects();
         }
     </script>
 </body>
