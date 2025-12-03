@@ -83,15 +83,15 @@
 
         /* ============ ENHANCED ANIMATIONS ============ */
 
-        /* Scroll-triggered fade-in animations */
+        /* Scroll-triggered fade-in animations - lightweight */
         .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s cubic-bezier(0.22, 0.61, 0.36, 1),
-                        transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+            opacity: 1;
+            transform: translateY(0);
+            /* Content is always visible by default for instant loading */
         }
 
         .animate-on-scroll.visible {
+            /* No animation needed - content already visible */
             opacity: 1;
             transform: translateY(0);
         }
@@ -340,20 +340,11 @@
             100% { background-position: 200% 0; }
         }
 
-        /* Hero entrance animation */
+        /* Hero entrance animation - DISABLED FOR INSTANT LOAD */
         .hero-content {
-            animation: heroEntrance 1s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
-        }
-
-        @keyframes heroEntrance {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            /* No animation - instant display for better performance */
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* Terminal typing cursor effect */
@@ -683,43 +674,18 @@
                 0 8px 24px rgba(0, 0, 0, 0.4);
         }
 
-        /* Spring-based bounce animation */
-        @keyframes springBounce {
-            0% {
-                transform: scale(0.8) translateY(20px);
-                opacity: 0;
-            }
-            40% {
-                transform: scale(1.05) translateY(-5px);
-                opacity: 1;
-            }
-            60% {
-                transform: scale(0.98) translateY(2px);
-            }
-            80% {
-                transform: scale(1.01) translateY(-1px);
-            }
-            100% {
-                transform: scale(1) translateY(0);
-                opacity: 1;
-            }
-        }
-
+        /* Spring-based bounce animation - DISABLED FOR PERFORMANCE */
+        /* Cards are now always visible for instant loading */
         .spring-bounce {
-            animation: springBounce 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            /* No animation - instant display */
         }
 
-        /* Staggered feature cards */
+        /* Staggered feature cards - DISABLED */
         .feature-card.visible {
-            animation: springBounce 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            /* Content always visible, no animation delays */
+            opacity: 1;
+            transform: none;
         }
-
-        .feature-card:nth-child(1) { animation-delay: 0.1s; }
-        .feature-card:nth-child(2) { animation-delay: 0.2s; }
-        .feature-card:nth-child(3) { animation-delay: 0.3s; }
-        .feature-card:nth-child(4) { animation-delay: 0.4s; }
-        .feature-card:nth-child(5) { animation-delay: 0.5s; }
-        .feature-card:nth-child(6) { animation-delay: 0.6s; }
 
         /* Custom cursor trail */
         .cursor-dot {
@@ -758,11 +724,11 @@
             transition: transform 0.1s cubic-bezier(0.22, 0.61, 0.36, 1);
         }
 
-        /* Enhanced scroll reveal with scale */
+        /* Scroll reveal - DISABLED FOR PERFORMANCE */
         .scroll-reveal {
-            opacity: 0;
-            transform: translateY(60px) scale(0.9);
-            transition: all 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            /* Content always visible for instant loading */
         }
 
         .scroll-reveal.visible {
@@ -3752,20 +3718,14 @@ $env:Path += ";$env:USERPROFILE\bin"
             });
         }
 
-        // Enhanced scroll reveal with spring animation
+        // Simplified scroll reveal - no animation for instant display
         function initScrollReveal() {
+            // Disabled for performance - content is always visible
+            // No IntersectionObserver needed
             const reveals = document.querySelectorAll('.animate-on-scroll');
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('spring-bounce');
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1, rootMargin: '0px 0px -100px 0px' });
-
-            reveals.forEach(el => observer.observe(el));
+            reveals.forEach(el => {
+                el.classList.add('visible');
+            });
         }
 
         // Parallax effect on scroll
