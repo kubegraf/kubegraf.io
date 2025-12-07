@@ -2306,6 +2306,8 @@
             gap: 2rem;
             max-width: 900px;
             margin: 0 auto;
+            overflow: visible;
+            padding-top: 1rem;
         }
 
         /* Pricing Cards */
@@ -2318,6 +2320,7 @@
             flex-direction: column;
             position: relative;
             transition: all 0.3s ease;
+            overflow: visible;
         }
 
         .pricing-card:hover {
@@ -2351,16 +2354,20 @@
 
         .featured-badge {
             position: absolute;
-            top: -12px;
-            right: 20px;
-            background: linear-gradient(135deg, rgba(50, 108, 229, 0.8), rgba(74, 222, 128, 0.6));
+            top: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, rgba(50, 108, 229, 0.9), rgba(74, 222, 128, 0.7));
             color: white;
-            padding: 0.4rem 1rem;
+            padding: 0.5rem 1.2rem;
             border-radius: 20px;
             font-size: 0.75rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            white-space: nowrap;
+            z-index: 10;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
         .plan-header {
@@ -2891,16 +2898,55 @@
 
         .install-command {
             background: rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(50, 108, 229, 0.2);
+            border: 1px solid rgba(50, 108, 229, 0.3);
             border-radius: 8px;
             padding: 1rem;
+            padding-right: 4rem;
             font-family: 'Monaco', 'Menlo', monospace;
             font-size: 0.85rem;
-            color: rgba(74, 222, 128, 0.9);
+            color: rgba(74, 222, 128, 0.95);
             overflow-x: auto;
             margin: 0;
             line-height: 1.6;
             white-space: pre;
+            transition: all 0.2s ease;
+        }
+        
+        .install-command:hover {
+            border-color: rgba(50, 108, 229, 0.5);
+            background: rgba(0, 0, 0, 0.7);
+        }
+        
+        .install-method {
+            position: relative;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: rgba(50, 108, 229, 0.2);
+            border: 1px solid rgba(50, 108, 229, 0.3);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+            z-index: 10;
+        }
+        
+        .copy-btn:hover {
+            background: rgba(50, 108, 229, 0.3);
+            border-color: rgba(50, 108, 229, 0.5);
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .copy-btn.copied {
+            background: rgba(74, 222, 128, 0.2);
+            border-color: rgba(74, 222, 128, 0.4);
+            color: rgba(74, 222, 128, 0.9);
         }
 
         /* Responsive */
@@ -2922,8 +2968,10 @@
 
         .engineering-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 1rem;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
         .eng-card {
@@ -2982,9 +3030,23 @@
         }
 
         /* Responsive */
+        @media (max-width: 900px) {
+            .engineering-cards {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 0.75rem;
+            }
+        }
+        
         @media (max-width: 768px) {
             .engineering-cards {
                 grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .engineering-cards {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.5rem;
             }
         }
     </style>
@@ -3069,16 +3131,25 @@
                             <span class="hero-everyone">For Everyone</span>
                         </h1>
                         <p class="hero-intro">The first AI-native Kubernetes control plane. Deploy, debug, and scale with natural language. Built for every engineer, from beginners to experts.</p>
+                        <div class="hero-pills" style="margin-bottom: 2rem;">
+                            <span class="hero-pill">✨ AI-Powered</span>
+                            <span class="hero-pill">🚀 Fast Setup</span>
+                            <span class="hero-pill">🔒 Privacy First</span>
+                        </div>
                         <div class="hero-actions">
-                            <a class="btn btn-primary" href="#installation">Get started</a>
+                            <a class="btn btn-primary" href="#installation">Get started free</a>
                             <a class="btn btn-ghost" href="#insights">Watch demo</a>
                         </div>
+                        <p style="margin-top: 1.5rem; font-size: 0.875rem; color: var(--muted);">⚡ Install in seconds · 🎯 Works offline · 🔐 Completely local, zero security compromise</p>
                     </div>
                     <div class="hero-panel" aria-live="polite">
                         <h3>AI Control Plane</h3>
                         <p>Live diagnostics · Cluster + App Continuity</p>
                         <p>Unified Control Plane · All your signals in one glance · Terminal workflows + browser insights</p>
                         <p>Live metrics, logs, and event correlation · AI-runbooks surface next steps · Multi-cluster GitOps ready</p>
+                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                            <p style="font-size: 0.85rem; color: var(--secondary); font-weight: 600;">🔒 100% Local · Zero Cloud Dependencies · Zero Security Compromise</p>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -3161,8 +3232,8 @@
                         </article>
                         <article class="highlight-card" data-color="cyan">
                             <div class="highlight-icon">🔒</div>
-                            <h3>Your Data Stays Local</h3>
-                            <p>~15MB binary runs entirely on your machine. No data leaves your cluster. Works offline, behind VPNs, and in air-gapped environments.</p>
+                            <h3>Completely Local, Zero Security Compromise</h3>
+                            <p>~15MB binary runs entirely on your machine. No data leaves your cluster—ever. Works completely offline, behind VPNs, and in air-gapped environments. Zero cloud dependencies, zero security risks.</p>
                             <div class="highlight-badge">Privacy First</div>
                         </article>
                         <article class="highlight-card" data-color="purple">
@@ -3170,6 +3241,60 @@
                             <h3>Built for GitOps Teams</h3>
                             <p>Native integrations for ArgoCD and Flux. Visualize sync status, detect drift, and trigger reconciliation—all from your preferred interface.</p>
                             <div class="highlight-badge">GitOps Ready</div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section id="features" style="position: relative;">
+                <div class="floating-particle particle-tiny particle-blue" style="top: 5%; left: 3%; animation-delay: 0s;"></div>
+                <div class="floating-particle particle-small particle-green" style="top: 15%; right: 8%; animation-delay: 1.5s;"></div>
+                <div class="floating-particle particle-medium particle-purple" style="bottom: 25%; left: 10%; animation-delay: 3s;"></div>
+                <div class="floating-particle particle-large particle-teal" style="top: 50%; right: 5%; animation-delay: 2s;"></div>
+                <div class="floating-particle particle-xl particle-pink" style="bottom: 10%; right: 15%; animation-delay: 4s;"></div>
+
+                <div class="page-inner section-content fade-in-section stagger">
+                    <div class="section-header">
+                        <p class="eyebrow">Powerful Features</p>
+                        <h2>Everything you need for modern Kubernetes</h2>
+                        <p>From app deployment to ML workloads, KubeGraf provides the tools you need to manage your clusters effectively.</p>
+                    </div>
+                    <div class="highlights-grid">
+                        <article class="highlight-card" data-color="primary">
+                            <div class="highlight-icon">🛒</div>
+                            <h3>App Marketplace</h3>
+                            <p>One-click deployment of 50+ applications including Istio, ArgoCD, Kong, Vault, and more. Install, configure, and manage with ease.</p>
+                            <div class="highlight-badge">Marketplace</div>
+                        </article>
+                        <article class="highlight-card" data-color="secondary">
+                            <div class="highlight-icon">🤖</div>
+                            <h3>ML Training Jobs</h3>
+                            <p>Run ML training workloads on Kubernetes with GPU support. Submit Python scripts, configure resources, and stream logs in real-time.</p>
+                            <div class="highlight-badge">ML Workloads</div>
+                        </article>
+                        <article class="highlight-card" data-color="cyan">
+                            <div class="highlight-icon">🚀</div>
+                            <h3>ML Inference Services</h3>
+                            <p>Deploy ML models as production-ready APIs. Support for multiple runtimes including FastAPI, MLServer, BentoML, and KServe with auto-scaling.</p>
+                            <div class="highlight-badge">ML Workloads</div>
+                        </article>
+                        <article class="highlight-card" data-color="purple">
+                            <div class="highlight-icon">📊</div>
+                            <h3>MLflow Integration</h3>
+                            <p>Experiment tracking, model registry, and ML lifecycle management. Deploy MLflow with Helm, configure storage backends, and manage models.</p>
+                            <div class="highlight-badge">ML Workloads</div>
+                        </article>
+                        <article class="highlight-card" data-color="primary">
+                            <div class="highlight-icon">🍽️</div>
+                            <h3>Feast Feature Store</h3>
+                            <p>Manage feature stores for ML pipelines. Deploy Feast for feature engineering, versioning, and serving features to training and inference workloads.</p>
+                            <div class="highlight-badge">ML Workloads</div>
+                        </article>
+                        <article class="highlight-card" data-color="secondary">
+                            <div class="highlight-icon">🎮</div>
+                            <h3>GPU Management</h3>
+                            <p>Detect and manage GPU resources across your cluster. Monitor GPU utilization, allocate GPUs to ML workloads, and optimize resource usage.</p>
+                            <div class="highlight-badge">Hardware</div>
                         </article>
                     </div>
                 </div>
@@ -3259,7 +3384,7 @@
                 <div class="floating-particle particle-xl particle-teal" style="bottom: 15%; right: 12%; animation-delay: 3.5s;"></div>
 
                 <div class="page-inner section-content fade-in-section stagger">
-                    <div class="section-header" style="text-align: center; margin-bottom: 3rem;">
+                    <div class="section-header" style="text-align: center; margin-bottom: 3rem; max-width: 900px; margin-left: auto; margin-right: auto;">
                         <p class="eyebrow">Get Started Free</p>
                         <h2>Always Free, Always Open Source</h2>
                         <p>Start with full free features. Upgrade to Pro when you're ready for advanced capabilities.</p>
@@ -3276,7 +3401,6 @@
                                 <li>✓ Unlimited local clusters</li>
                                 <li>✓ Multi-cluster support (up to 5 clusters)</li>
                                 <li>✓ Basic observability</li>
-                                <li>✓ Community support</li>
                             </ul>
                             <span class="cta-link">
                                 <a class="btn btn-primary" href="#installation">Get Started Free</a>
@@ -3286,14 +3410,13 @@
                             <div class="featured-badge">Most Popular</div>
                             <div class="plan-header">
                                 <h3>Pro</h3>
-                                <p style="font-size: 1.2rem; margin-top: 0.5rem;"><span style="font-size: 0.85rem;">$25/month</span></p>
+                                <p style="font-size: 0.95rem; color: var(--secondary); margin-top: 0.5rem; font-weight: 500;">🚀 Grab it soon - Limited time offer</p>
                             </div>
                             <ul class="plan-features">
                                 <li>✓ Everything in Free, plus:</li>
                                 <li>✓ Brain Panel with AI diagnostics</li>
                                 <li>✓ Advanced tools & exports</li>
                                 <li>✓ Unlimited cluster connections</li>
-                                <li>✓ Priority support</li>
                             </ul>
                             <span class="cta-link">
                                 <a class="btn btn-primary" href="#installation">Start 14-Day Trial</a>
@@ -3504,7 +3627,7 @@
                                     <span class="mockup-dot"></span>
                                     <span class="mockup-dot"></span>
                                     <span class="mockup-dot"></span>
-                                    <div class="mockup-title">localhost:8080</div>
+                                    <div class="mockup-title">localhost:3000</div>
                                 </div>
                                 <div class="mockup-content">
                                     <div class="dashboard-metrics">
@@ -3570,7 +3693,11 @@
                     </div>
 
                     <div class="install-tabs-wrapper">
-                        <h3 style="text-align: center; margin-bottom: 1.5rem;">Quick Install</h3>
+                        <div style="text-align: center; margin-bottom: 1rem;">
+                            <p class="eyebrow" style="margin-bottom: 0.5rem;">Get Started in Seconds</p>
+                            <h3 style="text-align: center; margin-bottom: 0.5rem; font-size: 2rem;">Quick Install</h3>
+                            <p style="color: var(--muted); font-size: 0.95rem; max-width: 600px; margin: 0 auto 1.5rem;">Choose your platform and install KubeGraf with a single command. No dependencies required.</p>
+                        </div>
 
                         <!-- Hidden radio inputs for tab switching -->
                         <input type="radio" id="install-mac" name="install-platform" checked hidden>
@@ -3616,12 +3743,18 @@
                             <div class="install-panel" id="mac-panel">
                                 <div class="install-method">
                                     <p class="method-label">Quick Install (Recommended)</p>
-                                    <pre class="install-command">curl -sSL https://kubegraf.io/install.sh | bash</pre>
-                                    <p style="font-size: 0.875rem; color: #666; margin-top: 0.5rem;">Automatically detects your architecture and installs the latest version</p>
+                                    <div style="position: relative;">
+                                        <pre class="install-command" id="mac-cmd-1">curl -sSL https://kubegraf.io/install.sh | bash</pre>
+                                        <button class="copy-btn" onclick="copyToClipboard('mac-cmd-1', this)">Copy</button>
+                                    </div>
+                                    <p style="font-size: 0.875rem; color: rgba(255,255,255,0.6); margin-top: 0.5rem;">Automatically detects your architecture and installs the latest version</p>
                                 </div>
                                 <div class="install-method">
                                     <p class="method-label">Homebrew</p>
-                                    <pre class="install-command">brew install kubegraf/tap/kubegraf</pre>
+                                    <div style="position: relative;">
+                                        <pre class="install-command" id="mac-cmd-2">brew install kubegraf/tap/kubegraf</pre>
+                                        <button class="copy-btn" onclick="copyToClipboard('mac-cmd-2', this)">Copy</button>
+                                    </div>
                                 </div>
                             </div>
 
@@ -3629,15 +3762,21 @@
                             <div class="install-panel" id="linux-panel">
                                 <div class="install-method">
                                     <p class="method-label">Quick Install (Recommended)</p>
-                                    <pre class="install-command">curl -sSL https://kubegraf.io/install.sh | bash</pre>
-                                    <p style="font-size: 0.875rem; color: #666; margin-top: 0.5rem;">Automatically detects your architecture and installs the latest version. Requires curl and tar.</p>
+                                    <div style="position: relative;">
+                                        <pre class="install-command" id="linux-cmd-1">curl -sSL https://kubegraf.io/install.sh | bash</pre>
+                                        <button class="copy-btn" onclick="copyToClipboard('linux-cmd-1', this)">Copy</button>
+                                    </div>
+                                    <p style="font-size: 0.875rem; color: rgba(255,255,255,0.6); margin-top: 0.5rem;">Automatically detects your architecture and installs the latest version. Requires curl and tar.</p>
                                 </div>
                                 <div class="install-method">
                                     <p class="method-label">Manual Download</p>
-                                    <pre class="install-command"># Download from GitHub Releases
+                                    <div style="position: relative;">
+                                        <pre class="install-command" id="linux-cmd-2"># Download from GitHub Releases
 wget https://github.com/kubegraf/kubegraf/releases/latest/download/kubegraf-linux-amd64.tar.gz
 tar -xzf kubegraf-linux-amd64.tar.gz
 sudo mv kubegraf /usr/local/bin/</pre>
+                                        <button class="copy-btn" onclick="copyToClipboard('linux-cmd-2', this)">Copy</button>
+                                    </div>
                                 </div>
                             </div>
 
@@ -3645,13 +3784,19 @@ sudo mv kubegraf /usr/local/bin/</pre>
                             <div class="install-panel" id="windows-panel">
                                 <div class="install-method">
                                     <p class="method-label">PowerShell (Recommended)</p>
-                                    <pre class="install-command">irm https://kubegraf.io/install.ps1 | iex</pre>
-                                    <p style="font-size: 0.875rem; color: #666; margin-top: 0.5rem;">Automatically downloads, installs, and adds to PATH. Requires PowerShell 5.1+.</p>
+                                    <div style="position: relative;">
+                                        <pre class="install-command" id="win-cmd-1">irm https://kubegraf.io/install.ps1 | iex</pre>
+                                        <button class="copy-btn" onclick="copyToClipboard('win-cmd-1', this)">Copy</button>
+                                    </div>
+                                    <p style="font-size: 0.875rem; color: rgba(255,255,255,0.6); margin-top: 0.5rem;">Automatically downloads, installs, and adds to PATH. Requires PowerShell 5.1+.</p>
                                 </div>
                                 <div class="install-method">
                                     <p class="method-label">Alternative: Download Script</p>
-                                    <pre class="install-command">Invoke-WebRequest -Uri https://kubegraf.io/install.ps1 -OutFile install.ps1
+                                    <div style="position: relative;">
+                                        <pre class="install-command" id="win-cmd-2">Invoke-WebRequest -Uri https://kubegraf.io/install.ps1 -OutFile install.ps1
 .\install.ps1</pre>
+                                        <button class="copy-btn" onclick="copyToClipboard('win-cmd-2', this)">Copy</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -3669,17 +3814,16 @@ sudo mv kubegraf /usr/local/bin/</pre>
                 <div class="floating-particle particle-medium particle-green" style="top: 30%; left: 3%; animation-delay: 6s;"></div>
 
                 <div class="page-inner section-content fade-in-section">
-                    <h3>Open Source for Kubernetes engineers</h3>
-                    <p>Ready to simplify your Kubernetes workflow? Join thousands of engineers using KubeGraf to deploy, monitor, and manage their clusters with confidence.</p>
+                    <h3>Ready to get started?</h3>
+                    <p>Join thousands of engineers using KubeGraf to deploy, monitor, and manage their clusters with confidence. Start free today.</p>
                     <div class="hero-actions" style="justify-content: center; margin-top: 1rem;">
                         <a class="btn btn-primary" href="#installation">Get Started Free</a>
-                        <a class="btn btn-ghost" href="https://github.com/kubegraf/kubegraf">Star on GitHub</a>
                     </div>
                     <div class="tagline">
                         <span>~15MB binary</span>
                         <span>Zero dependencies</span>
-                        <span>Runs locally</span>
-                        <span>Your data stays private</span>
+                        <span>Completely local</span>
+                        <span>Zero security compromise</span>
                     </div>
                 </div>
             </section>
@@ -3739,6 +3883,32 @@ sudo mv kubegraf /usr/local/bin/</pre>
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
             document.querySelectorAll('.fade-in-section').forEach(section => {
                 section.classList.add('visible');
+            });
+        }
+        
+        // Copy to clipboard functionality
+        function copyToClipboard(elementId, button) {
+            const element = document.getElementById(elementId);
+            const text = element.textContent.trim();
+            
+            // Remove any leading $ or > characters
+            const cleanText = text.replace(/^[\$>]\s*/, '').trim();
+            
+            navigator.clipboard.writeText(cleanText).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+                button.textContent = 'Error';
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                }, 2000);
             });
         }
     </script>
