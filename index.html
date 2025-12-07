@@ -1387,6 +1387,498 @@
                 transition-duration: 0.01ms !important;
             }
         }
+
+        /* Feature Highlights Section */
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 769px) {
+            .highlights-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .highlight-card {
+            background: linear-gradient(135deg,
+                rgba(255, 255, 255, 0.06),
+                rgba(50, 108, 229, 0.04));
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .highlight-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg,
+                rgba(255, 255, 255, 0.05) 0%,
+                transparent 50%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3),
+                        0 0 30px rgba(50, 108, 229, 0.2);
+        }
+
+        .highlight-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Color-coded top borders */
+        .highlight-card[data-color="primary"] {
+            border-top: 3px solid rgba(50, 108, 229, 0.5);
+        }
+
+        .highlight-card[data-color="secondary"] {
+            border-top: 3px solid rgba(74, 222, 128, 0.5);
+        }
+
+        .highlight-card[data-color="cyan"] {
+            border-top: 3px solid rgba(0, 212, 170, 0.5);
+        }
+
+        .highlight-card[data-color="purple"] {
+            border-top: 3px solid rgba(139, 92, 246, 0.5);
+        }
+
+        .highlight-icon {
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg,
+                rgba(50, 108, 229, 0.2),
+                rgba(0, 212, 170, 0.1));
+            border-radius: 16px;
+            font-size: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .highlight-card:hover .highlight-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .highlight-card h3 {
+            margin: 0.5rem 0 0;
+            font-size: 1.25rem;
+            color: #fff;
+        }
+
+        .highlight-card p {
+            color: var(--muted);
+            margin: 0;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .highlight-badge {
+            display: inline-flex;
+            padding: 0.4rem 1rem;
+            background: rgba(74, 222, 128, 0.15);
+            border: 1px solid rgba(74, 222, 128, 0.3);
+            border-radius: 999px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            color: var(--secondary);
+            align-self: flex-start;
+            margin-top: auto;
+        }
+
+        @media (max-width: 768px) {
+            .highlight-card {
+                padding: 1.75rem;
+            }
+
+            .highlight-card:hover {
+                transform: translateY(-8px) scale(1.02);
+            }
+        }
+
+        /* Pricing Toggle */
+        .pricing-toggle {
+            display: flex;
+            justify-content: center;
+            margin: 2rem auto 3rem;
+        }
+
+        .toggle-container {
+            display: inline-flex;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            padding: 0.4rem;
+            position: relative;
+            backdrop-filter: blur(12px);
+        }
+
+        .toggle-option {
+            padding: 0.85rem 2rem;
+            font-weight: 600;
+            cursor: pointer;
+            color: rgba(226, 232, 240, 0.7);
+            z-index: 1;
+            position: relative;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        #view-individuals:checked ~ .toggle-container label[for="view-individuals"],
+        #view-organizations:checked ~ .toggle-container label[for="view-organizations"] {
+            color: #fff;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 0.4rem;
+            left: 0.4rem;
+            height: calc(100% - 0.8rem);
+            width: calc(50% - 0.4rem);
+            background: linear-gradient(135deg,
+                rgba(50, 108, 229, 0.3),
+                rgba(0, 212, 170, 0.2));
+            border: 1px solid rgba(74, 222, 128, 0.3);
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(50, 108, 229, 0.3);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 0;
+        }
+
+        #view-individuals:checked ~ .toggle-container .toggle-slider {
+            transform: translateX(0);
+        }
+
+        #view-organizations:checked ~ .toggle-container .toggle-slider {
+            transform: translateX(100%);
+        }
+
+        /* Pricing Views */
+        .pricing-view {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            max-height: 0;
+            overflow: hidden;
+        }
+
+        #view-individuals:checked ~ #view-individuals-content,
+        #view-organizations:checked ~ #view-organizations-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            max-height: 1000px;
+            overflow: visible;
+        }
+
+        /* Pricing Grids */
+        .pricing-grid-dual {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .pricing-grid-3col {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @media (max-width: 768px) {
+            .pricing-grid-3col {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Pricing Card Enhancements */
+        .pricing-card {
+            position: relative;
+            z-index: 1;
+        }
+
+        .pricing-card.featured {
+            transform: scale(1.05);
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: rgba(74, 222, 128, 0.2);
+            border: 1px solid rgba(74, 222, 128, 0.4);
+            color: var(--secondary);
+            padding: 0.35rem 0.85rem;
+            border-radius: 999px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+        }
+
+        .plan-header h3 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .plan-price {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .price-amount {
+            font-size: 2.75rem;
+            font-weight: 700;
+        }
+
+        .price-period {
+            font-size: 0.95rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .plan-description {
+            color: var(--muted);
+            margin: 0.5rem 0 1.25rem;
+            font-size: 0.95rem;
+        }
+
+        .plan-features {
+            list-style: none;
+            padding: 0;
+            margin: 1.25rem 0;
+            color: rgba(226, 232, 240, 0.9);
+            line-height: 2;
+        }
+
+        .plan-features li {
+            font-size: 0.95rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .plan-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        @media (max-width: 1024px) {
+            .pricing-card.featured {
+                transform: scale(1.03);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .pricing-grid-dual {
+                gap: 1.5rem;
+            }
+
+            .featured-badge {
+                top: 1rem;
+                right: 1rem;
+            }
+        }
+
+        /* Competitor Comparison Table */
+        .comparison-table-container {
+            overflow-x: auto;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: linear-gradient(135deg,
+                rgba(255, 255, 255, 0.04),
+                rgba(50, 108, 229, 0.04));
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 0.95rem;
+        }
+
+        .comparison-table thead {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+        }
+
+        .comparison-table th {
+            padding: 1.25rem;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.85rem;
+            font-weight: 700;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(226, 232, 240, 0.9);
+        }
+
+        .comparison-table td {
+            padding: 1.25rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+        }
+
+        .feature-column {
+            text-align: left;
+            min-width: 200px;
+            position: sticky;
+            left: 0;
+            background: rgba(15, 23, 42, 0.95);
+            z-index: 9;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            font-weight: 500;
+        }
+
+        .feature-name {
+            text-align: left;
+            position: sticky;
+            left: 0;
+            background: rgba(2, 6, 23, 0.8);
+            z-index: 8;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .kubegraf-column {
+            background: linear-gradient(180deg,
+                rgba(50, 108, 229, 0.15),
+                rgba(0, 212, 170, 0.08));
+            border-left: 2px solid rgba(74, 222, 128, 0.3);
+            border-right: 2px solid rgba(74, 222, 128, 0.3);
+            font-weight: 600;
+        }
+
+        .comparison-table thead .kubegraf-column {
+            background: linear-gradient(180deg,
+                rgba(50, 108, 229, 0.25),
+                rgba(0, 212, 170, 0.15));
+        }
+
+        .product-header {
+            display: inline-flex;
+            padding: 0.5rem 1rem;
+            background: rgba(74, 222, 128, 0.1);
+            border: 1px solid rgba(74, 222, 128, 0.3);
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .check-icon,
+        .cross-icon,
+        .neutral-icon {
+            display: inline-flex;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .check-icon {
+            background: rgba(74, 222, 128, 0.2);
+            color: var(--secondary);
+            border: 1px solid rgba(74, 222, 128, 0.3);
+        }
+
+        .cross-icon {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .neutral-icon {
+            background: rgba(251, 191, 36, 0.15);
+            color: #fbbf24;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+        }
+
+        .feature-value {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            background: rgba(50, 108, 229, 0.1);
+            border: 1px solid rgba(50, 108, 229, 0.2);
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: rgba(226, 232, 240, 0.9);
+        }
+
+        .category-row {
+            background: rgba(50, 108, 229, 0.1);
+            border-bottom: 2px solid rgba(50, 108, 229, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .category-row td {
+            padding: 1rem 1.25rem;
+        }
+
+        @media (max-width: 768px) {
+            .comparison-table {
+                font-size: 0.85rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 0.85rem 0.75rem;
+            }
+
+            .feature-column,
+            .feature-name {
+                min-width: 140px;
+                font-size: 0.85rem;
+            }
+
+            .check-icon,
+            .cross-icon,
+            .neutral-icon {
+                width: 28px;
+                height: 28px;
+                font-size: 0.95rem;
+            }
+
+            .product-header {
+                font-size: 0.8rem;
+                padding: 0.35rem 0.7rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1504,33 +1996,41 @@
                 </div>
             </section>
 
-            <section class="stats-section" id="insights" style="position: relative;">
+            <section class="highlights-section" id="insights" style="position: relative;">
                 <div class="floating-particle particle-small" style="top: 15%; right: 10%; animation-delay: 1s;"></div>
                 <div class="floating-particle particle-medium" style="bottom: 25%; left: 5%; animation-delay: 3s;"></div>
                 <div class="floating-particle particle-large" style="top: 50%; right: 5%; animation-delay: 5s;"></div>
                 <div class="section-shell">
                     <div class="section-bubble bubble-3"></div>
                     <div class="section-header">
-                        <p class="eyebrow">Impact</p>
-                        <h2>AI Infused Confidence</h2>
-                        <p>Operational clarity meets automation so your team can move as fast as your roadmap demands.</p>
+                        <p class="eyebrow">Why KubeGraf</p>
+                        <h2>Built for Speed and Insight</h2>
+                        <p>Four core capabilities that set KubeGraf apart for modern Kubernetes teams.</p>
                     </div>
-                    <div class="stats-grid">
-                        <article class="stat-card">
-                            <p class="value">50K+</p>
-                            <p class="label">Downloads</p>
+                    <div class="highlights-grid">
+                        <article class="highlight-card" data-color="primary">
+                            <div class="highlight-icon">🎯</div>
+                            <h3>Three Ways to Work</h3>
+                            <p>Terminal UI for speed, Web Dashboard for visibility, or Modern SPA for collaboration. All interfaces share real-time data—choose what fits your workflow.</p>
+                            <div class="highlight-badge">Multi-Interface</div>
                         </article>
-                        <article class="stat-card">
-                            <p class="value">99.9%</p>
-                            <p class="label">Uptime SLA</p>
+                        <article class="highlight-card" data-color="secondary">
+                            <div class="highlight-icon">🧠</div>
+                            <h3>Context-Aware Diagnostics</h3>
+                            <p>Brain Panel analyzes 24-72 hours of cluster events, surfaces OOM warnings, scaling anomalies, and reliability issues with actionable recommendations.</p>
+                            <div class="highlight-badge">AI Intelligence</div>
                         </article>
-                        <article class="stat-card">
-                            <p class="value">15K+</p>
-                            <p class="label">Active Users</p>
+                        <article class="highlight-card" data-color="cyan">
+                            <div class="highlight-icon">🔒</div>
+                            <h3>Your Data Stays Local</h3>
+                            <p>~15MB binary runs entirely on your machine. No data leaves your cluster. Works offline, behind VPNs, and in air-gapped environments.</p>
+                            <div class="highlight-badge">Privacy First</div>
                         </article>
-                        <article class="stat-card">
-                            <p class="value">4.9/5</p>
-                            <p class="label">User Rating</p>
+                        <article class="highlight-card" data-color="purple">
+                            <div class="highlight-icon">🔄</div>
+                            <h3>Built for GitOps Teams</h3>
+                            <p>Native integrations for ArgoCD and Flux. Visualize sync status, detect drift, and trigger reconciliation—all from your preferred interface.</p>
+                            <div class="highlight-badge">GitOps Ready</div>
                         </article>
                     </div>
                 </div>
@@ -1600,7 +2100,7 @@
                 </div>
             </section>
 
-            <section class="pricing" id="pricing" style="position: relative;">
+            <section class="pricing-dual" id="pricing" style="position: relative;">
                 <div class="floating-particle particle-small" style="top: 5%; right: 5%; animation-delay: 0s;"></div>
                 <div class="floating-particle particle-medium" style="bottom: 10%; left: 10%; animation-delay: 2.5s;"></div>
                 <div class="floating-particle particle-large" style="top: 40%; right: 3%; animation-delay: 4.5s;"></div>
@@ -1608,41 +2108,278 @@
                     <div class="section-bubble"></div>
                     <div class="section-header">
                         <p class="eyebrow">Pricing</p>
-                        <h2>Plans that grow with your Kubernetes maturity</h2>
-                        <p>Start lean, iterate with confidence, and unlock enterprise controls when you need guardrails and collaboration.</p>
+                        <h2>Plans for Every Team</h2>
+                        <p>Whether you're an individual developer or managing enterprise clusters, KubeGraf scales with your needs.</p>
                     </div>
-                    <div class="pricing-grid">
-                        <article class="pricing-card">
-                            <h3>Pro Plan</h3>
-                            <p class="price">$0</p>
-                            <p class="interval">per user · first year free</p>
-                            <p>All the capabilities individuals need to troubleshoot, optimize, and learn from their clusters.</p>
-                            <ul>
-                                <li>Full visibility into prompts, tooling, and feedback loops</li>
-                                <li>Cost, token, and latency breakdowns per request</li>
-                                <li>Waterfall view of dependencies & bottlenecks</li>
-                                <li>Insights panel with aggregates, outliers, and prompt replay</li>
-                            </ul>
-                            <span class="cta-link">
-                                <a class="btn btn-primary" href="#installation">Start free</a>
-                            </span>
-                        </article>
-                        <article class="pricing-card">
-                            <h3>Enterprise Plan</h3>
-                            <p class="price">Contact</p>
-                            <p class="interval">secure procurement</p>
-                            <p>Designed for organizations that demand security, controls, and white-glove support across teams.</p>
-                            <ul>
-                                <li>Everything in Pro plus enterprise-grade controls</li>
-                                <li>SSO, SCIM, centrally-managed policies, and VDI support</li>
-                                <li>Offline/air-gapped mode with invoiced purchasing</li>
-                                <li>Priority support, compliance assistance, and technical account manager</li>
-                            </ul>
-                            <span class="cta-link">
-                                <a class="btn btn-ghost" href="mailto:sales@kubegraf.io">Contact us</a>
-                            </span>
-                        </article>
+
+                    <!-- Pricing Toggle -->
+                    <div class="pricing-toggle">
+                        <input type="radio" id="view-individuals" name="pricing-view" checked hidden>
+                        <input type="radio" id="view-organizations" name="pricing-view" hidden>
+
+                        <div class="toggle-container">
+                            <label for="view-individuals" class="toggle-option">For Individuals</label>
+                            <label for="view-organizations" class="toggle-option">For Organizations</label>
+                            <div class="toggle-slider"></div>
+                        </div>
                     </div>
+
+                    <!-- Individuals Pricing -->
+                    <div class="pricing-view" id="view-individuals-content">
+                        <div class="pricing-grid-dual">
+                            <article class="pricing-card">
+                                <div class="plan-header">
+                                    <h3>Personal</h3>
+                                </div>
+                                <div class="plan-price">
+                                    <span class="price-amount">$0</span>
+                                    <span class="price-period">forever</span>
+                                </div>
+                                <p class="plan-description">For developers and learners</p>
+                                <ul class="plan-features">
+                                    <li>Unlimited local clusters</li>
+                                    <li>All three interfaces (Terminal, Web, SPA)</li>
+                                    <li>Multi-cluster management (up to 5 clusters)</li>
+                                    <li>Basic observability (logs, metrics, events)</li>
+                                    <li>Community support</li>
+                                    <li>Regular updates</li>
+                                </ul>
+                                <span class="cta-link">
+                                    <a class="btn btn-primary" href="#installation">Get Started Free</a>
+                                </span>
+                            </article>
+                            <article class="pricing-card featured">
+                                <div class="featured-badge">Most Popular</div>
+                                <div class="plan-header">
+                                    <h3>Plus</h3>
+                                </div>
+                                <div class="plan-price">
+                                    <span class="price-amount">$25</span>
+                                    <span class="price-period">per month</span>
+                                </div>
+                                <p class="plan-description">For power users and consultants</p>
+                                <ul class="plan-features">
+                                    <li>Everything in Personal, plus:</li>
+                                    <li>Brain Panel with AI diagnostics</li>
+                                    <li>Advanced troubleshooting tools</li>
+                                    <li>Unlimited cluster connections</li>
+                                    <li>Export capabilities</li>
+                                    <li>Priority community support</li>
+                                    <li>Early access to beta features</li>
+                                </ul>
+                                <span class="cta-link">
+                                    <a class="btn btn-primary" href="#installation">Start 14-Day Trial</a>
+                                </span>
+                            </article>
+                        </div>
+                    </div>
+
+                    <!-- Organizations Pricing -->
+                    <div class="pricing-view" id="view-organizations-content">
+                        <div class="pricing-grid-dual pricing-grid-3col">
+                            <article class="pricing-card">
+                                <div class="plan-header">
+                                    <h3>Team</h3>
+                                </div>
+                                <div class="plan-price">
+                                    <span class="price-amount">$0</span>
+                                    <span class="price-period">forever</span>
+                                </div>
+                                <p class="plan-description">For small teams (up to 5 users)</p>
+                                <ul class="plan-features">
+                                    <li>Everything in Personal, plus:</li>
+                                    <li>Shared cluster configurations</li>
+                                    <li>Team workspaces</li>
+                                    <li>Basic RBAC integration</li>
+                                    <li>Slack/Teams notifications</li>
+                                    <li>Email support</li>
+                                </ul>
+                                <span class="cta-link">
+                                    <a class="btn btn-primary" href="#installation">Get Started Free</a>
+                                </span>
+                            </article>
+                            <article class="pricing-card featured">
+                                <div class="featured-badge">Best for Growing Teams</div>
+                                <div class="plan-header">
+                                    <h3>Pro</h3>
+                                </div>
+                                <div class="plan-price">
+                                    <span class="price-amount">$25</span>
+                                    <span class="price-period">per user/month</span>
+                                </div>
+                                <p class="plan-description">For growing engineering teams</p>
+                                <ul class="plan-features">
+                                    <li>Everything in Team and Individual Plus, plus:</li>
+                                    <li>SSO (SAML, OIDC) integration</li>
+                                    <li>Advanced RBAC policies</li>
+                                    <li>Audit logs and compliance reporting</li>
+                                    <li>Custom retention policies</li>
+                                    <li>Dedicated support channel</li>
+                                    <li>SLA: 99.5% uptime</li>
+                                </ul>
+                                <span class="cta-link">
+                                    <a class="btn btn-primary" href="#installation">Start Team Trial</a>
+                                </span>
+                            </article>
+                            <article class="pricing-card">
+                                <div class="plan-header">
+                                    <h3>Enterprise</h3>
+                                </div>
+                                <div class="plan-price">
+                                    <span class="price-amount">Custom</span>
+                                    <span class="price-period">pricing</span>
+                                </div>
+                                <p class="plan-description">For organizations with complex needs</p>
+                                <ul class="plan-features">
+                                    <li>Everything in Pro, plus:</li>
+                                    <li>Air-gapped/offline deployment</li>
+                                    <li>VDI support</li>
+                                    <li>SCIM provisioning</li>
+                                    <li>Custom integrations</li>
+                                    <li>Priority phone support</li>
+                                    <li>Technical Account Manager</li>
+                                    <li>Custom SLA (up to 99.9%)</li>
+                                </ul>
+                                <span class="cta-link">
+                                    <a class="btn btn-ghost" href="mailto:sales@kubegraf.io">Contact Sales</a>
+                                </span>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="competitor-comparison" style="position: relative;">
+                <div class="floating-particle particle-small" style="top: 10%; left: 5%; animation-delay: 1s;"></div>
+                <div class="floating-particle particle-medium" style="bottom: 15%; right: 10%; animation-delay: 3s;"></div>
+                <div class="section-shell">
+                    <div class="section-header">
+                        <p class="eyebrow">Honest Comparison</p>
+                        <h2>How KubeGraf Compares</h2>
+                        <p>Transparent comparison with popular Kubernetes tools. We believe in letting the features speak for themselves.</p>
+                    </div>
+                    <div class="comparison-table-container">
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th class="feature-column">Feature</th>
+                                    <th class="kubegraf-column"><div class="product-header featured">KubeGraf</div></th>
+                                    <th>Lens Desktop</th>
+                                    <th>k9s</th>
+                                    <th>Kubectl</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="category-row">
+                                    <td colspan="5">Interface & User Experience</td>
+                                </tr>
+                                <tr>
+                                    <td class="feature-name">Terminal UI</td>
+                                    <td class="kubegraf-column"><span class="check-icon">✓</span></td>
+                                    <td><span class="neutral-icon">⚠</span></td>
+                                    <td><span class="check-icon">✓</span></td>
+                                    <td><span class="cross-icon">✗</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="feature-name">Web Dashboard</td>
+                                    <td class="kubegraf-column"><span class="check-icon">✓</span></td>
+                                    <td><span class="check-icon">✓</span></td>
+                                    <td><span class="cross-icon">✗</span></td>
+                                    <td><span class="cross-icon">✗</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="feature-name">Modern SPA</td>
+                                    <td class="kubegraf-column"><span class="check-icon">✓</span></td>
+                                    <td><span class="check-icon">✓</span></td>
+                                    <td><span class="cross-icon">✗</span></td>
+                                    <td><span class="cross-icon">✗</span></td>
+                                </tr>
+                                <tr class="category-row">
+                                    <td colspan="5">Cluster Management</td>
+                                </tr>
+                                <tr>
+                                    <td class="feature-name">Multi-Cluster Management</td>
+                                    <td class="kubegraf-column"><span class="check-icon">✓</span></td>
+                                    <td><span class="check-icon">✓</span></td>
+                                    <td><span class="neutral-icon">⚠</span></td>
+                                    <td><span class="neutral-icon">⚠</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="feature-name">GitOps Integration (ArgoCD/Flux)</td>
+                                    <td class="kubegraf-column"><span class="check-icon">✓</span></td>
+                                    <td><span class="neutral-icon">⚠</span></td>
+                                    <td><span class="cross-icon">✗</span></td>
+                                    <td><span class="cross-icon">✗</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="feature-name">Custom Resource Support</td>
+                                    <td class="kubegraf-column"><span class="check-icon">✓</span></td>
+                                    <td><span class="check-icon">✓</span></td>
+                                    <td><span class="check-icon">✓</span></td>
+                                    <td><span class="check-icon">✓</span></td>
+                                </tr>
+                                <tr class="category-row">
+                                    <td colspan="5">Intelligence & Automation</td>
+                                </tr>
+                                <tr>
+                                    <td class="feature-name">AI-Assisted Troubleshooting</td>
+                                    <td class="kubegraf-column"><span class="check-icon">✓</span></td>
+                                    <td><span class="neutral-icon">⚠</span></td>
+                                    <td><span class="cross-icon">✗</span></td>
+                                    <td><span class="cross-icon">✗</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="feature-name">Brain Panel (Event Analysis)</td>
+                                    <td class="kubegraf-column"><span class="check-icon">✓</span></td>
+                                    <td><span class="cross-icon">✗</span></td>
+                                    <td><span class="cross-icon">✗</span></td>
+                                    <td><span class="cross-icon">✗</span></td>
+                                </tr>
+                                <tr class="category-row">
+                                    <td colspan="5">Deployment & Accessibility</td>
+                                </tr>
+                                <tr>
+                                    <td class="feature-name">Offline/Air-Gapped Support</td>
+                                    <td class="kubegraf-column"><span class="check-icon">✓</span></td>
+                                    <td><span class="check-icon">✓</span></td>
+                                    <td><span class="check-icon">✓</span></td>
+                                    <td><span class="check-icon">✓</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="feature-name">Binary Size</td>
+                                    <td class="kubegraf-column"><span class="feature-value">~15MB</span></td>
+                                    <td><span class="feature-value">~300MB+</span></td>
+                                    <td><span class="feature-value">~20MB</span></td>
+                                    <td><span class="feature-value">~50MB</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="feature-name">Platform Support</td>
+                                    <td class="kubegraf-column"><span class="feature-value">All</span></td>
+                                    <td><span class="feature-value">Desktop</span></td>
+                                    <td><span class="feature-value">All</span></td>
+                                    <td><span class="feature-value">All</span></td>
+                                </tr>
+                                <tr class="category-row">
+                                    <td colspan="5">Support & Licensing</td>
+                                </tr>
+                                <tr>
+                                    <td class="feature-name">Commercial Support Available</td>
+                                    <td class="kubegraf-column"><span class="check-icon">✓</span></td>
+                                    <td><span class="check-icon">✓</span></td>
+                                    <td><span class="cross-icon">✗</span></td>
+                                    <td><span class="cross-icon">✗</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="feature-name">Open Source License</td>
+                                    <td class="kubegraf-column"><span class="feature-value">Apache 2.0</span></td>
+                                    <td><span class="feature-value">Freemium</span></td>
+                                    <td><span class="feature-value">Apache 2.0</span></td>
+                                    <td><span class="feature-value">Apache 2.0</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p style="text-align: center; color: var(--muted); margin-top: 2rem; font-size: 0.9rem;">Last updated: December 2024. This comparison reflects public information about each tool's capabilities.</p>
                 </div>
             </section>
 
