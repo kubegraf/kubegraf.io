@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+# Universal KubeGraf Installation Script
+# This script detects the OS and runs the appropriate installer
+# Usage: curl -sSL https://kubegraf.io/install | bash
+
+set -e
+
+# Detect OS
+detect_os() {
+    case "$(uname -s)" in
+        Linux*)     echo "linux";;
+        Darwin*)    echo "darwin";;
+        MINGW*|MSYS*|CYGWIN*) echo "windows";;
+        *)          echo "unknown";;
+    esac
+}
+
+OS=$(detect_os)
+
+if [ "$OS" = "windows" ]; then
+    echo "Detected Windows. Please use PowerShell to install:"
+    echo ""
+    echo "  irm https://kubegraf.io/install.ps1 | iex"
+    echo ""
+    echo "Or download and run:"
+    echo "  Invoke-WebRequest -Uri https://kubegraf.io/install.ps1 -OutFile install.ps1"
+    echo "  .\install.ps1"
+    exit 1
+elif [ "$OS" = "linux" ] || [ "$OS" = "darwin" ]; then
+    # Download and execute the bash installer
+    curl -sSL https://kubegraf.io/install.sh | bash
+else
+    echo "Unsupported operating system: $(uname -s)"
+    echo "For Windows, use: irm https://kubegraf.io/install.ps1 | iex"
+    echo "For Linux/macOS, use: curl -sSL https://kubegraf.io/install.sh | bash"
+    exit 1
+fi
+
