@@ -24,6 +24,9 @@
             --panel: rgba(255, 255, 255, 0.04);
             --border: rgba(255, 255, 255, 0.1);
             --glow: rgba(50, 108, 229, 0.35);
+            --accent-cyan: #00d4aa;
+            --accent-purple: #a78bfa;
+            --accent-pink: #f472b6;
             color-scheme: dark;
         }
 
@@ -156,22 +159,49 @@
             letter-spacing: 0.1em;
             text-transform: uppercase;
             color: rgba(226, 232, 240, 0.75);
-            transition: color 0.2s ease;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-bottom: 4px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--secondary), var(--primary));
+            transition: width 0.3s ease;
         }
 
         .nav-links a:hover {
             color: #fff;
         }
 
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
         .nav-cta {
-            padding: 0.6rem 1.7rem;
+            padding: 0.65rem 1.8rem;
             border-radius: 999px;
-            border: 1px solid var(--border);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             font-weight: 600;
             text-transform: uppercase;
             font-size: 0.85rem;
             letter-spacing: 0.1em;
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.06);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(50, 108, 229, 0);
+        }
+
+        .nav-cta:hover {
+            background: rgba(50, 108, 229, 0.15);
+            border-color: rgba(74, 222, 128, 0.3);
+            box-shadow: 0 0 20px rgba(50, 108, 229, 0.2);
+            transform: translateY(-2px);
         }
 
         .hero {
@@ -234,6 +264,7 @@
             font-size: clamp(3rem, 6vw, 4.5rem);
             margin: 0;
             line-height: 1.05;
+            animation: slideInUp 0.8s ease-out;
         }
 
         .hero-title span {
@@ -436,27 +467,72 @@
         .btn-primary {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: #fff;
-            box-shadow: 0 20px 40px var(--glow);
+            box-shadow: 0 20px 40px var(--glow),
+                        0 0 30px rgba(74, 222, 128, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg,
+                transparent 30%,
+                rgba(255, 255, 255, 0.2) 50%,
+                transparent 70%);
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+
+        .btn-primary:hover::before {
+            animation: shimmer 0.6s ease-in-out forwards;
+            opacity: 1;
         }
 
         .btn-ghost {
-            border-color: var(--border);
+            border-color: rgba(255, 255, 255, 0.2);
             color: #fff;
             background: rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .btn-ghost:hover {
+            background: rgba(74, 222, 128, 0.1);
+            border-color: rgba(74, 222, 128, 0.3);
         }
 
         .btn:hover {
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px rgba(50, 108, 229, 0.3) !important;
         }
 
         .hero-panel {
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 2rem;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
+            background: linear-gradient(135deg,
+                rgba(50, 108, 229, 0.15) 0%,
+                rgba(0, 212, 170, 0.08) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 28px;
+            padding: 2.5rem;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7),
+                        0 0 50px rgba(50, 108, 229, 0.25);
             position: relative;
             overflow: hidden;
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        .hero-panel::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle,
+                rgba(74, 222, 128, 0.15) 0%,
+                transparent 70%);
+            animation: orbitMedium 15s linear infinite;
+            pointer-events: none;
         }
 
         .hero-panel h3 {
@@ -507,12 +583,41 @@
         }
 
         .stat-card {
-            background: var(--panel);
-            border: 1px solid var(--border);
-            border-radius: 18px;
-            padding: 1.5rem;
+            background: linear-gradient(135deg,
+                rgba(50, 108, 229, 0.15) 0%,
+                rgba(0, 212, 170, 0.08) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            padding: 2rem 1.5rem;
             text-align: center;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35),
+                        0 0 30px rgba(50, 108, 229, 0.15);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg,
+                rgba(255, 255, 255, 0.1) 0%,
+                transparent 50%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-12px) scale(1.05);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4),
+                        0 0 50px rgba(50, 108, 229, 0.4);
+            border-color: rgba(74, 222, 128, 0.3);
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
         }
 
         .stat-card .value {
@@ -539,6 +644,13 @@
             font-size: 0.8rem;
             letter-spacing: 0.3em;
             color: var(--secondary);
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(74, 222, 128, 0.1);
+            border-radius: 999px;
+            border: 1px solid rgba(74, 222, 128, 0.2);
+            margin-bottom: 1rem;
+            animation: slideInUp 0.6s ease-out;
         }
 
         .section-header h2 {
@@ -573,11 +685,16 @@
             position: relative;
             border-radius: 32px;
             padding: 2.25rem;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: linear-gradient(135deg,
+                rgba(255, 255, 255, 0.08) 0%,
+                rgba(50, 108, 229, 0.05) 50%,
+                rgba(0, 212, 170, 0.03) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             overflow: hidden;
-            box-shadow: 0 30px 60px rgba(2, 6, 23, 0.65);
+            box-shadow: 0 30px 60px rgba(2, 6, 23, 0.65),
+                        0 0 60px rgba(50, 108, 229, 0.2);
             backdrop-filter: blur(18px);
+            animation: glowPulse 4s ease-in-out infinite;
         }
 
         .section-shell::after {
@@ -651,6 +768,106 @@
             }
         }
 
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        @keyframes glowPulse {
+            0% {
+                box-shadow: 0 0 20px rgba(50, 108, 229, 0.3), 0 0 40px rgba(0, 212, 170, 0.1);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(50, 108, 229, 0.6), 0 0 80px rgba(0, 212, 170, 0.3);
+            }
+            100% {
+                box-shadow: 0 0 20px rgba(50, 108, 229, 0.3), 0 0 40px rgba(0, 212, 170, 0.1);
+            }
+        }
+
+        @keyframes float3d {
+            0%, 100% {
+                transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg);
+            }
+            25% {
+                transform: translate3d(15px, -20px, 0) rotateX(5deg) rotateY(10deg);
+            }
+            50% {
+                transform: translate3d(0, -30px, 0) rotateX(-5deg) rotateY(-10deg);
+            }
+            75% {
+                transform: translate3d(-15px, -15px, 0) rotateX(5deg) rotateY(-5deg);
+            }
+        }
+
+        @keyframes orbitSmall {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg) translateX(40px) rotate(0deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg) translateX(40px) rotate(-360deg);
+            }
+        }
+
+        @keyframes orbitMedium {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg) translateX(60px) rotate(0deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(-360deg) translateX(60px) rotate(360deg);
+            }
+        }
+
+        @keyframes panX {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(20px);
+            }
+        }
+
+        @keyframes panY {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes borderGradient {
+            0% {
+                border-image-source: linear-gradient(135deg, var(--primary), var(--secondary), var(--primary));
+            }
+            50% {
+                border-image-source: linear-gradient(135deg, var(--secondary), var(--accent-cyan), var(--secondary));
+            }
+            100% {
+                border-image-source: linear-gradient(135deg, var(--primary), var(--secondary), var(--primary));
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .ai-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -658,11 +875,40 @@
         }
 
         .ai-card {
-            background: var(--deep);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 1.5rem;
-            min-height: 220px;
+            background: linear-gradient(135deg,
+                rgba(50, 108, 229, 0.12) 0%,
+                rgba(0, 212, 170, 0.06) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 24px;
+            padding: 2rem;
+            min-height: 240px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3),
+                        0 0 30px rgba(50, 108, 229, 0.1);
+        }
+
+        .ai-card::before {
+            content: '';
+            position: absolute;
+            inset: -100%;
+            background: conic-gradient(from 0deg, transparent, rgba(74, 222, 128, 0.2), transparent 90%);
+            animation: orbitSmall 8s linear infinite;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .ai-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4),
+                        0 0 40px rgba(50, 108, 229, 0.3);
+            border-color: rgba(74, 222, 128, 0.25);
+        }
+
+        .ai-card:hover::before {
+            opacity: 0.3;
         }
 
         .ai-card h3 {
@@ -681,6 +927,19 @@
             color: var(--secondary);
             font-weight: 600;
             text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .ai-card a::after {
+            content: '→';
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .ai-card a:hover::after {
+            transform: translateX(5px);
         }
 
         .feature-grid {
@@ -700,14 +959,47 @@
         }
 
         .pricing-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 20px;
-            padding: 1.75rem;
+            background: linear-gradient(135deg,
+                rgba(50, 108, 229, 0.1) 0%,
+                rgba(0, 212, 170, 0.05) 100%);
+            border: 2px solid rgba(255, 255, 255, 0.14);
+            border-radius: 24px;
+            padding: 2.25rem;
             display: flex;
             flex-direction: column;
-            gap: 1rem;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            gap: 1.25rem;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5),
+                        0 0 40px rgba(50, 108, 229, 0.15);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle,
+                rgba(74, 222, 128, 0.15) 0%,
+                transparent 70%);
+            animation: float3d 10s ease-in-out infinite;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-20px) scale(1.03);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5),
+                        0 0 60px rgba(50, 108, 229, 0.4);
+            border-color: rgba(74, 222, 128, 0.4);
+        }
+
+        .pricing-card:hover::before {
+            opacity: 1;
         }
 
         .pricing-card h3 {
@@ -750,11 +1042,40 @@
         }
 
         .innovation-card {
-            background: linear-gradient(135deg, rgba(50, 108, 229, 0.12), rgba(0, 212, 170, 0.1));
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 20px;
-            padding: 1.5rem;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(135deg,
+                rgba(50, 108, 229, 0.15) 0%,
+                rgba(0, 212, 170, 0.08) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5),
+                        0 0 30px rgba(50, 108, 229, 0.15);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .innovation-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top right,
+                rgba(74, 222, 128, 0.1) 0%,
+                transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .innovation-card:hover {
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5),
+                        0 0 40px rgba(50, 108, 229, 0.3);
+            border-color: rgba(74, 222, 128, 0.25);
+        }
+
+        .innovation-card:hover::before {
+            opacity: 1;
         }
 
         .innovation-card h3 {
@@ -770,11 +1091,44 @@
         }
 
         .feature-pill {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border);
-            border-radius: 18px;
-            padding: 1.25rem;
+            background: linear-gradient(135deg,
+                rgba(50, 108, 229, 0.1) 0%,
+                rgba(0, 212, 170, 0.05) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            padding: 1.75rem;
             min-height: 180px;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2),
+                        0 0 20px rgba(50, 108, 229, 0.1);
+        }
+
+        .feature-pill::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg,
+                transparent,
+                rgba(74, 222, 128, 0.5),
+                transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .feature-pill:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3),
+                        0 0 30px rgba(50, 108, 229, 0.25);
+            border-color: rgba(74, 222, 128, 0.2);
+        }
+
+        .feature-pill:hover::after {
+            opacity: 1;
         }
 
         .feature-pill h3 {
@@ -799,10 +1153,40 @@
         }
 
         .interface-card {
-            background: var(--panel);
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            padding: 1.5rem;
+            background: linear-gradient(135deg,
+                rgba(50, 108, 229, 0.1) 0%,
+                rgba(0, 212, 170, 0.05) 100%);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3),
+                        0 0 25px rgba(50, 108, 229, 0.1);
+        }
+
+        .interface-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center,
+                rgba(74, 222, 128, 0.08) 0%,
+                transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .interface-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4),
+                        0 0 35px rgba(50, 108, 229, 0.25);
+            border-color: rgba(74, 222, 128, 0.2);
+        }
+
+        .interface-card:hover::before {
+            opacity: 1;
         }
 
         .terminal-snapshot {
@@ -896,6 +1280,53 @@
             color: var(--muted);
         }
 
+        /* Floating particles */
+        .floating-particle {
+            position: absolute;
+            pointer-events: none;
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+
+        .particle-small {
+            width: 6px;
+            height: 6px;
+            background: rgba(74, 222, 128, 0.8);
+            animation: float3d 8s ease-in-out infinite;
+        }
+
+        .particle-medium {
+            width: 10px;
+            height: 10px;
+            background: rgba(50, 108, 229, 0.6);
+            animation: float3d 12s ease-in-out infinite;
+        }
+
+        .particle-large {
+            width: 14px;
+            height: 14px;
+            background: rgba(0, 212, 170, 0.5);
+            animation: float3d 15s ease-in-out infinite;
+        }
+
+        /* Section animations */
+        .hero-copy {
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        .section-header {
+            animation: slideInUp 0.8s ease-out 0.1s backwards;
+        }
+
+        .ai-grid,
+        .stats-grid,
+        .pricing-grid,
+        .innovation-grid,
+        .feature-grid,
+        .interface-grid {
+            animation: slideInUp 0.8s ease-out 0.2s backwards;
+        }
+
         @media (max-width: 768px) {
             nav {
                 flex-wrap: wrap;
@@ -905,6 +1336,55 @@
             .nav-links {
                 width: 100%;
                 justify-content: center;
+            }
+
+            .page-inner {
+                padding: 0.75rem;
+            }
+
+            .section-shell {
+                padding: 1.5rem;
+            }
+
+            .hero-panel {
+                padding: 1.75rem;
+            }
+
+            .stat-card,
+            .ai-card,
+            .pricing-card,
+            .innovation-card,
+            .feature-pill {
+                padding: 1.25rem;
+            }
+
+            .floating-particle {
+                opacity: 0.15 !important;
+            }
+
+            /* Reduce animation complexity on mobile */
+            .hero-panel::before,
+            .ai-card::before,
+            .pricing-card::before,
+            .interface-card::before {
+                animation: none !important;
+            }
+
+            .stat-card:hover,
+            .ai-card:hover,
+            .pricing-card:hover,
+            .innovation-card:hover,
+            .feature-pill:hover,
+            .interface-card:hover {
+                transform: translateY(-8px) scale(1.02) !important;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
             }
         }
     </style>
@@ -1003,7 +1483,10 @@
                 </div>
             </section>
 
-            <section class="logo-section">
+            <section class="logo-section" style="position: relative;">
+                <div class="floating-particle particle-small" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
+                <div class="floating-particle particle-medium" style="top: 40%; right: 15%; animation-delay: 2s;"></div>
+                <div class="floating-particle particle-large" style="bottom: 20%; left: 20%; animation-delay: 4s;"></div>
                 <div class="section-shell">
                     <div class="section-bubble"></div>
                     <div class="section-bubble bubble-2"></div>
@@ -1021,7 +1504,10 @@
                 </div>
             </section>
 
-            <section class="stats-section" id="insights">
+            <section class="stats-section" id="insights" style="position: relative;">
+                <div class="floating-particle particle-small" style="top: 15%; right: 10%; animation-delay: 1s;"></div>
+                <div class="floating-particle particle-medium" style="bottom: 25%; left: 5%; animation-delay: 3s;"></div>
+                <div class="floating-particle particle-large" style="top: 50%; right: 5%; animation-delay: 5s;"></div>
                 <div class="section-shell">
                     <div class="section-bubble bubble-3"></div>
                     <div class="section-header">
@@ -1050,7 +1536,9 @@
                 </div>
             </section>
 
-            <section id="ai">
+            <section id="ai" style="position: relative;">
+                <div class="floating-particle particle-small" style="top: 10%; left: 8%; animation-delay: 2s;"></div>
+                <div class="floating-particle particle-medium" style="top: 60%; right: 8%; animation-delay: 1s;"></div>
                 <div class="section-shell">
                     <div class="section-bubble"></div>
                     <div class="section-header">
@@ -1112,7 +1600,10 @@
                 </div>
             </section>
 
-            <section class="pricing" id="pricing">
+            <section class="pricing" id="pricing" style="position: relative;">
+                <div class="floating-particle particle-small" style="top: 5%; right: 5%; animation-delay: 0s;"></div>
+                <div class="floating-particle particle-medium" style="bottom: 10%; left: 10%; animation-delay: 2.5s;"></div>
+                <div class="floating-particle particle-large" style="top: 40%; right: 3%; animation-delay: 4.5s;"></div>
                 <div class="section-shell">
                     <div class="section-bubble"></div>
                     <div class="section-header">
@@ -1155,7 +1646,9 @@
                 </div>
             </section>
 
-            <section id="features">
+            <section id="features" style="position: relative;">
+                <div class="floating-particle particle-medium" style="top: 15%; left: 5%; animation-delay: 1.5s;"></div>
+                <div class="floating-particle particle-small" style="bottom: 20%; right: 8%; animation-delay: 3.5s;"></div>
                 <div class="section-shell">
                     <div class="section-bubble"></div>
                     <div class="section-header">
@@ -1192,7 +1685,9 @@
                 </div>
             </section>
 
-            <section class="interfaces">
+            <section class="interfaces" style="position: relative;">
+                <div class="floating-particle particle-small" style="top: 10%; right: 10%; animation-delay: 2s;"></div>
+                <div class="floating-particle particle-large" style="bottom: 15%; left: 8%; animation-delay: 4s;"></div>
                 <div class="section-shell">
                     <div class="section-bubble bubble-3"></div>
                     <div class="section-bubble"></div>
@@ -1228,7 +1723,9 @@
                 </div>
             </section>
 
-            <section class="final-cta">
+            <section class="final-cta" style="position: relative;">
+                <div class="floating-particle particle-small" style="top: 5%; left: 10%; animation-delay: 1s;"></div>
+                <div class="floating-particle particle-medium" style="bottom: 10%; right: 10%; animation-delay: 3s;"></div>
                 <div class="section-shell">
                     <div class="section-bubble"></div>
                     <h3>Open Source for Kubernetes engineers</h3>
@@ -1246,7 +1743,9 @@
                 </div>
             </section>
 
-            <section id="installation">
+            <section id="installation" style="position: relative;">
+                <div class="floating-particle particle-small" style="top: 15%; right: 5%; animation-delay: 2.5s;"></div>
+                <div class="floating-particle particle-medium" style="bottom: 10%; left: 3%; animation-delay: 1s;"></div>
                 <div class="section-shell">
                     <div class="section-bubble bubble-2"></div>
                     <div class="section-header">
