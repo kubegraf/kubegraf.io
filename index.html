@@ -551,6 +551,24 @@
             margin: 0;
         }
 
+        .brain-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .brain-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(74, 222, 128, 0.5), rgba(16, 185, 129, 0.3));
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            box-shadow: 0 10px 25px rgba(50, 118, 203, 0.4);
+        }
+
         .section-shell {
             position: relative;
             border-radius: 32px;
@@ -1065,7 +1083,10 @@
                     <div class="section-bubble bubble-2"></div>
                     <div class="section-header">
                         <p class="eyebrow">Brain & Performance</p>
-                        <h2>Next-gen intelligence + unified state</h2>
+                        <div class="brain-title">
+                            <span class="brain-icon">🧠</span>
+                            <h2>Next-gen intelligence + unified state</h2>
+                        </div>
                         <p>Brain Panel V1 brings a local-only SRE brain, while the new global store speeds every resource tab with smart caching.</p>
                     </div>
                     <div class="innovation-grid">
