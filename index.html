@@ -2578,6 +2578,407 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* ===== INTERFACE MOCKUPS ===== */
+
+        .interface-mockup {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            overflow: hidden;
+            font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+            font-size: 0.7rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .mockup-header {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.5rem 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .mockup-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .mockup-title {
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-left: auto;
+        }
+
+        .mockup-content {
+            padding: 0.75rem;
+        }
+
+        /* Terminal Mockup */
+        .terminal-line {
+            color: rgba(200, 200, 200, 0.9);
+            line-height: 1.6;
+            font-size: 0.7rem;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .prompt {
+            color: rgba(74, 222, 128, 0.9);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .status-running {
+            color: rgba(74, 222, 128, 0.9);
+        }
+
+        .status-pending {
+            color: rgba(251, 191, 36, 0.9);
+        }
+
+        .cursor {
+            color: rgba(74, 222, 128, 1);
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* Dashboard Mockup */
+        .dashboard-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .metric-card {
+            background: rgba(50, 108, 229, 0.15);
+            border: 1px solid rgba(50, 108, 229, 0.3);
+            border-radius: 6px;
+            padding: 0.5rem;
+            text-align: center;
+        }
+
+        .metric-label {
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-value {
+            font-size: 1.1rem;
+            color: rgba(74, 222, 128, 0.9);
+            font-weight: bold;
+            margin-top: 0.25rem;
+        }
+
+        .dashboard-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: 0.3rem;
+            height: 50px;
+            padding: 0 0.5rem;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: linear-gradient(180deg, rgba(50, 108, 229, 0.7), rgba(74, 222, 128, 0.4));
+            border-radius: 3px 3px 0 0;
+            transition: height 0.3s ease;
+            min-height: 10%;
+        }
+
+        /* SPA Mockup */
+        .mockup-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-left: auto;
+        }
+
+        .mockup-tabs .tab {
+            font-size: 0.65rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .mockup-tabs .tab.active {
+            background: rgba(50, 108, 229, 0.3);
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .spa-layout {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .spa-sidebar {
+            flex: 0 0 45%;
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+            padding-right: 0.75rem;
+        }
+
+        .spa-item {
+            padding: 0.4rem 0.5rem;
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.6);
+            border-radius: 4px;
+            margin-bottom: 0.15rem;
+        }
+
+        .spa-item.active {
+            background: rgba(50, 108, 229, 0.2);
+            color: rgba(74, 222, 128, 0.9);
+        }
+
+        .spa-item.indent {
+            padding-left: 1.5rem;
+            font-size: 0.6rem;
+        }
+
+        .spa-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .spa-card {
+            height: 35px;
+            background: rgba(50, 108, 229, 0.1);
+            border: 1px solid rgba(50, 108, 229, 0.2);
+            border-radius: 4px;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .interface-mockup {
+                font-size: 0.65rem;
+            }
+
+            .dashboard-metrics {
+                grid-template-columns: 1fr;
+                gap: 0.4rem;
+            }
+
+            .spa-layout {
+                flex-direction: column;
+            }
+
+            .spa-sidebar {
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                padding-bottom: 0.5rem;
+            }
+        }
+
+        /* ===== MULTI-PLATFORM INSTALL TABS ===== */
+
+        .install-tabs-wrapper {
+            margin-top: 2.5rem;
+        }
+
+        .install-tab-buttons {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 12px;
+            padding: 0.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            max-width: 450px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .install-tab-btn {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .install-tab-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .tab-icon {
+            font-size: 1.5rem;
+        }
+
+        .tab-label {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Active tab styling */
+        #install-mac:checked ~ .install-tab-buttons label[for="install-mac"],
+        #install-linux:checked ~ .install-tab-buttons label[for="install-linux"],
+        #install-windows:checked ~ .install-tab-buttons label[for="install-windows"] {
+            background: linear-gradient(135deg, rgba(50, 108, 229, 0.2), rgba(74, 222, 128, 0.1));
+            border-color: rgba(50, 108, 229, 0.4);
+        }
+
+        #install-mac:checked ~ .install-tab-buttons label[for="install-mac"] .tab-label,
+        #install-linux:checked ~ .install-tab-buttons label[for="install-linux"] .tab-label,
+        #install-windows:checked ~ .install-tab-buttons label[for="install-windows"] .tab-label {
+            color: #fff;
+        }
+
+        /* Tab content panels */
+        .install-tab-content {
+            position: relative;
+            min-height: 250px;
+        }
+
+        .install-panel {
+            position: absolute;
+            width: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        #install-mac:checked ~ .install-tab-content #mac-panel,
+        #install-linux:checked ~ .install-tab-content #linux-panel,
+        #install-windows:checked ~ .install-tab-content #windows-panel {
+            position: relative;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .install-method {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.6), rgba(50, 60, 89, 0.6));
+            border: 1px solid rgba(50, 108, 229, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .install-method:last-child {
+            margin-bottom: 0;
+        }
+
+        .method-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 0.75rem;
+        }
+
+        .install-command {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(50, 108, 229, 0.2);
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.85rem;
+            color: rgba(74, 222, 128, 0.9);
+            overflow-x: auto;
+            margin: 0;
+            line-height: 1.6;
+            white-space: pre;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .install-tab-buttons {
+                max-width: 100%;
+            }
+
+            .tab-label {
+                display: none;
+            }
+
+            .install-tab-btn {
+                padding: 0.75rem 0.5rem;
+            }
+        }
+
+        /* ===== ENGINEERING CARDS ===== */
+
+        .engineering-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+        }
+
+        .eng-card {
+            background: linear-gradient(135deg,
+                rgba(255, 255, 255, 0.04),
+                rgba(50, 108, 229, 0.02));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 2px solid var(--accent, rgba(50, 108, 229, 0.5));
+            border-radius: 12px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .eng-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg,
+                var(--accent, rgba(50, 108, 229, 0.5)) 0%,
+                transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .eng-card:hover {
+            transform: translateY(-8px) scale(1.05);
+            border-color: var(--accent, rgba(50, 108, 229, 0.5));
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4),
+                        0 0 30px var(--accent, rgba(50, 108, 229, 0.3));
+        }
+
+        .eng-card:hover::before {
+            opacity: 0.15;
+        }
+
+        .eng-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 50px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        }
+
+        .eng-card h4 {
+            margin: 0;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: 0.3px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .engineering-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
     </style>
 </head>
 <body>
@@ -2685,15 +3086,39 @@
 
                 <div class="page-inner section-content fade-in-section">
                     <p style="text-align: center; font-size: 1.2rem; font-weight: 500; margin-bottom: 2.5rem;">Engineering teams across every industry rely on KubeGraf</p>
-                    <div class="logo-grid">
-                        <span>Automation</span>
-                        <span>Reliability</span>
-                        <span>Trust</span>
-                        <span>Velocity</span>
-                        <span>Insight</span>
-                        <span>Clarity</span>
-                        <span>Scale</span>
-                        <span>Security</span>
+                    <div class="engineering-cards">
+                        <div class="eng-card" style="--accent: rgba(50, 108, 229, 0.5);">
+                            <div class="eng-icon">⚡</div>
+                            <h4>Automation</h4>
+                        </div>
+                        <div class="eng-card" style="--accent: rgba(74, 222, 128, 0.5);">
+                            <div class="eng-icon">🛡️</div>
+                            <h4>Reliability</h4>
+                        </div>
+                        <div class="eng-card" style="--accent: rgba(139, 92, 246, 0.5);">
+                            <div class="eng-icon">✓</div>
+                            <h4>Trust</h4>
+                        </div>
+                        <div class="eng-card" style="--accent: rgba(0, 212, 170, 0.5);">
+                            <div class="eng-icon">🚀</div>
+                            <h4>Velocity</h4>
+                        </div>
+                        <div class="eng-card" style="--accent: rgba(244, 114, 182, 0.5);">
+                            <div class="eng-icon">👁️</div>
+                            <h4>Insight</h4>
+                        </div>
+                        <div class="eng-card" style="--accent: rgba(20, 184, 166, 0.5);">
+                            <div class="eng-icon">💎</div>
+                            <h4>Clarity</h4>
+                        </div>
+                        <div class="eng-card" style="--accent: rgba(50, 108, 229, 0.5);">
+                            <div class="eng-icon">📈</div>
+                            <h4>Scale</h4>
+                        </div>
+                        <div class="eng-card" style="--accent: rgba(220, 38, 38, 0.5);">
+                            <div class="eng-icon">🔒</div>
+                            <h4>Security</h4>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -3045,27 +3470,162 @@
                         <article class="interface-card">
                             <div class="interface-icon">⌘</div>
                             <h3>Terminal UI</h3>
+                            <div class="interface-mockup terminal-mockup">
+                                <div class="mockup-header">
+                                    <span class="mockup-dot" style="background: #ff5f56;"></span>
+                                    <span class="mockup-dot" style="background: #ffbd2e;"></span>
+                                    <span class="mockup-dot" style="background: #27c93f;"></span>
+                                </div>
+                                <div class="mockup-content">
+                                    <div class="terminal-line"><span class="prompt">$</span> kubegraf pods</div>
+                                    <div class="terminal-line">NAMESPACE    NAME                     STATUS     RESTARTS</div>
+                                    <div class="terminal-line">default      nginx-7bf98d-x9k2p       <span class="status-running">Running</span>    0</div>
+                                    <div class="terminal-line">default      api-server-5c9d8-hm4l    <span class="status-running">Running</span>    2</div>
+                                    <div class="terminal-line">kube-system  worker-batch-j7k9s       <span class="status-pending">Pending</span>    0</div>
+                                    <div class="terminal-line"><span class="prompt">$</span> <span class="cursor">▊</span></div>
+                                </div>
+                            </div>
                             <p>Keyboard-first terminal interface with vim-style navigation. Browse pods, deployments, and services without leaving your shell. SSH-friendly and works over low-bandwidth connections.</p>
                             <p class="feature-tags">Vim keybindings · Zero dependencies · Works over SSH</p>
                         </article>
                         <article class="interface-card">
                             <div class="interface-icon">⌨</div>
                             <h3>Web Dashboard</h3>
+                            <div class="interface-mockup dashboard-mockup">
+                                <div class="mockup-header">
+                                    <span class="mockup-dot"></span>
+                                    <span class="mockup-dot"></span>
+                                    <span class="mockup-dot"></span>
+                                    <div class="mockup-title">localhost:8080</div>
+                                </div>
+                                <div class="mockup-content">
+                                    <div class="dashboard-metrics">
+                                        <div class="metric-card">
+                                            <div class="metric-label">CPU</div>
+                                            <div class="metric-value">42%</div>
+                                        </div>
+                                        <div class="metric-card">
+                                            <div class="metric-label">Memory</div>
+                                            <div class="metric-value">68%</div>
+                                        </div>
+                                        <div class="metric-card">
+                                            <div class="metric-label">Pods</div>
+                                            <div class="metric-value">24</div>
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-chart">
+                                        <div class="chart-bar" style="height: 40%;"></div>
+                                        <div class="chart-bar" style="height: 65%;"></div>
+                                        <div class="chart-bar" style="height: 55%;"></div>
+                                        <div class="chart-bar" style="height: 80%;"></div>
+                                        <div class="chart-bar" style="height: 45%;"></div>
+                                    </div>
+                                </div>
+                            </div>
                             <p>Browser-based dashboard with real-time WebSocket updates. View metrics, logs, and events in unified views. Perfect for team collaboration and presenting cluster health.</p>
                             <p class="feature-tags">Real-time · WebSocket · Team ready</p>
                         </article>
                         <article class="interface-card">
                             <div class="interface-icon">✦</div>
                             <h3>Modern SPA</h3>
+                            <div class="interface-mockup spa-mockup">
+                                <div class="mockup-header">
+                                    <span class="mockup-dot"></span>
+                                    <span class="mockup-dot"></span>
+                                    <span class="mockup-dot"></span>
+                                    <div class="mockup-tabs">
+                                        <span class="tab active">Resources</span>
+                                        <span class="tab">Logs</span>
+                                        <span class="tab">Metrics</span>
+                                    </div>
+                                </div>
+                                <div class="mockup-content">
+                                    <div class="spa-layout">
+                                        <div class="spa-sidebar">
+                                            <div class="spa-item">▸ Deployments</div>
+                                            <div class="spa-item active">▾ Pods</div>
+                                            <div class="spa-item indent">nginx-deploy</div>
+                                            <div class="spa-item indent">redis-cache</div>
+                                            <div class="spa-item">▸ Services</div>
+                                        </div>
+                                        <div class="spa-main">
+                                            <div class="spa-card"></div>
+                                            <div class="spa-card"></div>
+                                            <div class="spa-card"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <p>Customizable workspace with saved filters, favorite resources, and shareable views. Built-in runbooks help standardize incident response across teams.</p>
                             <p class="feature-tags">Customizable · Shareable · Runbooks</p>
                         </article>
                     </div>
 
-                    <div class="install-group">
-                        <h3>Quick install</h3>
-                        <p>curl -sSL https://kubegraf.io/install.sh | bash</p>
-                        <pre>curl -sSL https://kubegraf.io/install.sh | bash</pre>
+                    <div class="install-tabs-wrapper">
+                        <h3 style="text-align: center; margin-bottom: 1.5rem;">Quick Install</h3>
+
+                        <!-- Hidden radio inputs for tab switching -->
+                        <input type="radio" id="install-mac" name="install-platform" checked hidden>
+                        <input type="radio" id="install-linux" name="install-platform" hidden>
+                        <input type="radio" id="install-windows" name="install-platform" hidden>
+
+                        <!-- Tab buttons -->
+                        <div class="install-tab-buttons">
+                            <label for="install-mac" class="install-tab-btn">
+                                <span class="tab-icon">🍎</span>
+                                <span class="tab-label">macOS</span>
+                            </label>
+                            <label for="install-linux" class="install-tab-btn">
+                                <span class="tab-icon">🐧</span>
+                                <span class="tab-label">Linux</span>
+                            </label>
+                            <label for="install-windows" class="install-tab-btn">
+                                <span class="tab-icon">🪟</span>
+                                <span class="tab-label">Windows</span>
+                            </label>
+                        </div>
+
+                        <!-- Tab content panels -->
+                        <div class="install-tab-content">
+                            <!-- macOS Panel -->
+                            <div class="install-panel" id="mac-panel">
+                                <div class="install-method">
+                                    <p class="method-label">Homebrew (Recommended)</p>
+                                    <pre class="install-command">brew install kubegraf/tap/kubegraf</pre>
+                                </div>
+                                <div class="install-method">
+                                    <p class="method-label">Universal Script</p>
+                                    <pre class="install-command">curl -sSL https://kubegraf.io/install.sh | bash</pre>
+                                </div>
+                            </div>
+
+                            <!-- Linux Panel -->
+                            <div class="install-panel" id="linux-panel">
+                                <div class="install-method">
+                                    <p class="method-label">Quick Install (Recommended)</p>
+                                    <pre class="install-command">curl -sSL https://kubegraf.io/install.sh | bash</pre>
+                                </div>
+                                <div class="install-method">
+                                    <p class="method-label">Manual Download</p>
+                                    <pre class="install-command">wget https://kubegraf.io/releases/latest/kubegraf-linux-amd64
+chmod +x kubegraf-linux-amd64
+sudo mv kubegraf-linux-amd64 /usr/local/bin/kubegraf</pre>
+                                </div>
+                            </div>
+
+                            <!-- Windows Panel -->
+                            <div class="install-panel" id="windows-panel">
+                                <div class="install-method">
+                                    <p class="method-label">PowerShell (Recommended)</p>
+                                    <pre class="install-command">irm https://kubegraf.io/install.ps1 | iex</pre>
+                                </div>
+                                <div class="install-method">
+                                    <p class="method-label">Manual Download</p>
+                                    <pre class="install-command"># Download from: https://kubegraf.io/releases/latest
+# Extract and add to PATH</pre>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -3095,43 +3655,11 @@
                 </div>
             </section>
 
-            <section id="installation" style="position: relative;">
-                <div class="floating-particle particle-tiny particle-pink" style="top: 8%; left: 2%; animation-delay: 0.5s;"></div>
-                <div class="floating-particle particle-small particle-teal" style="top: 15%; right: 5%; animation-delay: 2.5s;"></div>
-                <div class="floating-particle particle-medium particle-blue" style="bottom: 10%; left: 3%; animation-delay: 1s;"></div>
-                <div class="floating-particle particle-large particle-green" style="top: 55%; right: 10%; animation-delay: 3.5s;"></div>
-                <div class="floating-particle particle-xl particle-purple" style="bottom: 25%; right: 3%; animation-delay: 4s;"></div>
-                <div class="floating-particle particle-small particle-pink" style="top: 40%; left: 12%; animation-delay: 5.5s;"></div>
-                <div class="floating-particle particle-medium particle-teal" style="bottom: 15%; left: 18%; animation-delay: 6s;"></div>
-
-                <div class="page-inner section-content fade-in-section stagger">
-                    <div class="section-header">
-                        <p class="eyebrow">Install</p>
-                        <h2>Install in minutes, iterate with confidence</h2>
-                        <p>Single-binary distribution, Helm charts, and GitOps-friendly manifests keep your toolchain lean.</p>
-                    </div>
-                    <div class="stats-grid">
-                        <article class="stat-card">
-                            <p class="value">Homebrew</p>
-                            <p class="label">brew install kubegraf/kubeflow/kubegraf</p>
-                        </article>
-                        <article class="stat-card">
-                            <p class="value">Bash script</p>
-                            <p class="label">curl -fsSL https://kubegraf.io/install.sh | bash</p>
-                        </article>
-                        <article class="stat-card">
-                            <p class="value">Helm</p>
-                            <p class="label">helm repo add kubegraf https://kubegraf.io/charts · helm install kubegraf kubegraf/kubegraf</p>
-                        </article>
-                    </div>
-                </div>
-            </section>
-
             <footer>
                 <nav>
                     <a href="#main-content">KubeGraf</a>
                     <a href="#features">Features</a>
-                    <a href="#installation">Installation</a>
+                    <a href="#interfaces">Installation</a>
                     <a href="https://kubegraf.io/docs/">Docs</a>
                     <a href="https://github.com/kubegraf/kubegraf">GitHub</a>
                 </nav>
