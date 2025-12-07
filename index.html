@@ -2026,6 +2026,276 @@
                 min-width: 120px;
             }
         }
+
+        /* ===== NEW ANIMATIONS & EFFECTS ===== */
+
+        /* New Particle Sizes */
+        .particle-tiny {
+            width: 4px;
+            height: 4px;
+            animation: float3d 10s ease-in-out infinite;
+        }
+
+        .particle-xl {
+            width: 18px;
+            height: 18px;
+            animation: float3d 18s ease-in-out infinite;
+        }
+
+        /* Particle Color Variants */
+        .particle-green { background: rgba(74, 222, 128, 0.3) !important; }
+        .particle-blue { background: rgba(50, 108, 229, 0.3) !important; }
+        .particle-teal { background: rgba(0, 212, 170, 0.3) !important; }
+        .particle-purple { background: rgba(139, 92, 246, 0.3) !important; }
+        .particle-pink { background: rgba(236, 72, 153, 0.3) !important; }
+
+        /* Section Content Styling */
+        .section-content {
+            padding: 3.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-content::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 65%;
+            height: 1px;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(50, 108, 229, 0.25) 15%,
+                rgba(74, 222, 128, 0.25) 50%,
+                rgba(50, 108, 229, 0.25) 85%,
+                transparent 100%);
+            opacity: 0.7;
+        }
+
+        section:last-of-type .section-content {
+            border-bottom: none;
+        }
+
+        section:last-of-type .section-content::after {
+            display: none;
+        }
+
+        /* Fade-In on Scroll Animations */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .fade-in-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in-section.stagger .highlight-card,
+        .fade-in-section.stagger .ai-card,
+        .fade-in-section.stagger .feature-pill,
+        .fade-in-section.stagger .stat-card,
+        .fade-in-section.stagger .pricing-card,
+        .fade-in-section.stagger .innovation-card {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .fade-in-section.stagger.visible .highlight-card:nth-child(1),
+        .fade-in-section.stagger.visible .ai-card:nth-child(1),
+        .fade-in-section.stagger.visible .feature-pill:nth-child(1),
+        .fade-in-section.stagger.visible .stat-card:nth-child(1),
+        .fade-in-section.stagger.visible .pricing-card:nth-child(1),
+        .fade-in-section.stagger.visible .innovation-card:nth-child(1) {
+            transition-delay: 0.1s;
+        }
+
+        .fade-in-section.stagger.visible .highlight-card:nth-child(2),
+        .fade-in-section.stagger.visible .ai-card:nth-child(2),
+        .fade-in-section.stagger.visible .feature-pill:nth-child(2),
+        .fade-in-section.stagger.visible .stat-card:nth-child(2),
+        .fade-in-section.stagger.visible .pricing-card:nth-child(2),
+        .fade-in-section.stagger.visible .innovation-card:nth-child(2) {
+            transition-delay: 0.2s;
+        }
+
+        .fade-in-section.stagger.visible .highlight-card:nth-child(3),
+        .fade-in-section.stagger.visible .ai-card:nth-child(3),
+        .fade-in-section.stagger.visible .feature-pill:nth-child(3),
+        .fade-in-section.stagger.visible .stat-card:nth-child(3),
+        .fade-in-section.stagger.visible .pricing-card:nth-child(3),
+        .fade-in-section.stagger.visible .innovation-card:nth-child(3) {
+            transition-delay: 0.3s;
+        }
+
+        .fade-in-section.stagger.visible .highlight-card:nth-child(4),
+        .fade-in-section.stagger.visible .feature-pill:nth-child(4),
+        .fade-in-section.stagger.visible .pricing-card:nth-child(4) {
+            transition-delay: 0.4s;
+        }
+
+        .fade-in-section.stagger.visible .highlight-card,
+        .fade-in-section.stagger.visible .ai-card,
+        .fade-in-section.stagger.visible .feature-pill,
+        .fade-in-section.stagger.visible .stat-card,
+        .fade-in-section.stagger.visible .pricing-card,
+        .fade-in-section.stagger.visible .innovation-card {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Enhanced Hover Effects */
+        .highlight-card {
+            position: relative;
+        }
+
+        .highlight-card::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(135deg,
+                rgba(50, 108, 229, 0.3),
+                rgba(74, 222, 128, 0.2));
+            border-radius: inherit;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+            filter: blur(20px);
+            pointer-events: none;
+        }
+
+        .highlight-card:hover::before {
+            opacity: 1;
+        }
+
+        .ai-card, .feature-pill, .stat-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-card:hover, .feature-pill:hover, .stat-card:hover {
+            transform: translateY(-8px);
+        }
+
+        /* Button Ripple Effect */
+        .btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle,
+                rgba(255, 255, 255, 0.2) 0%,
+                transparent 70%);
+            transform: scale(0);
+            transition: transform 0.5s ease;
+            pointer-events: none;
+        }
+
+        .btn:hover::after {
+            transform: scale(2.5);
+        }
+
+        /* Animated Gradients for Key Sections */
+        .highlights-section,
+        .pricing-dual,
+        #ai,
+        .innovation {
+            overflow: hidden;
+        }
+
+        .highlights-section::before,
+        .pricing-dual::before,
+        #ai::before,
+        .innovation::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg,
+                rgba(50, 108, 229, 0.04) 0%,
+                rgba(74, 222, 128, 0.04) 25%,
+                rgba(0, 212, 170, 0.04) 50%,
+                rgba(139, 92, 246, 0.04) 75%,
+                rgba(50, 108, 229, 0.04) 100%);
+            background-size: 300% 300%;
+            animation: gradientShift 18s ease infinite;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .highlights-section.visible::before,
+        .pricing-dual.visible::before,
+        #ai.visible::before,
+        .innovation.visible::before {
+            opacity: 1;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Parallax Effect for Cards */
+        .highlight-card, .ai-card, .feature-pill, .pricing-card, .innovation-card {
+            transform-style: preserve-3d;
+        }
+
+        /* Reduced Motion Support */
+        @media (prefers-reduced-motion: reduce) {
+            .floating-particle,
+            .fade-in-section,
+            .highlight-card,
+            .ai-card,
+            .feature-pill,
+            .stat-card,
+            .pricing-card,
+            .innovation-card,
+            .btn {
+                animation: none !important;
+                transition: none !important;
+            }
+
+            .fade-in-section {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+
+            .section-content::after {
+                display: none;
+            }
+        }
+
+        /* Mobile: Responsive Animations */
+        @media (max-width: 768px) {
+            .section-content {
+                padding: 2.5rem 0;
+            }
+
+            .section-content::after {
+                width: 50%;
+            }
+
+            .fade-in-section.stagger .highlight-card,
+            .fade-in-section.stagger .ai-card,
+            .fade-in-section.stagger .feature-pill {
+                transition-delay: 0s !important;
+            }
+
+            .fade-in-section.stagger.visible .highlight-card,
+            .fade-in-section.stagger.visible .ai-card,
+            .fade-in-section.stagger.visible .feature-pill {
+                transition-delay: 0s !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -2123,13 +2393,16 @@
             </section>
 
             <section class="logo-section" style="position: relative;">
-                <div class="floating-particle particle-small" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
-                <div class="floating-particle particle-medium" style="top: 40%; right: 15%; animation-delay: 2s;"></div>
-                <div class="floating-particle particle-large" style="bottom: 20%; left: 20%; animation-delay: 4s;"></div>
-                <div class="section-shell">
-                    <div class="section-bubble"></div>
-                    <div class="section-bubble bubble-2"></div>
-                    <p>Engineering teams across every industry rely on KubeGraf</p>
+                <div class="floating-particle particle-tiny particle-pink" style="top: 10%; left: 5%; animation-delay: 0s;"></div>
+                <div class="floating-particle particle-small particle-green" style="top: 20%; left: 10%; animation-delay: 1s;"></div>
+                <div class="floating-particle particle-medium particle-blue" style="top: 40%; right: 15%; animation-delay: 2s;"></div>
+                <div class="floating-particle particle-large particle-teal" style="bottom: 20%; left: 20%; animation-delay: 4s;"></div>
+                <div class="floating-particle particle-xl particle-purple" style="top: 55%; right: 10%; animation-delay: 3s;"></div>
+                <div class="floating-particle particle-small particle-blue" style="bottom: 15%; right: 5%; animation-delay: 5s;"></div>
+                <div class="floating-particle particle-medium particle-pink" style="top: 75%; left: 15%; animation-delay: 2.5s;"></div>
+
+                <div class="page-inner section-content fade-in-section">
+                    <p style="text-align: center; font-size: 1.2rem; font-weight: 500; margin-bottom: 2.5rem;">Engineering teams across every industry rely on KubeGraf</p>
                     <div class="logo-grid">
                         <span>Automation</span>
                         <span>Reliability</span>
@@ -2144,11 +2417,15 @@
             </section>
 
             <section class="highlights-section" id="insights" style="position: relative;">
-                <div class="floating-particle particle-small" style="top: 15%; right: 10%; animation-delay: 1s;"></div>
-                <div class="floating-particle particle-medium" style="bottom: 25%; left: 5%; animation-delay: 3s;"></div>
-                <div class="floating-particle particle-large" style="top: 50%; right: 5%; animation-delay: 5s;"></div>
-                <div class="section-shell">
-                    <div class="section-bubble bubble-3"></div>
+                <div class="floating-particle particle-tiny particle-green" style="top: 8%; left: 3%; animation-delay: 0.5s;"></div>
+                <div class="floating-particle particle-small particle-blue" style="top: 15%; right: 10%; animation-delay: 1s;"></div>
+                <div class="floating-particle particle-medium particle-pink" style="bottom: 30%; left: 8%; animation-delay: 2s;"></div>
+                <div class="floating-particle particle-large particle-teal" style="top: 50%; right: 5%; animation-delay: 5s;"></div>
+                <div class="floating-particle particle-xl particle-purple" style="bottom: 20%; right: 12%; animation-delay: 4s;"></div>
+                <div class="floating-particle particle-small particle-green" style="top: 65%; left: 5%; animation-delay: 3s;"></div>
+                <div class="floating-particle particle-medium particle-blue" style="top: 35%; right: 20%; animation-delay: 6s;"></div>
+
+                <div class="page-inner section-content fade-in-section stagger">
                     <div class="section-header">
                         <p class="eyebrow">Why KubeGraf</p>
                         <h2>Built for Speed and Insight</h2>
@@ -2184,10 +2461,15 @@
             </section>
 
             <section id="ai" style="position: relative;">
-                <div class="floating-particle particle-small" style="top: 10%; left: 8%; animation-delay: 2s;"></div>
-                <div class="floating-particle particle-medium" style="top: 60%; right: 8%; animation-delay: 1s;"></div>
-                <div class="section-shell">
-                    <div class="section-bubble"></div>
+                <div class="floating-particle particle-tiny particle-purple" style="top: 5%; left: 2%; animation-delay: 0.5s;"></div>
+                <div class="floating-particle particle-small particle-blue" style="top: 10%; left: 8%; animation-delay: 2s;"></div>
+                <div class="floating-particle particle-medium particle-teal" style="top: 60%; right: 8%; animation-delay: 1s;"></div>
+                <div class="floating-particle particle-large particle-pink" style="bottom: 10%; left: 15%; animation-delay: 4s;"></div>
+                <div class="floating-particle particle-xl particle-green" style="top: 40%; right: 5%; animation-delay: 3.5s;"></div>
+                <div class="floating-particle particle-small particle-purple" style="bottom: 25%; right: 20%; animation-delay: 5s;"></div>
+                <div class="floating-particle particle-medium particle-blue" style="top: 20%; right: 15%; animation-delay: 2.5s;"></div>
+
+                <div class="page-inner section-content fade-in-section stagger">
                     <div class="section-header">
                         <p class="eyebrow">AI For DevOps & Automation</p>
                         <h2>Automation that keeps your pipeline moving</h2>
@@ -2213,9 +2495,16 @@
                 </div>
             </section>
 
-            <section class="innovation" aria-label="Brain panel and global store">
-                <div class="section-shell">
-                    <div class="section-bubble bubble-2"></div>
+            <section class="innovation" aria-label="Brain panel and global store" style="position: relative;">
+                <div class="floating-particle particle-tiny particle-teal" style="top: 8%; right: 3%; animation-delay: 0.5s;"></div>
+                <div class="floating-particle particle-small particle-pink" style="top: 25%; left: 5%; animation-delay: 1.5s;"></div>
+                <div class="floating-particle particle-medium particle-green" style="bottom: 30%; right: 10%; animation-delay: 3s;"></div>
+                <div class="floating-particle particle-large particle-blue" style="top: 60%; left: 8%; animation-delay: 4.5s;"></div>
+                <div class="floating-particle particle-xl particle-purple" style="bottom: 15%; left: 20%; animation-delay: 2.5s;"></div>
+                <div class="floating-particle particle-small particle-teal" style="top: 45%; right: 15%; animation-delay: 6s;"></div>
+                <div class="floating-particle particle-medium particle-pink" style="top: 80%; right: 5%; animation-delay: 5s;"></div>
+
+                <div class="page-inner section-content fade-in-section stagger">
                     <div class="section-header">
                         <p class="eyebrow">Brain & Performance</p>
                         <div class="brain-title">
@@ -2248,11 +2537,15 @@
             </section>
 
             <section class="pricing-dual" id="pricing" style="position: relative;">
-                <div class="floating-particle particle-small" style="top: 5%; right: 5%; animation-delay: 0s;"></div>
-                <div class="floating-particle particle-medium" style="bottom: 10%; left: 10%; animation-delay: 2.5s;"></div>
-                <div class="floating-particle particle-large" style="top: 40%; right: 3%; animation-delay: 4.5s;"></div>
-                <div class="section-shell">
-                    <div class="section-bubble"></div>
+                <div class="floating-particle particle-tiny particle-green" style="top: 3%; left: 5%; animation-delay: 0s;"></div>
+                <div class="floating-particle particle-small particle-pink" style="top: 5%; right: 5%; animation-delay: 0.5s;"></div>
+                <div class="floating-particle particle-medium particle-blue" style="bottom: 10%; left: 10%; animation-delay: 2.5s;"></div>
+                <div class="floating-particle particle-large particle-teal" style="top: 40%; right: 3%; animation-delay: 4.5s;"></div>
+                <div class="floating-particle particle-xl particle-purple" style="bottom: 20%; right: 15%; animation-delay: 3.5s;"></div>
+                <div class="floating-particle particle-small particle-green" style="top: 70%; left: 8%; animation-delay: 5.5s;"></div>
+                <div class="floating-particle particle-medium particle-pink" style="top: 50%; right: 12%; animation-delay: 6s;"></div>
+
+                <div class="page-inner section-content fade-in-section">
                     <div class="section-header">
                         <p class="eyebrow">Pricing</p>
                         <h2>Plans for Every Team</h2>
@@ -2527,10 +2820,15 @@
             </section>
 
             <section id="features" style="position: relative;">
-                <div class="floating-particle particle-medium" style="top: 15%; left: 5%; animation-delay: 1.5s;"></div>
-                <div class="floating-particle particle-small" style="bottom: 20%; right: 8%; animation-delay: 3.5s;"></div>
-                <div class="section-shell">
-                    <div class="section-bubble"></div>
+                <div class="floating-particle particle-tiny particle-blue" style="top: 5%; left: 3%; animation-delay: 0.5s;"></div>
+                <div class="floating-particle particle-small particle-pink" style="top: 15%; left: 5%; animation-delay: 1.5s;"></div>
+                <div class="floating-particle particle-medium particle-green" style="bottom: 30%; right: 15%; animation-delay: 2.5s;"></div>
+                <div class="floating-particle particle-large particle-teal" style="top: 50%; right: 5%; animation-delay: 4s;"></div>
+                <div class="floating-particle particle-xl particle-purple" style="bottom: 20%; right: 8%; animation-delay: 3.5s;"></div>
+                <div class="floating-particle particle-small particle-blue" style="top: 70%; left: 10%; animation-delay: 5s;"></div>
+                <div class="floating-particle particle-medium particle-pink" style="bottom: 5%; right: 20%; animation-delay: 6s;"></div>
+
+                <div class="page-inner section-content fade-in-section stagger">
                     <div class="section-header">
                         <p class="eyebrow">Product</p>
                         <h2>Three Interfaces, One Platform</h2>
@@ -2638,10 +2936,15 @@
             </section>
 
             <section class="final-cta" style="position: relative;">
-                <div class="floating-particle particle-small" style="top: 5%; left: 10%; animation-delay: 1s;"></div>
-                <div class="floating-particle particle-medium" style="bottom: 10%; right: 10%; animation-delay: 3s;"></div>
-                <div class="section-shell">
-                    <div class="section-bubble"></div>
+                <div class="floating-particle particle-tiny particle-purple" style="top: 2%; left: 5%; animation-delay: 0.5s;"></div>
+                <div class="floating-particle particle-small particle-green" style="top: 5%; left: 10%; animation-delay: 1s;"></div>
+                <div class="floating-particle particle-medium particle-pink" style="top: 50%; right: 3%; animation-delay: 2s;"></div>
+                <div class="floating-particle particle-large particle-blue" style="bottom: 10%; right: 10%; animation-delay: 3s;"></div>
+                <div class="floating-particle particle-xl particle-teal" style="top: 60%; left: 15%; animation-delay: 4s;"></div>
+                <div class="floating-particle particle-small particle-purple" style="bottom: 20%; right: 5%; animation-delay: 5s;"></div>
+                <div class="floating-particle particle-medium particle-green" style="top: 30%; left: 3%; animation-delay: 6s;"></div>
+
+                <div class="page-inner section-content fade-in-section">
                     <h3>Open Source for Kubernetes engineers</h3>
                     <p>Ready to simplify your Kubernetes workflow? Join thousands of engineers using KubeGraf to deploy, monitor, and manage their clusters with confidence.</p>
                     <div class="hero-actions" style="justify-content: center; margin-top: 1rem;">
@@ -2658,10 +2961,15 @@
             </section>
 
             <section id="installation" style="position: relative;">
-                <div class="floating-particle particle-small" style="top: 15%; right: 5%; animation-delay: 2.5s;"></div>
-                <div class="floating-particle particle-medium" style="bottom: 10%; left: 3%; animation-delay: 1s;"></div>
-                <div class="section-shell">
-                    <div class="section-bubble bubble-2"></div>
+                <div class="floating-particle particle-tiny particle-pink" style="top: 8%; left: 2%; animation-delay: 0.5s;"></div>
+                <div class="floating-particle particle-small particle-teal" style="top: 15%; right: 5%; animation-delay: 2.5s;"></div>
+                <div class="floating-particle particle-medium particle-blue" style="bottom: 10%; left: 3%; animation-delay: 1s;"></div>
+                <div class="floating-particle particle-large particle-green" style="top: 55%; right: 10%; animation-delay: 3.5s;"></div>
+                <div class="floating-particle particle-xl particle-purple" style="bottom: 25%; right: 3%; animation-delay: 4s;"></div>
+                <div class="floating-particle particle-small particle-pink" style="top: 40%; left: 12%; animation-delay: 5.5s;"></div>
+                <div class="floating-particle particle-medium particle-teal" style="bottom: 15%; left: 18%; animation-delay: 6s;"></div>
+
+                <div class="page-inner section-content fade-in-section stagger">
                     <div class="section-header">
                         <p class="eyebrow">Install</p>
                         <h2>Install in minutes, iterate with confidence</h2>
@@ -2696,5 +3004,51 @@
             </footer>
         </div>
     </main>
+
+    <script>
+        // Parallax effect for floating particles on scroll
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const scrolled = window.pageYOffset;
+                    document.querySelectorAll('.floating-particle').forEach((particle, i) => {
+                        const speed = 0.3 + ((i % 4) * 0.15); // 0.3, 0.45, 0.6, 0.75
+                        particle.style.transform = `translateY(${-scrolled * speed}px)`;
+                    });
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }, { passive: true });
+
+        // Fade-in on scroll using Intersection Observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -80px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Unobserve after revealing for performance
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections with fade-in class
+        document.querySelectorAll('.fade-in-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Handle reduced motion preference
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.querySelectorAll('.fade-in-section').forEach(section => {
+                section.classList.add('visible');
+            });
+        }
+    </script>
 </body>
 </html>
