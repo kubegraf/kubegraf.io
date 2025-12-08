@@ -462,9 +462,11 @@
             filter: drop-shadow(0 0 20px rgba(50, 108, 229, 0.5));
         }
 
-        .rotating-brain svg {
+        .brain-image {
             width: 240px;
-            height: 220px;
+            height: auto;
+            max-width: 100%;
+            object-fit: contain;
         }
 
         .brain-title-main {
@@ -3320,7 +3322,7 @@
             <section class="brain-logo-section">
                 <div class="page-inner-wide">
                     <div class="rotating-brain">
-                        <svg viewBox="0 0 300 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <img src="/assets/images/brain.png" alt="AI Brain" class="brain-image" />
                             <defs>
                                 <!-- Glowing translucent blue brain gradient -->
                                 <linearGradient id="brainGlowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
