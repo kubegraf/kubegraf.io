@@ -3199,12 +3199,12 @@
                 </a>
                 <ul class="nav-links">
                     <li><a href="#main-content">Product</a></li>
-                    <li><a href="#features">Docs</a></li>
+                    <li><a href="#docs">Docs</a></li>
                     <li><a href="#installation">Open Source</a></li>
                     <li><a href="#ai">Pricing</a></li>
                     <li><a href="mailto:contact@kubegraf.io">Contact us</a></li>
                 </ul>
-                <span class="nav-cta">Get started</span>
+                <a href="#installation" class="nav-cta" style="text-decoration: none; color: inherit; cursor: pointer;">Get started</a>
             </nav>
 
             <section class="hero" id="main-content" style="padding: 6rem 0 4rem;">
@@ -3694,7 +3694,7 @@
                 <div class="page-inner-wide section-content fade-in-section stagger">
                     <div class="section-header" style="text-align: center; margin-bottom: 3rem; max-width: 100%;">
                         <p class="eyebrow">How You Work</p>
-                        <h2>Three Ways to Interact</h2>
+                        <h2 id="interfaces">Three Ways to Interact</h2>
                         <p>Choose your interface—terminal, web, or modern SPA—all synced in real-time.</p>
                     </div>
 
@@ -3793,7 +3793,7 @@
                         </article>
                     </div>
 
-                    <div class="install-tabs-wrapper">
+                    <div class="install-tabs-wrapper" id="installation">
                         <div style="text-align: center; margin-bottom: 1rem;">
                             <p class="eyebrow" style="margin-bottom: 0.5rem;">Get Started in Seconds</p>
                             <h3 style="text-align: center; margin-bottom: 0.5rem; font-size: 2rem;">Quick Install</h3>
@@ -3829,11 +3829,32 @@
                                 <span class="tab-label">macOS</span>
                             </label>
                             <label for="install-linux" class="install-tab-btn">
-                                <span class="tab-icon">🐧</span>
+                                <span class="tab-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+                                        <!-- Tux Penguin (Linux) -->
+                                        <circle cx="12" cy="14" r="7" fill="#2d3436"/>
+                                        <ellipse cx="9.5" cy="12" rx="1.5" ry="2" fill="white"/>
+                                        <ellipse cx="14.5" cy="12" rx="1.5" ry="2" fill="white"/>
+                                        <ellipse cx="9.5" cy="11.5" rx="0.8" ry="1" fill="#2d3436"/>
+                                        <ellipse cx="14.5" cy="11.5" rx="0.8" ry="1" fill="#2d3436"/>
+                                        <path d="M10 14.5 Q12 16 14 14.5" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                                        <ellipse cx="12" cy="9" rx="4" ry="3.5" fill="white"/>
+                                        <ellipse cx="12" cy="8.5" rx="3.5" ry="3" fill="#2d3436"/>
+                                        <path d="M8 7 Q10 6.5 12 7 Q14 6.5 16 7" stroke="white" stroke-width="1" fill="none" stroke-linecap="round"/>
+                                    </svg>
+                                </span>
                                 <span class="tab-label">Linux</span>
                             </label>
                             <label for="install-windows" class="install-tab-btn">
-                                <span class="tab-icon">🪟</span>
+                                <span class="tab-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+                                        <!-- Windows logo -->
+                                        <rect x="2" y="2" width="9" height="9" fill="#00bcf2"/>
+                                        <rect x="13" y="2" width="9" height="9" fill="#0078d4"/>
+                                        <rect x="2" y="13" width="9" height="9" fill="#00bcf2"/>
+                                        <rect x="13" y="13" width="9" height="9" fill="#0078d4"/>
+                                    </svg>
+                                </span>
                                 <span class="tab-label">Windows</span>
                             </label>
                         </div>
@@ -3933,7 +3954,7 @@ sudo mv kubegraf /usr/local/bin/</pre>
                 <nav>
                     <a href="#main-content">KubeGraf</a>
                     <a href="#features">Features</a>
-                    <a href="#interfaces">Installation</a>
+                    <a href="#installation">Installation</a>
                     <a href="https://kubegraf.io/docs/">Docs</a>
                     <a href="https://github.com/kubegraf/kubegraf">GitHub</a>
                     <a href="mailto:contact@kubegraf.io">Contact</a>
