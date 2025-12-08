@@ -3911,14 +3911,20 @@ sudo mv kubegraf /usr/local/bin/</pre>
                                         <button class="copy-btn" onclick="copyToClipboard('win-cmd-1', this)">Copy</button>
                                     </div>
                                     <p style="font-size: 0.875rem; color: rgba(255,255,255,0.6); margin-top: 0.5rem;">Automatically downloads, installs, and adds to PATH. Requires PowerShell 5.1+.</p>
+                                    <p style="font-size: 0.8rem; color: rgba(255,255,255,0.5); margin-top: 0.5rem; padding: 0.5rem; background: rgba(255,165,0,0.1); border-left: 2px solid #ffa500; border-radius: 4px;">
+                                        <strong>Note:</strong> If you get an execution policy error, run this first:<br>
+                                        <code style="font-size: 0.75rem;">Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser</code>
+                                    </p>
                                 </div>
                                 <div class="install-method">
                                     <p class="method-label">Alternative: Download Script</p>
                                     <div style="position: relative;">
                                         <pre class="install-command" id="win-cmd-2">Invoke-WebRequest -Uri https://kubegraf.io/install.ps1 -OutFile install.ps1
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 .\install.ps1</pre>
                                         <button class="copy-btn" onclick="copyToClipboard('win-cmd-2', this)">Copy</button>
                                     </div>
+                                    <p style="font-size: 0.875rem; color: rgba(255,255,255,0.6); margin-top: 0.5rem;">Download the script and run it locally. Set execution policy if needed.</p>
                                 </div>
                             </div>
                         </div>
