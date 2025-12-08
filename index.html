@@ -3320,21 +3320,32 @@
             <section class="brain-logo-section">
                 <div class="page-inner-wide">
                     <div class="rotating-brain">
-                        <svg viewBox="0 0 280 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg viewBox="0 0 300 280" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <defs>
-                                <linearGradient id="brainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#f8fafc;stop-opacity:1" />
-                                    <stop offset="25%" style="stop-color:#e2e8f0;stop-opacity:0.95" />
-                                    <stop offset="50%" style="stop-color:#cbd5e1;stop-opacity:0.9" />
-                                    <stop offset="75%" style="stop-color:#a5b4fc;stop-opacity:0.85" />
-                                    <stop offset="100%" style="stop-color:#818cf8;stop-opacity:0.8" />
+                                <!-- Glowing translucent blue brain gradient -->
+                                <linearGradient id="brainGlowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#00d9ff;stop-opacity:0.85" />
+                                    <stop offset="30%" style="stop-color:#00b8d4;stop-opacity:0.75" />
+                                    <stop offset="60%" style="stop-color:#0097a7;stop-opacity:0.7" />
+                                    <stop offset="100%" style="stop-color:#0073e6;stop-opacity:0.65" />
                                 </linearGradient>
-                                <linearGradient id="brainShadowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.25" />
-                                    <stop offset="100%" style="stop-color:#6366f1;stop-opacity:0.15" />
-                                </linearGradient>
-                                <filter id="brainGlow">
-                                    <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+                                <!-- Inner glow for translucency -->
+                                <radialGradient id="brainInnerGlow" cx="50%" cy="50%">
+                                    <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.3" />
+                                    <stop offset="70%" style="stop-color:#00d9ff;stop-opacity:0.5" />
+                                    <stop offset="100%" style="stop-color:#0073e6;stop-opacity:0.2" />
+                                </radialGradient>
+                                <!-- Strong glow filter -->
+                                <filter id="brainGlowFilter">
+                                    <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+                                    <feMerge>
+                                        <feMergeNode in="coloredBlur"/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                                <!-- Glow for neural nodes -->
+                                <filter id="neuronGlow">
+                                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
                                     <feMerge>
                                         <feMergeNode in="coloredBlur"/>
                                         <feMergeNode in="SourceGraphic"/>
@@ -3342,103 +3353,184 @@
                                 </filter>
                             </defs>
                             
-                            <!-- Brain shadow/base -->
-                            <ellipse cx="140" cy="135" rx="110" ry="90" fill="url(#brainShadowGrad)" opacity="0.5"/>
+                            <!-- Outer glow halo -->
+                            <ellipse cx="150" cy="140" rx="130" ry="110" fill="url(#brainGlowGradient)" opacity="0.3" filter="url(#brainGlowFilter)"/>
                             
-                            <!-- Main brain outline - realistic shape with frontal, parietal, temporal, occipital lobes -->
-                            <path d="M140 25 C125 25, 110 30, 95 40 C80 32, 60 35, 50 48 C40 38, 25 50, 22 68 C18 80, 20 92, 28 102 C22 112, 25 125, 35 135 C28 148, 35 162, 48 172 C60 182, 78 188, 95 190 C85 200, 90 210, 100 215 C110 220, 125 222, 140 220 C155 222, 170 220, 180 215 C190 210, 195 200, 185 190 C202 188, 220 182, 232 172 C245 162, 252 148, 245 135 C255 125, 258 112, 252 102 C260 92, 262 80, 258 68 C255 50, 240 38, 230 48 C220 35, 200 32, 185 40 C170 30, 155 25, 140 25 Z" 
-                                  fill="url(#brainGradient)" 
-                                  filter="url(#brainGlow)"
-                                  stroke="#6366f1"
+                            <!-- Main brain shape - realistic 3/4 profile view -->
+                            <path d="M150 30 C130 30, 110 35, 92 48 C75 35, 50 38, 35 55 C25 42, 10 58, 8 78 C5 92, 8 105, 18 118 C10 130, 15 145, 28 158 C18 172, 28 188, 45 200 C60 212, 80 218, 100 220 C88 232, 95 245, 108 252 C120 260, 135 262, 150 260 C165 262, 180 260, 192 252 C205 245, 212 232, 200 220 C220 218, 240 212, 255 200 C272 188, 282 172, 272 158 C285 145, 290 130, 282 118 C292 105, 295 92, 292 78 C290 58, 275 42, 265 55 C250 38, 225 35, 208 48 C190 35, 170 30, 150 30 Z" 
+                                  fill="url(#brainGlowGradient)" 
+                                  opacity="0.75"
+                                  filter="url(#brainGlowFilter)"
+                                  stroke="#00d9ff"
                                   stroke-width="2"
-                                  stroke-opacity="0.4"/>
+                                  stroke-opacity="0.6"/>
                             
-                            <!-- Longitudinal fissure (dividing left and right hemispheres) -->
-                            <path d="M140 32 L140 218" stroke="#6366f1" stroke-width="2" stroke-opacity="0.5" stroke-linecap="round"/>
+                            <!-- Inner glow overlay for translucency -->
+                            <ellipse cx="150" cy="140" rx="115" ry="95" fill="url(#brainInnerGlow)" opacity="0.4"/>
                             
-                            <!-- Central sulcus (Rolandic fissure) -->
-                            <path d="M95 75 Q110 80, 125 75 Q140 70, 155 75 Q170 80, 185 75" stroke="#818cf8" stroke-width="2.5" fill="none" stroke-opacity="0.6" stroke-linecap="round"/>
+                            <!-- Longitudinal fissure -->
+                            <path d="M150 35 L150 255" stroke="#00d9ff" stroke-width="2" stroke-opacity="0.5" stroke-linecap="round"/>
                             
-                            <!-- Lateral sulcus (Sylvian fissure) - left -->
-                            <path d="M60 100 Q70 105, 85 100 Q100 95, 115 100 Q125 108, 130 100" stroke="#818cf8" stroke-width="2" fill="none" stroke-opacity="0.6" stroke-linecap="round"/>
+                            <!-- Central sulcus -->
+                            <path d="M100 85 Q120 90, 140 85 Q160 80, 180 85 Q195 90, 200 85" stroke="#00d9ff" stroke-width="3" fill="none" stroke-opacity="0.6" stroke-linecap="round"/>
+                            
+                            <!-- Lateral sulcus - left -->
+                            <path d="M55 110 Q70 118, 90 110 Q110 102, 130 110 Q145 120, 150 110" stroke="#00d9ff" stroke-width="2.5" fill="none" stroke-opacity="0.6" stroke-linecap="round"/>
                             
                             <!-- Lateral sulcus - right -->
-                            <path d="M150 100 Q165 108, 175 100 Q190 95, 205 100 Q215 105, 220 100" stroke="#818cf8" stroke-width="2" fill="none" stroke-opacity="0.6" stroke-linecap="round"/>
+                            <path d="M150 110 Q155 120, 170 110 Q190 102, 210 110 Q225 118, 245 110" stroke="#00d9ff" stroke-width="2.5" fill="none" stroke-opacity="0.6" stroke-linecap="round"/>
                             
-                            <!-- Frontal lobe gyri (convolutions) - left -->
-                            <path d="M75 45 Q85 50, 95 48 Q105 46, 115 50" stroke="#a5b4fc" stroke-width="1.8" fill="none" stroke-opacity="0.5" stroke-linecap="round"/>
-                            <path d="M70 60 Q80 65, 90 63 Q100 61, 110 65" stroke="#a5b4fc" stroke-width="1.8" fill="none" stroke-opacity="0.5" stroke-linecap="round"/>
+                            <!-- Brain folds - frontal lobe -->
+                            <path d="M80 50 Q95 55, 110 52 Q125 49, 140 55" stroke="#00b8d4" stroke-width="2" fill="none" stroke-opacity="0.5" stroke-linecap="round"/>
+                            <path d="M160 55 Q175 49, 190 52 Q205 55, 220 50" stroke="#00b8d4" stroke-width="2" fill="none" stroke-opacity="0.5" stroke-linecap="round"/>
+                            <path d="M75 68 Q90 73, 105 70 Q120 67, 135 73" stroke="#00b8d4" stroke-width="2" fill="none" stroke-opacity="0.5" stroke-linecap="round"/>
                             
-                            <!-- Frontal lobe gyri - right -->
-                            <path d="M165 50 Q175 46, 185 48 Q195 50, 205 45" stroke="#a5b4fc" stroke-width="1.8" fill="none" stroke-opacity="0.5" stroke-linecap="round"/>
-                            <path d="M170 65 Q180 61, 190 63 Q200 65, 210 60" stroke="#a5b4fc" stroke-width="1.8" fill="none" stroke-opacity="0.5" stroke-linecap="round"/>
+                            <!-- Brain folds - parietal lobe -->
+                            <path d="M90 115 Q110 120, 130 117 Q150 114, 170 120" stroke="#0097a7" stroke-width="2" fill="none" stroke-opacity="0.5" stroke-linecap="round"/>
+                            <path d="M85 140 Q105 145, 125 142 Q145 139, 165 145" stroke="#0097a7" stroke-width="2" fill="none" stroke-opacity="0.5" stroke-linecap="round"/>
                             
-                            <!-- Parietal lobe sulci - left -->
-                            <path d="M85 110 Q95 115, 105 113 Q115 111, 125 115" stroke="#818cf8" stroke-width="2" fill="none" stroke-opacity="0.5" stroke-linecap="round"/>
-                            <path d="M80 130 Q90 135, 100 133 Q110 131, 120 135" stroke="#818cf8" stroke-width="2" fill="none" stroke-opacity="0.5" stroke-linecap="round"/>
+                            <!-- Brain folds - temporal lobe -->
+                            <path d="M50 130 Q70 138, 90 132 Q110 126, 130 134" stroke="#0073e6" stroke-width="2" fill="none" stroke-opacity="0.5" stroke-linecap="round"/>
+                            <path d="M170 134 Q190 126, 210 132 Q230 138, 250 130" stroke="#0073e6" stroke-width="2" fill="none" stroke-opacity="0.5" stroke-linecap="round"/>
+                            <path d="M45 160 Q65 168, 85 162 Q105 156, 125 164" stroke="#0073e6" stroke-width="2" fill="none" stroke-opacity="0.5" stroke-linecap="round"/>
+                            <path d="M175 164 Q195 156, 215 162 Q235 168, 255 160" stroke="#0073e6" stroke-width="2" fill="none" stroke-opacity="0.5" stroke-linecap="round"/>
                             
-                            <!-- Parietal lobe sulci - right -->
-                            <path d="M155 115 Q165 111, 175 113 Q185 115, 195 110" stroke="#818cf8" stroke-width="2" fill="none" stroke-opacity="0.5" stroke-linecap="round"/>
-                            <path d="M160 135 Q170 131, 180 133 Q190 135, 200 130" stroke="#818cf8" stroke-width="2" fill="none" stroke-opacity="0.5" stroke-linecap="round"/>
+                            <!-- Occipital and cerebellum folds -->
+                            <path d="M110 185 Q130 192, 150 188 Q170 192, 190 185" stroke="#0097a7" stroke-width="2" fill="none" stroke-opacity="0.5" stroke-linecap="round"/>
+                            <path d="M115 210 Q130 218, 145 214 Q155 212, 165 214 Q180 218, 185 210" stroke="#0073e6" stroke-width="2" fill="none" stroke-opacity="0.5" stroke-linecap="round"/>
                             
-                            <!-- Temporal lobe folds - left -->
-                            <path d="M55 120 Q65 125, 75 123 Q85 121, 95 125" stroke="#8b9afc" stroke-width="1.8" fill="none" stroke-opacity="0.5" stroke-linecap="round"/>
-                            <path d="M50 145 Q60 150, 70 148 Q80 146, 90 150" stroke="#8b9afc" stroke-width="1.8" fill="none" stroke-opacity="0.5" stroke-linecap="round"/>
+                            <!-- Neural network connections - scattered throughout brain -->
+                            <g opacity="0.8">
+                                <!-- Front connections -->
+                                <line x1="95" y1="65" x2="110" y2="75" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.4" stroke-linecap="round">
+                                    <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2s" repeatCount="indefinite"/>
+                                </line>
+                                <line x1="190" y1="65" x2="175" y2="75" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.4" stroke-linecap="round">
+                                    <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2.3s" repeatCount="indefinite"/>
+                                </line>
+                                <line x1="110" y1="75" x2="130" y2="85" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.4" stroke-linecap="round">
+                                    <animate attributeName="opacity" values="0.4;0.8;0.4" dur="1.8s" repeatCount="indefinite"/>
+                                </line>
+                                <line x1="170" y1="75" x2="150" y2="85" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.4" stroke-linecap="round">
+                                    <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2.1s" repeatCount="indefinite"/>
+                                </line>
+                                
+                                <!-- Middle connections -->
+                                <line x1="100" y1="105" x2="125" y2="115" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.4" stroke-linecap="round">
+                                    <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2.2s" repeatCount="indefinite"/>
+                                </line>
+                                <line x1="200" y1="105" x2="175" y2="115" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.4" stroke-linecap="round">
+                                    <animate attributeName="opacity" values="0.4;0.8;0.4" dur="1.9s" repeatCount="indefinite"/>
+                                </line>
+                                <line x1="115" y1="125" x2="140" y2="135" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.4" stroke-linecap="round">
+                                    <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2.4s" repeatCount="indefinite"/>
+                                </line>
+                                <line x1="185" y1="125" x2="160" y2="135" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.4" stroke-linecap="round">
+                                    <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2s" repeatCount="indefinite"/>
+                                </line>
+                                
+                                <!-- Rear connections -->
+                                <line x1="120" y1="155" x2="140" y2="165" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.4" stroke-linecap="round">
+                                    <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2.1s" repeatCount="indefinite"/>
+                                </line>
+                                <line x1="180" y1="155" x2="160" y2="165" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.4" stroke-linecap="round">
+                                    <animate attributeName="opacity" values="0.4;0.8;0.4" dur="1.7s" repeatCount="indefinite"/>
+                                </line>
+                                
+                                <!-- Cross-hemisphere connections -->
+                                <line x1="140" y1="100" x2="160" y2="100" stroke="#ffffff" stroke-width="1" stroke-opacity="0.3" stroke-linecap="round">
+                                    <animate attributeName="opacity" values="0.3;0.6;0.3" dur="2.5s" repeatCount="indefinite"/>
+                                </line>
+                                <line x1="135" y1="140" x2="165" y2="140" stroke="#ffffff" stroke-width="1" stroke-opacity="0.3" stroke-linecap="round">
+                                    <animate attributeName="opacity" values="0.3;0.6;0.3" dur="2.2s" repeatCount="indefinite"/>
+                                </line>
+                            </g>
                             
-                            <!-- Temporal lobe folds - right -->
-                            <path d="M185 125 Q195 121, 205 123 Q215 125, 225 120" stroke="#8b9afc" stroke-width="1.8" fill="none" stroke-opacity="0.5" stroke-linecap="round"/>
-                            <path d="M190 150 Q200 146, 210 148 Q220 150, 230 145" stroke="#8b9afc" stroke-width="1.8" fill="none" stroke-opacity="0.5" stroke-linecap="round"/>
-                            
-                            <!-- Occipital lobe (back of brain) folds -->
-                            <path d="M100 165 Q110 170, 120 168 Q130 166, 140 170 Q150 166, 160 168 Q170 170, 180 165" stroke="#7c8afc" stroke-width="2" fill="none" stroke-opacity="0.5" stroke-linecap="round"/>
-                            <path d="M105 185 Q115 190, 125 188 Q135 186, 140 190 Q145 186, 155 188 Q165 190, 175 185" stroke="#7c8afc" stroke-width="2" fill="none" stroke-opacity="0.5" stroke-linecap="round"/>
-                            
-                            <!-- Cerebellum (small brain at bottom) -->
-                            <path d="M110 195 Q120 200, 130 198 Q140 196, 150 198 Q160 200, 170 195" stroke="#6366f1" stroke-width="1.5" fill="none" stroke-opacity="0.6" stroke-linecap="round"/>
-                            <path d="M115 210 Q125 215, 135 213 Q140 211, 145 213 Q155 215, 165 210" stroke="#6366f1" stroke-width="1.5" fill="none" stroke-opacity="0.6" stroke-linecap="round"/>
-                            
-                            <!-- Neural network nodes with connections -->
-                            <path d="M100 85 L115 90" stroke="#22c55e" stroke-width="2" stroke-opacity="0.7" stroke-linecap="round">
-                                <animate attributeName="opacity" values="0.7;0.3;0.7" dur="2s" repeatCount="indefinite"/>
-                            </path>
-                            <path d="M165 90 L180 85" stroke="#22c55e" stroke-width="2" stroke-opacity="0.7" stroke-linecap="round">
-                                <animate attributeName="opacity" values="0.7;0.3;0.7" dur="2.3s" repeatCount="indefinite"/>
-                            </path>
-                            <path d="M105 120 L125 125" stroke="#3b82f6" stroke-width="2" stroke-opacity="0.6" stroke-linecap="round">
-                                <animate attributeName="opacity" values="0.6;0.2;0.6" dur="1.8s" repeatCount="indefinite"/>
-                            </path>
-                            <path d="M155 125 L175 120" stroke="#8b5cf6" stroke-width="2" stroke-opacity="0.6" stroke-linecap="round">
-                                <animate attributeName="opacity" values="0.6;0.2;0.6" dur="2.1s" repeatCount="indefinite"/>
-                            </path>
-                            
-                            <!-- Pulsing neural nodes -->
-                            <circle cx="100" cy="85" r="5" fill="#22c55e" opacity="0.9">
-                                <animate attributeName="opacity" values="0.9;0.4;0.9" dur="2s" repeatCount="indefinite"/>
-                                <animate attributeName="r" values="5;6;5" dur="2s" repeatCount="indefinite"/>
+                            <!-- Neural network nodes - bright white dots scattered throughout -->
+                            <!-- Frontal lobe nodes -->
+                            <circle cx="95" cy="65" r="3" fill="#ffffff" filter="url(#neuronGlow)">
+                                <animate attributeName="opacity" values="0.9;0.5;0.9" dur="2s" repeatCount="indefinite"/>
                             </circle>
-                            <circle cx="115" cy="90" r="5" fill="#3b82f6" opacity="0.9">
-                                <animate attributeName="opacity" values="0.9;0.4;0.9" dur="2.5s" repeatCount="indefinite"/>
-                                <animate attributeName="r" values="5;6;5" dur="2.5s" repeatCount="indefinite"/>
+                            <circle cx="110" cy="75" r="3.5" fill="#ffffff" filter="url(#neuronGlow)">
+                                <animate attributeName="opacity" values="1;0.6;1" dur="1.8s" repeatCount="indefinite"/>
                             </circle>
-                            <circle cx="165" cy="90" r="5" fill="#8b5cf6" opacity="0.9">
-                                <animate attributeName="opacity" values="0.9;0.4;0.9" dur="2.2s" repeatCount="indefinite"/>
-                                <animate attributeName="r" values="5;6;5" dur="2.2s" repeatCount="indefinite"/>
+                            <circle cx="130" cy="85" r="3" fill="#ffffff" filter="url(#neuronGlow)">
+                                <animate attributeName="opacity" values="0.9;0.5;0.9" dur="2.1s" repeatCount="indefinite"/>
                             </circle>
-                            <circle cx="180" cy="85" r="5" fill="#22c55e" opacity="0.9">
-                                <animate attributeName="opacity" values="0.9;0.4;0.9" dur="1.9s" repeatCount="indefinite"/>
-                                <animate attributeName="r" values="5;6;5" dur="1.9s" repeatCount="indefinite"/>
+                            <circle cx="150" cy="85" r="4" fill="#ffffff" filter="url(#neuronGlow)">
+                                <animate attributeName="opacity" values="1;0.7;1" dur="2.3s" repeatCount="indefinite"/>
                             </circle>
-                            <circle cx="105" cy="120" r="4" fill="#3b82f6" opacity="0.8">
-                                <animate attributeName="opacity" values="0.8;0.3;0.8" dur="2.3s" repeatCount="indefinite"/>
+                            <circle cx="170" cy="75" r="3.5" fill="#ffffff" filter="url(#neuronGlow)">
+                                <animate attributeName="opacity" values="1;0.6;1" dur="1.9s" repeatCount="indefinite"/>
                             </circle>
-                            <circle cx="125" cy="125" r="4" fill="#8b5cf6" opacity="0.8">
-                                <animate attributeName="opacity" values="0.8;0.3;0.8" dur="1.7s" repeatCount="indefinite"/>
+                            <circle cx="190" cy="65" r="3" fill="#ffffff" filter="url(#neuronGlow)">
+                                <animate attributeName="opacity" values="0.9;0.5;0.9" dur="2.2s" repeatCount="indefinite"/>
                             </circle>
-                            <circle cx="155" cy="125" r="4" fill="#22c55e" opacity="0.8">
-                                <animate attributeName="opacity" values="0.8;0.3;0.8" dur="2.4s" repeatCount="indefinite"/>
+                            <circle cx="105" cy="55" r="2.5" fill="#ffffff" filter="url(#neuronGlow)">
+                                <animate attributeName="opacity" values="0.8;0.4;0.8" dur="2.4s" repeatCount="indefinite"/>
                             </circle>
-                            <circle cx="175" cy="120" r="4" fill="#3b82f6" opacity="0.8">
-                                <animate attributeName="opacity" values="0.8;0.3;0.8" dur="2s" repeatCount="indefinite"/>
+                            <circle cx="195" cy="55" r="2.5" fill="#ffffff" filter="url(#neuronGlow)">
+                                <animate attributeName="opacity" values="0.8;0.4;0.8" dur="2s" repeatCount="indefinite"/>
+                            </circle>
+                            
+                            <!-- Parietal lobe nodes -->
+                            <circle cx="100" cy="105" r="3.5" fill="#ffffff" filter="url(#neuronGlow)">
+                                <animate attributeName="opacity" values="1;0.6;1" dur="2.2s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="125" cy="115" r="4" fill="#ffffff" filter="url(#neuronGlow)">
+                                <animate attributeName="opacity" values="1;0.7;1" dur="1.8s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="140" cy="110" r="3" fill="#ffffff" filter="url(#neuronGlow)">
+                                <animate attributeName="opacity" values="0.9;0.5;0.9" dur="2.5s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="160" cy="110" r="3" fill="#ffffff" filter="url(#neuronGlow)">
+                                <animate attributeName="opacity" values="0.9;0.5;0.9" dur="2.1s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="175" cy="115" r="3.5" fill="#ffffff" filter="url(#neuronGlow)">
+                                <animate attributeName="opacity" values="1;0.6;1" dur="1.9s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="200" cy="105" r="3" fill="#ffffff" filter="url(#neuronGlow)">
+                                <animate attributeName="opacity" values="0.9;0.5;0.9" dur="2.3s" repeatCount="indefinite"/>
+                            </circle>
+                            
+                            <!-- Temporal lobe nodes -->
+                            <circle cx="115" cy="125" r="3" fill="#ffffff" filter="url(#neuronGlow)">
+                                <animate attributeName="opacity" values="0.9;0.5;0.9" dur="2.4s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="140" cy="135" r="4.5" fill="#ffffff" filter="url(#neuronGlow)">
+                                <animate attributeName="opacity" values="1;0.8;1" dur="2s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="160" cy="135" r="3" fill="#ffffff" filter="url(#neuronGlow)">
+                                <animate attributeName="opacity" values="0.9;0.5;0.9" dur="2.2s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="185" cy="125" r="3.5" fill="#ffffff" filter="url(#neuronGlow)">
+                                <animate attributeName="opacity" values="1;0.6;1" dur="1.7s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="85" cy="145" r="3" fill="#ffffff" filter="url(#neuronGlow)">
+                                <animate attributeName="opacity" values="0.9;0.5;0.9" dur="2.1s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="215" cy="145" r="3" fill="#ffffff" filter="url(#neuronGlow)">
+                                <animate attributeName="opacity" values="0.9;0.5;0.9" dur="2.3s" repeatCount="indefinite"/>
+                            </circle>
+                            
+                            <!-- Occipital and cerebellum nodes -->
+                            <circle cx="120" cy="155" r="3.5" fill="#ffffff" filter="url(#neuronGlow)">
+                                <animate attributeName="opacity" values="1;0.6;1" dur="2s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="140" cy="165" r="3" fill="#ffffff" filter="url(#neuronGlow)">
+                                <animate attributeName="opacity" values="0.9;0.5;0.9" dur="2.2s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="160" cy="165" r="3" fill="#ffffff" filter="url(#neuronGlow)">
+                                <animate attributeName="opacity" values="0.9;0.5;0.9" dur="1.8s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="180" cy="155" r="3.5" fill="#ffffff" filter="url(#neuronGlow)">
+                                <animate attributeName="opacity" values="1;0.6;1" dur="2.4s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="130" cy="200" r="3" fill="#ffffff" filter="url(#neuronGlow)">
+                                <animate attributeName="opacity" values="0.9;0.5;0.9" dur="2.1s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="170" cy="200" r="3" fill="#ffffff" filter="url(#neuronGlow)">
+                                <animate attributeName="opacity" values="0.9;0.5;0.9" dur="1.9s" repeatCount="indefinite"/>
                             </circle>
                         </svg>
                     </div>
