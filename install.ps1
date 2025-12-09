@@ -1,6 +1,10 @@
 # KubeGraf Installation Script for Windows
-# Usage: irm https://kubegraf.io/install.ps1 | iex
-# Alternative: Invoke-WebRequest -Uri https://kubegraf.io/install.ps1 -OutFile install.ps1; .\install.ps1
+#
+# Recommended (one-liner with execution policy fix):
+#   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force; irm https://kubegraf.io/install.ps1 | iex
+#
+# Alternative (bypass execution policy for this script only):
+#   Invoke-WebRequest -Uri https://kubegraf.io/install.ps1 -OutFile install.ps1; powershell -ExecutionPolicy Bypass -File install.ps1
 
 $ErrorActionPreference = "Stop"
 

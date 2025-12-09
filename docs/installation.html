@@ -372,6 +372,44 @@ Expand-Archive kubegraf.zip -DestinationPath $env:USERPROFILE\bin
             <p>You should see output like:</p>
             <pre><code>kubegraf version 1.0.0 (go1.21.0)</code></pre>
 
+            <h2>Troubleshooting</h2>
+
+            <h3>Windows: "Running scripts is disabled on this system"</h3>
+            <p>If you get this error when running PowerShell scripts:</p>
+            <pre><code>.\install.ps1 : File C:\Users\...\install.ps1 cannot be loaded because running scripts is disabled on this system.</code></pre>
+
+            <p><strong>Solution 1: Use the bypass flag (Recommended - No permanent changes)</strong></p>
+            <pre><code>Invoke-WebRequest -Uri https://kubegraf.io/install.ps1 -OutFile install.ps1
+powershell -ExecutionPolicy Bypass -File install.ps1</code></pre>
+            <p>This runs the script once without changing your system's execution policy.</p>
+
+            <p><strong>Solution 2: Change execution policy for current user</strong></p>
+            <pre><code>Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force</code></pre>
+            <p>Then run the installation script normally. This change persists for your user account.</p>
+
+            <p><strong>Solution 3: Use the one-liner (includes execution policy fix)</strong></p>
+            <pre><code>Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force; irm https://kubegraf.io/install.ps1 | iex</code></pre>
+
+            <h3>Windows: "kubegraf is not recognized"</h3>
+            <p>If the command is not found after installation:</p>
+            <ol>
+                <li><strong>Restart your terminal</strong> - PATH changes require a new terminal session</li>
+                <li><strong>Manually add to PATH for current session:</strong>
+                    <pre><code>$env:Path += ";$env:LOCALAPPDATA\Programs\KubeGraf"</code></pre>
+                </li>
+                <li><strong>Verify installation location:</strong>
+                    <pre><code>Test-Path "$env:LOCALAPPDATA\Programs\KubeGraf\kubegraf.exe"</code></pre>
+                </li>
+            </ol>
+
+            <h3>macOS: "kubegraf cannot be opened"</h3>
+            <p>If you see a security warning on macOS:</p>
+            <pre><code>sudo xattr -rd com.apple.quarantine /usr/local/bin/kubegraf</code></pre>
+
+            <h3>Linux: Permission denied</h3>
+            <p>If you get permission errors:</p>
+            <pre><code>sudo chmod +x /usr/local/bin/kubegraf</code></pre>
+
             <h2>Next Steps</h2>
             <p>Now that KubeGraf is installed, check out the <a href="/docs/quickstart.html">Quick Start Guide</a> to connect to your first cluster.</p>
         </main>
