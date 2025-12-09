@@ -10,6 +10,7 @@ $ErrorActionPreference = "Stop"
 
 $REPO = "kubegraf/kubegraf"
 $BINARY_NAME = "kubegraf.exe"
+$PACKAGE_NAME = "kubegraf"
 $INSTALL_DIR = "$env:LOCALAPPDATA\Programs\KubeGraf"
 
 function Write-Info {
@@ -78,9 +79,9 @@ function Install-KubeGraf {
     )
     
     $OS = "windows"
-    $DOWNLOAD_URL = "https://github.com/$REPO/releases/download/v$Version/${BINARY_NAME}-${OS}-${Arch}.zip"
+    $DOWNLOAD_URL = "https://github.com/$REPO/releases/download/v$Version/${PACKAGE_NAME}-${OS}-${Arch}.zip"
     $TEMP_DIR = Join-Path $env:TEMP "kubegraf-install"
-    $DOWNLOAD_FILE = Join-Path $TEMP_DIR "$BINARY_NAME.zip"
+    $DOWNLOAD_FILE = Join-Path $TEMP_DIR "${PACKAGE_NAME}.zip"
     
     Write-Info "Downloading KubeGraf v$Version for $OS/$Arch..."
     Write-Info "URL: $DOWNLOAD_URL"
