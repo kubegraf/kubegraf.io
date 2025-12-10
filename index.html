@@ -142,6 +142,31 @@
             z-index: 1;
         }
 
+        /* Cursor Glow Effect */
+        #cursor-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            background: radial-gradient(
+                circle,
+                rgba(59, 130, 246, 0.15) 0%,
+                rgba(139, 92, 246, 0.1) 25%,
+                rgba(255, 0, 110, 0.05) 50%,
+                transparent 70%
+            );
+            transform: translate(-50%, -50%);
+            mix-blend-mode: screen;
+        }
+
+        body:hover #cursor-glow {
+            opacity: 1;
+        }
+
         .motion-background {
             position: fixed;
             inset: 0;
@@ -3532,6 +3557,9 @@
     </style>
 </head>
 <body>
+    <!-- Cursor Glow Effect -->
+    <div id="cursor-glow"></div>
+
     <div class="motion-background" aria-hidden="true">
         <span></span>
         <span></span>
@@ -4834,6 +4862,44 @@ sudo mv kubegraf /usr/local/bin/</pre>
             document.addEventListener('DOMContentLoaded', initProductTabs);
         } else {
             initProductTabs();
+        }
+
+        // Cursor glow effect
+        const cursorGlow = document.getElementById('cursor-glow');
+        if (cursorGlow) {
+            let mouseX = 0;
+            let mouseY = 0;
+            let glowX = 0;
+            let glowY = 0;
+
+            // Track mouse position
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            // Smooth animation with lerp (linear interpolation)
+            function animateGlow() {
+                // Smooth follow with easing
+                glowX += (mouseX - glowX) * 0.15;
+                glowY += (mouseY - glowY) * 0.15;
+
+                cursorGlow.style.left = glowX + 'px';
+                cursorGlow.style.top = glowY + 'px';
+
+                requestAnimationFrame(animateGlow);
+            }
+
+            animateGlow();
+
+            // Hide glow when cursor leaves the window
+            document.addEventListener('mouseleave', () => {
+                cursorGlow.style.opacity = '0';
+            });
+
+            document.addEventListener('mouseenter', () => {
+                cursorGlow.style.opacity = '1';
+            });
         }
     </script>
 </body>
