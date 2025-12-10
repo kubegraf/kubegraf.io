@@ -56,17 +56,50 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --dark: #020617;
-            --deep: #050b1a;
-            --primary: #326ce5;
-            --secondary: #4ade80;
+            /* n8n.io inspired dark palette */
+            --midnight-navy: #0e0918;
+            --deep-navy: #1f192a;
+            --electric-orange: #ff006e;
+            --neon-purple: #8b5cf6;
+            --cyber-teal: #00d4aa;
+            --sunset-yellow: #ff9b26;
+
+            /* Dark blue palette additions */
+            --dark-blue: #0a1628;
+            --ocean-blue: #1a2942;
+            --slate-blue: #1e3a5f;
+            --royal-blue: #2563eb;
+            --steel-blue: #334e7a;
+
+            /* Legacy colors for compatibility */
+            --dark: #0e0918;
+            --deep: #1f192a;
+            --primary: #3b82f6;
+            --secondary: #00d4aa;
             --muted: #94a3b8;
+
+            /* Glassmorphism */
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-blur: 20px;
+
+            /* Effects */
             --panel: rgba(255, 255, 255, 0.04);
-            --border: rgba(255, 255, 255, 0.1);
-            --glow: rgba(50, 108, 229, 0.35);
-            --accent-cyan: #00d4aa;
-            --accent-purple: #a78bfa;
-            --accent-pink: #f472b6;
+            --border: rgba(255, 255, 255, 0.08);
+            --glow: rgba(255, 0, 110, 0.35);
+
+            /* Spacing (4px base unit) */
+            --space-1: 4px;
+            --space-2: 8px;
+            --space-3: 12px;
+            --space-4: 16px;
+            --space-6: 24px;
+            --space-8: 32px;
+            --space-12: 48px;
+            --space-16: 64px;
+            --space-24: 96px;
+            --space-32: 128px;
+
             color-scheme: dark;
         }
 
@@ -77,15 +110,68 @@
         body {
             margin: 0;
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background: radial-gradient(circle at top, rgba(50, 108, 229, 0.25), transparent 45%), var(--dark);
+            background: linear-gradient(180deg, rgba(2, 6, 23, 1) 0%, var(--midnight-navy) 50%, rgba(2, 6, 23, 0.95) 100%);
             color: #e2e8f0;
             min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated Mesh Gradient Background (n8n.io inspired) */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(37, 99, 235, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(2, 6, 23, 0.2) 0%, transparent 50%);
+            animation: meshMove 20s ease-in-out infinite;
+        }
+
+        @keyframes meshMove {
+            0%, 100% {
+                background-position: 0% 0%, 100% 100%, 50% 50%;
+            }
+            50% {
+                background-position: 100% 50%, 0% 50%, 50% 0%;
+            }
         }
 
         main {
             min-height: 100vh;
             position: relative;
             z-index: 1;
+        }
+
+        /* Cursor Glow Effect */
+        #cursor-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            background: radial-gradient(
+                circle,
+                rgba(59, 130, 246, 0.15) 0%,
+                rgba(139, 92, 246, 0.1) 25%,
+                rgba(255, 0, 110, 0.05) 50%,
+                transparent 70%
+            );
+            transform: translate(-50%, -50%);
+            mix-blend-mode: screen;
+        }
+
+        body:hover #cursor-glow {
+            opacity: 1;
         }
 
         .motion-background {
@@ -143,6 +229,305 @@
             }
         }
 
+        /* Glassmorphic Component System */
+        .glass-card {
+            background: linear-gradient(135deg, rgba(30, 58, 95, 0.15), rgba(255, 255, 255, 0.05));
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            border-radius: var(--space-4);
+            backdrop-filter: blur(var(--glass-blur));
+            box-shadow:
+                inset 0 1px 0 0 rgba(59, 130, 246, 0.15),
+                0 20px 40px rgba(0, 0, 0, 0.4);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(255, 255, 255, 0.08));
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow:
+                inset 0 1px 0 0 rgba(59, 130, 246, 0.2),
+                0 30px 60px rgba(0, 0, 0, 0.5),
+                0 0 40px rgba(37, 99, 235, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .glass-card-strong {
+            background: linear-gradient(135deg, rgba(26, 41, 66, 0.3), rgba(255, 255, 255, 0.08));
+            border: 1px solid rgba(37, 99, 235, 0.25);
+            border-radius: var(--space-4);
+            backdrop-filter: blur(50px);
+            box-shadow:
+                inset 0 2px 0 0 rgba(59, 130, 246, 0.2),
+                0 30px 60px rgba(10, 22, 40, 0.8);
+        }
+
+        /* Enhanced Typography */
+        .headline-hero {
+            font-size: clamp(56px, 8vw, 80px);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.02em;
+        }
+
+        .headline-section {
+            font-size: clamp(40px, 6vw, 56px);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.01em;
+        }
+
+        /* Enhanced Buttons */
+        .btn-primary {
+            padding: var(--space-4) var(--space-8);
+            border-radius: 9999px;
+            background: linear-gradient(135deg, var(--electric-orange), var(--neon-purple));
+            border: none;
+            color: white;
+            font-weight: 700;
+            font-size: 16px;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow:
+                0 4px 20px rgba(255, 0, 110, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                0 8px 30px rgba(255, 0, 110, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-secondary {
+            padding: var(--space-4) var(--space-8);
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            backdrop-filter: blur(20px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Badge Component */
+        .badge {
+            display: inline-block;
+            padding: var(--space-2) var(--space-4);
+            background: rgba(255, 0, 110, 0.1);
+            border: 1px solid rgba(255, 0, 110, 0.3);
+            border-radius: 9999px;
+            color: var(--electric-orange);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Status Dot */
+        .status-live {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--cyber-teal);
+            border-radius: 50%;
+            box-shadow:
+                0 0 0 3px rgba(0, 212, 170, 0.2),
+                0 0 20px rgba(0, 212, 170, 0.6);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow:
+                    0 0 0 3px rgba(0, 212, 170, 0.2),
+                    0 0 20px rgba(0, 212, 170, 0.6);
+            }
+            50% {
+                box-shadow:
+                    0 0 0 6px rgba(0, 212, 170, 0.1),
+                    0 0 30px rgba(0, 212, 170, 0.8);
+            }
+        }
+
+        /* Terminal Animation Styles */
+        .terminal-cursor {
+            display: inline-block;
+            color: var(--cyber-teal);
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .terminal-command {
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .terminal-line {
+            margin-bottom: var(--space-2);
+        }
+
+        /* 3D Card Tilt Effect */
+        .tilt-card {
+            transform-style: preserve-3d;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+        }
+
+        .tilt-card-inner {
+            transform: translateZ(20px);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Animated Gradient Text */
+        .gradient-animate {
+            background: linear-gradient(
+                90deg,
+                var(--cyber-teal),
+                #3b82f6,
+                var(--neon-purple),
+                var(--electric-orange),
+                var(--cyber-teal)
+            );
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 8s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        /* 3D Text Effects */
+        .text-3d {
+            text-shadow:
+                0 1px 0 rgba(59, 130, 246, 0.5),
+                0 2px 0 rgba(37, 99, 235, 0.4),
+                0 3px 0 rgba(30, 58, 95, 0.3),
+                0 4px 0 rgba(26, 41, 66, 0.2),
+                0 5px 10px rgba(10, 22, 40, 0.5),
+                0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Floating Text Animation */
+        .float-text {
+            animation: floatText 6s ease-in-out infinite;
+        }
+
+        .float-text-delay-1 {
+            animation: floatText 6s ease-in-out infinite;
+            animation-delay: 0.5s;
+        }
+
+        .float-text-delay-2 {
+            animation: floatText 6s ease-in-out infinite;
+            animation-delay: 1s;
+        }
+
+        @keyframes floatText {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Badge 3D Effect */
+        .badge-3d {
+            box-shadow:
+                0 2px 4px rgba(37, 99, 235, 0.3),
+                0 4px 8px rgba(10, 22, 40, 0.4),
+                inset 0 1px 0 rgba(59, 130, 246, 0.3);
+        }
+
+        /* Product Tabs Styles */
+        .product-tab-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: var(--space-4) var(--space-6);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 9999px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+        }
+
+        .product-tab-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .product-tab-btn.active {
+            background: linear-gradient(135deg, var(--electric-orange), var(--neon-purple));
+            border-color: transparent;
+            color: white;
+            box-shadow: 0 4px 20px rgba(255, 0, 110, 0.4);
+        }
+
+        .product-tab-btn svg {
+            transition: transform 0.3s ease;
+        }
+
+        .product-tab-btn:hover svg {
+            transform: scale(1.1);
+        }
+
+        .product-tab-panel {
+            opacity: 1;
+            transition: opacity 0.4s ease-in-out;
+        }
+
+        .product-tab-panel:not(.active) {
+            opacity: 0;
+            pointer-events: none;
+        }
+
         .page-inner {
             width: min(1400px, 100%);
             margin: 0 auto;
@@ -173,7 +558,7 @@
             z-index: 10;
             backdrop-filter: blur(16px);
             background: rgba(2, 6, 23, 0.85);
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid rgba(37, 99, 235, 0.2);
         }
 
         .logo {
@@ -481,6 +866,7 @@
             text-align: center;
             padding: 4rem 0;
             position: relative;
+            background: linear-gradient(180deg, transparent, rgba(10, 22, 40, 0.5), transparent);
         }
 
         .rotating-brain {
@@ -1085,8 +1471,20 @@
 
         .feature-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 1024px) {
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         .pricing {
@@ -1596,7 +1994,8 @@
         footer {
             padding: 2rem 0 4rem;
             text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid rgba(37, 99, 235, 0.2);
+            background: linear-gradient(180deg, transparent, rgba(2, 6, 23, 0.7));
             margin-top: 2rem;
         }
 
@@ -1774,19 +2173,20 @@
         }
 
         .highlight-card {
-            background: linear-gradient(135deg,
-                rgba(255, 255, 255, 0.06),
-                rgba(50, 108, 229, 0.04));
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 20px;
-            padding: 2.5rem;
+            background: linear-gradient(135deg, rgba(26, 41, 66, 0.2), rgba(255, 255, 255, 0.05));
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            border-radius: var(--space-6);
+            padding: var(--space-8);
             display: flex;
             flex-direction: column;
-            gap: 1rem;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            gap: var(--space-4);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(var(--glass-blur));
+            box-shadow:
+                inset 0 1px 0 0 rgba(59, 130, 246, 0.15),
+                0 20px 40px rgba(10, 22, 40, 0.6);
         }
 
         .highlight-card::before {
@@ -1802,30 +2202,34 @@
         }
 
         .highlight-card:hover {
-            transform: translateY(-12px) scale(1.03);
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3),
-                        0 0 30px rgba(50, 108, 229, 0.2);
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow:
+                inset 0 1px 0 0 rgba(255, 255, 255, 0.15),
+                0 30px 60px rgba(0, 0, 0, 0.6),
+                0 0 40px rgba(59, 130, 246, 0.3);
         }
 
         .highlight-card:hover::before {
             opacity: 1;
         }
 
-        /* Color-coded top borders */
+        /* Color-coded top borders with new color system */
         .highlight-card[data-color="primary"] {
-            border-top: 3px solid rgba(50, 108, 229, 0.5);
+            border-top: 3px solid var(--electric-orange);
         }
 
         .highlight-card[data-color="secondary"] {
-            border-top: 3px solid rgba(74, 222, 128, 0.5);
+            border-top: 3px solid var(--neon-purple);
         }
 
         .highlight-card[data-color="cyan"] {
-            border-top: 3px solid rgba(0, 212, 170, 0.5);
+            border-top: 3px solid var(--cyber-teal);
         }
 
         .highlight-card[data-color="purple"] {
-            border-top: 3px solid rgba(139, 92, 246, 0.5);
+            border-top: 3px solid var(--neon-purple);
         }
 
         .highlight-icon {
@@ -1835,11 +2239,12 @@
             align-items: center;
             justify-content: center;
             background: linear-gradient(135deg,
-                rgba(50, 108, 229, 0.2),
-                rgba(0, 212, 170, 0.1));
-            border-radius: 16px;
+                rgba(255, 0, 110, 0.15),
+                rgba(139, 92, 246, 0.1));
+            border-radius: var(--space-4);
             font-size: 2rem;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .highlight-card:hover .highlight-icon {
@@ -3242,6 +3647,9 @@
     </style>
 </head>
 <body>
+    <!-- Cursor Glow Effect -->
+    <div id="cursor-glow"></div>
+
     <div class="motion-background" aria-hidden="true">
         <span></span>
         <span></span>
@@ -3298,7 +3706,7 @@
                 <a href="#installation" class="nav-cta" style="text-decoration: none; color: inherit; cursor: pointer;">Get started</a>
             </nav>
 
-            <section class="hero" id="main-content" style="padding: 6rem 0 4rem;">
+            <section class="hero" id="main-content" style="padding: 6rem 0 4rem; background: linear-gradient(180deg, rgba(2, 6, 23, 0.4), transparent);">
                 <div class="floating-trails" aria-hidden="true">
                     <span></span>
                     <span></span>
@@ -3311,56 +3719,94 @@
                 </div>
                 <div class="page-inner-wide">
                 <div class="hero-grid">
-                    <div class="hero-copy">
-                        <div class="hero-smallline">
-                            <p style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 600;">Intelligent Kubernetes Observability</p>
+                    <div class="hero-copy" style="max-width: 720px;">
+                        <div class="hero-smallline" style="margin-bottom: var(--space-3);">
+                            <span class="badge badge-3d float-text">Complete Kubernetes Control Platform</span>
                         </div>
-                        <h1 class="hero-title">
-                            <span class="hero-ai">Your Cluster,</span>
-                            <span class="hero-kubernetes">Understood</span>
-                            <span class="hero-everyone">In Real-Time</span>
+                        <h1 class="hero-title headline-hero text-3d" style="margin: var(--space-6) 0;">
+                            <span class="hero-ai gradient-animate float-text" style="display: block;">Unified Intelligence</span>
+                            <span class="hero-kubernetes gradient-animate float-text-delay-1" style="display: block; animation-delay: 1s;">Across All</span>
+                            <span class="hero-everyone gradient-animate float-text-delay-2" style="display: block; animation-delay: 2s;">Clusters</span>
                         </h1>
-                        <p class="hero-intro" style="font-size: 1.125rem; line-height: 1.8; color: rgba(203, 213, 245, 0.95);">AI-powered diagnostics that learn your infrastructure patterns. Surface critical issues before they impact production. Make confident decisions with intelligent recommendations tailored to your environment.</p>
-                        <div class="hero-pills" style="margin-bottom: 2rem;">
-                            <span class="hero-pill" style="background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.3);">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 6px;">
+                        <p class="hero-intro" style="font-size: 1.25rem; line-height: 1.75; color: rgba(203, 213, 245, 0.95); font-weight: 400; margin-bottom: 2.5rem; max-width: 680px;">A unified platform for complete Kubernetes lifecycle management. From deployment to debugging, monitoring to scaling—powered by AI that understands your entire infrastructure. Terminal, web, and SPA interfaces working seamlessly together.</p>
+
+                        <div class="hero-pills" style="margin-bottom: 2.5rem; gap: 1rem;">
+                            <span class="hero-pill" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.1)); border: 1px solid rgba(59, 130, 246, 0.4); padding: 0.75rem 1.5rem; backdrop-filter: blur(12px); box-shadow: 0 8px 32px rgba(59, 130, 246, 0.2);">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 8px;">
                                     <circle cx="12" cy="12" r="10"></circle>
                                     <circle cx="12" cy="12" r="6"></circle>
                                     <circle cx="12" cy="12" r="2"></circle>
                                 </svg>
                                 Context-Aware Intelligence
                             </span>
-                            <span class="hero-pill" style="background: rgba(139, 92, 246, 0.15); border: 1px solid rgba(139, 92, 246, 0.3);">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 6px;">
+                            <span class="hero-pill" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(255, 0, 110, 0.1)); border: 1px solid rgba(139, 92, 246, 0.4); padding: 0.75rem 1.5rem; backdrop-filter: blur(12px); box-shadow: 0 8px 32px rgba(139, 92, 246, 0.2);">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 8px;">
                                     <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
                                 </svg>
                                 Real-Time Diagnostics
                             </span>
-                            <span class="hero-pill" style="background: rgba(0, 212, 170, 0.15); border: 1px solid rgba(0, 212, 170, 0.3);">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 6px;">
+                            <span class="hero-pill" style="background: linear-gradient(135deg, rgba(0, 212, 170, 0.2), rgba(59, 130, 246, 0.1)); border: 1px solid rgba(0, 212, 170, 0.4); padding: 0.75rem 1.5rem; backdrop-filter: blur(12px); box-shadow: 0 8px 32px rgba(0, 212, 170, 0.2);">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 8px;">
                                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                                     <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                                 </svg>
                                 100% Local Processing
                             </span>
                         </div>
-                        <div class="hero-actions">
-                            <a class="btn btn-primary" href="#installation">Get Started Free</a>
-                            <a class="btn btn-ghost" href="#insights">View Documentation</a>
+                        <div class="hero-actions" style="gap: var(--space-4); display: flex; margin-bottom: var(--space-6);">
+                            <a class="btn-primary" href="#installation">Get Started Free</a>
+                            <a class="btn-secondary" href="#insights">View Documentation</a>
                         </div>
-                        <p style="margin-top: 1.5rem; font-size: 0.875rem; color: var(--muted); opacity: 0.8;">
-                            <span style="margin-right: 1.5rem;">• Install in under 60 seconds</span>
-                            <span style="margin-right: 1.5rem;">• Works completely offline</span>
-                            <span>• Zero data leaves your infrastructure</span>
-                        </p>
+                        <div style="font-size: 0.9rem; color: rgba(148, 163, 184, 0.8); display: flex; gap: var(--space-6); flex-wrap: wrap;">
+                            <span style="display: flex; align-items: center; gap: var(--space-2);">
+                                <span class="status-live"></span>
+                                Install in under 60 seconds
+                            </span>
+                            <span style="display: flex; align-items: center; gap: var(--space-2);">
+                                <span class="status-live"></span>
+                                Works completely offline
+                            </span>
+                            <span style="display: flex; align-items: center; gap: var(--space-2);">
+                                <span class="status-live"></span>
+                                Zero data leaves your infrastructure
+                            </span>
+                        </div>
                     </div>
-                    <div class="hero-panel" aria-live="polite">
-                        <h3>AI Control Plane</h3>
-                        <p>Live diagnostics · Cluster + App Continuity</p>
-                        <p>Unified Control Plane · All your signals in one glance · Terminal workflows + browser insights</p>
-                        <p>Live metrics, logs, and event correlation · AI-runbooks surface next steps · Multi-cluster GitOps ready</p>
-                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
-                            <p style="font-size: 0.85rem; color: var(--secondary); font-weight: 600;">🔒 100% Local · Zero Cloud Dependencies · Zero Security Compromise</p>
+                    <div class="hero-terminal glass-card-strong" style="padding: 0; overflow: hidden; max-width: 680px;">
+                        <!-- Terminal Header -->
+                        <div style="background: rgba(0, 0, 0, 0.4); padding: var(--space-3) var(--space-4); display: flex; align-items: center; gap: var(--space-2); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                            <span style="width: 12px; height: 12px; border-radius: 50%; background: #ff5f57;"></span>
+                            <span style="width: 12px; height: 12px; border-radius: 50%; background: #ffbd2e;"></span>
+                            <span style="width: 12px; height: 12px; border-radius: 50%; background: #28ca42;"></span>
+                            <span style="margin-left: var(--space-4); font-size: 0.8rem; color: rgba(255, 255, 255, 0.5); font-family: monospace;">kubegraf@cluster</span>
+                        </div>
+
+                        <!-- Terminal Body -->
+                        <div style="padding: var(--space-6); font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; font-size: 0.9rem; line-height: 1.8; background: rgba(0, 0, 0, 0.6); min-height: 320px;">
+                            <div id="terminal-content">
+                                <div class="terminal-line">
+                                    <span style="color: var(--cyber-teal);">$</span>
+                                    <span class="terminal-command" data-text="kubegraf tui"></span>
+                                    <span class="terminal-cursor">|</span>
+                                </div>
+                                <div class="terminal-output" style="display: none;">
+                                    <div style="color: var(--electric-orange); margin-top: var(--space-3);">✓ Connected to production cluster</div>
+                                    <div style="color: rgba(255, 255, 255, 0.7); margin-top: var(--space-2);">Namespace: default | Nodes: 12 | Pods: 248</div>
+                                    <div style="margin-top: var(--space-4); color: rgba(255, 255, 255, 0.9);">
+                                        <div style="display: flex; gap: var(--space-8); margin-bottom: var(--space-3);">
+                                            <span style="color: var(--cyber-teal);">● Deployments</span>
+                                            <span style="color: var(--neon-purple);">● Services</span>
+                                            <span style="color: var(--electric-orange);">● Pods</span>
+                                        </div>
+                                        <div style="color: var(--cyber-teal); margin-bottom: var(--space-1);">web-api ━━━━━━━━━━━━━━ 3/3 replicas</div>
+                                        <div style="color: var(--neon-purple); margin-bottom: var(--space-1);">auth-service ━━━━━━━━ 5/5 replicas</div>
+                                        <div style="color: var(--electric-orange); margin-bottom: var(--space-1);">ml-inference ━━━━━━━ 2/2 replicas</div>
+                                    </div>
+                                    <div style="margin-top: var(--space-4); color: var(--sunset-yellow);">
+                                        ⚡ AI Brain Panel: Analyzing 72h metrics...
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -3487,7 +3933,7 @@
                 </div>
             </section>
 
-            <section class="highlights-section" id="insights" style="position: relative;">
+            <section class="highlights-section" id="insights" style="position: relative; background: linear-gradient(180deg, transparent, rgba(2, 6, 23, 0.3), transparent); padding: 4rem 0;">
                 <div class="floating-particle particle-tiny particle-green" style="top: 8%; left: 3%; animation-delay: 0.5s;"></div>
                 <div class="floating-particle particle-small particle-blue" style="top: 15%; right: 10%; animation-delay: 1s;"></div>
                 <div class="floating-particle particle-medium particle-pink" style="bottom: 30%; left: 8%; animation-delay: 2s;"></div>
@@ -3503,25 +3949,25 @@
                         <p>Four core capabilities that set KubeGraf apart for modern Kubernetes teams.</p>
                     </div>
                     <div class="highlights-grid">
-                        <article class="highlight-card" data-color="primary">
+                        <article class="highlight-card tilt-card" data-color="primary">
                             <div class="highlight-icon">🎯</div>
                             <h3>Three Ways to Work</h3>
                             <p>Terminal UI for speed, Web Dashboard for visibility, or Modern SPA for collaboration. All interfaces share real-time data—choose what fits your workflow.</p>
                             <div class="highlight-badge">Multi-Interface</div>
                         </article>
-                        <article class="highlight-card" data-color="secondary">
+                        <article class="highlight-card tilt-card" data-color="secondary">
                             <div class="highlight-icon">🧠</div>
                             <h3>Context-Aware Diagnostics</h3>
                             <p>Brain Panel analyzes 24-72 hours of cluster events, surfaces OOM warnings, scaling anomalies, and reliability issues with actionable recommendations.</p>
                             <div class="highlight-badge">AI Intelligence</div>
                         </article>
-                        <article class="highlight-card" data-color="cyan">
+                        <article class="highlight-card tilt-card" data-color="cyan">
                             <div class="highlight-icon">🔒</div>
                             <h3>Completely Local, Zero Security Compromise</h3>
                             <p>~15MB binary runs entirely on your machine. No data leaves your cluster—ever. Works completely offline, behind VPNs, and in air-gapped environments. Zero cloud dependencies, zero security risks.</p>
                             <div class="highlight-badge">Privacy First</div>
                         </article>
-                        <article class="highlight-card" data-color="purple">
+                        <article class="highlight-card tilt-card" data-color="purple">
                             <div class="highlight-icon">🔄</div>
                             <h3>Built for GitOps Teams</h3>
                             <p>Native integrations for ArgoCD and Flux. Visualize sync status, detect drift, and trigger reconciliation—all from your preferred interface.</p>
@@ -3531,7 +3977,175 @@
                 </div>
             </section>
 
-            <section id="features" style="position: relative;">
+            <!-- Interactive Product Tabs Section -->
+            <section id="product-tabs" style="position: relative; padding: var(--space-24) 0; background: linear-gradient(180deg, rgba(2, 6, 23, 0.8), rgba(2, 6, 23, 0.6));">
+                <div class="page-inner-wide">
+                    <div class="section-header" style="text-align: center; margin-bottom: var(--space-8);">
+                        <div style="display: flex; justify-content: center; margin-bottom: var(--space-4);">
+                            <span class="badge">Three Interfaces, One Platform</span>
+                        </div>
+                        <h2 class="headline-section" style="margin-bottom: var(--space-4);">Choose Your Workflow</h2>
+                        <p style="font-size: 1.125rem; color: rgba(203, 213, 245, 0.9); margin: 0;">Terminal speed, Web visibility, or SPA collaboration. Switch seamlessly based on what you need.</p>
+                    </div>
+
+                    <!-- Tab Buttons -->
+                    <div class="product-tabs-nav" style="display: flex; justify-content: center; gap: var(--space-3); margin-bottom: var(--space-12); flex-wrap: wrap; max-width: 680px; margin-left: auto; margin-right: auto;">
+                        <button class="product-tab-btn active" data-tab="terminal">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: var(--space-2);">
+                                <polyline points="4 17 10 11 4 5"></polyline>
+                                <line x1="12" y1="19" x2="20" y2="19"></line>
+                            </svg>
+                            Terminal UI
+                        </button>
+                        <button class="product-tab-btn" data-tab="web">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: var(--space-2);">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                            </svg>
+                            Web Dashboard
+                        </button>
+                        <button class="product-tab-btn" data-tab="spa">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: var(--space-2);">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="3" y1="9" x2="21" y2="9"></line>
+                                <line x1="9" y1="21" x2="9" y2="9"></line>
+                            </svg>
+                            Modern SPA
+                        </button>
+                    </div>
+
+                    <!-- Tab Content -->
+                    <div class="product-tabs-content">
+                        <!-- Terminal Tab -->
+                        <div class="product-tab-panel active" data-panel="terminal">
+                            <div class="glass-card-strong" style="padding: var(--space-8); display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-12); align-items: center;">
+                                <div>
+                                    <h3 style="font-size: 2rem; font-weight: 700; margin-bottom: var(--space-4); background: linear-gradient(135deg, var(--cyber-teal), var(--neon-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Lightning Fast TUI</h3>
+                                    <p style="font-size: 1.125rem; color: rgba(203, 213, 245, 0.9); line-height: 1.7; margin-bottom: var(--space-6);">Keyboard-driven interface for maximum productivity. Navigate pods, check logs, and debug issues without touching your mouse.</p>
+                                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: var(--space-3);">
+                                        <li style="display: flex; align-items: center; gap: var(--space-2); color: rgba(255, 255, 255, 0.9);">
+                                            <span class="status-live"></span>
+                                            Real-time cluster updates
+                                        </li>
+                                        <li style="display: flex; align-items: center; gap: var(--space-2); color: rgba(255, 255, 255, 0.9);">
+                                            <span class="status-live"></span>
+                                            Vim-inspired navigation
+                                        </li>
+                                        <li style="display: flex; align-items: center; gap: var(--space-2); color: rgba(255, 255, 255, 0.9);">
+                                            <span class="status-live"></span>
+                                            Live log streaming
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div style="background: rgba(0, 0, 0, 0.6); border-radius: var(--space-4); padding: var(--space-6); border: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <pre style="margin: 0; font-family: monospace; font-size: 0.85rem; color: var(--cyber-teal); line-height: 1.6;">
+<span style="color: rgba(255, 255, 255, 0.5);">━━━ Namespace: production ━━━</span>
+
+<span style="color: var(--electric-orange);">●</span> web-api          <span style="color: var(--cyber-teal);">Ready</span>  3/3
+<span style="color: var(--neon-purple);">●</span> auth-service     <span style="color: var(--cyber-teal);">Ready</span>  5/5
+<span style="color: var(--sunset-yellow);">●</span> ml-inference     <span style="color: var(--cyber-teal);">Ready</span>  2/2
+
+<span style="color: rgba(255, 255, 255, 0.5);">Press 'l' for logs, 'd' for describe</span></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Web Dashboard Tab -->
+                        <div class="product-tab-panel" data-panel="web" style="display: none;">
+                            <div class="glass-card-strong" style="padding: var(--space-8); display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-12); align-items: center;">
+                                <div>
+                                    <h3 style="font-size: 2rem; font-weight: 700; margin-bottom: var(--space-4); background: linear-gradient(135deg, var(--neon-purple), var(--electric-orange)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Rich Web Dashboard</h3>
+                                    <p style="font-size: 1.125rem; color: rgba(203, 213, 245, 0.9); line-height: 1.7; margin-bottom: var(--space-6);">Visual overview of your entire infrastructure. Charts, graphs, and resource maps in an intuitive web interface.</p>
+                                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: var(--space-3);">
+                                        <li style="display: flex; align-items: center; gap: var(--space-2); color: rgba(255, 255, 255, 0.9);">
+                                            <span class="status-live"></span>
+                                            Interactive resource graphs
+                                        </li>
+                                        <li style="display: flex; align-items: center; gap: var(--space-2); color: rgba(255, 255, 255, 0.9);">
+                                            <span class="status-live"></span>
+                                            Metrics visualization
+                                        </li>
+                                        <li style="display: flex; align-items: center; gap: var(--space-2); color: rgba(255, 255, 255, 0.9);">
+                                            <span class="status-live"></span>
+                                            AI-powered insights
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div style="background: linear-gradient(135deg, rgba(255, 0, 110, 0.1), rgba(139, 92, 246, 0.1)); border-radius: var(--space-4); padding: var(--space-6); border: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">
+                                    <div style="display: flex; justify-content: space-around; margin-bottom: var(--space-6);">
+                                        <div>
+                                            <div style="font-size: 2.5rem; font-weight: 800; color: var(--cyber-teal);">98%</div>
+                                            <div style="font-size: 0.85rem; color: rgba(255, 255, 255, 0.6);">Uptime</div>
+                                        </div>
+                                        <div>
+                                            <div style="font-size: 2.5rem; font-weight: 800; color: var(--electric-orange);">248</div>
+                                            <div style="font-size: 0.85rem; color: rgba(255, 255, 255, 0.6);">Pods</div>
+                                        </div>
+                                        <div>
+                                            <div style="font-size: 2.5rem; font-weight: 800; color: var(--neon-purple);">12</div>
+                                            <div style="font-size: 0.85rem; color: rgba(255, 255, 255, 0.6);">Nodes</div>
+                                        </div>
+                                    </div>
+                                    <div style="height: 80px; display: flex; align-items: end; gap: var(--space-2); justify-content: center;">
+                                        <div style="width: 16px; height: 40%; background: var(--cyber-teal); border-radius: 4px;"></div>
+                                        <div style="width: 16px; height: 60%; background: var(--neon-purple); border-radius: 4px;"></div>
+                                        <div style="width: 16px; height: 80%; background: var(--electric-orange); border-radius: 4px;"></div>
+                                        <div style="width: 16px; height: 70%; background: var(--cyber-teal); border-radius: 4px;"></div>
+                                        <div style="width: 16px; height: 50%; background: var(--neon-purple); border-radius: 4px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modern SPA Tab -->
+                        <div class="product-tab-panel" data-panel="spa" style="display: none;">
+                            <div class="glass-card-strong" style="padding: var(--space-8); display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-12); align-items: center;">
+                                <div>
+                                    <h3 style="font-size: 2rem; font-weight: 700; margin-bottom: var(--space-4); background: linear-gradient(135deg, var(--electric-orange), var(--sunset-yellow)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Collaborative SPA</h3>
+                                    <p style="font-size: 1.125rem; color: rgba(203, 213, 245, 0.9); line-height: 1.7; margin-bottom: var(--space-6);">Modern single-page application for team collaboration. Share views, annotations, and insights with your team.</p>
+                                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: var(--space-3);">
+                                        <li style="display: flex; align-items: center; gap: var(--space-2); color: rgba(255, 255, 255, 0.9);">
+                                            <span class="status-live"></span>
+                                            Team workspaces
+                                        </li>
+                                        <li style="display: flex; align-items: center; gap: var(--space-2); color: rgba(255, 255, 255, 0.9);">
+                                            <span class="status-live"></span>
+                                            Shared dashboards
+                                        </li>
+                                        <li style="display: flex; align-items: center; gap: var(--space-2); color: rgba(255, 255, 255, 0.9);">
+                                            <span class="status-live"></span>
+                                            Multi-cluster views
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div style="background: rgba(0, 0, 0, 0.4); border-radius: var(--space-4); padding: var(--space-6); border: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <div style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-4); padding-bottom: var(--space-3); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                        <div style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--electric-orange), var(--neon-purple));"></div>
+                                        <div>
+                                            <div style="font-size: 0.9rem; font-weight: 600; color: white;">Sarah Chen</div>
+                                            <div style="font-size: 0.75rem; color: rgba(255, 255, 255, 0.5);">Viewing production cluster</div>
+                                        </div>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-4); padding-bottom: var(--space-3); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                        <div style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--cyber-teal), var(--neon-purple));"></div>
+                                        <div>
+                                            <div style="font-size: 0.9rem; font-weight: 600; color: white;">Alex Kumar</div>
+                                            <div style="font-size: 0.75rem; color: rgba(255, 255, 255, 0.5);">Debugging auth-service</div>
+                                        </div>
+                                    </div>
+                                    <div style="font-size: 0.85rem; color: var(--sunset-yellow); display: flex; align-items: center; gap: var(--space-2);">
+                                        <span class="status-live"></span>
+                                        3 team members online
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="features" style="position: relative; background: linear-gradient(180deg, rgba(2, 6, 23, 0.5), rgba(2, 6, 23, 0.3)); padding: 4rem 0;">
                 <a id="docs" style="position: absolute; top: -80px; visibility: hidden;"></a>
                 <div class="floating-particle particle-tiny particle-blue" style="top: 5%; left: 3%; animation-delay: 0s;"></div>
                 <div class="floating-particle particle-small particle-green" style="top: 15%; right: 8%; animation-delay: 1.5s;"></div>
@@ -3546,38 +4160,63 @@
                         <p>From app deployment to ML workloads, KubeGraf provides the tools you need to manage your clusters effectively.</p>
                     </div>
                     <div class="highlights-grid">
-                        <article class="highlight-card" data-color="primary">
+                        <article class="highlight-card tilt-card" data-color="primary">
                             <div class="highlight-icon">🛒</div>
                             <h3>App Marketplace</h3>
                             <p>One-click deployment of 50+ applications including Istio, ArgoCD, Kong, Vault, and more. Install, configure, and manage with ease.</p>
                             <div class="highlight-badge">Marketplace</div>
                         </article>
-                        <article class="highlight-card" data-color="secondary">
+                        <article class="highlight-card tilt-card" data-color="secondary">
                             <div class="highlight-icon">🤖</div>
                             <h3>ML Training Jobs</h3>
                             <p>Run ML training workloads on Kubernetes with GPU support. Submit Python scripts, configure resources, and stream logs in real-time.</p>
                             <div class="highlight-badge">ML Workloads</div>
                         </article>
-                        <article class="highlight-card" data-color="cyan">
-                            <div class="highlight-icon">🚀</div>
+                        <article class="highlight-card tilt-card" data-color="cyan">
+                            <div class="highlight-icon">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                                    <path d="M2 17l10 5 10-5"/>
+                                    <path d="M2 12l10 5 10-5"/>
+                                </svg>
+                            </div>
                             <h3>ML Inference Services</h3>
                             <p>Deploy ML models as production-ready APIs. Support for multiple runtimes including FastAPI, MLServer, BentoML, and KServe with auto-scaling.</p>
                             <div class="highlight-badge">ML Workloads</div>
                         </article>
-                        <article class="highlight-card" data-color="purple">
-                            <div class="highlight-icon">📊</div>
+                        <article class="highlight-card tilt-card" data-color="purple">
+                            <div class="highlight-icon">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="18" y1="20" x2="18" y2="10"/>
+                                    <line x1="12" y1="20" x2="12" y2="4"/>
+                                    <line x1="6" y1="20" x2="6" y2="14"/>
+                                </svg>
+                            </div>
                             <h3>MLflow Integration</h3>
                             <p>Experiment tracking, model registry, and ML lifecycle management. Deploy MLflow with Helm, configure storage backends, and manage models.</p>
                             <div class="highlight-badge">ML Workloads</div>
                         </article>
-                        <article class="highlight-card" data-color="primary">
-                            <div class="highlight-icon">🍽️</div>
+                        <article class="highlight-card tilt-card" data-color="primary">
+                            <div class="highlight-icon">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                                    <line x1="12" y1="22.08" x2="12" y2="12"/>
+                                </svg>
+                            </div>
                             <h3>Feast Feature Store</h3>
                             <p>Manage feature stores for ML pipelines. Deploy Feast for feature engineering, versioning, and serving features to training and inference workloads.</p>
                             <div class="highlight-badge">ML Workloads</div>
                         </article>
-                        <article class="highlight-card" data-color="secondary">
-                            <div class="highlight-icon">🎮</div>
+                        <article class="highlight-card tilt-card" data-color="secondary">
+                            <div class="highlight-icon">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                    <line x1="8" y1="21" x2="16" y2="21"/>
+                                    <line x1="12" y1="17" x2="12" y2="21"/>
+                                    <path d="M6 8h.01M10 8h.01M14 8h.01M6 12h.01M10 12h.01M14 12h.01"/>
+                                </svg>
+                            </div>
                             <h3>GPU Management</h3>
                             <p>Detect and manage GPU resources across your cluster. Monitor GPU utilization, allocate GPUs to ML workloads, and optimize resource usage.</p>
                             <div class="highlight-badge">Hardware</div>
@@ -3586,7 +4225,7 @@
                 </div>
             </section>
 
-            <section id="ai" style="position: relative;">
+            <section id="ai" style="position: relative; background: linear-gradient(180deg, rgba(2, 6, 23, 0.4), rgba(2, 6, 23, 0.6)); padding: 4rem 0;">
                 <div class="floating-particle particle-tiny particle-purple" style="top: 5%; left: 2%; animation-delay: 0.5s;"></div>
                 <div class="floating-particle particle-small particle-blue" style="top: 10%; left: 8%; animation-delay: 2s;"></div>
                 <div class="floating-particle particle-medium particle-teal" style="top: 60%; right: 8%; animation-delay: 1s;"></div>
@@ -3662,7 +4301,7 @@
                 </div>
             </section>
 
-            <section id="pricing" style="position: relative;">
+            <section id="pricing" style="position: relative; background: linear-gradient(180deg, rgba(2, 6, 23, 0.3), transparent); padding: 4rem 0;">
                 <div class="floating-particle particle-tiny particle-pink" style="top: 5%; left: 8%; animation-delay: 0s;"></div>
                 <div class="floating-particle particle-small particle-blue" style="top: 15%; right: 5%; animation-delay: 1s;"></div>
                 <div class="floating-particle particle-medium particle-green" style="bottom: 20%; left: 12%; animation-delay: 2.5s;"></div>
@@ -3825,7 +4464,7 @@
                 </div>
             </section>
 
-            <section id="features" style="position: relative;">
+            <section id="features" style="position: relative; background: linear-gradient(180deg, rgba(2, 6, 23, 0.3), rgba(2, 6, 23, 0.5)); padding: 4rem 0;">
                 <div class="floating-particle particle-tiny particle-blue" style="top: 5%; left: 3%; animation-delay: 0.5s;"></div>
                 <div class="floating-particle particle-small particle-pink" style="top: 15%; left: 5%; animation-delay: 1.5s;"></div>
                 <div class="floating-particle particle-medium particle-green" style="bottom: 30%; right: 15%; animation-delay: 2.5s;"></div>
@@ -4200,15 +4839,15 @@ sudo mv kubegraf /usr/local/bin/</pre>
         function copyToClipboard(elementId, button) {
             const element = document.getElementById(elementId);
             const text = element.textContent.trim();
-            
+
             // Remove any leading $ or > characters
             const cleanText = text.replace(/^[\$>]\s*/, '').trim();
-            
+
             navigator.clipboard.writeText(cleanText).then(() => {
                 const originalText = button.textContent;
                 button.textContent = 'Copied!';
                 button.classList.add('copied');
-                
+
                 setTimeout(() => {
                     button.textContent = originalText;
                     button.classList.remove('copied');
@@ -4219,6 +4858,191 @@ sudo mv kubegraf /usr/local/bin/</pre>
                 setTimeout(() => {
                     button.textContent = 'Copy';
                 }, 2000);
+            });
+        }
+
+        // Terminal typing animation
+        function typeTerminalCommand() {
+            const commandElement = document.querySelector('.terminal-command');
+            const cursorElement = document.querySelector('.terminal-cursor');
+            const outputElement = document.querySelector('.terminal-output');
+
+            if (!commandElement || !cursorElement || !outputElement) return;
+
+            const text = commandElement.getAttribute('data-text');
+            let index = 0;
+
+            // Typing effect
+            const typingInterval = setInterval(() => {
+                if (index < text.length) {
+                    commandElement.textContent = text.substring(0, index + 1);
+                    index++;
+                } else {
+                    clearInterval(typingInterval);
+
+                    // Hide cursor and show output after a brief pause
+                    setTimeout(() => {
+                        cursorElement.style.display = 'none';
+                        outputElement.style.display = 'block';
+
+                        // Restart animation after 5 seconds
+                        setTimeout(() => {
+                            commandElement.textContent = '';
+                            cursorElement.style.display = 'inline-block';
+                            outputElement.style.display = 'none';
+                            index = 0;
+                            typeTerminalCommand();
+                        }, 5000);
+                    }, 500);
+                }
+            }, 100);
+        }
+
+        // Start terminal animation when page loads
+        if (document.querySelector('.terminal-command')) {
+            setTimeout(typeTerminalCommand, 1000);
+        }
+
+        // Product tabs functionality
+        function initProductTabs() {
+            const tabButtons = document.querySelectorAll('.product-tab-btn');
+            const tabPanels = document.querySelectorAll('.product-tab-panel');
+
+            if (tabButtons.length === 0 || tabPanels.length === 0) return;
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetTab = button.getAttribute('data-tab');
+
+                    // Remove active class from all buttons and panels
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabPanels.forEach(panel => {
+                        panel.classList.remove('active');
+                        panel.style.display = 'none';
+                    });
+
+                    // Add active class to clicked button and corresponding panel
+                    button.classList.add('active');
+                    const targetPanel = document.querySelector(`[data-panel="${targetTab}"]`);
+                    if (targetPanel) {
+                        targetPanel.style.display = 'block';
+                        // Small delay to trigger CSS transition
+                        setTimeout(() => {
+                            targetPanel.classList.add('active');
+                        }, 10);
+                    }
+                });
+            });
+        }
+
+        // Initialize tabs when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initProductTabs);
+        } else {
+            initProductTabs();
+        }
+
+        // 3D Card Tilt Effect
+        function init3DTilt() {
+            const tiltCards = document.querySelectorAll('.tilt-card');
+
+            tiltCards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+
+                    const rotateX = (y - centerY) / 10;
+                    const rotateY = (centerX - x) / 10;
+
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+                });
+            });
+        }
+
+        // Initialize 3D tilt on DOM ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init3DTilt);
+        } else {
+            init3DTilt();
+        }
+
+        // Enhanced Parallax Effect for Particles
+        function initParallaxParticles() {
+            const particles = document.querySelectorAll('.floating-particle');
+
+            let ticking = false;
+
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        const scrolled = window.pageYOffset;
+
+                        particles.forEach((particle, index) => {
+                            // Different speeds for different particles
+                            const speed = 0.5 + (index % 3) * 0.3; // Speeds: 0.5, 0.8, 1.1
+                            const yPos = -(scrolled * speed);
+
+                            particle.style.transform = `translateY(${yPos}px)`;
+                        });
+
+                        ticking = false;
+                    });
+
+                    ticking = true;
+                }
+            });
+        }
+
+        // Initialize parallax
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initParallaxParticles);
+        } else {
+            initParallaxParticles();
+        }
+
+        // Cursor glow effect
+        const cursorGlow = document.getElementById('cursor-glow');
+        if (cursorGlow) {
+            let mouseX = 0;
+            let mouseY = 0;
+            let glowX = 0;
+            let glowY = 0;
+
+            // Track mouse position
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            // Smooth animation with lerp (linear interpolation)
+            function animateGlow() {
+                // Smooth follow with easing
+                glowX += (mouseX - glowX) * 0.15;
+                glowY += (mouseY - glowY) * 0.15;
+
+                cursorGlow.style.left = glowX + 'px';
+                cursorGlow.style.top = glowY + 'px';
+
+                requestAnimationFrame(animateGlow);
+            }
+
+            animateGlow();
+
+            // Hide glow when cursor leaves the window
+            document.addEventListener('mouseleave', () => {
+                cursorGlow.style.opacity = '0';
+            });
+
+            document.addEventListener('mouseenter', () => {
+                cursorGlow.style.opacity = '1';
             });
         }
     </script>
