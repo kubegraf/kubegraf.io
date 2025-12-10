@@ -3,11 +3,53 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 
+const AppleIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+    <path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.09l-.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" fill="currentColor"/>
+  </svg>
+);
+
+const LinuxIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+    <ellipse cx="12" cy="15" rx="6" ry="7" fill="#000000"/>
+    <ellipse cx="12" cy="15" rx="4" ry="5.5" fill="#FFFFFF"/>
+    <ellipse cx="12" cy="8" rx="5" ry="4.5" fill="#000000"/>
+    <ellipse cx="10" cy="8" rx="1.2" ry="1.8" fill="#FFFFFF"/>
+    <ellipse cx="14" cy="8" rx="1.2" ry="1.8" fill="#FFFFFF"/>
+    <ellipse cx="10" cy="8.3" rx="0.6" ry="0.9" fill="#000000"/>
+    <ellipse cx="14" cy="8.3" rx="0.6" ry="0.9" fill="#000000"/>
+    <ellipse cx="12" cy="9.5" rx="1.2" ry="0.8" fill="#FFA500"/>
+    <ellipse cx="9.5" cy="21" rx="1.5" ry="0.8" fill="#FFA500"/>
+    <ellipse cx="14.5" cy="21" rx="1.5" ry="0.8" fill="#FFA500"/>
+    <ellipse cx="7" cy="14" rx="1.5" ry="3" fill="#000000" transform="rotate(-20 7 14)"/>
+    <ellipse cx="17" cy="14" rx="1.5" ry="3" fill="#000000" transform="rotate(20 17 14)"/>
+  </svg>
+);
+
+const WindowsIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+    <defs>
+      <linearGradient id="winGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style={{stopColor:"#0078D4"}}/>
+        <stop offset="100%" style={{stopColor:"#00BCF2"}}/>
+      </linearGradient>
+      <linearGradient id="winGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style={{stopColor:"#00BCF2"}}/>
+        <stop offset="100%" style={{stopColor:"#00D4FF"}}/>
+      </linearGradient>
+    </defs>
+    <rect x="3" y="3" width="8" height="8" rx="0.5" fill="url(#winGrad1)"/>
+    <rect x="13" y="3" width="8" height="8" rx="0.5" fill="url(#winGrad2)"/>
+    <rect x="3" y="13" width="8" height="8" rx="0.5" fill="url(#winGrad2)"/>
+    <rect x="13" y="13" width="8" height="8" rx="0.5" fill="url(#winGrad1)"/>
+  </svg>
+);
+
 const platforms = [
   {
     id: "mac",
     name: "macOS",
-    icon: "🍎",
+    icon: <AppleIcon />,
     commands: [
       {
         label: "Quick Install (Recommended)",
@@ -20,7 +62,7 @@ const platforms = [
   {
     id: "linux",
     name: "Linux",
-    icon: "🐧",
+    icon: <LinuxIcon />,
     commands: [
       {
         label: "Quick Install (Recommended)",
@@ -33,7 +75,7 @@ const platforms = [
   {
     id: "windows",
     name: "Windows",
-    icon: "🪟",
+    icon: <WindowsIcon />,
     commands: [
       {
         label: "PowerShell (Recommended)",

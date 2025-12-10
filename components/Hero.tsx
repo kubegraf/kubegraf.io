@@ -143,8 +143,11 @@ export function Hero() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="flex flex-wrap gap-2 text-[clamp(3rem,6vw,4.5rem)] m-0 leading-[1.05]"
             >
+              <motion.span className="text-white inline-flex">
+                Awaken Your Cluster's{" "}
+              </motion.span>
               <motion.span
-                className="text-white inline-flex bg-gradient-to-r from-white to-[#3b82f6] bg-clip-text text-transparent"
+                className="text-[#3b82f6] inline-flex bg-gradient-to-r from-[#3b82f6] to-[#22d3ee] bg-clip-text text-transparent"
                 animate={{
                   textShadow: [
                     "0 0 20px rgba(59,130,246,0.5)",
@@ -158,43 +161,7 @@ export function Hero() {
                   ease: "easeInOut",
                 }}
               >
-                AI-Powered
-              </motion.span>
-              <motion.span
-                className="text-[#8b5cf6] inline-flex"
-                animate={{
-                  textShadow: [
-                    "0 0 20px rgba(99,102,241,0.5)",
-                    "0 0 40px rgba(99,102,241,0.8)",
-                    "0 0 20px rgba(99,102,241,0.5)",
-                  ],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  delay: 0.5,
-                  ease: "easeInOut",
-                }}
-              >
-                Kubernetes
-              </motion.span>
-              <motion.span
-                className="text-[#3b82f6] inline-flex"
-                animate={{
-                  textShadow: [
-                    "0 0 20px rgba(59,130,246,0.5)",
-                    "0 0 40px rgba(59,130,246,0.8)",
-                    "0 0 20px rgba(59,130,246,0.5)",
-                  ],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  delay: 1,
-                  ease: "easeInOut",
-                }}
-              >
-                For Everyone
+                Intelligence
               </motion.span>
             </motion.h1>
 
@@ -204,7 +171,7 @@ export function Hero() {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-[1.25rem] text-[#cbd5f5] my-6 max-w-full leading-[1.7]"
             >
-              The first AI-native Kubernetes control plane. Deploy, debug, and scale with natural language. Built for every engineer, from beginners to experts.
+              KubeGraf: AI-Native Platform for Seamless Kubernetes Management. Local-First, Multi-Interface, GitOps Ready.
             </motion.p>
 
             <motion.div
@@ -220,7 +187,7 @@ export function Hero() {
                   boxShadow: "0 0 20px rgba(59,130,246,0.6)",
                 }}
               >
-                ✨ AI-Powered
+                📦 50+ Apps Deployed
               </motion.span>
               <motion.span
                 className="rounded-full px-4 py-[0.35rem] border border-[rgba(99,102,241,0.4)] bg-[rgba(99,102,241,0.1)] uppercase tracking-[0.2em] font-semibold backdrop-blur-sm"
@@ -229,7 +196,7 @@ export function Hero() {
                   boxShadow: "0 0 20px rgba(99,102,241,0.6)",
                 }}
               >
-                🚀 Fast Setup
+                🧠 24-72h AI Diagnostics
               </motion.span>
               <motion.span
                 className="rounded-full px-4 py-[0.35rem] border border-[rgba(99,102,241,0.4)] bg-[rgba(99,102,241,0.1)] uppercase tracking-[0.2em] font-semibold backdrop-blur-sm"
@@ -238,7 +205,7 @@ export function Hero() {
                   boxShadow: "0 0 20px rgba(99,102,241,0.6)",
                 }}
               >
-                🔒 Privacy First
+                🔒 Zero Data Leak
               </motion.span>
             </motion.div>
 
