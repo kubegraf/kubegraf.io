@@ -5,6 +5,7 @@ import { Hero } from "../components/Hero";
 import { EngineeringCards } from "../components/EngineeringCards";
 import { HighlightsSection } from "../components/HighlightsSection";
 import { FeaturesSection } from "../components/FeaturesSection";
+import { BrainPanelSection } from "../components/BrainPanelSection";
 import { AISection } from "../components/AISection";
 import { InnovationSection } from "../components/InnovationSection";
 import { PricingSection } from "../components/PricingSection";
@@ -40,6 +41,7 @@ export default function HomePage() {
         <EngineeringCards />
         <HighlightsSection />
         <FeaturesSection />
+        <BrainPanelSection />
         <AISection />
         <InnovationSection />
         <PricingSection />

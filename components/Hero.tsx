@@ -144,7 +144,7 @@ export function Hero() {
               className="flex flex-wrap gap-2 text-[clamp(3rem,6vw,4.5rem)] m-0 leading-[1.05]"
             >
               <motion.span className="text-white inline-flex">
-                Awaken Your Cluster's{" "}
+                Awaken Your Cluster&apos;s{" "}
               </motion.span>
               <motion.span
                 className="text-[#3b82f6] inline-flex bg-gradient-to-r from-[#3b82f6] to-[#22d3ee] bg-clip-text text-transparent"
