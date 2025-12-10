@@ -2253,11 +2253,11 @@
                     <span>KubeGraf</span>
                 </a>
                 <ul class="nav-links">
-                    <li><a href="#main-content">Product</a></li>
-                    <li><a href="#docs">Docs</a></li>
-                    <li><a href="#installation">Open Source</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="/docs/">Docs</a></li>
                     <li><a href="#pricing">Pricing</a></li>
-                    <li><a href="mailto:contact@kubegraf.io">Contact us</a></li>
+                    <li><a href="#installation">Installation</a></li>
+                    <li><a href="https://github.com/kubegraf/kubegraf" target="_blank" rel="noopener noreferrer">GitHub</a></li>
                 </ul>
                 <a href="#installation" class="nav-cta" style="text-decoration: none; color: inherit; cursor: pointer;">Get started</a>
             </nav>
@@ -3028,16 +3028,47 @@ sudo mv kubegraf /usr/local/bin/</pre>
 
             <!-- Footer -->
             <footer>
-                <nav>
-                    <a href="#main-content">KubeGraf</a>
-                    <a href="#features">Features</a>
-                    <a href="#installation">Installation</a>
-                    <a href="https://kubegraf.io/docs/">Docs</a>
-                    <a href="https://github.com/kubegraf/kubegraf">GitHub</a>
-                    <a href="mailto:contact@kubegraf.io">Contact</a>
-                </nav>
-                <p>© 2024 KubeGraf. Apache 2.0 License.</p>
-                <p style="margin-top: 0.5rem;"><a href="mailto:contact@kubegraf.io" style="color: var(--primary); text-decoration: none;">contact@kubegraf.io</a></p>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; margin-bottom: 3rem; text-align: left;">
+                    <!-- Product Column -->
+                    <div>
+                        <h3 style="color: white; font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem;">Product</h3>
+                        <nav style="display: flex; flex-direction: column; gap: 0.75rem;">
+                            <a href="#features" style="color: var(--text-muted); font-size: 0.875rem; text-decoration: none; transition: color 0.3s;">Features</a>
+                            <a href="#pricing" style="color: var(--text-muted); font-size: 0.875rem; text-decoration: none; transition: color 0.3s;">Pricing</a>
+                            <a href="#installation" style="color: var(--text-muted); font-size: 0.875rem; text-decoration: none; transition: color 0.3s;">Installation</a>
+                        </nav>
+                    </div>
+
+                    <!-- Documentation Column -->
+                    <div>
+                        <h3 style="color: white; font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem;">Documentation</h3>
+                        <nav style="display: flex; flex-direction: column; gap: 0.75rem;">
+                            <a href="/docs/quickstart.html" style="color: var(--text-muted); font-size: 0.875rem; text-decoration: none; transition: color 0.3s;">Quick Start</a>
+                            <a href="/docs/installation.html" style="color: var(--text-muted); font-size: 0.875rem; text-decoration: none; transition: color 0.3s;">Installation Guide</a>
+                            <a href="/docs/commands.html" style="color: var(--text-muted); font-size: 0.875rem; text-decoration: none; transition: color 0.3s;">Commands</a>
+                            <a href="/docs/configuration.html" style="color: var(--text-muted); font-size: 0.875rem; text-decoration: none; transition: color 0.3s;">Configuration</a>
+                            <a href="/docs/terminal-ui.html" style="color: var(--text-muted); font-size: 0.875rem; text-decoration: none; transition: color 0.3s;">Terminal UI</a>
+                            <a href="/docs/web-dashboard.html" style="color: var(--text-muted); font-size: 0.875rem; text-decoration: none; transition: color 0.3s;">Web Dashboard</a>
+                        </nav>
+                    </div>
+
+                    <!-- Resources Column -->
+                    <div>
+                        <h3 style="color: white; font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem;">Resources</h3>
+                        <nav style="display: flex; flex-direction: column; gap: 0.75rem;">
+                            <a href="/docs/" style="color: var(--text-muted); font-size: 0.875rem; text-decoration: none; transition: color 0.3s;">All Docs</a>
+                            <a href="/docs/plugins.html" style="color: var(--text-muted); font-size: 0.875rem; text-decoration: none; transition: color 0.3s;">Plugins</a>
+                            <a href="/docs/resource-map.html" style="color: var(--text-muted); font-size: 0.875rem; text-decoration: none; transition: color 0.3s;">Resource Map</a>
+                            <a href="/docs/security.html" style="color: var(--text-muted); font-size: 0.875rem; text-decoration: none; transition: color 0.3s;">Security</a>
+                            <a href="https://github.com/kubegraf/kubegraf" target="_blank" rel="noopener noreferrer" style="color: var(--text-muted); font-size: 0.875rem; text-decoration: none; transition: color 0.3s;">GitHub</a>
+                        </nav>
+                    </div>
+                </div>
+
+                <div style="text-align: center; padding-top: 2rem; border-top: 1px solid rgba(59, 130, 246, 0.1);">
+                    <p style="margin: 0; font-size: 0.875rem; color: var(--text-muted);">© 2024 KubeGraf. Apache 2.0 License.</p>
+                    <p style="margin-top: 0.5rem;"><a href="mailto:contact@kubegraf.io" style="color: var(--primary); text-decoration: none; font-size: 0.875rem;">contact@kubegraf.io</a></p>
+                </div>
             </footer>
         </div>
     </main>
