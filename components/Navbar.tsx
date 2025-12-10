@@ -76,6 +76,7 @@ export function Navbar() {
         <ul className="flex gap-5 list-none m-0 p-0">
           {[
             { label: "Features", href: "#features" },
+            { label: "Docs", href: "/docs/" },
             { label: "Pricing", href: "#pricing" },
             { label: "Installation", href: "#installation" },
             { label: "GitHub", href: "https://github.com/kubegraf/kubegraf" },
