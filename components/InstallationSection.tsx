@@ -54,7 +54,12 @@ const platforms = [
       {
         label: "Quick Install (Recommended)",
         command: "curl -sSL https://kubegraf.io/install.sh | bash",
-        description: "Automatically detects your architecture and installs the latest version. Requires curl and tar.",
+        description: "Automatically detects your architecture and installs the latest version",
+      },
+      {
+        label: "Homebrew",
+        command: "brew install kubegraf/tap/kubegraf",
+        description: "",
       },
     ],
     gradient: "from-[rgba(59,130,246,0.2)] to-[rgba(59,130,246,0.05)]",
@@ -69,6 +74,14 @@ const platforms = [
         command: "curl -sSL https://kubegraf.io/install.sh | bash",
         description: "Automatically detects your architecture and installs the latest version. Requires curl and tar.",
       },
+      {
+        label: "Manual Download",
+        command: `# Download from GitHub Releases
+wget https://github.com/kubegraf/kubegraf/releases/latest/download/kubegraf-linux-amd64.tar.gz
+tar -xzf kubegraf-linux-amd64.tar.gz
+sudo mv kubegraf /usr/local/bin/`,
+        description: "",
+      },
     ],
     gradient: "from-[rgba(99,102,241,0.2)] to-[rgba(99,102,241,0.05)]",
   },
@@ -78,9 +91,21 @@ const platforms = [
     icon: <WindowsIcon />,
     commands: [
       {
-        label: "PowerShell (Recommended)",
-        command: "irm https://kubegraf.io/install.ps1 | iex",
-        description: "Automatically downloads, installs, and adds to PATH. Requires PowerShell 5.1+.",
+        label: "PowerShell (Recommended - One-Liner)",
+        command: "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force; irm https://kubegraf.io/install.ps1 | iex",
+        description: "This command sets execution policy and installs KubeGraf automatically. Requires PowerShell 5.1+.",
+      },
+      {
+        label: "Alternative: Download Script (If one-liner doesn't work)",
+        command: `# Step 1: Download the install script
+Invoke-WebRequest -Uri https://kubegraf.io/install.ps1 -OutFile install.ps1
+
+# Step 2: Allow execution for this script
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
+
+# Step 3: Run the script
+.\\install.ps1`,
+        description: "If the one-liner doesn't work due to execution policy restrictions, use this method instead.",
       },
     ],
     gradient: "from-[rgba(99,102,241,0.2)] to-[rgba(99,102,241,0.05)]",
@@ -177,7 +202,7 @@ export function InstallationSection() {
                         {copied === `${platform.id}-${idx}` ? "✓ Copied!" : "Copy"}
                       </motion.button>
                     </div>
-                    <p className="text-xs text-[#94a3b8] mt-3">{cmd.description}</p>
+                    {cmd.description && <p className="text-xs text-[#94a3b8] mt-3">{cmd.description}</p>}
                   </motion.div>
                 ))}
               </div>
