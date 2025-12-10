@@ -1,4 +1,4 @@
-name: Deploy Next.js to GitHub Pages
+name: Build Next.js and Deploy Static Site to GitHub Pages
 
 on:
   push:
@@ -31,22 +31,30 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build Next.js
+      - name: Build Next.js (for testing only)
         run: npm run build
         env:
           NODE_ENV: production
+        continue-on-error: false
 
-      - name: Copy static files
+      - name: Prepare static site for deployment
         run: |
-          cp CNAME out/ 2>/dev/null || true
-          cp install.sh out/ 2>/dev/null || true
-          cp install.ps1 out/ 2>/dev/null || true
-          cp install out/ 2>/dev/null || true
-          cp favicon.ico out/ 2>/dev/null || true
-          cp manifest.json out/ 2>/dev/null || true
-          cp robots.txt out/ 2>/dev/null || true
-          cp sitemap.xml out/ 2>/dev/null || true
-          touch out/.nojekyll
+          mkdir -p _site
+          cp index.html _site/
+          cp -r docs _site/ 2>/dev/null || true
+          cp -r assets _site/ 2>/dev/null || true
+          cp -r css _site/ 2>/dev/null || true
+          cp -r js _site/ 2>/dev/null || true
+          cp -r images _site/ 2>/dev/null || true
+          cp CNAME _site/ 2>/dev/null || true
+          cp install.sh _site/ 2>/dev/null || true
+          cp install.ps1 _site/ 2>/dev/null || true
+          cp install _site/ 2>/dev/null || true
+          cp favicon.ico _site/ 2>/dev/null || true
+          cp manifest.json _site/ 2>/dev/null || true
+          cp robots.txt _site/ 2>/dev/null || true
+          cp sitemap.xml _site/ 2>/dev/null || true
+          touch _site/.nojekyll
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -54,7 +62,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './out'
+          path: './_site'
 
   deploy:
     environment:
