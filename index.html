@@ -56,17 +56,43 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --dark: #020617;
-            --deep: #050b1a;
-            --primary: #326ce5;
-            --secondary: #4ade80;
+            /* n8n.io inspired dark palette */
+            --midnight-navy: #0e0918;
+            --deep-navy: #1f192a;
+            --electric-orange: #ff006e;
+            --neon-purple: #8b5cf6;
+            --cyber-teal: #00d4aa;
+            --sunset-yellow: #ff9b26;
+
+            /* Legacy colors for compatibility */
+            --dark: #0e0918;
+            --deep: #1f192a;
+            --primary: #3b82f6;
+            --secondary: #00d4aa;
             --muted: #94a3b8;
+
+            /* Glassmorphism */
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-blur: 20px;
+
+            /* Effects */
             --panel: rgba(255, 255, 255, 0.04);
-            --border: rgba(255, 255, 255, 0.1);
-            --glow: rgba(50, 108, 229, 0.35);
-            --accent-cyan: #00d4aa;
-            --accent-purple: #a78bfa;
-            --accent-pink: #f472b6;
+            --border: rgba(255, 255, 255, 0.08);
+            --glow: rgba(255, 0, 110, 0.35);
+
+            /* Spacing (4px base unit) */
+            --space-1: 4px;
+            --space-2: 8px;
+            --space-3: 12px;
+            --space-4: 16px;
+            --space-6: 24px;
+            --space-8: 32px;
+            --space-12: 48px;
+            --space-16: 64px;
+            --space-24: 96px;
+            --space-32: 128px;
+
             color-scheme: dark;
         }
 
@@ -77,9 +103,37 @@
         body {
             margin: 0;
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background: radial-gradient(circle at top, rgba(50, 108, 229, 0.25), transparent 45%), var(--dark);
+            background: var(--midnight-navy);
             color: #e2e8f0;
             min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated Mesh Gradient Background (n8n.io inspired) */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(255, 0, 110, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(0, 212, 170, 0.08) 0%, transparent 50%);
+            animation: meshMove 20s ease-in-out infinite;
+        }
+
+        @keyframes meshMove {
+            0%, 100% {
+                background-position: 0% 0%, 100% 100%, 50% 50%;
+            }
+            50% {
+                background-position: 100% 50%, 0% 50%, 50% 0%;
+            }
         }
 
         main {
@@ -140,6 +194,156 @@
             }
             100% {
                 transform: translate3d(-15vw, 60vh, 0) scale(0.95);
+            }
+        }
+
+        /* Glassmorphic Component System */
+        .glass-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--space-4);
+            backdrop-filter: blur(var(--glass-blur));
+            box-shadow:
+                inset 0 1px 0 0 rgba(255, 255, 255, 0.1),
+                0 20px 40px rgba(0, 0, 0, 0.4);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow:
+                inset 0 1px 0 0 rgba(255, 255, 255, 0.15),
+                0 30px 60px rgba(0, 0, 0, 0.5),
+                0 0 40px rgba(59, 130, 246, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .glass-card-strong {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: var(--space-4);
+            backdrop-filter: blur(50px);
+            box-shadow:
+                inset 0 2px 0 0 rgba(255, 255, 255, 0.15),
+                0 30px 60px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Enhanced Typography */
+        .headline-hero {
+            font-size: clamp(56px, 8vw, 80px);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.02em;
+        }
+
+        .headline-section {
+            font-size: clamp(40px, 6vw, 56px);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.01em;
+        }
+
+        /* Enhanced Buttons */
+        .btn-primary {
+            padding: var(--space-4) var(--space-8);
+            border-radius: 9999px;
+            background: linear-gradient(135deg, var(--electric-orange), var(--neon-purple));
+            border: none;
+            color: white;
+            font-weight: 700;
+            font-size: 16px;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow:
+                0 4px 20px rgba(255, 0, 110, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                0 8px 30px rgba(255, 0, 110, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-secondary {
+            padding: var(--space-4) var(--space-8);
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            backdrop-filter: blur(20px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Badge Component */
+        .badge {
+            display: inline-block;
+            padding: var(--space-2) var(--space-4);
+            background: rgba(255, 0, 110, 0.1);
+            border: 1px solid rgba(255, 0, 110, 0.3);
+            border-radius: 9999px;
+            color: var(--electric-orange);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Status Dot */
+        .status-live {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--cyber-teal);
+            border-radius: 50%;
+            box-shadow:
+                0 0 0 3px rgba(0, 212, 170, 0.2),
+                0 0 20px rgba(0, 212, 170, 0.6);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow:
+                    0 0 0 3px rgba(0, 212, 170, 0.2),
+                    0 0 20px rgba(0, 212, 170, 0.6);
+            }
+            50% {
+                box-shadow:
+                    0 0 0 6px rgba(0, 212, 170, 0.1),
+                    0 0 30px rgba(0, 212, 170, 0.8);
             }
         }
 
@@ -1774,19 +1978,20 @@
         }
 
         .highlight-card {
-            background: linear-gradient(135deg,
-                rgba(255, 255, 255, 0.06),
-                rgba(50, 108, 229, 0.04));
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 20px;
-            padding: 2.5rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--space-6);
+            padding: var(--space-8);
             display: flex;
             flex-direction: column;
-            gap: 1rem;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            gap: var(--space-4);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(var(--glass-blur));
+            box-shadow:
+                inset 0 1px 0 0 rgba(255, 255, 255, 0.1),
+                0 20px 40px rgba(0, 0, 0, 0.5);
         }
 
         .highlight-card::before {
@@ -1802,30 +2007,34 @@
         }
 
         .highlight-card:hover {
-            transform: translateY(-12px) scale(1.03);
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3),
-                        0 0 30px rgba(50, 108, 229, 0.2);
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow:
+                inset 0 1px 0 0 rgba(255, 255, 255, 0.15),
+                0 30px 60px rgba(0, 0, 0, 0.6),
+                0 0 40px rgba(59, 130, 246, 0.3);
         }
 
         .highlight-card:hover::before {
             opacity: 1;
         }
 
-        /* Color-coded top borders */
+        /* Color-coded top borders with new color system */
         .highlight-card[data-color="primary"] {
-            border-top: 3px solid rgba(50, 108, 229, 0.5);
+            border-top: 3px solid var(--electric-orange);
         }
 
         .highlight-card[data-color="secondary"] {
-            border-top: 3px solid rgba(74, 222, 128, 0.5);
+            border-top: 3px solid var(--neon-purple);
         }
 
         .highlight-card[data-color="cyan"] {
-            border-top: 3px solid rgba(0, 212, 170, 0.5);
+            border-top: 3px solid var(--cyber-teal);
         }
 
         .highlight-card[data-color="purple"] {
-            border-top: 3px solid rgba(139, 92, 246, 0.5);
+            border-top: 3px solid var(--neon-purple);
         }
 
         .highlight-icon {
@@ -1835,11 +2044,12 @@
             align-items: center;
             justify-content: center;
             background: linear-gradient(135deg,
-                rgba(50, 108, 229, 0.2),
-                rgba(0, 212, 170, 0.1));
-            border-radius: 16px;
+                rgba(255, 0, 110, 0.15),
+                rgba(139, 92, 246, 0.1));
+            border-radius: var(--space-4);
             font-size: 2rem;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .highlight-card:hover .highlight-icon {
@@ -3312,13 +3522,13 @@
                 <div class="page-inner-wide">
                 <div class="hero-grid">
                     <div class="hero-copy" style="max-width: 720px;">
-                        <div class="hero-smallline">
-                            <p style="background: linear-gradient(135deg, #ff006e 0%, #8b5cf6 50%, #3b82f6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 800; font-size: 1rem; letter-spacing: 0.08em; text-transform: uppercase; text-shadow: 0 0 30px rgba(255, 0, 110, 0.3);">Complete Kubernetes Control Platform</p>
+                        <div class="hero-smallline" style="margin-bottom: var(--space-3);">
+                            <span class="badge">Complete Kubernetes Control Platform</span>
                         </div>
-                        <h1 class="hero-title" style="font-size: clamp(3.5rem, 8vw, 5.5rem); font-weight: 800; line-height: 1.05; margin: 1.5rem 0; letter-spacing: -0.02em;">
-                            <span class="hero-ai" style="background: linear-gradient(135deg, #00d4aa, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: block;">Unified Intelligence</span>
-                            <span class="hero-kubernetes" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: block;">Across All</span>
-                            <span class="hero-everyone" style="background: linear-gradient(135deg, #8b5cf6, #ff006e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: block;">Clusters</span>
+                        <h1 class="hero-title headline-hero" style="margin: var(--space-6) 0;">
+                            <span class="hero-ai" style="background: linear-gradient(135deg, var(--cyber-teal), #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: block;">Unified Intelligence</span>
+                            <span class="hero-kubernetes" style="background: linear-gradient(135deg, #3b82f6, var(--neon-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: block;">Across All</span>
+                            <span class="hero-everyone" style="background: linear-gradient(135deg, var(--neon-purple), var(--electric-orange)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: block;">Clusters</span>
                         </h1>
                         <p class="hero-intro" style="font-size: 1.25rem; line-height: 1.75; color: rgba(203, 213, 245, 0.95); font-weight: 400; margin-bottom: 2.5rem; max-width: 680px;">A unified platform for complete Kubernetes lifecycle management. From deployment to debugging, monitoring to scaling—powered by AI that understands your entire infrastructure. Terminal, web, and SPA interfaces working seamlessly together.</p>
 
@@ -3357,24 +3567,24 @@
                                 100% Local Processing
                             </span>
                         </div>
-                        <div class="hero-actions" style="gap: 1.5rem;">
-                            <a class="btn btn-primary" href="#installation" style="background: linear-gradient(135deg, #ff006e, #8b5cf6); border: none; padding: 1rem 2.5rem; font-size: 1.1rem; font-weight: 700; box-shadow: 0 12px 40px rgba(255, 0, 110, 0.4); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);">Get Started Free</a>
-                            <a class="btn btn-ghost" href="#insights" style="border: 2px solid rgba(59, 130, 246, 0.5); padding: 1rem 2.5rem; font-size: 1.1rem; font-weight: 600; backdrop-filter: blur(8px);">View Documentation</a>
+                        <div class="hero-actions" style="gap: var(--space-4); display: flex; margin-bottom: var(--space-6);">
+                            <a class="btn-primary" href="#installation">Get Started Free</a>
+                            <a class="btn-secondary" href="#insights">View Documentation</a>
                         </div>
-                        <p style="margin-top: 2rem; font-size: 0.9rem; color: rgba(148, 163, 184, 0.8); display: flex; gap: 2rem; flex-wrap: wrap;">
-                            <span style="display: flex; align-items: center; gap: 0.5rem;">
-                                <span style="width: 6px; height: 6px; background: linear-gradient(135deg, #00d4aa, #3b82f6); border-radius: 50%; box-shadow: 0 0 12px rgba(0, 212, 170, 0.6);"></span>
+                        <div style="font-size: 0.9rem; color: rgba(148, 163, 184, 0.8); display: flex; gap: var(--space-6); flex-wrap: wrap;">
+                            <span style="display: flex; align-items: center; gap: var(--space-2);">
+                                <span class="status-live"></span>
                                 Install in under 60 seconds
                             </span>
-                            <span style="display: flex; align-items: center; gap: 0.5rem;">
-                                <span style="width: 6px; height: 6px; background: linear-gradient(135deg, #3b82f6, #8b5cf6); border-radius: 50%; box-shadow: 0 0 12px rgba(59, 130, 246, 0.6);"></span>
+                            <span style="display: flex; align-items: center; gap: var(--space-2);">
+                                <span class="status-live"></span>
                                 Works completely offline
                             </span>
-                            <span style="display: flex; align-items: center; gap: 0.5rem;">
-                                <span style="width: 6px; height: 6px; background: linear-gradient(135deg, #8b5cf6, #ff006e); border-radius: 50%; box-shadow: 0 0 12px rgba(255, 0, 110, 0.6);"></span>
+                            <span style="display: flex; align-items: center; gap: var(--space-2);">
+                                <span class="status-live"></span>
                                 Zero data leaves your infrastructure
                             </span>
-                        </p>
+                        </div>
                     </div>
                     <div class="hero-panel" aria-live="polite">
                         <h3>AI Control Plane</h3>
