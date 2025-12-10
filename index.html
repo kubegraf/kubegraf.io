@@ -392,6 +392,44 @@
             margin-bottom: var(--space-2);
         }
 
+        /* 3D Card Tilt Effect */
+        .tilt-card {
+            transform-style: preserve-3d;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+        }
+
+        .tilt-card-inner {
+            transform: translateZ(20px);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Animated Gradient Text */
+        .gradient-animate {
+            background: linear-gradient(
+                90deg,
+                var(--cyber-teal),
+                #3b82f6,
+                var(--neon-purple),
+                var(--electric-orange),
+                var(--cyber-teal)
+            );
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 8s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
         /* Product Tabs Styles */
         .product-tab-btn {
             display: inline-flex;
@@ -3634,9 +3672,9 @@
                             <span class="badge">Complete Kubernetes Control Platform</span>
                         </div>
                         <h1 class="hero-title headline-hero" style="margin: var(--space-6) 0;">
-                            <span class="hero-ai" style="background: linear-gradient(135deg, var(--cyber-teal), #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: block;">Unified Intelligence</span>
-                            <span class="hero-kubernetes" style="background: linear-gradient(135deg, #3b82f6, var(--neon-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: block;">Across All</span>
-                            <span class="hero-everyone" style="background: linear-gradient(135deg, var(--neon-purple), var(--electric-orange)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: block;">Clusters</span>
+                            <span class="hero-ai gradient-animate" style="display: block;">Unified Intelligence</span>
+                            <span class="hero-kubernetes gradient-animate" style="display: block; animation-delay: 1s;">Across All</span>
+                            <span class="hero-everyone gradient-animate" style="display: block; animation-delay: 2s;">Clusters</span>
                         </h1>
                         <p class="hero-intro" style="font-size: 1.25rem; line-height: 1.75; color: rgba(203, 213, 245, 0.95); font-weight: 400; margin-bottom: 2.5rem; max-width: 680px;">A unified platform for complete Kubernetes lifecycle management. From deployment to debugging, monitoring to scaling—powered by AI that understands your entire infrastructure. Terminal, web, and SPA interfaces working seamlessly together.</p>
 
@@ -3871,25 +3909,25 @@
                         <p>Four core capabilities that set KubeGraf apart for modern Kubernetes teams.</p>
                     </div>
                     <div class="highlights-grid">
-                        <article class="highlight-card" data-color="primary">
+                        <article class="highlight-card tilt-card" data-color="primary">
                             <div class="highlight-icon">🎯</div>
                             <h3>Three Ways to Work</h3>
                             <p>Terminal UI for speed, Web Dashboard for visibility, or Modern SPA for collaboration. All interfaces share real-time data—choose what fits your workflow.</p>
                             <div class="highlight-badge">Multi-Interface</div>
                         </article>
-                        <article class="highlight-card" data-color="secondary">
+                        <article class="highlight-card tilt-card" data-color="secondary">
                             <div class="highlight-icon">🧠</div>
                             <h3>Context-Aware Diagnostics</h3>
                             <p>Brain Panel analyzes 24-72 hours of cluster events, surfaces OOM warnings, scaling anomalies, and reliability issues with actionable recommendations.</p>
                             <div class="highlight-badge">AI Intelligence</div>
                         </article>
-                        <article class="highlight-card" data-color="cyan">
+                        <article class="highlight-card tilt-card" data-color="cyan">
                             <div class="highlight-icon">🔒</div>
                             <h3>Completely Local, Zero Security Compromise</h3>
                             <p>~15MB binary runs entirely on your machine. No data leaves your cluster—ever. Works completely offline, behind VPNs, and in air-gapped environments. Zero cloud dependencies, zero security risks.</p>
                             <div class="highlight-badge">Privacy First</div>
                         </article>
-                        <article class="highlight-card" data-color="purple">
+                        <article class="highlight-card tilt-card" data-color="purple">
                             <div class="highlight-icon">🔄</div>
                             <h3>Built for GitOps Teams</h3>
                             <p>Native integrations for ArgoCD and Flux. Visualize sync status, detect drift, and trigger reconciliation—all from your preferred interface.</p>
@@ -4082,19 +4120,19 @@
                         <p>From app deployment to ML workloads, KubeGraf provides the tools you need to manage your clusters effectively.</p>
                     </div>
                     <div class="highlights-grid">
-                        <article class="highlight-card" data-color="primary">
+                        <article class="highlight-card tilt-card" data-color="primary">
                             <div class="highlight-icon">🛒</div>
                             <h3>App Marketplace</h3>
                             <p>One-click deployment of 50+ applications including Istio, ArgoCD, Kong, Vault, and more. Install, configure, and manage with ease.</p>
                             <div class="highlight-badge">Marketplace</div>
                         </article>
-                        <article class="highlight-card" data-color="secondary">
+                        <article class="highlight-card tilt-card" data-color="secondary">
                             <div class="highlight-icon">🤖</div>
                             <h3>ML Training Jobs</h3>
                             <p>Run ML training workloads on Kubernetes with GPU support. Submit Python scripts, configure resources, and stream logs in real-time.</p>
                             <div class="highlight-badge">ML Workloads</div>
                         </article>
-                        <article class="highlight-card" data-color="cyan">
+                        <article class="highlight-card tilt-card" data-color="cyan">
                             <div class="highlight-icon">
                                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M12 2L2 7l10 5 10-5-10-5z"/>
@@ -4106,7 +4144,7 @@
                             <p>Deploy ML models as production-ready APIs. Support for multiple runtimes including FastAPI, MLServer, BentoML, and KServe with auto-scaling.</p>
                             <div class="highlight-badge">ML Workloads</div>
                         </article>
-                        <article class="highlight-card" data-color="purple">
+                        <article class="highlight-card tilt-card" data-color="purple">
                             <div class="highlight-icon">
                                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <line x1="18" y1="20" x2="18" y2="10"/>
@@ -4118,7 +4156,7 @@
                             <p>Experiment tracking, model registry, and ML lifecycle management. Deploy MLflow with Helm, configure storage backends, and manage models.</p>
                             <div class="highlight-badge">ML Workloads</div>
                         </article>
-                        <article class="highlight-card" data-color="primary">
+                        <article class="highlight-card tilt-card" data-color="primary">
                             <div class="highlight-icon">
                                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
@@ -4130,7 +4168,7 @@
                             <p>Manage feature stores for ML pipelines. Deploy Feast for feature engineering, versioning, and serving features to training and inference workloads.</p>
                             <div class="highlight-badge">ML Workloads</div>
                         </article>
-                        <article class="highlight-card" data-color="secondary">
+                        <article class="highlight-card tilt-card" data-color="secondary">
                             <div class="highlight-icon">
                                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
@@ -4862,6 +4900,72 @@ sudo mv kubegraf /usr/local/bin/</pre>
             document.addEventListener('DOMContentLoaded', initProductTabs);
         } else {
             initProductTabs();
+        }
+
+        // 3D Card Tilt Effect
+        function init3DTilt() {
+            const tiltCards = document.querySelectorAll('.tilt-card');
+
+            tiltCards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+
+                    const rotateX = (y - centerY) / 10;
+                    const rotateY = (centerX - x) / 10;
+
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+                });
+            });
+        }
+
+        // Initialize 3D tilt on DOM ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init3DTilt);
+        } else {
+            init3DTilt();
+        }
+
+        // Enhanced Parallax Effect for Particles
+        function initParallaxParticles() {
+            const particles = document.querySelectorAll('.floating-particle');
+
+            let ticking = false;
+
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        const scrolled = window.pageYOffset;
+
+                        particles.forEach((particle, index) => {
+                            // Different speeds for different particles
+                            const speed = 0.5 + (index % 3) * 0.3; // Speeds: 0.5, 0.8, 1.1
+                            const yPos = -(scrolled * speed);
+
+                            particle.style.transform = `translateY(${yPos}px)`;
+                        });
+
+                        ticking = false;
+                    });
+
+                    ticking = true;
+                }
+            });
+        }
+
+        // Initialize parallax
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initParallaxParticles);
+        } else {
+            initParallaxParticles();
         }
 
         // Cursor glow effect
