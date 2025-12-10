@@ -74,14 +74,21 @@ export function Navbar() {
         </motion.a>
 
         <ul className="flex gap-5 list-none m-0 p-0">
-          {["Product", "Docs", "Open Source", "Pricing", "Contact us"].map((link, idx) => (
-            <li key={link}>
+          {[
+            { label: "Features", href: "#features" },
+            { label: "Pricing", href: "#pricing" },
+            { label: "Installation", href: "#installation" },
+            { label: "GitHub", href: "https://github.com/kubegraf/kubegraf" },
+          ].map((link, idx) => (
+            <li key={link.label}>
               <motion.a
-                href={`#${link.toLowerCase().replace(" ", "-")}`}
+                href={link.href}
+                target={link.href.startsWith("http") ? "_blank" : undefined}
+                rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
               className="text-[0.85rem] tracking-[0.1em] uppercase text-[rgba(226,232,240,0.75)] transition-all duration-300 relative pb-1 hover:text-white"
               whileHover={{ y: -2 }}
             >
-              {link}
+              {link.label}
               <motion.span
                 className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-[#3b82f6] via-[#8b5cf6] to-[#8b5cf6]"
                 initial={{ width: 0 }}
