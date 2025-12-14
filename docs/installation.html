@@ -403,6 +403,21 @@ powershell -ExecutionPolicy Bypass -File install.ps1</code></pre>
                 </li>
             </ol>
 
+            <h3>macOS: Homebrew permission errors</h3>
+            <p>If you see "The following directories are not writable by your user" when running <code>brew install</code>:</p>
+            <pre><code>Error: The following directories are not writable by your user:
+/usr/local/share/man/man8</code></pre>
+
+            <p><strong>Solution:</strong> Fix Homebrew directory permissions by running the commands Homebrew suggests:</p>
+            <pre><code>sudo chown -R $(whoami) /usr/local/share/man/man8
+chmod u+w /usr/local/share/man/man8</code></pre>
+
+            <p>Then retry the installation:</p>
+            <pre><code>brew tap kubegraf/tap
+brew install kubegraf</code></pre>
+
+            <p><strong>Alternative:</strong> If you prefer not to change permissions, use the manual installation method instead of Homebrew.</p>
+
             <h3>macOS: "kubegraf cannot be opened"</h3>
             <p>If you see a security warning on macOS:</p>
             <pre><code>sudo xattr -rd com.apple.quarantine /usr/local/bin/kubegraf</code></pre>
