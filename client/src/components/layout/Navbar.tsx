@@ -13,7 +13,7 @@ export default function Navbar() {
     >
       <div className="glass rounded-full px-6 py-3 flex items-center gap-8 shadow-2xl shadow-primary/10">
         <a href="/" className="flex items-center gap-2 font-display font-bold text-xl tracking-tighter">
-          <img src="/kubegraf-logo-light.png" alt="KubeGraf Logo" className="w-12 h-12 object-contain" />
+          <img src="/kubegraf-logo-dark.png" alt="KubeGraf Logo" className="w-12 h-12 object-contain" />
           KubeGraf
         </a>
 
