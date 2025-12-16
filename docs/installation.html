@@ -353,18 +353,43 @@ sudo mv kubegraf /usr/local/bin/</code></pre>
 
             <div class="install-method">
                 <h3>
-                    Scoop
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/></svg>
+                    Installer (GUI)
                     <span class="badge">Recommended</span>
                 </h3>
+                <p>Download the installer for a graphical installation experience:</p>
+                <ol>
+                    <li><a href="https://github.com/kubegraf/kubegraf/releases/latest/download/kubegraf-setup.exe" style="font-weight: 600;">Download kubegraf-setup.exe</a></li>
+                    <li>Run the installer</li>
+                    <li>Follow the installation wizard</li>
+                    <li>Installer will automatically add KubeGraf to PATH</li>
+                </ol>
+                <p>Features: Automatic PATH setup, Start Menu shortcuts, Professional uninstaller</p>
+            </div>
+
+            <div class="install-method">
+                <h3>Scoop</h3>
                 <pre><code>scoop bucket add kubegraf https://github.com/kubegraf/scoop-bucket
 scoop install kubegraf</code></pre>
             </div>
 
             <div class="install-method">
                 <h3>Manual (PowerShell)</h3>
+                <p><strong>Step 1:</strong> Download and extract the binary</p>
                 <pre><code>Invoke-WebRequest -Uri "https://github.com/kubegraf/kubegraf/releases/latest/download/kubegraf-windows-amd64.zip" -OutFile kubegraf.zip
-Expand-Archive kubegraf.zip -DestinationPath $env:USERPROFILE\bin
-# Add $env:USERPROFILE\bin to your PATH</code></pre>
+Expand-Archive kubegraf.zip -DestinationPath $env:USERPROFILE\bin -Force</code></pre>
+
+                <p><strong>Step 2:</strong> Add to PATH (choose one method)</p>
+
+                <p><strong>Method A: Permanent PATH (Recommended)</strong></p>
+                <pre><code>[Environment]::SetEnvironmentVariable("Path", $env:Path + ";$env:USERPROFILE\bin", [EnvironmentVariableTarget]::User)</code></pre>
+                <p>Close and reopen PowerShell, then verify:</p>
+                <pre><code>kubegraf --version</code></pre>
+
+                <p><strong>Method B: Current Session Only</strong></p>
+                <pre><code>$env:Path += ";$env:USERPROFILE\bin"
+kubegraf --version</code></pre>
+                <p>Note: This only works in the current PowerShell window.</p>
             </div>
 
             <h2>Verify Installation</h2>
@@ -392,16 +417,29 @@ powershell -ExecutionPolicy Bypass -File install.ps1</code></pre>
             <pre><code>Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force; irm https://kubegraf.io/install.ps1 | iex</code></pre>
 
             <h3>Windows: "kubegraf is not recognized"</h3>
-            <p>If the command is not found after installation:</p>
-            <ol>
-                <li><strong>Restart your terminal</strong> - PATH changes require a new terminal session</li>
-                <li><strong>Manually add to PATH for current session:</strong>
-                    <pre><code>$env:Path += ";$env:LOCALAPPDATA\Programs\KubeGraf"</code></pre>
-                </li>
-                <li><strong>Verify installation location:</strong>
-                    <pre><code>Test-Path "$env:LOCALAPPDATA\Programs\KubeGraf\kubegraf.exe"</code></pre>
-                </li>
-            </ol>
+            <p>If you see this error after manual installation:</p>
+            <pre><code>kubegraf : The term 'kubegraf' is not recognized as the name of a cmdlet, function, script file, or operable program.</code></pre>
+
+            <p><strong>The issue:</strong> The directory containing kubegraf.exe is not in your PATH.</p>
+
+            <p><strong>Solution 1: Add to PATH permanently (Recommended)</strong></p>
+            <pre><code># Add $env:USERPROFILE\bin to your user PATH
+[Environment]::SetEnvironmentVariable("Path", $env:Path + ";$env:USERPROFILE\bin", [EnvironmentVariableTarget]::User)
+
+# Close and reopen PowerShell, then test
+kubegraf --version</code></pre>
+
+            <p><strong>Solution 2: Add to PATH for current session only</strong></p>
+            <pre><code># This only works until you close PowerShell
+$env:Path += ";$env:USERPROFILE\bin"
+kubegraf --version</code></pre>
+
+            <p><strong>Solution 3: Run with full path</strong></p>
+            <pre><code>& "$env:USERPROFILE\bin\kubegraf.exe" --version</code></pre>
+
+            <p><strong>Verify the binary exists:</strong></p>
+            <pre><code>Test-Path "$env:USERPROFILE\bin\kubegraf.exe"
+# Should return: True</code></pre>
 
             <h3>macOS: Homebrew permission errors</h3>
             <p>If you see "The following directories are not writable by your user" when running <code>brew install</code>:</p>

@@ -1,0 +1,64 @@
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+    <!-- Gradient background -->
+    <defs>
+        <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#d4a574"/>
+            <stop offset="50%" style="stop-color:#f4d19b"/>
+            <stop offset="100%" style="stop-color:#c89960"/>
+        </linearGradient>
+        <linearGradient id="chipGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#4a5568"/>
+            <stop offset="100%" style="stop-color:#2d3748"/>
+        </linearGradient>
+    </defs>
+
+    <!-- Background -->
+    <rect width="600" height="400" fill="url(#goldGradient)" rx="20"/>
+
+    <!-- Circuit board chip center -->
+    <rect x="225" y="150" width="150" height="100" fill="url(#chipGradient)" rx="5"/>
+
+    <!-- Central indicator dot -->
+    <circle cx="300" cy="200" r="8" fill="#a3e635"/>
+
+    <!-- Connection lines and nodes - Left side -->
+    <g stroke="#4a5568" stroke-width="4" fill="none" stroke-linecap="round">
+        <!-- Top left connection -->
+        <circle cx="165" cy="170" r="8" stroke="#4a5568" fill="none"/>
+        <line x1="175" y1="170" x2="225" y2="170"/>
+
+        <!-- Middle left connection -->
+        <circle cx="165" cy="200" r="8" stroke="#4a5568" fill="none"/>
+        <line x1="175" y1="200" x2="225" y2="200"/>
+
+        <!-- Bottom left connection -->
+        <circle cx="165" cy="230" r="8" stroke="#4a5568" fill="none"/>
+        <line x1="175" y1="230" x2="225" y2="230"/>
+    </g>
+
+    <!-- Connection lines and nodes - Right side -->
+    <g stroke="#4a5568" stroke-width="4" fill="none" stroke-linecap="round">
+        <!-- Top right connection -->
+        <circle cx="435" cy="170" r="8" stroke="#4a5568" fill="none"/>
+        <line x1="425" y1="170" x2="375" y2="170"/>
+
+        <!-- Middle right connection -->
+        <circle cx="435" cy="200" r="8" stroke="#4a5568" fill="none"/>
+        <line x1="425" y1="200" x2="375" y2="200"/>
+
+        <!-- Bottom right connection -->
+        <circle cx="435" cy="230" r="8" stroke="#4a5568" fill="none"/>
+        <line x1="425" y1="230" x2="375" y2="230"/>
+    </g>
+
+    <!-- Orbital arcs -->
+    <g stroke="#4a5568" stroke-width="4" fill="none" stroke-linecap="round">
+        <!-- Top arc -->
+        <path d="M 220 130 Q 300 90, 380 130"/>
+        <rect x="375" y="125" width="15" height="15" fill="none" stroke="#4a5568" stroke-width="3"/>
+
+        <!-- Bottom arc -->
+        <path d="M 220 270 Q 300 310, 380 270"/>
+        <rect x="210" y="265" width="15" height="15" fill="none" stroke="#4a5568" stroke-width="3"/>
+    </g>
+</svg>

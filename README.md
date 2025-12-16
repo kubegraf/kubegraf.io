@@ -15,7 +15,7 @@
 
 ## 📖 About
 
-This repository contains the official marketing website for [KubeGraf](https://github.com/kubegraf/kubegraf), a production-grade Kubernetes management platform. The website showcases KubeGraf's features, provides installation instructions, and serves as the central hub for project information.
+This repository contains the deployment configuration and static assets for the KubeGraf website. The actual source code is maintained in a separate source repository.
 
 ## 🚀 Features
 
@@ -46,63 +46,120 @@ This repository contains the official marketing website for [KubeGraf](https://g
 
 ## 🛠️ Technology Stack
 
-- **Pure HTML/CSS/JavaScript** - No build process required
-- **CSS Variables** - Easy theming and customization
-- **Intersection Observer API** - Scroll-triggered animations
-- **WebSocket** - For potential live demos (future)
-- **SVG Graphics** - Scalable vector icons and illustrations
+- **Framework**: Vite + React
+- **Build Tool**: Vite 7
+- **Styling**: Tailwind CSS
+- **Animations**: Framer Motion
+- **Deployment**: GitHub Actions → GitHub Pages
 
 ## 📂 Project Structure
 
 ```
 kubegraf.io/
-├── index.html              # Main landing page
-├── assets/
-│   ├── icons/             # Favicons and app icons
-│   │   ├── favicon.png
-│   │   ├── icon-192.png
-│   │   └── icon-512.png
-│   └── images/            # Images and graphics
-│       └── og-image.png   # Open Graph image
-├── install.sh             # Installation script
-├── manifest.json          # PWA manifest
-├── favicon.ico            # Browser favicon
-└── README.md              # This file
+├── .github/
+│   └── workflows/
+│       └── deploy.yml          # Build and deploy workflow
+├── client/                     # React source code
+│   ├── src/
+│   │   ├── components/
+│   │   │   └── layout/
+│   │   │       └── Navbar.tsx  # Main navigation with logo
+│   │   ├── App.tsx             # Main app component
+│   │   └── main.tsx            # Entry point
+│   ├── dist/public/            # Build output (gitignored)
+│   └── public/                 # Static assets
+├── docs/                       # Documentation pages (HTML)
+├── assets/                     # Built assets from Vite (JS/CSS)
+├── index.html                  # Main entry point (built)
+├── kubegraf-logo.png          # Logo image
+├── package.json                # NPM dependencies
+├── vite.config.ts              # Vite build config
+├── CNAME                       # Custom domain configuration
+├── install.sh                  # Installation script
+└── README.md                   # This file
 ```
 
-## 🏃 Running Locally
+## 🏃 Local Development
 
-The website is a static site and can be served with any web server:
+### Prerequisites
 
-### Option 1: Python HTTP Server
+- Node.js 20+
+- npm
+- Python 3 (for local server)
+
+### Build and Serve Locally
+
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+2. **Build the application:**
+   ```bash
+   npm run build
+   ```
+   This creates production-ready files in `dist/public/`
+
+3. **Prepare _site directory:**
+   ```bash
+   rm -rf _site
+   mkdir -p _site
+   cp dist/public/index.html _site/
+   cp -r dist/public/assets _site/
+   cp dist/public/kubegraf-logo.png _site/
+   cp -r docs _site/
+   cp CNAME _site/ 2>/dev/null || true
+   cp install.sh _site/ 2>/dev/null || true
+   cp install.ps1 _site/ 2>/dev/null || true
+   cp favicon.ico _site/ 2>/dev/null || true
+   cp robots.txt _site/ 2>/dev/null || true
+   cp sitemap.xml _site/ 2>/dev/null || true
+   ```
+
+4. **Serve locally:**
+   ```bash
+   cd _site
+   python3 -m http.server 8081
+   ```
+
+5. **View the site:**
+   Open [http://localhost:8081](http://localhost:8081) in your browser
+
+### Quick Development Script
+
+Create `build-and-serve.sh`:
 
 ```bash
-# Python 3
-python3 -m http.server 8000
+#!/bin/bash
+set -e
 
-# Python 2
-python -m SimpleHTTPServer 8000
+echo "Building from source..."
+npm run build
+
+echo "Preparing _site directory..."
+rm -rf _site
+mkdir -p _site
+cp dist/public/index.html _site/
+cp -r dist/public/assets _site/
+cp dist/public/kubegraf-logo.png _site/
+cp -r docs _site/
+cp CNAME _site/ 2>/dev/null || true
+cp install.sh _site/ 2>/dev/null || true
+cp install.ps1 _site/ 2>/dev/null || true
+cp favicon.ico _site/ 2>/dev/null || true
+cp robots.txt _site/ 2>/dev/null || true
+cp sitemap.xml _site/ 2>/dev/null || true
+
+echo "Starting server on http://localhost:8081..."
+cd _site
+python3 -m http.server 8081
 ```
 
-Then open: http://localhost:8000
-
-### Option 2: Node.js HTTP Server
-
+Make it executable and run:
 ```bash
-# Install http-server globally
-npm install -g http-server
-
-# Run server
-http-server -p 8000
+chmod +x build-and-serve.sh
+./build-and-serve.sh
 ```
-
-Then open: http://localhost:8000
-
-### Option 3: VS Code Live Server
-
-1. Install the "Live Server" extension in VS Code
-2. Right-click `index.html`
-3. Select "Open with Live Server"
 
 ## 🎨 Customization
 
@@ -128,47 +185,66 @@ All animations support `prefers-reduced-motion` for accessibility. Users who pre
 
 ## 🚀 Deployment
 
-### GitHub Pages
+### Automatic Deployment (GitHub Actions)
 
-This repository is configured to deploy automatically to GitHub Pages:
+The site automatically deploys when changes are pushed to the `main` branch.
 
-1. Push to `main` branch
-2. GitHub Actions builds and deploys to `gh-pages` branch
-3. Site is live at https://kubegraf.io
+**Workflow Process:**
+1. Checkout kubegraf.io repository
+2. Install Node.js 20 and dependencies
+3. Build Vite application from `client/` directory
+4. Copy built files + static assets to `_site/`
+5. Deploy to GitHub Pages
 
-### Custom Domain
+**Manual Trigger:**
+1. Go to Actions tab on GitHub
+2. Select "Build and Deploy to GitHub Pages"
+3. Click "Run workflow"
 
-To use a custom domain:
+### Making Changes
 
-1. Add a `CNAME` file with your domain name
-2. Configure DNS records:
-   - `A` record pointing to GitHub Pages IPs
-   - Or `CNAME` record pointing to `<username>.github.io`
+**Update Landing Page:**
+1. Edit files in `client/src/` directory
+2. Build: `npm run build`
+3. Test locally (see steps above)
+4. Commit and push to deploy
 
-### Netlify / Vercel
+**Update Logo:**
+1. Place new logo at `client/public/kubegraf-logo.png`
+2. Rebuild: `npm run build`
+3. Test locally
+4. Commit and push
 
-The site can also be deployed to Netlify or Vercel:
+**Update Documentation:**
+1. Edit HTML files in `/docs` directory
+2. Test locally
+3. Commit and push
 
-- Simply connect your repository
-- No build command needed (static site)
-- Set publish directory to `/` (root)
+## 🐛 Troubleshooting
 
-## 📝 Content Updates
+**Logo not updating:**
+- Clear browser cache (Cmd+Shift+R on Mac, Ctrl+Shift+R on Windows)
+- Verify file was copied: `ls -lh _site/kubegraf-logo.png`
 
-### Installation Script
+**Build fails:**
+- Check Node.js version: `node --version` (should be 20+)
+- Clear node_modules: `rm -rf node_modules && npm install`
 
-The installation script is served from `/install.sh`. To update:
+**Local server not working:**
+- Check port 8081: `lsof -ti:8081`
+- Kill existing process: `lsof -ti:8081 | xargs kill -9`
 
-1. Edit `install.sh`
-2. Test locally: `bash install.sh`
-3. Commit and push to GitHub
+## Build Configuration
 
-### Version Numbers
+**Monorepo Structure**: All source code in this repository
+- Build command: `npm run build`
+- Output directory: `dist/public/`
 
-Update version numbers in:
-- `index.html` - Meta tags and content
-- `manifest.json` - PWA version
-- This `README.md` - Badge at top
+**Key Components:**
+- Navbar: `client/src/components/layout/Navbar.tsx`
+- Main App: `client/src/App.tsx`
+- Build Config: `vite.config.ts`
+- Build Script: `script/build.ts`
 
 ## 🤝 Contributing
 

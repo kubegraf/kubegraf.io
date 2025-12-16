@@ -1,8 +1,23 @@
+# Build outputs
 .next/
 node_modules/
 dist/
 coverage/
+out/
+_site/
+
+# IDE
 .DS_Store
 /.idea/
 /.vscode/
+
+# Logs
 *.log
+
+# Next.js (not used - kept for reference)
+next-env.d.ts
+.vercel
+
+# Local development
+.env
+.env.local
