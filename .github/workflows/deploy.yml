@@ -39,7 +39,9 @@ jobs:
           mkdir -p _site
           cp dist/public/index.html _site/
           cp -r dist/public/assets _site/
-          cp dist/public/kubegraf-logo.png _site/ 2>/dev/null || true
+          cp dist/public/*.png _site/ 2>/dev/null || true
+          cp dist/public/*.svg _site/ 2>/dev/null || true
+          cp dist/public/*.jpg _site/ 2>/dev/null || true
           cp -r docs _site/ 2>/dev/null || true
           cp CNAME _site/ 2>/dev/null || true
           cp install.sh _site/ 2>/dev/null || true
