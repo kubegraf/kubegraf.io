@@ -362,9 +362,13 @@ sudo mv kubegraf /usr/local/bin/</code></pre>
                     <li><a href="https://github.com/kubegraf/kubegraf/releases/latest" style="font-weight: 600;">Download Latest Installer (.exe)</a> - Get the kubegraf-X.X.X-setup.exe file</li>
                     <li>Double-click the downloaded .exe file to run the installer</li>
                     <li>Follow the installation wizard (click Next, Accept, Install)</li>
-                    <li>Installer will automatically add KubeGraf to your PATH</li>
-                    <li>After installation, open a new Command Prompt or PowerShell and type <code>kubegraf --version</code></li>
+                    <li><strong>Make sure "Add KubeGraf to PATH" is checked during installation</strong></li>
+                    <li><strong>IMPORTANT:</strong> Close any open terminals, then open a <strong>NEW</strong> Command Prompt or PowerShell window</li>
+                    <li>Type <code>kubegraf web</code> to start the web dashboard</li>
                 </ol>
+                <div class="note">
+                    <p><strong>Note:</strong> The <code>kubegraf</code> command will only work in new terminal windows opened after installation. PATH changes don't apply to already-open terminals.</p>
+                </div>
                 <p><strong>What it does:</strong> Automatic PATH setup, Start Menu shortcuts, Desktop shortcut (optional), Professional uninstaller</p>
             </div>
 
