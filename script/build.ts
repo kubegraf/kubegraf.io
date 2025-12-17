@@ -1,45 +1,18 @@
-import { build as esbuild } from "esbuild";
 import { build as viteBuild } from "vite";
-import { rm, readFile } from "fs/promises";
-
-// server deps to bundle to reduce openat(2) syscalls
-// which helps cold start times
-const allowlist = [
-  "@google/generative-ai",
-  "axios",
-  "connect-pg-simple",
-  "cors",
-  "date-fns",
-  "drizzle-orm",
-  "drizzle-zod",
-  "express",
-  "express-rate-limit",
-  "express-session",
-  "jsonwebtoken",
-  "memorystore",
-  "multer",
-  "nanoid",
-  "nodemailer",
-  "openai",
-  "passport",
-  "passport-local",
-  "pg",
-  "stripe",
-  "uuid",
-  "ws",
-  "xlsx",
-  "zod",
-  "zod-validation-error",
-];
+import { rm } from "fs/promises";
+import { generateSitemap } from "./generate-sitemap";
 
 async function buildAll() {
+  // Clean previous build artifacts
   await rm("dist", { recursive: true, force: true });
 
   console.log("building client...");
   await viteBuild();
-
   console.log("client build complete!");
-  // Server build removed - this is a static site deployment
+
+  console.log("generating sitemap.xml...");
+  await generateSitemap();
+  console.log("sitemap.xml generated.");
 }
 
 buildAll().catch((err) => {
