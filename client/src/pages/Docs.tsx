@@ -5,61 +5,75 @@ import { BookOpen, Terminal, Code, Shield, Puzzle, Zap, FileText } from "lucide-
 
 const docSections = [
   {
+    title: "What is KubeGraf?",
+    description: "Understand what KubeGraf is and when to use it",
+    icon: BookOpen,
+    link: "/docs/introduction/what-is-kubegraf.html",
+    color: "text-cyan-300",
+  },
+  {
     title: "Quick Start",
     description: "Get up and running with KubeGraf in minutes",
     icon: Zap,
     link: "/docs/quickstart.html",
-    color: "text-yellow-400"
+    color: "text-yellow-400",
   },
   {
     title: "Installation",
     description: "Install KubeGraf on macOS, Linux, and Windows",
     icon: Terminal,
     link: "/docs/installation.html",
-    color: "text-blue-400"
+    color: "text-blue-400",
   },
   {
     title: "Configuration",
     description: "Configure clusters, contexts, and preferences",
     icon: Code,
     link: "/docs/configuration.html",
-    color: "text-green-400"
+    color: "text-green-400",
   },
   {
     title: "Commands",
     description: "Complete command reference and examples",
     icon: FileText,
     link: "/docs/commands.html",
-    color: "text-purple-400"
+    color: "text-purple-400",
   },
   {
-    title: "Terminal UI",
-    description: "Master the terminal interface with vim keybindings",
+    title: "First cluster",
+    description: "Connect KubeGraf to your first Kubernetes cluster",
     icon: Terminal,
-    link: "/docs/terminal-ui.html",
-    color: "text-cyan-400"
+    link: "/docs/getting-started/first-cluster.html",
+    color: "text-cyan-400",
   },
   {
     title: "Web Dashboard",
     description: "Explore the web-based dashboard features",
     icon: BookOpen,
     link: "/docs/web-dashboard.html",
-    color: "text-pink-400"
+    color: "text-pink-400",
   },
   {
     title: "Security",
     description: "RBAC, authentication, and security best practices",
     icon: Shield,
     link: "/docs/security.html",
-    color: "text-red-400"
+    color: "text-red-400",
   },
   {
     title: "Plugins",
     description: "Extend KubeGraf with custom plugins",
     icon: Puzzle,
     link: "/docs/plugins.html",
-    color: "text-orange-400"
-  }
+    color: "text-orange-400",
+  },
+  {
+    title: "Debug CrashLoopBackOff",
+    description: "Use KubeGraf to debug a real CrashLoopBackOff incident",
+    icon: Zap,
+    link: "/docs/workflows/debug-crashloop.html",
+    color: "text-red-300",
+  },
 ];
 
 export default function Docs() {
