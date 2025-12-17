@@ -36,10 +36,10 @@
       "highlight": true,
       "items": [
         { "id": "crashloopbackoff", "label": "CrashLoopBackOff", "href": "/docs/troubleshooting/crashloopbackoff" },
-        { "id": "rollout-stuck", "label": "Rollout stuck", "href": "/docs/troubleshooting/rollout-stuck" },
+        { "id": "rollout-stuck", "label": "Rollout stuck / ProgressDeadlineExceeded", "href": "/docs/troubleshooting/rollout-stuck" },
         { "id": "high-cpu-memory", "label": "High CPU / memory", "href": "/docs/troubleshooting/high-cpu-memory" },
         { "id": "restarts-after-config", "label": "Restarts after config change", "href": "/docs/troubleshooting/restarts-after-config-change" },
-        { "id": "cannot-connect-cluster", "label": "Cannot connect to cluster", "href": "/docs/troubleshooting/cannot-connect-cluster" }
+        { "id": "was-working-yesterday", "label": "It was working yesterday", "href": "/docs/troubleshooting/was-working-yesterday" }
       ]
     },
     {
