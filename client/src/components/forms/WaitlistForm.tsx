@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowRight, Check, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { joinWaitlist } from "@/lib/waitlist";
 
 interface WaitlistFormProps {
   size?: "sm" | "lg";
@@ -11,15 +12,18 @@ interface WaitlistFormProps {
 
 export default function WaitlistForm({ size = "lg", placeholder = "Enter your email" }: WaitlistFormProps) {
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [company, setCompany] = useState("");
+  const [role, setRole] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!email) {
+    if (!email || !name) {
       setStatus("error");
-      setMessage("Please enter your email");
+      setMessage("Please enter your name and email");
       return;
     }
 
@@ -27,24 +31,20 @@ export default function WaitlistForm({ size = "lg", placeholder = "Enter your em
     setMessage("");
 
     try {
-      const response = await fetch("/api/waitlist", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
+      const { message: successMessage } = await joinWaitlist({
+        email,
+        name,
+        company,
+        role,
       });
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to join waitlist");
-      }
-
       setStatus("success");
-      setMessage(data.message || "Successfully joined the waitlist!");
+      setMessage(successMessage || "Successfully joined the waitlist!");
       setEmail("");
-      
+      setName("");
+      setCompany("");
+      setRole("");
+
       setTimeout(() => {
         setStatus("idle");
         setMessage("");
@@ -52,7 +52,7 @@ export default function WaitlistForm({ size = "lg", placeholder = "Enter your em
     } catch (error: any) {
       setStatus("error");
       setMessage(error.message || "Something went wrong. Please try again.");
-      
+
       setTimeout(() => {
         setStatus("idle");
         setMessage("");
@@ -105,6 +105,33 @@ export default function WaitlistForm({ size = "lg", placeholder = "Enter your em
               </>
             )}
           </Button>
+        </div>
+
+        <div className="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <Input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Your name (required)"
+            disabled={status === "loading" || status === "success"}
+            className="h-10 text-sm glass border-white/20 focus:border-primary/50 transition-all placeholder:text-muted-foreground/50"
+          />
+          <Input
+            type="text"
+            value={company}
+            onChange={(e) => setCompany(e.target.value)}
+            placeholder="Company / organization (optional)"
+            disabled={status === "loading" || status === "success"}
+            className="h-10 text-sm glass border-white/20 focus:border-primary/50 transition-all placeholder:text-muted-foreground/50"
+          />
+          <Input
+            type="text"
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+            placeholder="Role / how you plan to use Kubegraf (optional)"
+            disabled={status === "loading" || status === "success"}
+            className="h-10 text-sm glass border-white/20 focus:border-primary/50 transition-all placeholder:text-muted-foreground/50"
+          />
         </div>
 
         <AnimatePresence>
