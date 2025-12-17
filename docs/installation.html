@@ -5,30 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Installation - KubeGraf Documentation</title>
     <meta name="description" content="Install KubeGraf on macOS, Linux, or Windows. Multiple installation methods available.">
-    <link rel="icon" type="image/png" href="/assets/icons/favicon.png">
+    <!-- Use the same favicon as the main landing page -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <!-- Use the same font stack as the main landing page -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/docs/styles.css">
     <style>
         :root {
-            --primary: #326ce5;
-            --primary-dark: #2756b8;
-            --secondary: #00d4aa;
+            /* Align colors with main landing page palette */
+            --primary: #06b6d4;         /* Neon cyan */
+            --primary-dark: #0f172a;
+            --secondary: #4c1d95;       /* Deep purple */
             --accent: #8b5cf6;
-            --text: #f1f5f9;
-            --text-muted: #94a3b8;
-            --bg: #0a0f1a;
-            --bg-secondary: #0f172a;
-            --bg-tertiary: #1e293b;
-            --border: rgba(255, 255, 255, 0.08);
-            --border-hover: rgba(50, 108, 229, 0.4);
+            --text: #f9fafb;
+            --text-muted: #9ca3af;
+            --bg: #09090b;              /* Same as main background */
+            --bg-secondary: #020617;
+            --bg-tertiary: #111827;
+            --border: rgba(148, 163, 184, 0.25);
+            --border-hover: rgba(56, 189, 248, 0.55);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Inter', -apple-system, sans-serif;
+            font-family: 'Outfit', -apple-system, sans-serif;
             background: var(--bg);
             color: var(--text);
             line-height: 1.7;
@@ -82,6 +87,13 @@
 
         .sidebar-logo svg { width: 28px; height: 28px; }
 
+        .sidebar-logo-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            object-fit: contain;
+        }
+
         .sidebar-section { margin-bottom: 1.5rem; }
 
         .sidebar-section h3 {
@@ -126,6 +138,8 @@
             font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 1rem;
+            font-family: 'Space Grotesk', system-ui, sans-serif;
+            letter-spacing: -0.03em;
         }
 
         .docs-content h2 {
@@ -134,6 +148,7 @@
             margin: 2.5rem 0 1rem;
             padding-bottom: 0.5rem;
             border-bottom: 1px solid var(--border);
+            font-family: 'Space Grotesk', system-ui, sans-serif;
         }
 
         .docs-content h3 {
@@ -235,11 +250,7 @@
     <div class="docs-layout">
         <aside class="sidebar">
             <a href="/" class="sidebar-logo">
-                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M42 22 L62 34 L42 46 L22 34 Z" fill="#326ce5"/>
-                    <path d="M42 46 L62 34 L62 54 L42 66 Z" fill="#00d4aa"/>
-                    <path d="M42 46 L22 34 L22 54 L42 66 Z" fill="#2756b8"/>
-                </svg>
+                <img src="/assets/logo/kubegraf_color_icon.png" alt="KubeGraf logo" class="sidebar-logo-icon">
                 KubeGraf
             </a>
 

@@ -50,7 +50,11 @@ export default function Pricing() {
                 </ul>
               </CardContent>
               <CardFooter>
-                <Button className="w-full" variant="outline">
+                <Button
+                  className="w-full"
+                  variant="outline"
+                  onClick={() => window.location.href = '/docs/quickstart.html'}
+                >
                   Get Started Free
                 </Button>
               </CardFooter>
@@ -83,7 +87,10 @@ export default function Pricing() {
                 </ul>
               </CardContent>
               <CardFooter>
-                <Button className="w-full bg-primary hover:bg-primary/90">
+                <Button
+                  className="w-full bg-primary hover:bg-primary/90"
+                  onClick={() => window.location.href = '/docs/web-dashboard.html'}
+                >
                   Start 14-Day Trial
                 </Button>
               </CardFooter>

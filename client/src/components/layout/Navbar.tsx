@@ -33,6 +33,7 @@ export default function Navbar() {
             variant="ghost"
             size="sm"
             className="hidden sm:flex hover:bg-white/5 text-base"
+            onClick={() => window.location.href = '/docs/web-dashboard.html'}
           >
             Sign In
           </Button>
