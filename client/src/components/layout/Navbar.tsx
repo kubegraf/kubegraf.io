@@ -9,34 +9,44 @@ export default function Navbar() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center p-4"
+      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center py-0.5 px-1"
     >
-      <div className="glass rounded-full px-6 py-3 flex items-center gap-8 shadow-2xl shadow-primary/10">
-        <a href="/" className="flex items-center gap-2 font-display font-bold text-xl tracking-tighter">
-          <img src="/kubegraf-logo-dark.png" alt="KubeGraf" className="h-10 object-contain" />
+      <div className="glass rounded-full px-2 py-0.5 flex items-center gap-2 shadow-2xl shadow-primary/10">
+        <a href="/" className="flex items-center gap-0 font-display font-bold text-2xl tracking-tight">
+          <img
+            src="/assets/logo/kubegraf_color_icon.png"
+            alt="KubeGraf"
+            className="object-contain"
+            style={{ width: 96, height: 96 }}
+          />
+          <span className="leading-none" style={{ marginLeft: 2 }}>Kubegraf</span>
         </a>
 
-        <div className="hidden md:flex items-center gap-6 text-sm font-medium text-muted-foreground">
+        <div className="hidden md:flex items-center gap-4 text-base font-medium text-muted-foreground">
           <a href="/#features" className="hover:text-primary transition-colors">Features</a>
           <Link href="/pricing" className="hover:text-primary transition-colors">Pricing</Link>
           <Link href="/docs" className="hover:text-primary transition-colors">Docs</Link>
         </div>
 
-        <div className="flex items-center gap-3">
-          <Button variant="ghost" size="sm" className="hidden sm:flex hover:bg-white/5">
+        <div className="flex items-center gap-2">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="hidden sm:flex hover:bg-white/5 text-base"
+          >
             Sign In
           </Button>
           <Button
             variant="outline"
             size="sm"
-            className="hidden md:flex border-primary/50 hover:bg-primary/10 rounded-full px-4"
+            className="hidden md:flex border-primary/50 hover:bg-primary/10 rounded-full px-4 text-base"
             onClick={() => window.location.href = '/docs/installation.html'}
           >
             Install
           </Button>
           <Button
             size="sm"
-            className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-6"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-6 text-base"
             onClick={() => window.location.href = '/docs/quickstart.html'}
           >
             Get Started
