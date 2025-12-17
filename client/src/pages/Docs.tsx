@@ -1,192 +1,229 @@
 import Navbar from "@/components/layout/Navbar";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Terminal, Code, Shield, Puzzle, Zap, FileText } from "lucide-react";
+import { BookOpen, Bug, Code2, Cpu, HelpCircle, Layers, LifeBuoy, Network, ServerCog, Terminal } from "lucide-react";
 
-const docSections = [
-  {
-    title: "What is KubeGraf?",
-    description: "Understand what KubeGraf is and when to use it",
-    icon: BookOpen,
-    link: "/docs/introduction/what-is-kubegraf.html",
-    color: "text-cyan-300",
-  },
-  {
-    title: "Quick Start",
-    description: "Get up and running with KubeGraf in minutes",
-    icon: Zap,
-    link: "/docs/quickstart.html",
-    color: "text-yellow-400",
-  },
-  {
-    title: "Installation",
-    description: "Install KubeGraf on macOS, Linux, and Windows",
-    icon: Terminal,
-    link: "/docs/installation.html",
-    color: "text-blue-400",
-  },
-  {
-    title: "Configuration",
-    description: "Configure clusters, contexts, and preferences",
-    icon: Code,
-    link: "/docs/configuration.html",
-    color: "text-green-400",
-  },
-  {
-    title: "Commands",
-    description: "Complete command reference and examples",
-    icon: FileText,
-    link: "/docs/commands.html",
-    color: "text-purple-400",
-  },
-  {
-    title: "First cluster",
-    description: "Connect KubeGraf to your first Kubernetes cluster",
-    icon: Terminal,
-    link: "/docs/getting-started/first-cluster.html",
-    color: "text-cyan-400",
-  },
-  {
-    title: "Web Dashboard",
-    description: "Explore the web-based dashboard features",
-    icon: BookOpen,
-    link: "/docs/web-dashboard.html",
-    color: "text-pink-400",
-  },
-  {
-    title: "Security",
-    description: "RBAC, authentication, and security best practices",
-    icon: Shield,
-    link: "/docs/security.html",
-    color: "text-red-400",
-  },
-  {
-    title: "Plugins",
-    description: "Extend KubeGraf with custom plugins",
-    icon: Puzzle,
-    link: "/docs/plugins.html",
-    color: "text-orange-400",
-  },
-  {
-    title: "Debug CrashLoopBackOff",
-    description: "Use KubeGraf to debug a real CrashLoopBackOff incident",
-    icon: Zap,
-    link: "/docs/workflows/debug-crashloop.html",
-    color: "text-red-300",
-  },
-];
+type DocCardProps = {
+  title: string;
+  description: string;
+  href: string;
+  badge?: string;
+};
+
+function DocCard({ title, description, href, badge }: DocCardProps) {
+  return (
+    <a href={href} className="group block">
+      <Card className="h-full border-white/10 bg-black/40 backdrop-blur-sm group-hover:border-primary/60 transition-colors">
+        <CardHeader className="pb-3">
+          {badge && (
+            <span className="inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.18em] text-primary mb-2">
+              {badge}
+            </span>
+          )}
+          <CardTitle className="text-base md:text-lg">{title}</CardTitle>
+        </CardHeader>
+        <CardContent className="pt-0">
+          <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">
+            {description}
+          </p>
+        </CardContent>
+      </Card>
+    </a>
+  );
+}
 
 export default function Docs() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
 
-      {/* Hero Section */}
-      <section className="relative py-20 px-4 border-b border-white/5">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
-            Documentation
-          </h1>
-          <p className="text-lg text-muted-foreground">
-            Everything you need to master KubeGraf and manage your Kubernetes clusters effectively.
-          </p>
-        </div>
-      </section>
+      <main className="relative pb-20">
+        {/* Hero */}
+        <section className="border-b border-white/5 bg-gradient-to-b from-black/60 via-black/40 to-black/0">
+          <div className="container mx-auto max-w-5xl px-4 pt-28 pb-16">
+            <div className="max-w-3xl">
+              <h1 className="text-4xl md:text-5xl font-semibold tracking-tight mb-4">
+                KubeGraf Documentation
+              </h1>
+              <p className="text-base md:text-lg text-muted-foreground max-w-2xl">
+                Learn how to install KubeGraf, connect real clusters, and use it to debug faster, understand
+                changes, and reduce incident time across your Kubernetes environments.
+              </p>
+            </div>
 
-      {/* Documentation Grid */}
-      <section className="py-16 px-4">
-        <div className="container mx-auto max-w-6xl">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {docSections.map((doc) => {
-              const Icon = doc.icon;
-              return (
-                <Card
-                  key={doc.title}
-                  className="border-white/10 bg-black/40 backdrop-blur hover:border-primary/50 transition-all duration-300 group"
-                >
-                  <CardHeader>
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className={`${doc.color} group-hover:scale-110 transition-transform`}>
-                        <Icon className="w-6 h-6" />
-                      </div>
-                      <CardTitle className="text-xl">{doc.title}</CardTitle>
-                    </div>
-                    <CardDescription>{doc.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Button
-                      variant="outline"
-                      className="w-full"
-                      onClick={() => window.location.href = doc.link}
-                    >
-                      Read More
-                    </Button>
-                  </CardContent>
-                </Card>
-              );
-            })}
+            <div className="mt-8 flex flex-col sm:flex-row gap-3">
+              <Button
+                size="lg"
+                className="rounded-full px-6 sm:px-8 text-sm font-medium"
+                onClick={() => (window.location.href = "/docs/quickstart.html")}
+              >
+                Get started in 5 minutes
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="rounded-full px-6 sm:px-8 text-sm font-medium border-primary/40 text-primary"
+                onClick={() => {
+                  const el = document.getElementById("troubleshooting-playbooks");
+                  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                  else window.location.href = "/docs/workflows/debug-crashloop.html";
+                }}
+              >
+                Troubleshooting playbooks
+              </Button>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Quick Links Section */}
-      <section className="py-16 px-4 bg-black/20 border-t border-white/5">
-        <div className="container mx-auto max-w-4xl">
-          <h2 className="text-2xl font-bold mb-8 text-center">Popular Resources</h2>
-          <div className="grid md:grid-cols-2 gap-4">
-            <a
-              href="/docs/quickstart.html"
-              className="p-6 border border-white/10 rounded-lg hover:border-primary/50 transition-colors bg-black/40"
-            >
-              <h3 className="font-semibold mb-2 flex items-center gap-2">
-                <Zap className="w-5 h-5 text-yellow-400" />
-                5-Minute Quick Start
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                Install, connect to your cluster, and run your first commands in under 5 minutes.
-              </p>
-            </a>
-            <a
-              href="/docs/installation.html"
-              className="p-6 border border-white/10 rounded-lg hover:border-primary/50 transition-colors bg-black/40"
-            >
-              <h3 className="font-semibold mb-2 flex items-center gap-2">
-                <Terminal className="w-5 h-5 text-blue-400" />
-                Installation Guide
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                Step-by-step installation instructions for all platforms including air-gapped environments.
-              </p>
-            </a>
-            <a
-              href="/docs/commands.html"
-              className="p-6 border border-white/10 rounded-lg hover:border-primary/50 transition-colors bg-black/40"
-            >
-              <h3 className="font-semibold mb-2 flex items-center gap-2">
-                <FileText className="w-5 h-5 text-purple-400" />
-                Command Reference
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                Complete reference of all KubeGraf commands with examples and use cases.
-              </p>
-            </a>
-            <a
-              href="/docs/resource-map.html"
-              className="p-6 border border-white/10 rounded-lg hover:border-primary/50 transition-colors bg-black/40"
-            >
-              <h3 className="font-semibold mb-2 flex items-center gap-2">
-                <BookOpen className="w-5 h-5 text-green-400" />
-                Resource Map
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                Visual guide to Kubernetes resources and how KubeGraf helps you manage them.
-              </p>
-            </a>
+        {/* Role-based entry cards */}
+        <section className="py-12 md:py-16 border-b border-white/5 bg-black/40">
+          <div className="container mx-auto max-w-5xl px-4">
+            <div className="mb-6 flex items-center justify-between gap-4">
+              <h2 className="text-xl md:text-2xl font-semibold">Start from your current job to be done</h2>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-4 md:gap-6">
+              <DocCard
+                title="I'm new to KubeGraf"
+                description="Install KubeGraf, connect your first cluster, and get a safe tour of the terminal UI and web dashboard."
+                href="/docs/getting-started/first-cluster.html"
+                badge="Onboard"
+              />
+              <DocCard
+                title="I'm debugging an issue"
+                description="Use KubeGraf to walk through CrashLoopBackOffs and other incidents with logs, events, and incident timelines."
+                href="/docs/workflows/debug-crashloop.html"
+                badge="Troubleshoot"
+              />
+              <DocCard
+                title="I'm deploying or rolling out"
+                description="Understand how to watch rollouts, validate changes, and roll back safely using KubeGraf together with your GitOps / CI flow."
+                href="/docs/commands.html"
+                badge="Delivery"
+              />
+              <DocCard
+                title="I want to understand how it works"
+                description="Learn the core concepts behind KubeGraf – clusters and contexts, topology graph, event timeline, and incident mode."
+                href="/docs/introduction/what-is-kubegraf.html"
+                badge="Concepts"
+              />
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Footer */}
+        {/* Common Kubernetes problems */}
+        <section
+          id="troubleshooting-playbooks"
+          className="py-12 md:py-16 border-b border-white/5 bg-black/20"
+        >
+          <div className="container mx-auto max-w-5xl px-4">
+            <div className="mb-6 flex items-center justify-between gap-4">
+              <h2 className="text-xl md:text-2xl font-semibold">Common Kubernetes problems</h2>
+              <span className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+                Troubleshooting playbooks
+              </span>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-4 md:gap-6">
+              <DocCard
+                title="CrashLoopBackOff"
+                description="Walk a real CrashLoopBackOff from red pod to likely root cause using logs, events, and the Incident Timeline."
+                href="/docs/workflows/debug-crashloop.html"
+              />
+              <DocCard
+                title="Rollout stuck"
+                description="Check rollout status, probe failures, and recent configuration changes when a deployment never becomes Ready."
+                href="/docs/commands.html"
+              />
+              <DocCard
+                title="High CPU / memory"
+                description="Use topology and resource views to see which workloads are noisy, how they relate, and where to start tuning."
+                href="/docs/resource-map.html"
+              />
+              <DocCard
+                title="Restarts after config change"
+                description="Correlate config updates, pod restarts, and failing probes to understand what changed and how to roll back safely."
+                href="/docs/configuration.html"
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Core concepts */}
+        <section className="py-12 md:py-16 border-b border-white/5 bg-black/30">
+          <div className="container mx-auto max-w-5xl px-4">
+            <h2 className="text-xl md:text-2xl font-semibold mb-4">Core concepts</h2>
+            <p className="text-sm text-muted-foreground mb-6 max-w-2xl">
+              These pages explain KubeGraf’s mental model so the UI feels predictable: how clusters, contexts,
+              topology, and events fit together.
+            </p>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+              <DocCard
+                title="Clusters & contexts"
+                description="How KubeGraf uses your kubeconfig, contexts, and namespaces without changing your existing setup."
+                href="/docs/configuration.html"
+              />
+              <DocCard
+                title="Topology graph"
+                description="Visualizing workloads, services, and dependencies so you can see blast radius at a glance."
+                href="/docs/resource-map.html"
+              />
+              <DocCard
+                title="Event timeline"
+                description="Ordering rollouts, config changes, probe failures, and restarts into a single narrative."
+                href="/docs/web-dashboard.html"
+              />
+              <DocCard
+                title="Incident mode"
+                description="Using incident-focused views and Brain Panel summaries when you’re actively firefighting."
+                href="/docs/workflows/debug-crashloop.html"
+              />
+              <DocCard
+                title="Local-first architecture"
+                description="How KubeGraf runs locally against your clusters and what data never leaves your environment."
+                href="/docs/introduction/what-is-kubegraf.html"
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Reference */}
+        <section className="py-12 md:py-16 bg-black/40">
+          <div className="container mx-auto max-w-5xl px-4">
+            <div className="mb-6 flex items-center justify-between gap-4">
+              <h2 className="text-xl md:text-2xl font-semibold">Reference</h2>
+              <span className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+                For everyday use
+              </span>
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+              <DocCard
+                title="CLI reference"
+                description="Flags, subcommands, and examples for the KubeGraf CLI."
+                href="/docs/commands.html"
+              />
+              <DocCard
+                title="Config"
+                description="Configure themes, keybindings, and preferences for your workflow."
+                href="/docs/configuration.html"
+              />
+              <DocCard
+                title="Integrations"
+                description="Extend KubeGraf with plugins and integrations like Prometheus and ArgoCD."
+                href="/docs/plugins.html"
+              />
+              <DocCard
+                title="FAQ"
+                description="Common questions and answers about installing and running KubeGraf."
+                href="https://github.com/kubegraf/kubegraf/discussions"
+              />
+            </div>
+          </div>
+        </section>
+      </main>
+
       <footer className="py-12 border-t border-white/5 bg-black/20">
         <div className="container mx-auto px-4 text-center text-muted-foreground text-sm">
           <p className="mb-2">© 2024 Kubegraf.io. All rights reserved.</p>
