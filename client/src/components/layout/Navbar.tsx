@@ -24,6 +24,7 @@ export default function Navbar() {
 
         <div className="hidden md:flex items-center gap-4 text-base font-medium text-muted-foreground">
           <a href="/#features" className="hover:text-primary transition-colors">Features</a>
+          <a href="/kubegraf/" className="hover:text-primary transition-colors">What is KubeGraf?</a>
           <Link href="/pricing" className="hover:text-primary transition-colors">Pricing</Link>
           <Link href="/docs" className="hover:text-primary transition-colors">Docs</Link>
         </div>
