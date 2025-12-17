@@ -133,17 +133,17 @@ export default function Docs() {
               <DocCard
                 title="Rollout stuck"
                 description="Check rollout status, probe failures, and recent configuration changes when a deployment never becomes Ready."
-                href="/docs/commands.html"
+                href="/docs/troubleshooting/rollout-stuck.html"
               />
               <DocCard
                 title="High CPU / memory"
                 description="Use topology and resource views to see which workloads are noisy, how they relate, and where to start tuning."
-                href="/docs/resource-map.html"
+                href="/docs/troubleshooting/high-cpu-memory.html"
               />
               <DocCard
                 title="Restarts after config change"
                 description="Correlate config updates, pod restarts, and failing probes to understand what changed and how to roll back safely."
-                href="/docs/configuration.html"
+                href="/docs/troubleshooting/restarts-after-config-change.html"
               />
             </div>
           </div>
