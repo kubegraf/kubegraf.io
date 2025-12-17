@@ -1,9 +1,10 @@
-# Pods Restarting After ConfigMap or Secret Change
+# Pods Restarting After ConfigMap or Secret Change in Kubernetes
 
 ## Why this matters
 
 ConfigMap or Secret changes are a common source of drift between expectations and reality.
 If pods restart after a config change, you can end up with partial rollouts, inconsistent behavior, or downtime if the new config is invalid.
+> **Tip:** Tie every ConfigMap/Secret change back to a Git commit so you can roll back quickly.
 
 ## Symptoms
 
@@ -82,6 +83,12 @@ If pods restart after a config change, you can end up with partial rollouts, inc
 - Changing config format without updating validation in the application.
 - Overlooking sidecars or jobs that also depend on the same Secret.
 
+## Related issues
+
+- [CrashLoopBackOff Kubernetes debugging](/docs/troubleshooting/crashloopbackoff)
+- [Deployment rollout stuck / ProgressDeadlineExceeded](/docs/troubleshooting/rollout-stuck)
+- ["It was working yesterday" incidents](/docs/troubleshooting/was-working-yesterday)
+
 ## Expected outcome
 
 - You can clearly attribute pod restarts to a specific ConfigMap or Secret change.
@@ -89,3 +96,5 @@ If pods restart after a config change, you can end up with partial rollouts, inc
 - Pods stabilize, restart counts stop increasing, and behavior matches expectations.
 
 <!-- TODO: screenshot showing KubeGraf Incident Timeline with a ConfigMap change followed by pod restarts. -->
+
+

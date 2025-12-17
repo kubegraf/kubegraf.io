@@ -1,9 +1,10 @@
-# Deployment Rollout Stuck or ProgressDeadlineExceeded
+# Kubernetes Deployment Rollout Stuck / ProgressDeadlineExceeded
 
 ## Why this matters
 
 A stuck rollout means a new version of your application never becomes healthy.
 If you don’t catch it quickly, traffic may be served by a half-updated fleet, or the rollout might silently stall during an incident.
+> **Warning:** Do not delete pods manually to unblock a rollout; fix the Deployment spec or roll back instead.
 
 ## Symptoms
 
@@ -94,6 +95,12 @@ If you don’t catch it quickly, traffic may be served by a half-updated fleet, 
 - Rolling back image but leaving an incompatible probe or config in place.
 - Manually deleting pods to “unstick” rollout instead of fixing the spec.
 
+## Related issues
+
+- [CrashLoopBackOff Kubernetes debugging](/docs/troubleshooting/crashloopbackoff)
+- [Pods restarting after ConfigMap or Secret change](/docs/troubleshooting/restarts-after-config-change)
+- [Sudden CPU or memory spikes](/docs/troubleshooting/high-cpu-memory)
+
 ## Expected outcome
 
 - You understand why the rollout is stalled (scheduling, crash, probes, or config).
@@ -101,3 +108,5 @@ If you don’t catch it quickly, traffic may be served by a half-updated fleet, 
 - Future rollouts of this Deployment can be monitored via KubeGraf with clear visibility into progress.
 
 <!-- TODO: screenshot showing KubeGraf Deployment view with rollout status and blocking pods highlighted. -->
+
+

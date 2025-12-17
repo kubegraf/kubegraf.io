@@ -1,9 +1,10 @@
-# "It was working yesterday" Incidents
+# "It Was Working Yesterday" Kubernetes Incident Playbook
 
 ## Why this matters
 
 These incidents are common in shared clusters: something breaks today that was fine yesterday.
 Without a structured approach, you can waste hours guessing which change or dependency is responsible.
+> **Pro tip:** Treat the Incident Timeline as your single source of truth for "what actually changed".
 
 ## Symptoms
 
@@ -84,6 +85,12 @@ Without a structured approach, you can waste hours guessing which change or depe
 - Making manual changes in prod outside of the normal change pipeline, causing drift.
 - Not documenting the final root cause, so the same incident pattern repeats.
 
+## Related issues
+
+- [CrashLoopBackOff Kubernetes debugging](/docs/troubleshooting/crashloopbackoff)
+- [Deployment rollout stuck / ProgressDeadlineExceeded](/docs/troubleshooting/rollout-stuck)
+- [Pods restarting after ConfigMap or Secret change](/docs/troubleshooting/restarts-after-config-change)
+
 ## Expected outcome
 
 - You use KubeGraf to get a concrete list of recent changes instead of guessing.
@@ -91,3 +98,5 @@ Without a structured approach, you can waste hours guessing which change or depe
 - You roll back or fix forward and restore the service to its previous healthy state.
 
 <!-- TODO: screenshot showing KubeGraf Incident Timeline around a 24h window with multiple changes. -->
+
+

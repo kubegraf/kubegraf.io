@@ -1,9 +1,10 @@
-# Debugging Pods in CrashLoopBackOff
+# CrashLoopBackOff Kubernetes Debugging Playbook
 
 ## Why this matters
 
 CrashLoopBackOff means a container in your pod is repeatedly starting and crashing. It usually points to a real bug or a bad configuration.
 Every restart wastes resources and delays user traffic; in production this often shows up as 5xx errors, timeouts, or failing background jobs.
+> **Tip:** Always confirm `kubectl config current-context` and namespace before diving into logs.
 
 ## Symptoms
 
@@ -98,6 +99,12 @@ Every restart wastes resources and delays user traffic; in production this often
 - Fixing a single pod manually instead of changing the Deployment/ConfigMap/Secret.
 - Rolling back an image without rolling back the config that was changed at the same time.
 
+## Related issues
+
+- [Deployment rollout stuck / ProgressDeadlineExceeded](/docs/troubleshooting/rollout-stuck)
+- [Pods restarting after ConfigMap or Secret change](/docs/troubleshooting/restarts-after-config-change)
+- ["It was working yesterday" incidents](/docs/troubleshooting/was-working-yesterday)
+
 ## Expected outcome
 
 - You can quickly identify whether the CrashLoopBackOff is due to configuration, code, or environment.
@@ -105,3 +112,5 @@ Every restart wastes resources and delays user traffic; in production this often
 - All pods for the workload return to `Running` and external symptoms (5xx, latency) disappear.
 
 <!-- TODO: screenshot showing KubeGraf with a CrashLoopBackOff pod selected, logs + events visible. -->
+
+

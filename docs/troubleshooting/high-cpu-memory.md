@@ -1,9 +1,10 @@
-# Sudden CPU or Memory Spikes
+# Kubernetes Sudden CPU or Memory Spike Troubleshooting
 
 ## Why this matters
 
 Unexpected CPU or memory spikes can degrade latency, trigger throttling, or cause OOM kills.
 If left unchecked, noisy workloads can starve other services on shared nodes and cause cascading failures.
+> **Pro tip:** Capture a short window of detailed metrics around the spike so you can tune requests/limits later.
 
 ## Symptoms
 
@@ -84,6 +85,12 @@ If left unchecked, noisy workloads can starve other services on shared nodes and
 - Changing limits directly in the cluster rather than updating the declarative spec.
 - Treating a one-off spike as normal and not checking if it repeats.
 
+## Related issues
+
+- [Deployment rollout stuck / ProgressDeadlineExceeded](/docs/troubleshooting/rollout-stuck)
+- [CrashLoopBackOff Kubernetes debugging](/docs/troubleshooting/crashloopbackoff)
+- ["It was working yesterday" incidents](/docs/troubleshooting/was-working-yesterday)
+
 ## Expected outcome
 
 - You identify which workload(s) are responsible for the spike and on which nodes.
@@ -91,3 +98,5 @@ If left unchecked, noisy workloads can starve other services on shared nodes and
 - Resource usage returns to a stable baseline that matches limits and capacity.
 
 <!-- TODO: screenshot showing KubeGraf resource map with a hot workload/node highlighted. -->
+
+
