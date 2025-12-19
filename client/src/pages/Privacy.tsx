@@ -28,7 +28,7 @@ export default function Privacy() {
       <header className="border-b border-white/5 py-4 px-6">
         <div className="max-w-4xl mx-auto flex justify-between items-center">
           <a href="/" className="flex items-center gap-2 font-display font-bold text-xl">
-            <img src="/assets/logo/kubegraf_color_icon.png" alt="KubeGraf" className="w-12 h-12" />
+            <img src="/assets/logo/kubegraf_color_icon.png" alt="KubeGraf" className="object-contain" style={{ width: 96, height: 96 }} />
             KubeGraf
           </a>
           <nav className="flex gap-6 text-sm text-muted-foreground">
