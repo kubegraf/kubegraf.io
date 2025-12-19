@@ -239,7 +239,7 @@ export default function Docs() {
               <DocCard
                 title="FAQ"
                 description="Common questions and answers about installing and running KubeGraf."
-                href="https://github.com/kubegraf/kubegraf/discussions"
+                href="/faq"
               />
             </div>
           </div>

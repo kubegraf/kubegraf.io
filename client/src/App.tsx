@@ -11,6 +11,7 @@ import WhatIsKubeGraf from "@/pages/WhatIsKubeGraf";
 import Compare from "@/pages/Compare";
 import Privacy from "@/pages/Privacy";
 import License from "@/pages/License";
+import FAQ from "@/pages/FAQ";
 
 function Routes() {
   return (
@@ -20,6 +21,7 @@ function Routes() {
       <Route path="/pricing" component={Pricing} />
       <Route path="/compare" component={Compare} />
       <Route path="/docs" component={Docs} />
+      <Route path="/faq" component={FAQ} />
       <Route path="/privacy" component={Privacy} />
       <Route path="/license" component={License} />
       <Route component={NotFound} />
