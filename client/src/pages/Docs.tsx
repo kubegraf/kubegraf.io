@@ -248,7 +248,7 @@ export default function Docs() {
 
       <footer className="py-12 border-t border-white/5 bg-black/20">
         <div className="container mx-auto px-4 text-center text-muted-foreground text-sm">
-          <p className="mb-2">© 2025 KubeGraf</p>
+          <p className="mb-2">© 2025 KubēGraf</p>
           <p className="mb-4">
             <a href="mailto:contact@kubegraf.io" className="hover:text-primary transition-colors">
               contact@kubegraf.io

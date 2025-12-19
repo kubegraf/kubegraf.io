@@ -31,7 +31,7 @@ export default function Pricing() {
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <a href="/" className="flex items-center gap-2 font-display font-bold text-xl">
             <img src="/assets/logo/kubegraf_color_icon.png" alt="KubeGraf" className="object-contain" style={{ width: 96, height: 96 }} />
-            KubeGraf
+            KubēGraf
           </a>
           <nav className="flex gap-6 text-sm text-muted-foreground">
             <a href="/" className="hover:text-primary transition-colors">Home</a>
@@ -236,7 +236,7 @@ export default function Pricing() {
       {/* Footer */}
       <footer className="border-t border-white/5 py-8 px-6">
         <div className="max-w-6xl mx-auto text-center text-sm text-muted-foreground">
-          <p className="mb-3">&copy; 2025 KubeGraf</p>
+          <p className="mb-3">&copy; 2025 KubēGraf</p>
           <div className="flex justify-center gap-6 text-xs">
             <a href="/privacy" className="hover:text-primary transition-colors">Privacy Policy</a>
             <a href="/license" className="hover:text-primary transition-colors">License</a>

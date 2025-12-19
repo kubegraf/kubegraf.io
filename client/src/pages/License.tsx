@@ -30,7 +30,7 @@ export default function License() {
         <div className="max-w-4xl mx-auto flex justify-between items-center">
           <a href="/" className="flex items-center gap-2 font-display font-bold text-xl">
             <img src="/assets/logo/kubegraf_color_icon.png" alt="KubeGraf" className="object-contain" style={{ width: 96, height: 96 }} />
-            KubeGraf
+            KubēGraf
           </a>
           <nav className="flex gap-6 text-sm text-muted-foreground">
             <a href="/" className="hover:text-primary transition-colors">Home</a>
@@ -99,7 +99,7 @@ export default function License() {
       {/* Footer */}
       <footer className="border-t border-white/5 py-8 px-6">
         <div className="max-w-4xl mx-auto text-center text-sm text-muted-foreground">
-          <p>&copy; 2025 KubeGraf</p>
+          <p>&copy; 2025 KubēGraf</p>
         </div>
       </footer>
 

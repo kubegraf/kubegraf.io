@@ -23,7 +23,7 @@ export default function Navbar() {
               className="object-contain"
               style={{ width: 96, height: 96 }}
             />
-            <span className="leading-none" style={{ marginLeft: 2 }}>Kubegraf</span>
+            <span className="leading-none" style={{ marginLeft: 2 }}>KubēGraf</span>
           </a>
 
           <div className="hidden md:flex items-center gap-4 text-base font-medium text-muted-foreground">

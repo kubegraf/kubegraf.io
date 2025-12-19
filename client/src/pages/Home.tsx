@@ -48,7 +48,7 @@ export default function Home() {
             {/* Copyright */}
             <div className="text-center mb-6">
               <p className="text-sm text-muted-foreground mb-2">
-                © 2025 KubeGraf
+                © 2025 KubēGraf
               </p>
               <p className="text-sm text-muted-foreground">
                 <a href="https://kubegraf.io" className="hover:text-primary transition-colors">kubegraf.io</a>
@@ -60,7 +60,7 @@ export default function Home() {
             {/* Tagline & Description */}
             <div className="text-center mb-8 pb-8 border-b border-white/5">
               <h3 className="text-xl font-display font-bold mb-3">
-                KubeGraf — Intelligent Insight for Kubernetes Incidents
+                KubēGraf — Intelligent Insight for Kubernetes Incidents
               </h3>
               <p className="text-sm text-muted-foreground max-w-2xl mx-auto leading-relaxed">
                 KubeGraf is a local-first Kubernetes tool for detecting incidents, understanding root causes, and safely responding to failures.
