@@ -1,11 +1,41 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import { Terminal, Menu, X } from "lucide-react";
+import { Terminal, Menu, X, Sun, Moon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('kubegraf-theme') as 'light' | 'dark' | null;
+    if (savedTheme) {
+      setTheme(savedTheme);
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+      setTheme('light');
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (mobileMenuOpen && e.key === 'Escape') {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [mobileMenuOpen]);
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('kubegraf-theme', newTheme);
+  };
 
   return (
     <>
@@ -35,6 +65,17 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center gap-2">
+            {/* Theme toggle */}
+            <Button
+              variant="ghost"
+              size="sm"
+              className="hidden sm:flex hover:bg-white/5 rounded-full p-2"
+              onClick={toggleTheme}
+              aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+            >
+              {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            </Button>
+
             <Button
               variant="ghost"
               size="sm"
@@ -46,14 +87,14 @@ export default function Navbar() {
             <Button
               variant="outline"
               size="sm"
-              className="hidden md:flex border-primary/50 hover:bg-primary/10 rounded-full px-4 text-base"
+              className="hidden md:flex border-primary/50 hover:bg-primary/10 rounded-full px-4 text-base focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
               onClick={() => window.location.href = '/docs/installation.html'}
             >
               Install
             </Button>
             <Button
               size="sm"
-              className="hidden md:flex bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-6 text-base"
+              className="hidden md:flex bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-6 text-base focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
               onClick={() => window.location.href = '/docs/quickstart.html'}
             >
               Get Started
@@ -66,6 +107,9 @@ export default function Navbar() {
               size="sm"
               className="md:hidden hover:bg-white/5"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle navigation menu"
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </Button>
@@ -77,45 +121,71 @@ export default function Navbar() {
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
+            id="mobile-menu"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
             className="fixed top-24 left-0 right-0 z-40 mx-4"
+            role="navigation"
+            aria-label="Mobile navigation"
           >
             <div className="glass rounded-2xl p-4 shadow-2xl border border-white/10">
               <div className="flex flex-col gap-2">
+                {/* Theme toggle for mobile */}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="justify-start hover:bg-white/5 text-base focus:outline-none focus:ring-2 focus:ring-primary focus:ring-inset"
+                  onClick={toggleTheme}
+                  aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+                >
+                  {theme === 'dark' ? (
+                    <>
+                      <Sun className="w-4 h-4 mr-2" />
+                      Light Mode
+                    </>
+                  ) : (
+                    <>
+                      <Moon className="w-4 h-4 mr-2" />
+                      Dark Mode
+                    </>
+                  )}
+                </Button>
+
+                <div className="h-px bg-white/10 my-2" />
+
                 <a
                   href="/#features"
-                  className="px-4 py-3 rounded-lg hover:bg-white/5 transition-colors text-base font-medium"
+                  className="px-4 py-3 rounded-lg hover:bg-white/5 transition-colors text-base font-medium focus:outline-none focus:ring-2 focus:ring-primary focus:ring-inset"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Features
                 </a>
                 <a
                   href="/kubegraf"
-                  className="px-4 py-3 rounded-lg hover:bg-white/5 transition-colors text-base font-medium"
+                  className="px-4 py-3 rounded-lg hover:bg-white/5 transition-colors text-base font-medium focus:outline-none focus:ring-2 focus:ring-primary focus:ring-inset"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   What is KubeGraf?
                 </a>
                 <Link
                   href="/compare"
-                  className="px-4 py-3 rounded-lg hover:bg-white/5 transition-colors text-base font-medium"
+                  className="px-4 py-3 rounded-lg hover:bg-white/5 transition-colors text-base font-medium focus:outline-none focus:ring-2 focus:ring-primary focus:ring-inset"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Compare
                 </Link>
                 <Link
                   href="/docs"
-                  className="px-4 py-3 rounded-lg hover:bg-white/5 transition-colors text-base font-medium"
+                  className="px-4 py-3 rounded-lg hover:bg-white/5 transition-colors text-base font-medium focus:outline-none focus:ring-2 focus:ring-primary focus:ring-inset"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Docs
                 </Link>
                 <Link
                   href="/pricing"
-                  className="px-4 py-3 rounded-lg hover:bg-white/5 transition-colors text-base font-medium"
+                  className="px-4 py-3 rounded-lg hover:bg-white/5 transition-colors text-base font-medium focus:outline-none focus:ring-2 focus:ring-primary focus:ring-inset"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Pricing
@@ -126,7 +196,7 @@ export default function Navbar() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="justify-start hover:bg-white/5 text-base"
+                  className="justify-start hover:bg-white/5 text-base focus:outline-none focus:ring-2 focus:ring-primary focus:ring-inset"
                   onClick={() => {
                     window.location.href = '/docs/web-dashboard.html';
                     setMobileMenuOpen(false);
@@ -137,7 +207,7 @@ export default function Navbar() {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="justify-start border-primary/50 hover:bg-primary/10 text-base"
+                  className="justify-start border-primary/50 hover:bg-primary/10 text-base focus:outline-none focus:ring-2 focus:ring-primary focus:ring-inset"
                   onClick={() => {
                     window.location.href = '/docs/installation.html';
                     setMobileMenuOpen(false);
@@ -147,7 +217,7 @@ export default function Navbar() {
                 </Button>
                 <Button
                   size="sm"
-                  className="justify-start bg-primary text-primary-foreground hover:bg-primary/90 text-base"
+                  className="justify-start bg-primary text-primary-foreground hover:bg-primary/90 text-base focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
                   onClick={() => {
                     window.location.href = '/docs/quickstart.html';
                     setMobileMenuOpen(false);

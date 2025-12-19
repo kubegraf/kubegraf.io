@@ -14,6 +14,13 @@ export default function Compare() {
       setTheme('light');
       document.documentElement.setAttribute('data-theme', 'light');
     }
+
+    // Set page title and meta description
+    document.title = 'Compare - KubēGraf vs Lens, k9s, kubectl, Datadog';
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Compare KubeGraf to Lens Desktop, k9s, kubectl, and Datadog. See how KubeGraf focuses on incident understanding with evidence-backed diagnostics and safe fix recommendations.');
+    }
   }, []);
 
   const toggleTheme = () => {

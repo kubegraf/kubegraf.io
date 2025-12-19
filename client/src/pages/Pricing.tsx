@@ -15,6 +15,13 @@ export default function Pricing() {
       setTheme('light');
       document.documentElement.setAttribute('data-theme', 'light');
     }
+
+    // Set page title and meta description
+    document.title = 'Pricing - KubēGraf | Free and Pro Plans';
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'KubeGraf pricing: Start free with unlimited clusters, terminal UI, and web dashboard. Upgrade to Pro for Brain Panel diagnostics and advanced incident analysis.');
+    }
   }, []);
 
   const toggleTheme = () => {

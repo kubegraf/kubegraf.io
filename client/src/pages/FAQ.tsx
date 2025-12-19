@@ -51,6 +51,36 @@ export default function FAQ() {
       setTheme('light');
       document.documentElement.setAttribute('data-theme', 'light');
     }
+
+    // Add FAQ structured data for SEO
+    const faqStructuredData = {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
+    };
+
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(faqStructuredData);
+    document.head.appendChild(script);
+
+    // Set page title and meta description
+    document.title = 'FAQ - KubēGraf | Frequently Asked Questions';
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Common questions about installing, using, and understanding KubeGraf - the local-first Kubernetes incident detection and diagnosis tool.');
+    }
+
+    return () => {
+      document.head.removeChild(script);
+    };
   }, []);
 
   const toggleTheme = () => {
