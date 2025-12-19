@@ -71,10 +71,10 @@ export default function PowerfulFeatures() {
               transition={{ delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="border-white/10 bg-black/40 backdrop-blur h-full group hover:border-primary/50 transition-all duration-300">
+              <Card className="glass-card border-white/10 backdrop-blur h-full group hover:border-primary/50 transition-all duration-300">
                 <CardHeader>
                   <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${feature.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                    <feature.icon className="w-6 h-6 text-white" />
+                    <feature.icon className="w-6 h-6 text-foreground" />
                   </div>
                   <CardTitle className="text-xl mb-2">{feature.title}</CardTitle>
                   <Badge variant="outline" className="w-fit">{feature.badge}</Badge>
