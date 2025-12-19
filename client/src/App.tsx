@@ -7,13 +7,21 @@ import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import Pricing from "@/pages/Pricing";
 import Docs from "@/pages/Docs";
+import WhatIsKubeGraf from "@/pages/WhatIsKubeGraf";
+import Compare from "@/pages/Compare";
+import Privacy from "@/pages/Privacy";
+import License from "@/pages/License";
 
 function Routes() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/kubegraf" component={WhatIsKubeGraf} />
       <Route path="/pricing" component={Pricing} />
+      <Route path="/compare" component={Compare} />
       <Route path="/docs" component={Docs} />
+      <Route path="/privacy" component={Privacy} />
+      <Route path="/license" component={License} />
       <Route component={NotFound} />
     </Switch>
   );

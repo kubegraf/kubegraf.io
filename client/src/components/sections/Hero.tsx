@@ -81,10 +81,11 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.1 }}
           className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-display font-bold tracking-tight mb-6 leading-tight md:leading-none px-4"
         >
-          Orchestrate the <br />
+          KubeGraf<br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-500 to-accent animate-gradient-x">
-            Impossible
+            Intelligent Insight
           </span>
+          {" "}for Kubernetes Incidents
         </motion.h1>
 
         <motion.p
@@ -93,8 +94,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed px-4"
         >
-          The next-generation visual platform for Kubernetes workflows.
-          Drag, drop, and deploy complex infrastructure with cinematic observability.
+          A local-first Kubernetes tool that detects incidents, explains why they happen with evidence, and previews safe fixes—without SaaS lock-in.
         </motion.p>
 
         <motion.div

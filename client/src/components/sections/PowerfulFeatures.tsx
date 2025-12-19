@@ -1,49 +1,49 @@
 import { motion } from "framer-motion";
-import { ShoppingCart, Bot, Rocket, BarChart3, Cpu, Database } from "lucide-react";
+import { Terminal, Globe, Lock, BarChart3, Code, Database } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 const powerfulFeatures = [
   {
-    icon: ShoppingCart,
-    title: "App Marketplace",
-    description: "One-click deployment of 50+ applications including Istio, ArgoCD, Kong, Vault, and more. Install, configure, and manage with ease.",
-    badge: "Marketplace",
+    icon: Terminal,
+    title: "Terminal UI (TUI)",
+    description: "Keyboard-driven interface for incident triage and cluster navigation. SSH-friendly and fast.",
+    badge: "Interfaces",
     color: "from-blue-500/20 to-blue-600/20"
   },
   {
-    icon: Bot,
-    title: "ML Training Jobs",
-    description: "Run ML training workloads on Kubernetes with GPU support. Submit Python scripts, configure resources, and stream logs in real-time.",
-    badge: "ML Workloads",
+    icon: Globe,
+    title: "Web UI",
+    description: "Browser-based dashboard for visual exploration of clusters, incidents, and the Knowledge Bank. Runs locally.",
+    badge: "Interfaces",
     color: "from-green-500/20 to-green-600/20"
   },
   {
-    icon: Rocket,
-    title: "ML Inference Services",
-    description: "Deploy ML models as production-ready APIs. Support for multiple runtimes including FastAPI, MLServer, BentoML, and KServe with auto-scaling.",
-    badge: "ML Workloads",
+    icon: Code,
+    title: "Developer Mode",
+    description: "Point at any pod and ask \"What's wrong?\" KubeGraf explains status, recent changes, and suggests fixes.",
+    badge: "Diagnosis",
     color: "from-cyan-500/20 to-cyan-600/20"
   },
   {
     icon: BarChart3,
-    title: "MLflow Integration",
-    description: "Experiment tracking, model registry, and ML lifecycle management. Deploy MLflow with Helm, configure storage backends, and manage models.",
-    badge: "ML Workloads",
+    title: "Multi-Namespace",
+    description: "Filter and monitor across namespaces. Switch contexts instantly. Unified incident view across environments.",
+    badge: "Operations",
     color: "from-purple-500/20 to-purple-600/20"
   },
   {
     icon: Database,
-    title: "Feast Feature Store",
-    description: "Manage feature stores for ML pipelines. Deploy Feast for feature engineering, versioning, and serving features to training and inference workloads.",
-    badge: "ML Workloads",
+    title: "Local Storage",
+    description: "All incident history stored in SQLite on your machine. No cloud dependencies for core features.",
+    badge: "Security",
     color: "from-blue-500/20 to-blue-600/20"
   },
   {
-    icon: Cpu,
-    title: "GPU Management",
-    description: "Detect and manage GPU resources across your cluster. Monitor GPU utilization, allocate GPUs to ML workloads, and optimize resource usage.",
-    badge: "Hardware",
+    icon: Lock,
+    title: "Open Source",
+    description: "Audit the code, run it offline, modify it for your environment. Apache License 2.0.",
+    badge: "Trust",
     color: "from-green-500/20 to-green-600/20"
   }
 ];
@@ -53,12 +53,12 @@ export default function PowerfulFeatures() {
     <section id="powerful-features" className="py-24 relative z-10 border-t border-white/5">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">Powerful Features</Badge>
+          <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">Security & Trust</Badge>
           <h2 className="text-3xl md:text-5xl font-display font-bold mb-6">
-            Everything you need for modern Kubernetes
+            Local-first architecture
           </h2>
           <p className="text-muted-foreground text-lg">
-            From app deployment to ML workloads, KubeGraf provides the tools you need to manage your clusters effectively.
+            Your credentials never leave your laptop. No telemetry required. No SaaS dependency for core features.
           </p>
         </div>
 

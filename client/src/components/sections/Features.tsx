@@ -4,33 +4,33 @@ import { Cpu, Globe, Lock, Workflow, Zap, Box } from "lucide-react";
 const features = [
   {
     icon: Workflow,
-    title: "Visual Pipelines",
-    description: "Design CI/CD workflows with a drag-and-drop 3D interface that feels like the future."
+    title: "Incident Detection",
+    description: "Monitors for CrashLoopBackOff, OOMKilled, restart storms, probe failures, and pending pods."
   },
   {
     icon: Globe,
-    title: "Global Mesh",
-    description: "Visualize your service mesh across regions with real-time latency heatmaps."
+    title: "Multi-Cluster Support",
+    description: "Switch between clusters instantly. Unified incident view across all your Kubernetes environments."
   },
   {
     icon: Cpu,
-    title: "AI Optimization",
-    description: "Self-healing infrastructure powered by predictive ML models."
+    title: "Evidence-Based Diagnosis",
+    description: "Correlates events, logs, and resource state to explain what failed and why."
   },
   {
     icon: Lock,
-    title: "Zero Trust Core",
-    description: "Identity-aware proxies baked into every node connection by default."
+    title: "Local-First Security",
+    description: "Your credentials and incident history stay on your machine. No telemetry uploads required."
   },
   {
     icon: Box,
-    title: "Container Native",
-    description: "Built for Kubernetes from the ground up. No legacy wrappers."
+    title: "Knowledge Bank",
+    description: "Every diagnosis stored locally in SQLite. Search past incidents by pod, namespace, or error type."
   },
   {
     icon: Zap,
-    title: "Instant Rollbacks",
-    description: "Time-travel debugging allows you to revert state in milliseconds."
+    title: "Safe Fix Previews",
+    description: "Dry-run validation and one-click rollback before applying any changes to your cluster."
   }
 ];
 
@@ -40,10 +40,10 @@ export default function Features() {
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-5xl font-display font-bold mb-6">
-            Engineered for <span className="text-gradient-primary">Hyper-Scale</span>
+            Built for <span className="text-gradient-primary">Incident Response</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            Complete control over your infrastructure with tools designed for the next decade of cloud computing.
+            Fast root cause analysis during incidents—without introducing new dependencies or SaaS requirements.
           </p>
         </div>
 

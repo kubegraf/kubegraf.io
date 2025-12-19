@@ -68,11 +68,102 @@
   --radius: 0.75rem;
 }
 
+/* Light Theme (Polar) */
+:root[data-theme="light"] {
+  --background: 0 0% 100%; /* #ffffff */
+  --foreground: 222 47% 11%; /* #0f172a */
+
+  --card: 0 0% 98%;
+  --card-foreground: 222 47% 11%;
+
+  --popover: 0 0% 98%;
+  --popover-foreground: 222 47% 11%;
+
+  /* Professional blue primary for light mode */
+  --primary: 188 91% 37%; /* #0891b2 */
+  --primary-foreground: 0 0% 100%;
+
+  /* Purple secondary */
+  --secondary: 261 51% 51%;
+  --secondary-foreground: 0 0% 100%;
+
+  --muted: 210 40% 96%;
+  --muted-foreground: 215 16% 47%;
+
+  --accent: 252 83% 75%;
+  --accent-foreground: 222 47% 11%;
+
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 214 32% 91%;
+  --input: 214 32% 91%;
+  --ring: 188 91% 37%;
+}
+
+/* Smooth transitions for theme changes */
+:root {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 body {
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
   font-family: var(--font-sans);
   overflow-x: hidden;
+}
+
+/* Light theme specific overrides for React components */
+:root[data-theme="light"] .glass {
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
+}
+
+:root[data-theme="light"] .glass-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.9) 100%) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Override dark background cards in light theme */
+:root[data-theme="light"] [class*="bg-black"] {
+  background-color: hsl(var(--card)) !important;
+}
+
+:root[data-theme="light"] [class*="border-white"] {
+  border-color: hsl(var(--border)) !important;
+}
+
+:root[data-theme="light"] [class*="text-muted-foreground"] {
+  color: hsl(var(--muted-foreground)) !important;
+}
+
+/* Sections and backgrounds */
+:root[data-theme="light"] section[class*="bg-black"] {
+  background-color: hsl(var(--background)) !important;
+}
+
+:root[data-theme="light"] section[class*="border-white"] {
+  border-color: hsl(var(--border)) !important;
+}
+
+/* Gradient backgrounds */
+:root[data-theme="light"] [class*="bg-gradient"] {
+  background: linear-gradient(to bottom, hsl(var(--muted)) 0%, transparent 100%) !important;
+}
+
+/* Fix gradient text visibility in light theme */
+:root[data-theme="light"] .bg-gradient-to-r.from-primary {
+  background: linear-gradient(to right, hsl(var(--primary)), hsl(261 51% 51%), hsl(var(--accent))) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+}
+
+:root[data-theme="light"] .text-transparent {
+  -webkit-text-fill-color: transparent !important;
 }
 
 /* Custom Scrollbar */

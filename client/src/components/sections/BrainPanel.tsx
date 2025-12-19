@@ -6,18 +6,18 @@ import { Badge } from "@/components/ui/badge";
 const brainFeatures = [
   {
     icon: BarChart3,
-    title: "Incident Timelines",
-    description: "Visualize anomalies over time with intelligent event correlation and root cause analysis."
+    title: "Change Intelligence",
+    description: "Shows what changed before an incident—deployments, configs, secrets—to identify potential causes."
   },
   {
     icon: Clock,
-    title: "AI Summaries",
-    description: "Human-readable insights and recommendations powered by neural analysis of cluster behavior."
+    title: "Searchable History",
+    description: "Every diagnosis saved locally. Search past incidents by pod name, namespace, error type, or fix applied."
   },
   {
     icon: FileJson,
-    title: "JSON Exports",
-    description: "Integrate with your tools seamlessly. Export diagnostics, metrics, and recommendations in standard formats."
+    title: "Export for Postmortems",
+    description: "Export incident reports with correlated events and root cause analysis for team sharing."
   }
 ];
 
@@ -26,12 +26,12 @@ export default function BrainPanel() {
     <section id="brain-panel" className="py-24 relative z-10 bg-gradient-to-b from-purple-950/20 to-transparent">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <Badge className="mb-4 bg-purple-500/10 text-purple-400 border-purple-500/20">Brain Panel V1</Badge>
+          <Badge className="mb-4 bg-purple-500/10 text-purple-400 border-purple-500/20">Knowledge Bank</Badge>
           <h2 className="text-3xl md:text-5xl font-display font-bold mb-6">
-            Your AI SRE
+            Learn from Every Incident
           </h2>
           <p className="text-muted-foreground text-lg">
-            Context-aware diagnostics with 24-72h event analysis, JSON exports, and actionable fixes. Now with multi-namespace persistence and deployment progress overlays.
+            Local incident storage with full event history, change tracking, and searchable diagnosis records. No data leaves your machine.
           </p>
         </div>
 

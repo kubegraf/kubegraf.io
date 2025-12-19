@@ -1,240 +1,257 @@
-import Navbar from "@/components/layout/Navbar";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Check } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 export default function Pricing() {
+  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('kubegraf-theme') as 'light' | 'dark' | null;
+    if (savedTheme) {
+      setTheme(savedTheme);
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+      setTheme('light');
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('kubegraf-theme', newTheme);
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Navbar />
+      {/* Header */}
+      <header className="border-b border-white/5 py-4 px-6">
+        <div className="max-w-6xl mx-auto flex justify-between items-center">
+          <a href="/" className="flex items-center gap-2 font-display font-bold text-xl">
+            <img src="/assets/logo/kubegraf_color_icon.png" alt="KubeGraf" className="w-12 h-12" />
+            KubeGraf
+          </a>
+          <nav className="flex gap-6 text-sm text-muted-foreground">
+            <a href="/" className="hover:text-primary transition-colors">Home</a>
+            <a href="/docs" className="hover:text-primary transition-colors">Docs</a>
+            <a href="/kubegraf" className="hover:text-primary transition-colors">What is KubeGraf?</a>
+          </nav>
+        </div>
+      </header>
 
       {/* Hero Section */}
-      <section className="relative py-20 px-4">
-        <div className="container mx-auto max-w-4xl text-center">
-          <Badge className="mb-4 bg-primary/10 text-primary border-primary/20 animate-pulse">🚀 Limited Time Offer</Badge>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
-            Hurry to Grab Soon
+      <section className="max-w-5xl mx-auto px-6 py-16 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h1 className="text-5xl md:text-6xl font-display font-bold mb-6">
+            Pricing
           </h1>
-          <p className="text-lg text-muted-foreground">
-            Start with full free features. Upgrade to Pro when you're ready for advanced capabilities.
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Start free. Upgrade only if you need deeper incident insight.
           </p>
-        </div>
+        </motion.div>
       </section>
 
       {/* Pricing Cards */}
-      <section className="py-12 px-4">
-        <div className="container mx-auto max-w-6xl">
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Free Plan */}
-            <Card className="relative border-white/10 bg-black/40 backdrop-blur">
-              <CardHeader>
-                <CardTitle className="text-2xl">Free</CardTitle>
-                <CardDescription className="text-muted-foreground">
-                  Perfect for learning
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <ul className="space-y-3">
-                  {[
-                    "All three interfaces (Terminal, Web, SPA)",
-                    "Unlimited local clusters",
-                    "Multi-cluster support (up to 5 clusters)",
-                    "Basic observability"
-                  ].map((feature) => (
-                    <li key={feature} className="flex items-start gap-3">
-                      <Check className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                      <span className="text-sm">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-              <CardFooter>
-                <Button
-                  className="w-full"
-                  variant="outline"
-                  onClick={() => window.location.href = '/docs/quickstart.html'}
-                >
-                  Get Started Free
-                </Button>
-              </CardFooter>
-            </Card>
+      <section className="max-w-6xl mx-auto px-6 pb-16">
+        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          {/* Free Plan */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="glass-card rounded-2xl border border-white/10 p-8"
+          >
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold mb-2">Free</h2>
+              <p className="text-muted-foreground">For individuals and small teams</p>
+            </div>
 
-            {/* Pro Plan */}
-            <Card className="relative border-primary/50 bg-gradient-to-br from-primary/10 to-transparent backdrop-blur">
-              <div className="absolute -top-3 right-6">
-                <Badge className="bg-primary text-white">Most Popular</Badge>
-              </div>
-              <CardHeader>
-                <CardTitle className="text-2xl">Pro</CardTitle>
-                <CardDescription className="text-primary font-medium">
-                  🚀 Grab it soon - Limited time offer
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <ul className="space-y-3">
-                  {[
-                    "Everything in Free, plus:",
-                    "Brain Panel with AI diagnostics",
-                    "Advanced tools & exports",
-                    "Unlimited cluster connections"
-                  ].map((feature) => (
-                    <li key={feature} className="flex items-start gap-3">
-                      <Check className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                      <span className="text-sm">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-              <CardFooter>
-                <Button
-                  className="w-full bg-primary hover:bg-primary/90"
-                  onClick={() => window.location.href = '/docs/web-dashboard.html'}
-                >
-                  Start 14-Day Trial
-                </Button>
-              </CardFooter>
-            </Card>
-          </div>
+            <ul className="space-y-3 mb-8">
+              <li className="flex items-start gap-3">
+                <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span className="text-sm">Terminal UI, Web UI, and SPA</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span className="text-sm">Unlimited cluster connections</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span className="text-sm">One-click cluster switching</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span className="text-sm">Incident detection and basic diagnostics</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span className="text-sm">Local-first operation (no SaaS dependency)</span>
+              </li>
+            </ul>
+
+            <Button
+              className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+              onClick={() => window.location.href = '/docs/installation.html'}
+            >
+              Get started free
+            </Button>
+            <p className="text-center text-sm text-muted-foreground mt-3">
+              No account required.
+            </p>
+          </motion.div>
+
+          {/* Pro Plan */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="glass-card rounded-2xl border border-primary/50 p-8"
+          >
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold mb-2">Pro</h2>
+              <p className="text-muted-foreground">
+                For teams operating production clusters that need deeper diagnosis and shared incident learning
+              </p>
+            </div>
+
+            <p className="text-sm text-muted-foreground mb-4">Everything in Free, plus:</p>
+
+            <ul className="space-y-3 mb-8">
+              <li className="flex items-start gap-3">
+                <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span className="text-sm">Brain Panel with evidence-backed diagnostics</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span className="text-sm">Advanced incident analysis and summaries</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span className="text-sm">Knowledge Bank export and sharing</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span className="text-sm">Unlimited cluster connections with fast switching</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span className="text-sm">Early access to new incident analysis features</span>
+              </li>
+            </ul>
+
+            <Button
+              className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+              onClick={() => window.location.href = 'https://app.kubegraf.io/signup'}
+            >
+              Start 14-day trial
+            </Button>
+            <p className="text-center text-sm text-muted-foreground mt-3">
+              No credit card required.
+            </p>
+          </motion.div>
         </div>
       </section>
 
-      {/* Comparison Table */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">How We Stack Up</h2>
-            <p className="text-muted-foreground">
-              Transparent comparison with popular Kubernetes tools. We believe in letting the features speak for themselves.
-            </p>
-          </div>
+      {/* Trust & Transparency */}
+      <section className="max-w-4xl mx-auto px-6 pb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="glass-card rounded-2xl border border-white/10 p-8"
+        >
+          <h2 className="text-2xl font-bold mb-4">Trust & Transparency</h2>
+          <p className="text-muted-foreground leading-relaxed">
+            KubeGraf runs locally on your machine. Your cluster data never leaves your environment.
+            If you try Pro and decide it's not for you, you can stop using Pro features at any time—the
+            Free plan will continue working exactly as before.
+          </p>
+        </motion.div>
+      </section>
 
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse">
-              <thead>
-                <tr className="border-b border-white/10">
-                  <th className="text-left p-4 font-semibold">Feature</th>
-                  <th className="text-center p-4 font-semibold bg-primary/5">KubeGraf</th>
-                  <th className="text-center p-4 font-semibold">Lens Desktop</th>
-                  <th className="text-center p-4 font-semibold">k9s</th>
-                  <th className="text-center p-4 font-semibold">Kubectl</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="border-b border-white/5">
-                  <td colSpan={5} className="p-4 text-sm font-semibold text-primary">
-                    Interface & User Experience
-                  </td>
-                </tr>
-                <tr className="border-b border-white/5">
-                  <td className="p-4 text-sm">Terminal UI</td>
-                  <td className="text-center p-4 bg-primary/5">
-                    <span className="text-green-400">✓</span>
-                  </td>
-                  <td className="text-center p-4">
-                    <span className="text-yellow-400">⚠</span>
-                  </td>
-                  <td className="text-center p-4">
-                    <span className="text-green-400">✓</span>
-                  </td>
-                  <td className="text-center p-4">
-                    <span className="text-red-400">✗</span>
-                  </td>
-                </tr>
-                <tr className="border-b border-white/5">
-                  <td className="p-4 text-sm">Web Dashboard</td>
-                  <td className="text-center p-4 bg-primary/5">
-                    <span className="text-green-400">✓</span>
-                  </td>
-                  <td className="text-center p-4">
-                    <span className="text-green-400">✓</span>
-                  </td>
-                  <td className="text-center p-4">
-                    <span className="text-red-400">✗</span>
-                  </td>
-                  <td className="text-center p-4">
-                    <span className="text-red-400">✗</span>
-                  </td>
-                </tr>
-                <tr className="border-b border-white/5">
-                  <td className="p-4 text-sm">Modern SPA</td>
-                  <td className="text-center p-4 bg-primary/5">
-                    <span className="text-green-400">✓</span>
-                  </td>
-                  <td className="text-center p-4">
-                    <span className="text-green-400">✓</span>
-                  </td>
-                  <td className="text-center p-4">
-                    <span className="text-red-400">✗</span>
-                  </td>
-                  <td className="text-center p-4">
-                    <span className="text-red-400">✗</span>
-                  </td>
-                </tr>
-                <tr className="border-b border-white/5">
-                  <td colSpan={5} className="p-4 text-sm font-semibold text-primary">
-                    Intelligence & Automation
-                  </td>
-                </tr>
-                <tr className="border-b border-white/5">
-                  <td className="p-4 text-sm">AI-Assisted Troubleshooting</td>
-                  <td className="text-center p-4 bg-primary/5">
-                    <span className="text-green-400">✓</span>
-                  </td>
-                  <td className="text-center p-4">
-                    <span className="text-yellow-400">⚠</span>
-                  </td>
-                  <td className="text-center p-4">
-                    <span className="text-red-400">✗</span>
-                  </td>
-                  <td className="text-center p-4">
-                    <span className="text-red-400">✗</span>
-                  </td>
-                </tr>
-                <tr className="border-b border-white/5">
-                  <td className="p-4 text-sm">Brain Panel (Event Analysis)</td>
-                  <td className="text-center p-4 bg-primary/5">
-                    <span className="text-green-400">✓</span>
-                  </td>
-                  <td className="text-center p-4">
-                    <span className="text-red-400">✗</span>
-                  </td>
-                  <td className="text-center p-4">
-                    <span className="text-red-400">✗</span>
-                  </td>
-                  <td className="text-center p-4">
-                    <span className="text-red-400">✗</span>
-                  </td>
-                </tr>
-                <tr className="border-b border-white/5">
-                  <td colSpan={5} className="p-4 text-sm font-semibold text-primary">
-                    Deployment & Accessibility
-                  </td>
-                </tr>
-                <tr className="border-b border-white/5">
-                  <td className="p-4 text-sm">Binary Size</td>
-                  <td className="text-center p-4 bg-primary/5 text-sm">~15MB</td>
-                  <td className="text-center p-4 text-sm">~300MB+</td>
-                  <td className="text-center p-4 text-sm">~20MB</td>
-                  <td className="text-center p-4 text-sm">~50MB</td>
-                </tr>
-              </tbody>
-            </table>
+      {/* FAQ */}
+      <section className="max-w-4xl mx-auto px-6 pb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
+          <h2 className="text-3xl font-bold mb-8 text-center">FAQ</h2>
+
+          <div className="space-y-6">
+            <div className="glass-card rounded-xl border border-white/10 p-6">
+              <h3 className="text-lg font-semibold mb-3">Do I need an account to use KubeGraf?</h3>
+              <p className="text-muted-foreground">
+                No. The Free plan requires no account, no registration, and no telemetry. Download the binary
+                and run it against your clusters. Pro features require creating an account only for license verification.
+              </p>
+            </div>
+
+            <div className="glass-card rounded-xl border border-white/10 p-6">
+              <h3 className="text-lg font-semibold mb-3">Does KubeGraf send my data to the cloud?</h3>
+              <p className="text-muted-foreground">
+                No. All cluster data stays on your machine. Pro features run locally. The only data sent during
+                Pro usage is anonymous license verification—no cluster logs, events, or resource data is transmitted.
+              </p>
+            </div>
+
+            <div className="glass-card rounded-xl border border-white/10 p-6">
+              <h3 className="text-lg font-semibold mb-3">Can I downgrade or stop using Pro later?</h3>
+              <p className="text-muted-foreground">
+                Yes. You can stop using Pro at any time. The Free plan continues working without interruption.
+                No lock-in, no penalties, no loss of local incident history.
+              </p>
+            </div>
           </div>
-        </div>
+        </motion.div>
+      </section>
+
+      {/* Enterprise */}
+      <section className="max-w-4xl mx-auto px-6 pb-20">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="text-center glass-card rounded-2xl border border-white/10 p-8"
+        >
+          <h2 className="text-2xl font-bold mb-4">Enterprise & Offline Usage</h2>
+          <p className="text-muted-foreground mb-4">
+            Looking for enterprise support, custom licensing, or offline distribution?
+          </p>
+          <a
+            href="mailto:contact@kubegraf.io"
+            className="text-primary hover:text-primary/80 font-semibold"
+          >
+            Contact us at contact@kubegraf.io
+          </a>
+        </motion.div>
       </section>
 
       {/* Footer */}
-      <footer className="py-12 border-t border-white/5 bg-black/20">
-        <div className="container mx-auto px-4 text-center text-muted-foreground text-sm">
-          <p className="mb-2">© 2024 Kubegraf.io. All rights reserved.</p>
-          <p>
-            <a href="mailto:contact@kubegraf.io" className="hover:text-primary transition-colors">
-              contact@kubegraf.io
-            </a>
-          </p>
+      <footer className="border-t border-white/5 py-8 px-6">
+        <div className="max-w-6xl mx-auto text-center text-sm text-muted-foreground">
+          <p className="mb-3">&copy; 2025 KubeGraf</p>
+          <div className="flex justify-center gap-6 text-xs">
+            <a href="/privacy" className="hover:text-primary transition-colors">Privacy Policy</a>
+            <a href="/license" className="hover:text-primary transition-colors">License</a>
+          </div>
         </div>
       </footer>
+
+      {/* Theme Toggle Button */}
+      <button
+        onClick={toggleTheme}
+        className="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-background/80 backdrop-blur-sm border border-white/10 flex items-center justify-center cursor-pointer hover:scale-110 hover:border-primary transition-all duration-300 shadow-lg z-50"
+        aria-label="Toggle theme"
+      >
+        <span className="text-xl">{theme === 'dark' ? '☀️' : '🌙'}</span>
+      </button>
     </div>
   );
 }
