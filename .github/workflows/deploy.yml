@@ -38,7 +38,6 @@ jobs:
         run: |
           mkdir -p _site
           cp -r dist/public/* _site/
-          cp -r kubegraf _site/ 2>/dev/null || true
           cp -r docs _site/ 2>/dev/null || true
           cp CNAME _site/ 2>/dev/null || true
           cp install.sh _site/ 2>/dev/null || true
