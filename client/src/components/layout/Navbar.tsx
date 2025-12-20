@@ -27,18 +27,18 @@ export default function Navbar() {
         className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center py-0.5 px-1"
       >
         <div className="glass rounded-full px-2 py-0.5 flex items-center gap-2 shadow-2xl shadow-primary/10">
-          <a href="/" className="flex items-center gap-0 font-display font-bold text-2xl tracking-tight">
+          <a href="/" className="flex items-center gap-1 font-display font-bold text-2xl tracking-tight">
             <img
-              src="/assets/logo/kubegraf_color_icon.png"
+              src="/assets/logo/kubegraf_color_icon.png?v=3"
               alt="KubeGraf"
               className="object-contain"
-              style={{ width: 96, height: 96 }}
+              style={{ width: 64, height: 64 }}
             />
-            <span className="leading-none" style={{ marginLeft: 2 }}>KubēGraf</span>
+            <span className="leading-none">KubēGraf</span>
           </a>
 
           <div className="hidden md:flex items-center gap-4 text-base font-medium text-muted-foreground">
-            <a href="/#features" className="hover:text-primary transition-colors">Features</a>
+            <a href="/#features" className="hover:text-primary transition-colors ml-2">Features</a>
             <a href="/kubegraf" className="hover:text-primary transition-colors">What is KubeGraf?</a>
             <Link href="/compare" className="hover:text-primary transition-colors">Compare</Link>
             <Link href="/docs" className="hover:text-primary transition-colors">Docs</Link>
