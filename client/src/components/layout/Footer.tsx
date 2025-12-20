@@ -1,17 +1,79 @@
 import { Link } from "wouter";
 import { LINKS } from "@/config/links";
+import { useEffect, useState } from "react";
 
 interface FooterProps {
   variant?: "default" | "minimal";
 }
 
 export default function Footer({ variant = "default" }: FooterProps) {
+  const [themePreference, setThemePreference] = useState<'light' | 'dark'>('light');
+
+  useEffect(() => {
+    // Load saved preference or default to system
+    const saved = localStorage.getItem('kubegraf-theme-preference') as 'light' | 'dark' | null;
+    if (saved) {
+      setThemePreference(saved);
+      applyTheme(saved);
+    } else {
+      // Default to system preference - determine which icon to show based on system
+      const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+      const defaultDisplay = prefersLight ? 'light' : 'dark';
+      setThemePreference(defaultDisplay);
+      // Don't set data-theme, let CSS prefers-color-scheme handle it
+      applyTheme('system');
+    }
+  }, []);
+
+  const applyTheme = (pref: 'system' | 'light' | 'dark') => {
+    if (pref === 'system') {
+      // Remove data-theme to use system preference
+      document.documentElement.removeAttribute('data-theme');
+    } else {
+      document.documentElement.setAttribute('data-theme', pref);
+    }
+  };
+
+  const handleThemeChange = (pref: 'light' | 'dark') => {
+    setThemePreference(pref);
+    localStorage.setItem('kubegraf-theme-preference', pref);
+    applyTheme(pref);
+  };
+  const ThemePreferenceControl = () => (
+    <div className="inline-flex items-center gap-1 p-1 rounded-md bg-muted/20 border border-border/50">
+      <button
+        onClick={() => handleThemeChange('light')}
+        className={`px-2 py-1 rounded transition-all duration-200 ${
+          themePreference === 'light'
+            ? 'opacity-100 scale-110'
+            : 'opacity-40 hover:opacity-60'
+        }`}
+        aria-label="Light theme"
+        title="Light"
+      >
+        <span className="text-sm">☀️</span>
+      </button>
+      <button
+        onClick={() => handleThemeChange('dark')}
+        className={`px-2 py-1 rounded transition-all duration-200 ${
+          themePreference === 'dark'
+            ? 'opacity-100 scale-110'
+            : 'opacity-40 hover:opacity-60'
+        }`}
+        aria-label="Dark theme"
+        title="Dark"
+      >
+        <span className="text-sm">🌙</span>
+      </button>
+    </div>
+  );
+
   if (variant === "minimal") {
     return (
       <footer className="border-t border-white/5 py-8 px-6">
         <div className="max-w-7xl mx-auto text-center text-sm text-muted-foreground">
           <p className="mb-3">&copy; 2025 KubēGraf</p>
-          <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-xs">
+          <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6 text-xs">
             <a
               href={LINKS.BUG_URL}
               target="_blank"
@@ -40,6 +102,7 @@ export default function Footer({ variant = "default" }: FooterProps) {
             >
               Contact
             </a>
+            <ThemePreferenceControl />
           </div>
         </div>
       </footer>
@@ -85,7 +148,7 @@ export default function Footer({ variant = "default" }: FooterProps) {
 
           {/* Footer Links */}
           <div className="text-center mt-6">
-            <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-xs text-muted-foreground">
+            <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6 text-xs text-muted-foreground">
               <a
                 href={LINKS.BUG_URL}
                 target="_blank"
@@ -114,6 +177,7 @@ export default function Footer({ variant = "default" }: FooterProps) {
               >
                 Contact
               </a>
+              <ThemePreferenceControl />
             </div>
           </div>
         </div>

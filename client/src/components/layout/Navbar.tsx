@@ -1,23 +1,11 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import { Terminal, Menu, X, Sun, Moon } from "lucide-react";
+import { Terminal, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('kubegraf-theme') as 'light' | 'dark' | null;
-    if (savedTheme) {
-      setTheme(savedTheme);
-      document.documentElement.setAttribute('data-theme', savedTheme);
-    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-      setTheme('light');
-      document.documentElement.setAttribute('data-theme', 'light');
-    }
-  }, []);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -29,13 +17,6 @@ export default function Navbar() {
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [mobileMenuOpen]);
-
-  const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('kubegraf-theme', newTheme);
-  };
 
   return (
     <>
@@ -65,17 +46,6 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center gap-2">
-            {/* Theme toggle */}
-            <Button
-              variant="ghost"
-              size="sm"
-              className="hidden sm:flex hover:bg-white/5 rounded-full p-2"
-              onClick={toggleTheme}
-              aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-            >
-              {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </Button>
-
             <Button
               variant="ghost"
               size="sm"
@@ -132,29 +102,6 @@ export default function Navbar() {
           >
             <div className="glass rounded-2xl p-4 shadow-2xl border border-white/10">
               <div className="flex flex-col gap-2">
-                {/* Theme toggle for mobile */}
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="justify-start hover:bg-white/5 text-base focus:outline-none focus:ring-2 focus:ring-primary focus:ring-inset"
-                  onClick={toggleTheme}
-                  aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-                >
-                  {theme === 'dark' ? (
-                    <>
-                      <Sun className="w-4 h-4 mr-2" />
-                      Light Mode
-                    </>
-                  ) : (
-                    <>
-                      <Moon className="w-4 h-4 mr-2" />
-                      Dark Mode
-                    </>
-                  )}
-                </Button>
-
-                <div className="h-px bg-white/10 my-2" />
-
                 <a
                   href="/#features"
                   className="px-4 py-3 rounded-lg hover:bg-white/5 transition-colors text-base font-medium focus:outline-none focus:ring-2 focus:ring-primary focus:ring-inset"

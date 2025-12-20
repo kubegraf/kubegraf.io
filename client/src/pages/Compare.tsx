@@ -1,21 +1,10 @@
 import { Check, X, AlertTriangle } from "lucide-react";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Footer from "@/components/layout/Footer";
 
 export default function Compare() {
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
-
   useEffect(() => {
-    const savedTheme = localStorage.getItem('kubegraf-theme') as 'light' | 'dark' | null;
-    if (savedTheme) {
-      setTheme(savedTheme);
-      document.documentElement.setAttribute('data-theme', savedTheme);
-    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-      setTheme('light');
-      document.documentElement.setAttribute('data-theme', 'light');
-    }
-
     // Set page title and meta description
     document.title = 'Compare - KubēGraf vs Lens, k9s, kubectl, Datadog';
     const metaDescription = document.querySelector('meta[name="description"]');
@@ -23,13 +12,6 @@ export default function Compare() {
       metaDescription.setAttribute('content', 'Compare KubeGraf to Lens Desktop, k9s, kubectl, and Datadog. See how KubeGraf focuses on incident understanding with evidence-backed diagnostics and safe fix recommendations.');
     }
   }, []);
-
-  const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('kubegraf-theme', newTheme);
-  };
 
   const Icon = ({ status }: { status: '✅' | '❌' | '⚠️' | '' }) => {
     if (status === '✅') return <Check className="w-5 h-5 text-green-500" />;
@@ -241,15 +223,6 @@ export default function Compare() {
       </section>
 
       <Footer variant="minimal" />
-
-      {/* Theme Toggle Button */}
-      <button
-        onClick={toggleTheme}
-        className="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-background/80 backdrop-blur-sm border border-white/10 flex items-center justify-center cursor-pointer hover:scale-110 hover:border-primary transition-all duration-300 shadow-lg z-50"
-        aria-label="Toggle theme"
-      >
-        <span className="text-xl">{theme === 'dark' ? '☀️' : '🌙'}</span>
-      </button>
     </div>
   );
 }
