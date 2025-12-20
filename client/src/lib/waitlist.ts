@@ -9,18 +9,21 @@ export interface WaitlistPayload {
   role?: string;
 }
 
-const WAITLIST_ENDPOINT = "https://formsubmit.co/ajax/contact@kubegraf.io";
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/mzdprplr";
 
 export async function joinWaitlist(payload: WaitlistPayload): Promise<WaitlistResponse> {
-  const response = await fetch(WAITLIST_ENDPOINT, {
+  const response = await fetch(FORMSPREE_ENDPOINT, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
     },
     body: JSON.stringify({
-      ...payload,
-      _subject: "New Kubegraf waitlist signup",
+      email: payload.email,
+      name: payload.name,
+      company: payload.company,
+      role: payload.role,
+      _subject: "New KubeGraf Waitlist Signup",
     }),
   });
 
@@ -33,8 +36,8 @@ export async function joinWaitlist(payload: WaitlistPayload): Promise<WaitlistRe
 
   if (!response.ok) {
     throw new Error(
-      data?.message ||
-        data?.error ||
+      data?.error ||
+        data?.message ||
         "Failed to join the waitlist. Please try again.",
     );
   }
@@ -42,7 +45,7 @@ export async function joinWaitlist(payload: WaitlistPayload): Promise<WaitlistRe
   return {
     message:
       data?.message ||
-      "Thanks for joining the waitlist! We'll be in touch at contact@kubegraf.io.",
+      "Thanks for joining the waitlist! We'll be in touch soon.",
   };
 }
 
