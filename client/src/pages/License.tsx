@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { ExternalLink } from "lucide-react";
+import Footer from "@/components/layout/Footer";
 
 export default function License() {
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
@@ -32,7 +33,7 @@ export default function License() {
             <img src="/assets/logo/kubegraf_color_icon.png" alt="KubeGraf" className="object-contain" style={{ width: 96, height: 96 }} />
             KubēGraf
           </a>
-          <nav className="flex gap-6 text-sm text-muted-foreground">
+          <nav className="hidden md:flex gap-6 text-sm text-muted-foreground">
             <a href="/" className="hover:text-primary transition-colors">Home</a>
             <a href="/docs" className="hover:text-primary transition-colors">Docs</a>
           </nav>
@@ -96,12 +97,7 @@ export default function License() {
         </motion.div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-white/5 py-8 px-6">
-        <div className="max-w-4xl mx-auto text-center text-sm text-muted-foreground">
-          <p>&copy; 2025 KubēGraf</p>
-        </div>
-      </footer>
+      <Footer variant="minimal" />
 
       {/* Theme Toggle Button */}
       <button

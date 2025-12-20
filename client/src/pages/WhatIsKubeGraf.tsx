@@ -1,5 +1,6 @@
 import { Terminal, Globe, Code, Database, Lock, Zap, AlertCircle, CheckCircle, Clock, FileText } from "lucide-react";
 import { useEffect, useState } from "react";
+import Footer from "@/components/layout/Footer";
 
 export default function WhatIsKubeGraf() {
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
@@ -32,7 +33,7 @@ export default function WhatIsKubeGraf() {
             <img src="/assets/logo/kubegraf_color_icon.png" alt="KubeGraf" className="object-contain" style={{ width: 96, height: 96 }} />
             KubēGraf
           </a>
-          <nav className="flex gap-6 text-sm text-muted-foreground">
+          <nav className="hidden md:flex gap-6 text-sm text-muted-foreground">
             <a href="/" className="hover:text-primary transition-colors">Home</a>
             <a href="/docs" className="hover:text-primary transition-colors">Docs</a>
           </nav>
@@ -305,16 +306,7 @@ export default function WhatIsKubeGraf() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-white/5 py-8 px-6">
-        <div className="max-w-6xl mx-auto text-center text-sm text-muted-foreground">
-          <p className="mb-3">&copy; 2025 KubēGraf</p>
-          <div className="flex justify-center gap-6 text-xs">
-            <a href="/privacy" className="hover:text-primary transition-colors">Privacy Policy</a>
-            <a href="/license" className="hover:text-primary transition-colors">License</a>
-          </div>
-        </div>
-      </footer>
+      <Footer variant="minimal" />
 
       {/* Theme Toggle Button */}
       <button
