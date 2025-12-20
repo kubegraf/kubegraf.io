@@ -2,12 +2,34 @@ import { motion, useScroll, useTransform, useSpring, useMotionValue } from "fram
 import heroBg from "@assets/generated_images/futuristic_dark_cyber_grid_background_with_neon_blue_and_purple_data_streams.png";
 import sphereImg from "@assets/generated_images/3d_floating_sphere_with_data_connections.png";
 import cubeImg from "@assets/generated_images/glassmorphism_3d_cube_icon_glowing.png";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import WaitlistForm from "@/components/forms/WaitlistForm";
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollY } = useScroll();
+  const [isLightTheme, setIsLightTheme] = useState(false);
+  
+  // Check theme
+  useEffect(() => {
+    const checkTheme = () => {
+      const theme = document.documentElement.getAttribute('data-theme');
+      const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+      setIsLightTheme(theme === 'light' || (!theme && prefersLight));
+    };
+    
+    checkTheme();
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: light)');
+    mediaQuery.addEventListener('change', checkTheme);
+    
+    return () => {
+      observer.disconnect();
+      mediaQuery.removeEventListener('change', checkTheme);
+    };
+  }, []);
   
   // Parallax effects
   const y1 = useTransform(scrollY, [0, 500], [0, 200]);
@@ -36,29 +58,29 @@ export default function Hero() {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+    <div ref={containerRef} className={`relative min-h-screen flex items-center justify-center overflow-hidden pt-20 ${isLightTheme ? 'hero-light-theme' : ''}`}>
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <img 
           src={heroBg} 
           alt="Background" 
-          className="w-full h-full object-cover opacity-40"
+          className={`w-full h-full object-cover ${isLightTheme ? 'opacity-40' : 'opacity-40'}`}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/0 via-background/50 to-background" />
-        <div className="absolute inset-0 bg-grid-pattern opacity-20" />
+        <div className={`absolute inset-0 bg-gradient-to-b ${isLightTheme ? 'from-transparent via-transparent to-background/30' : 'from-background/0 via-background/50 to-background'}`} />
+        <div className={`absolute inset-0 bg-grid-pattern ${isLightTheme ? 'opacity-3' : 'opacity-20'}`} />
       </div>
 
       {/* Floating 3D Elements */}
       <motion.div 
         style={{ x: springX, y: springY, rotate: rotate }}
-        className="absolute top-1/4 left-10 md:left-1/4 z-0 opacity-60 blur-[1px]"
+        className={`absolute top-1/4 left-10 md:left-1/4 z-0 ${isLightTheme ? 'opacity-85' : 'opacity-60 blur-[1px]'}`}
       >
         <img src={cubeImg} className="w-24 h-24 md:w-32 md:h-32 animate-float" alt="Cube" />
       </motion.div>
 
       <motion.div 
         style={{ x: useTransform(springX, (val) => val * -1.5), y: y1 }}
-        className="absolute bottom-1/3 right-10 md:right-1/4 z-0 opacity-60"
+        className={`absolute bottom-1/3 right-10 md:right-1/4 z-0 ${isLightTheme ? 'opacity-85' : 'opacity-60'}`}
       >
         <img src={sphereImg} className="w-32 h-32 md:w-48 md:h-48 animate-float" style={{ animationDelay: "1s" }} alt="Sphere" />
       </motion.div>
@@ -92,7 +114,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed px-4"
+          className={`text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed px-4 ${isLightTheme ? 'text-slate-700' : 'text-muted-foreground'}`}
         >
           A local-first Kubernetes tool that detects incidents, explains why they happen with evidence, and previews safe fixes—without SaaS lock-in.
         </motion.p>
@@ -110,7 +132,7 @@ export default function Hero() {
       {/* Scroll Indicator */}
       <motion.div 
         style={{ opacity }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground"
+        className={`absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 ${isLightTheme ? 'text-slate-600' : 'text-muted-foreground'}`}
       >
         <span className="text-xs uppercase tracking-widest">Scroll</span>
         <div className="w-[1px] h-12 bg-gradient-to-b from-primary to-transparent" />
