@@ -214,6 +214,23 @@ body {
   -webkit-text-fill-color: transparent !important;
 }
 
+/* Fix gradient text for What is KubeGraf heading in light theme */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) h1.bg-gradient-to-r {
+    background: linear-gradient(to right, hsl(var(--foreground)), hsl(var(--primary)), hsl(261 51% 51%)) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+  }
+}
+
+:root[data-theme="light"] h1.bg-gradient-to-r {
+  background: linear-gradient(to right, hsl(var(--foreground)), hsl(var(--primary)), hsl(261 51% 51%)) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
