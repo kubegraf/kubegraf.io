@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
+import Footer from "@/components/layout/Footer";
 
 type FAQItemProps = {
   question: string;
@@ -39,19 +40,9 @@ function FAQItem({ question, answer, isOpen, onToggle }: FAQItemProps) {
 }
 
 export default function FAQ() {
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('kubegraf-theme') as 'light' | 'dark' | null;
-    if (savedTheme) {
-      setTheme(savedTheme);
-      document.documentElement.setAttribute('data-theme', savedTheme);
-    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-      setTheme('light');
-      document.documentElement.setAttribute('data-theme', 'light');
-    }
-
     // Add FAQ structured data for SEO
     const faqStructuredData = {
       "@context": "https://schema.org",
@@ -82,13 +73,6 @@ export default function FAQ() {
       document.head.removeChild(script);
     };
   }, []);
-
-  const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('kubegraf-theme', newTheme);
-  };
 
   const faqs = [
     {
@@ -174,7 +158,7 @@ export default function FAQ() {
             <img src="/assets/logo/kubegraf_color_icon.png" alt="KubeGraf" className="object-contain" style={{ width: 96, height: 96 }} />
             KubēGraf
           </a>
-          <nav className="flex gap-6 text-sm text-muted-foreground">
+          <nav className="hidden md:flex gap-6 text-sm text-muted-foreground">
             <a href="/" className="hover:text-primary transition-colors">Home</a>
             <a href="/docs" className="hover:text-primary transition-colors">Docs</a>
           </nav>
@@ -246,21 +230,7 @@ export default function FAQ() {
         </motion.div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-white/5 py-8 px-6">
-        <div className="max-w-4xl mx-auto text-center text-sm text-muted-foreground">
-          <p>&copy; 2025 KubēGraf</p>
-        </div>
-      </footer>
-
-      {/* Theme Toggle Button */}
-      <button
-        onClick={toggleTheme}
-        className="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-background/80 backdrop-blur-sm border border-white/10 flex items-center justify-center cursor-pointer hover:scale-110 hover:border-primary transition-all duration-300 shadow-lg z-50"
-        aria-label="Toggle theme"
-      >
-        <span className="text-xl">{theme === 'dark' ? '☀️' : '🌙'}</span>
-      </button>
+      <Footer variant="minimal" />
     </div>
   );
 }

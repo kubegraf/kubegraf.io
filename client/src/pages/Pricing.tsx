@@ -1,21 +1,11 @@
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import Footer from "@/components/layout/Footer";
 
 export default function Pricing() {
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
-
   useEffect(() => {
-    const savedTheme = localStorage.getItem('kubegraf-theme') as 'light' | 'dark' | null;
-    if (savedTheme) {
-      setTheme(savedTheme);
-      document.documentElement.setAttribute('data-theme', savedTheme);
-    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-      setTheme('light');
-      document.documentElement.setAttribute('data-theme', 'light');
-    }
-
     // Set page title and meta description
     document.title = 'Pricing - KubēGraf | Free and Pro Plans';
     const metaDescription = document.querySelector('meta[name="description"]');
@@ -23,13 +13,6 @@ export default function Pricing() {
       metaDescription.setAttribute('content', 'KubeGraf pricing: Start free with unlimited clusters, terminal UI, and web dashboard. Upgrade to Pro for Brain Panel diagnostics and advanced incident analysis.');
     }
   }, []);
-
-  const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('kubegraf-theme', newTheme);
-  };
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -40,7 +23,7 @@ export default function Pricing() {
             <img src="/assets/logo/kubegraf_color_icon.png" alt="KubeGraf" className="object-contain" style={{ width: 96, height: 96 }} />
             KubēGraf
           </a>
-          <nav className="flex gap-6 text-sm text-muted-foreground">
+          <nav className="hidden md:flex gap-6 text-sm text-muted-foreground">
             <a href="/" className="hover:text-primary transition-colors">Home</a>
             <a href="/docs" className="hover:text-primary transition-colors">Docs</a>
             <a href="/kubegraf" className="hover:text-primary transition-colors">What is KubeGraf?</a>
@@ -240,25 +223,7 @@ export default function Pricing() {
         </motion.div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-white/5 py-8 px-6">
-        <div className="max-w-6xl mx-auto text-center text-sm text-muted-foreground">
-          <p className="mb-3">&copy; 2025 KubēGraf</p>
-          <div className="flex justify-center gap-6 text-xs">
-            <a href="/privacy" className="hover:text-primary transition-colors">Privacy Policy</a>
-            <a href="/license" className="hover:text-primary transition-colors">License</a>
-          </div>
-        </div>
-      </footer>
-
-      {/* Theme Toggle Button */}
-      <button
-        onClick={toggleTheme}
-        className="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-background/80 backdrop-blur-sm border border-white/10 flex items-center justify-center cursor-pointer hover:scale-110 hover:border-primary transition-all duration-300 shadow-lg z-50"
-        aria-label="Toggle theme"
-      >
-        <span className="text-xl">{theme === 'dark' ? '☀️' : '🌙'}</span>
-      </button>
+      <Footer variant="minimal" />
     </div>
   );
 }

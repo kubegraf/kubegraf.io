@@ -19,3 +19,4 @@ In React components, reference the public logo using a root‑relative URL:
 
 This path is served from the Vite `public` directory (`client/public`).
 
+

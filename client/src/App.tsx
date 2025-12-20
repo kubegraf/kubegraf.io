@@ -12,6 +12,7 @@ import Compare from "@/pages/Compare";
 import Privacy from "@/pages/Privacy";
 import License from "@/pages/License";
 import FAQ from "@/pages/FAQ";
+import Support from "@/pages/Support";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import ErrorBoundary from "@/components/ErrorBoundary";
@@ -59,6 +60,9 @@ function Routes() {
         </Route>
         <Route path="/license">
           <PageTransition><License /></PageTransition>
+        </Route>
+        <Route path="/support">
+          <PageTransition><Support /></PageTransition>
         </Route>
         <Route>
           <PageTransition><NotFound /></PageTransition>
