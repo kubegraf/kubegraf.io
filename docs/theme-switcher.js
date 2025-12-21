@@ -26,6 +26,30 @@
         icon.textContent = theme === 'dark' ? '☀️' : '🌙';
       }
     }
+
+    // Update footer theme buttons
+    updateFooterThemeButtons(theme);
+  };
+
+  // Update footer theme buttons
+  const updateFooterThemeButtons = (theme) => {
+    const lightBtn = document.getElementById('theme-light-btn');
+    const darkBtn = document.getElementById('theme-dark-btn');
+    
+    if (lightBtn && darkBtn) {
+      if (theme === 'light') {
+        lightBtn.classList.add('active');
+        darkBtn.classList.remove('active');
+      } else {
+        darkBtn.classList.add('active');
+        lightBtn.classList.remove('active');
+      }
+    }
+  };
+
+  // Set theme (for footer buttons)
+  window.setTheme = (theme) => {
+    applyTheme(theme);
   };
 
   // Initialize theme on page load
