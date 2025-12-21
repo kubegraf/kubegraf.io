@@ -66,7 +66,16 @@
         @keyframes expandLine { from { width: 0; opacity: 0; } to { width: 80px; opacity: 1; } }
 
         a { color: var(--primary); text-decoration: none; } a:hover { text-decoration: underline; }
-        .docs-layout { display: flex; min-height: 100vh; }
+        .docs-layout { 
+            display: flex; 
+            flex-direction: column;
+            min-height: 100vh; 
+        }
+        
+        .docs-main-wrapper {
+            display: flex;
+            flex: 1;
+        }
         .sidebar { width: 280px; background: var(--bg-secondary); border-right: 1px solid var(--border); padding: 1.5rem; position: fixed; height: 100vh; overflow-y: auto; }
         .sidebar-logo { display: flex; align-items: center; gap: 0.5rem; font-size: 1.25rem; font-weight: 700; color: var(--text); text-decoration: none; margin-bottom: 2rem; }
         .sidebar-logo svg { width: 28px; height: 28px; }
@@ -188,6 +197,7 @@
         </ul>
       </div>
     </aside>
+        <div class="docs-main-wrapper">
 
         <div class="floating-orbs">
             <div class="orb orb-1"></div>
@@ -451,22 +461,24 @@ kubegraf config show
 # Open config in editor
 kubegraf config edit</code></pre>
         </main>
+        </div>
 
         <footer class="docs-footer">
             <div class="docs-footer-content">
                 <div class="docs-footer-links">
-                    <span class="docs-footer-copyright">&copy; 2025 KubeGraf</span>
-                    <a href="https://github.com/kubegraf/kubegraf" target="_blank" rel="noopener noreferrer">GitHub</a>
-                    <a href="https://github.com/kubegraf/kubegraf/issues" target="_blank" rel="noopener noreferrer">Report Issue</a>
-                    <a href="https://kubegraf.io" target="_blank" rel="noopener noreferrer">kubegraf.io</a>
-                </div>
-                <div class="theme-selector">
-                    <button id="theme-light-btn" onclick="setTheme('light')" aria-label="Light theme" title="Light">
-                        ☀️
-                    </button>
-                    <button id="theme-dark-btn" onclick="setTheme('dark')" aria-label="Dark theme" title="Dark">
-                        🌙
-                    </button>
+                    <a href="https://github.com/kubegraf/kubegraf/issues/new?template=bug_report.yml" target="_blank" rel="noopener noreferrer">Report a bug</a>
+                    <a href="https://github.com/kubegraf/kubegraf/issues/new?template=feature_request.yml" target="_blank" rel="noopener noreferrer">Request a feature</a>
+                    <a href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+                    <a href="/license" target="_blank" rel="noopener noreferrer">License (Apache 2.0)</a>
+                    <a href="mailto:contact@kubegraf.io">Contact</a>
+                    <div class="theme-selector">
+                        <button id="theme-light-btn" onclick="setTheme('light')" aria-label="Light theme" title="Light">
+                            ☀️
+                        </button>
+                        <button id="theme-dark-btn" onclick="setTheme('dark')" aria-label="Dark theme" title="Dark">
+                            🌙
+                        </button>
+                    </div>
                 </div>
             </div>
         </footer>

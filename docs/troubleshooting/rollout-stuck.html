@@ -50,7 +50,16 @@
     .orb-3 { width: 400px; height: 400px; background: var(--accent); top: 60%; right: -100px; animation-delay: -10s; }
     @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 25% { transform: translate(20px, -20px) scale(1.03); } 50% { transform: translate(-15px, 15px) scale(0.97); } 75% { transform: translate(15px, 20px) scale(1.01); } }
 
-    .docs-layout { display: flex; min-height: 100vh; }
+    .docs-layout { 
+            display: flex; 
+            flex-direction: column;
+            min-height: 100vh; 
+        }
+        
+        .docs-main-wrapper {
+            display: flex;
+            flex: 1;
+        }
     .sidebar { width: 280px; background: var(--bg-secondary); border-right: 1px solid var(--border); padding: 1.5rem; position: fixed; height: 100vh; overflow-y: auto; }
     .sidebar-logo { display: flex; align-items: center; gap: 0.5rem; font-size: 1.25rem; font-weight: 700; color: var(--text); text-decoration: none; margin-bottom: 2rem; }
     .sidebar-logo-icon { width: 44px; height: 44px; border-radius: 8px; object-fit: contain; }
@@ -145,6 +154,7 @@
         </ul>
       </div>
     </aside>
+        <div class="docs-main-wrapper">
 
     <div class="floating-orbs">
       <div class="orb orb-1"></div>
@@ -284,22 +294,24 @@ kubectl rollout status deployment/&lt;name&gt; -n &lt;namespace&gt;</code></pre>
 
       <pre><code>[ TODO: screenshot showing KubeGraf Deployment view with rollout status and blocking pods highlighted. ]</code></pre>
     </main>
+        </div>
 
     <footer class="docs-footer">
       <div class="docs-footer-content">
         <div class="docs-footer-links">
-          <span class="docs-footer-copyright">&copy; 2025 KubeGraf</span>
-          <a href="https://github.com/kubegraf/kubegraf" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a href="https://github.com/kubegraf/kubegraf/issues" target="_blank" rel="noopener noreferrer">Report Issue</a>
-          <a href="https://kubegraf.io" target="_blank" rel="noopener noreferrer">kubegraf.io</a>
-        </div>
-        <div class="theme-selector">
-          <button id="theme-light-btn" onclick="setTheme('light')" aria-label="Light theme" title="Light">
-            ☀️
-          </button>
-          <button id="theme-dark-btn" onclick="setTheme('dark')" aria-label="Dark theme" title="Dark">
-            🌙
-          </button>
+          <a href="https://github.com/kubegraf/kubegraf/issues/new?template=bug_report.yml" target="_blank" rel="noopener noreferrer">Report a bug</a>
+          <a href="https://github.com/kubegraf/kubegraf/issues/new?template=feature_request.yml" target="_blank" rel="noopener noreferrer">Request a feature</a>
+          <a href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+          <a href="/license" target="_blank" rel="noopener noreferrer">License (Apache 2.0)</a>
+          <a href="mailto:contact@kubegraf.io">Contact</a>
+          <div class="theme-selector">
+            <button id="theme-light-btn" onclick="setTheme('light')" aria-label="Light theme" title="Light">
+              ☀️
+            </button>
+            <button id="theme-dark-btn" onclick="setTheme('dark')" aria-label="Dark theme" title="Dark">
+              🌙
+            </button>
+          </div>
         </div>
       </div>
     </footer>
