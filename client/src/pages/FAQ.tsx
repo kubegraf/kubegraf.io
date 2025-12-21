@@ -160,7 +160,7 @@ export default function FAQ() {
           </a>
           <nav className="hidden md:flex gap-6 text-sm text-muted-foreground">
             <a href="/" className="hover:text-primary transition-colors">Home</a>
-            <a href="/docs" className="hover:text-primary transition-colors">Docs</a>
+            <a href="/docs/" className="hover:text-primary transition-colors">Docs</a>
           </nav>
         </div>
       </header>

@@ -30,7 +30,7 @@ export default function NotFound() {
                 Home
               </Button>
             </Link>
-            <Link href="/docs">
+            <Link href="/docs/">
               <Button
                 variant="outline"
                 className="w-full justify-start gap-2 border-primary/50 hover:bg-primary/10"
