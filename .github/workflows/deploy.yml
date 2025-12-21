@@ -46,6 +46,7 @@ jobs:
           cp favicon.ico _site/ 2>/dev/null || true
           cp robots.txt _site/ 2>/dev/null || true
           cp sitemap.xml _site/ 2>/dev/null || true
+          cp docs.html _site/ 2>/dev/null || true
           cp _site/index.html _site/404.html
           touch _site/.nojekyll
 

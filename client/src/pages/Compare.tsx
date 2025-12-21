@@ -31,7 +31,7 @@ export default function Compare() {
           </a>
           <nav className="hidden md:flex gap-6 text-sm text-muted-foreground">
             <a href="/" className="hover:text-primary transition-colors">Home</a>
-            <a href="/docs" className="hover:text-primary transition-colors">Docs</a>
+            <a href="/docs/" className="hover:text-primary transition-colors">Docs</a>
             <a href="/kubegraf" className="hover:text-primary transition-colors">What is KubeGraf?</a>
             <a href="/pricing" className="hover:text-primary transition-colors">Pricing</a>
           </nav>
