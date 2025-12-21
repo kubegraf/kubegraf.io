@@ -24,3 +24,4 @@ export const LINKS = {
   PRICING: "/pricing",
 } as const;
 
+

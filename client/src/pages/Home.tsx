@@ -6,10 +6,12 @@ import PowerfulFeatures from "@/components/sections/PowerfulFeatures";
 import BrainPanel from "@/components/sections/BrainPanel";
 import BrainPanelDetailed from "@/components/sections/BrainPanelDetailed";
 import Workflow from "@/components/sections/Workflow";
+import Background3D from "@/components/Background3D";
 
 export default function Home() {
   return (
     <div className="bg-background text-foreground selection:bg-primary/30">
+      <Background3D />
       <Navbar />
       <Hero />
       <div className="relative">
