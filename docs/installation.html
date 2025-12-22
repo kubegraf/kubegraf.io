@@ -28,7 +28,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <!-- Theme Switcher -->
   <link rel="stylesheet" href="/docs/theme-styles.css">
-  <script src="/docs/theme-switcher.js"></script>
     <link rel="stylesheet" href="/docs/styles.css">
     <style>
         :root {
@@ -366,9 +365,89 @@
             margin: 2rem 0;
         }
 
+        /* Mobile Menu Button */
+        /* Mobile Menu Buttons */
+        .mobile-menu-btn,
+        .mobile-home-btn.mobile-menu-btn {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1001;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.5rem;
+            line-height: 1;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            min-width: 48px;
+            min-height: 48px;
+        }
+
+        .mobile-menu-btn {
+            left: 1rem;
+        }
+
+        .mobile-home-btn$MOBILE_HOME_BTN_CSS
+
+        .mobile-menu-btn:hover,
+        .mobile-menu-btn:active {
+            background: var(--bg-tertiary);
+            transform: scale(1.05);
+        }
+
+        .mobile-home-btn:hover,
+        .mobile-home-btn:active.mobile-menu-btn:hover,
+        .mobile-menu-btn:active {
+            background: var(--bg-tertiary);
+            transform: scale(1.05);
+        }
+
+        /* Mobile Sidebar Overlay */
+        .mobile-sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+        }
+
+        .mobile-sidebar-overlay.active {
+            display: block;
+        }
+
         @media (max-width: 900px) {
-            .sidebar { display: none; }
-            .docs-content { margin-left: 0; padding: 2rem 1.5rem; }
+            .mobile-menu-btn {
+                display: block;
+            }
+            .mobile-home-btn {
+                display: block;
+            }
+            
+            .sidebar {
+                position: fixed !important;
+                left: -280px !important;
+                top: 0;
+                z-index: 1000;
+                transition: left 0.3s ease;
+                box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+            }
+            
+            .sidebar.mobile-open {
+                left: 0 !important;
+            }
+            
+            .docs-content { 
+                margin-left: 0; 
+                padding: 2rem 1.5rem; 
+                padding-top: 5rem !important;
+            }
             .two-col { grid-template-columns: 1fr; gap: 1rem; }
             .platform-grid { grid-template-columns: 1fr; }
             .feature-card .two-col { grid-template-columns: 1fr; }
@@ -377,16 +456,26 @@
 </head>
 <body>
     <div class="docs-layout">
-            <aside class="sidebar">
+        <!-- Mobile Menu Button -->
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle navigation menu">
+            ☰
+        </button>
+        
+        <!-- Mobile Sidebar Overlay -->
+        <div class="mobile-sidebar-overlay" id="mobile-sidebar-overlay"></div>
+        
+        <aside class="sidebar" id="sidebar">
       <a href="/" class="sidebar-logo">
         <img src="/assets/logo/kubegraf_color_icon.png" alt="KubeGraf logo" class="sidebar-logo-icon">
-        KubeGraf
+        KubēGraf
       </a>
 
+      
+      
+      
       <div class="sidebar-section">
-        <h3>Introduction</h3>
         <ul>
-          <li><a href="/docs/introduction/what-is-kubegraf.html">What is KubeGraf</a></li>
+          <li><a href="/">🏠 Home</a></li>
         </ul>
       </div>
 
@@ -394,9 +483,16 @@
         <h3>Getting Started</h3>
         <ul>
           <li><a href="/docs/">Overview</a></li>
-          <li><a href="/docs/installation.html" class="active">Installation</a></li>
           <li><a href="/docs/quickstart.html">Quick Start</a></li>
+          <li><a href="/docs/installation.html" class="active">Installation</a></li>
           <li><a href="/docs/getting-started/first-cluster.html">First cluster</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Introduction</h3>
+        <ul>
+          <li><a href="/docs/introduction/what-is-kubegraf.html">What is KubeGraf</a></li>
         </ul>
       </div>
 
@@ -410,24 +506,6 @@
         </ul>
       </div>
 
-            <div class="sidebar-section">
-                <h3>Troubleshooting</h3>
-                <ul>
-                    <li><a href="/docs/troubleshooting/crashloopbackoff.html">CrashLoopBackOff</a></li>
-                    <li><a href="/docs/troubleshooting/rollout-stuck.html">Rollout stuck</a></li>
-                    <li><a href="/docs/troubleshooting/high-cpu-memory.html">High CPU / memory</a></li>
-                    <li><a href="/docs/troubleshooting/restarts-after-config-change.html">Restarts after config change</a></li>
-                    <li><a href="/docs/windows-smartscreen.html">Windows SmartScreen Warning</a></li>
-                </ul>
-            </div>
-
-      <div class="sidebar-section">
-        <h3>Workflows</h3>
-        <ul>
-          <li><a href="/docs/workflows/debug-crashloop.html">Debug CrashLoopBackOff</a></li>
-        </ul>
-      </div>
-
       <div class="sidebar-section">
         <h3>Features</h3>
         <ul>
@@ -438,11 +516,28 @@
       </div>
 
       <div class="sidebar-section">
+        <h3>Troubleshooting</h3>
+        <ul>
+          <li><a href="/docs/troubleshooting/crashloopbackoff.html">CrashLoopBackOff</a></li>
+          <li><a href="/docs/troubleshooting/rollout-stuck.html">Rollout stuck</a></li>
+          <li><a href="/docs/troubleshooting/high-cpu-memory.html">High CPU / memory</a></li>
+          <li><a href="/docs/troubleshooting/restarts-after-config-change.html">Restarts after config change</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Workflows</h3>
+        <ul>
+          <li><a href="/docs/workflows/debug-crashloop.html">Debug CrashLoopBackOff</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
         <h3>Resources</h3>
         <ul>
-          <li><a href="https://github.com/kubegraf/kubegraf">GitHub</a></li>
-          <li><a href="https://github.com/kubegraf/kubegraf/releases">Releases</a></li>
-          <li><a href="https://github.com/kubegraf/kubegraf/issues">Report Issue</a></li>
+          <li><a href="https://github.com/kubegraf/kubegraf" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://github.com/kubegraf/kubegraf/releases" target="_blank" rel="noopener noreferrer">Releases</a></li>
+          <li><a href="https://github.com/kubegraf/kubegraf/issues" target="_blank" rel="noopener noreferrer">Report Issue</a></li>
         </ul>
       </div>
     </aside>
@@ -585,7 +680,7 @@ sudo mv kubegraf /usr/local/bin/</code></pre>
                 </h3>
                 <p>Download the installer for a graphical installation experience:</p>
                 <ol>
-                    <li><a href="https://github.com/kubegraf/kubegraf/releases/latest" style="font-weight: 600;">Download Latest Installer (.exe)</a> - Get the kubegraf-X.X.X-setup.exe file</li>
+                    <li><a href="https://github.com/kubegraf/kubegraf/releases/latest/download/kubegraf-setup.exe" id="download-windows-exe" style="font-weight: 600;">Download Latest Installer (.exe)</a> - Get the kubegraf-X.X.X-setup.exe file</li>
                     <li>Double-click the downloaded .exe file to run the installer</li>
                     <li>Follow the installation wizard (click Next, Accept, Install)</li>
                     <li><strong>Make sure "Add KubeGraf to PATH" is checked during installation</strong></li>
@@ -733,5 +828,37 @@ brew install kubegraf</code></pre>
             </div>
         </footer>
     </div>
+    
+    <script src="/docs/mobile-menu.js"></script>
+    <script src="/docs/theme-switcher.js"></script>
+    <script>
+        // Fetch latest Windows installer download URL
+        (function() {
+            const downloadLink = document.getElementById('download-windows-exe');
+            if (!downloadLink) return;
+            
+            // Fetch latest release info from GitHub API
+            fetch('https://api.github.com/repos/kubegraf/kubegraf/releases/latest')
+                .then(response => response.json())
+                .then(data => {
+                    // Find the Windows .exe installer asset
+                    const exeAsset = data.assets.find(asset => 
+                        asset.name.includes('setup.exe') || 
+                        (asset.name.endsWith('.exe') && asset.name.includes('kubegraf'))
+                    );
+                    
+                    if (exeAsset) {
+                        // Update the download link to directly download the .exe
+                        downloadLink.href = exeAsset.browser_download_url;
+                        downloadLink.download = exeAsset.name;
+                    }
+                })
+                .catch(error => {
+                    console.error('Failed to fetch latest release:', error);
+                    // Fallback to releases page if API fails
+                    downloadLink.href = 'https://github.com/kubegraf/kubegraf/releases/latest';
+                });
+        })();
+    </script>
 </body>
 </html>

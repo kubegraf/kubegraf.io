@@ -48,8 +48,8 @@ export default function Docs() {
                 KubeGraf Documentation
               </h1>
               <p className="text-base md:text-lg text-muted-foreground max-w-2xl">
-                Learn how to install KubeGraf, connect real clusters, and use it to debug faster, understand
-                changes, and reduce incident time across your Kubernetes environments.
+                Local-first Kubernetes tool for detecting incidents, understanding root causes with evidence,
+                and safely responding to failures—without SaaS lock-in.
               </p>
             </div>
 

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CrashLoopBackOff Kubernetes Debugging Playbook - KubeGraf Documentation</title>
+  <meta name="description" content="Step-by-step CrashLoopBackOff Kubernetes debugging playbook using KubeGraf logs, events, and incident timelines.">
+  <link rel="canonical" href="https://kubegraf.io/docs/troubleshooting/crashloopbackoff.html" />
+
+  <meta property="og:title" content="CrashLoopBackOff Kubernetes Debugging Playbook - KubeGraf" />
+  <meta property="og:description" content="Learn how to debug CrashLoopBackOff incidents in Kubernetes using KubeGraf." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://kubegraf.io/docs/troubleshooting/crashloopbackoff.html" />
+  <meta property="og:site_name" content="KubeGraf" />
+  <meta property="og:image" content="https://kubegraf.io/opengraph.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@kubegraf" />
+  <meta name="twitter:title" content="CrashLoopBackOff Kubernetes Debugging Playbook - KubeGraf" />
+  <meta name="twitter:description" content="Learn how to debug CrashLoopBackOff incidents in Kubernetes using KubeGraf." />
+  <meta name="twitter:image" content="https://kubegraf.io/opengraph.jpg" />
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Theme Switcher -->
+  <link rel="stylesheet" href="/docs/theme-styles.css">
+  <script src="/docs/theme-switcher.js"></script>
+  <style>
+    :root {
+      --primary: #06b6d4;
+      --secondary: #4c1d95;
+      --accent: #8b5cf6;
+      --text: #f9fafb;
+      --text-muted: #9ca3af;
+      --bg: #09090b;
+      --bg-secondary: #020617;
+      --bg-tertiary: #111827;
+      --border: rgba(148, 163, 184, 0.25);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Outfit', -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+
+    .floating-orbs { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.12; animation: float 20s ease-in-out infinite; }
+    .orb-1 { width: 500px; height: 500px; background: var(--primary); top: -150px; right: -100px; }
+    .orb-2 { width: 350px; height: 350px; background: var(--secondary); bottom: 30%; left: 200px; animation-delay: -5s; }
+    .orb-3 { width: 400px; height: 400px; background: var(--accent); top: 60%; right: -100px; animation-delay: -10s; }
+    @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 25% { transform: translate(20px, -20px) scale(1.03); } 50% { transform: translate(-15px, 15px) scale(0.97); } 75% { transform: translate(15px, 20px) scale(1.01); } }
+
+    .docs-layout { display: flex; min-height: 100vh; }
+    .sidebar { width: 280px; background: var(--bg-secondary); border-right: 1px solid var(--border); padding: 1.5rem; position: fixed; height: 100vh; overflow-y: auto; }
+    .sidebar-logo { display: flex; align-items: center; gap: 0.5rem; font-size: 1.25rem; font-weight: 700; color: var(--text); text-decoration: none; margin-bottom: 2rem; }
+    .sidebar-logo-icon { width: 44px; height: 44px; border-radius: 8px; object-fit: contain; }
+    .sidebar-section { margin-bottom: 1.5rem; }
+    .sidebar-section h3 { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 0.75rem; }
+    .sidebar-section ul { list-style: none; }
+    .sidebar-section a { display: block; padding: 0.5rem 0.75rem; color: var(--text-muted); border-radius: 6px; font-size: 0.9rem; transition: all 0.2s; text-decoration: none; }
+    .sidebar-section a:hover { background: var(--bg-tertiary); color: var(--text); }
+    .sidebar-section a.active { background: rgba(50, 108, 229, 0.15); color: var(--primary); }
+
+    .docs-content { flex: 1; margin-left: 280px; padding: 3rem 4rem 3rem 3rem; max-width: 1400px; position: relative; z-index: 1; }
+    .docs-content h1 { font-size: 2.2rem; font-weight: 600; margin-bottom: 0.75rem; font-family: 'Space Grotesk', system-ui, sans-serif; letter-spacing: -0.03em; }
+    .docs-content h2 { font-size: 1.4rem; font-weight: 600; margin: 2rem 0 0.75rem; padding-bottom: 0.35rem; border-bottom: 1px solid var(--border); font-family: 'Space Grotesk', system-ui, sans-serif; }
+    .docs-content h3 { font-size: 1.1rem; font-weight: 600; margin: 1.5rem 0 0.5rem; }
+    .docs-content p { color: var(--text-muted); margin-bottom: 0.9rem; }
+    .docs-content ul { color: var(--text-muted); margin: 0.75rem 0 0.9rem 1.5rem; }
+    .docs-content li { margin-bottom: 0.4rem; }
+    .docs-content code { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; background: var(--bg-tertiary); padding: 0.15rem 0.35rem; border-radius: 4px; color: var(--accent); }
+    .docs-content pre { background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 0.75rem; padding: 1rem 1.25rem; overflow-x: auto; margin: 1rem 0 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
+    .callout { border-radius: 0.75rem; border: 1px solid rgba(148, 163, 184, 0.35); padding: 0.9rem 1rem; background: rgba(15, 23, 42, 0.9); margin: 1.25rem 0; }
+    .callout strong { color: var(--text); }
+    @media (max-width: 900px) { .sidebar { display: none; } .docs-content { margin-left: 0; padding: 2rem 1.5rem; } }
+  </style>
+</head>
+<body>
+  <div class="docs-layout">
+        <aside class="sidebar">
+      <a href="/" class="sidebar-logo">
+        <img src="/assets/logo/kubegraf_color_icon.png" alt="KubeGraf logo" class="sidebar-logo-icon">
+        KubeGraf
+      </a>
+
+      <div class="sidebar-section">
+        <h3>Introduction</h3>
+        <ul>
+          <li><a href="/docs/introduction/what-is-kubegraf.html">What is KubeGraf</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Getting Started</h3>
+        <ul>
+          <li><a href="/docs/">Overview</a></li>
+          <li><a href="/docs/installation.html">Installation</a></li>
+          <li><a href="/docs/quickstart.html">Quick Start</a></li>
+          <li><a href="/docs/getting-started/first-cluster.html">First cluster</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>User Guide</h3>
+        <ul>
+          <li><a href="/docs/terminal-ui.html">Terminal UI</a></li>
+          <li><a href="/docs/web-dashboard.html">Web Dashboard</a></li>
+          <li><a href="/docs/commands.html">Commands</a></li>
+          <li><a href="/docs/configuration.html">Configuration</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Troubleshooting</h3>
+        <ul>
+          <li><a href="/docs/troubleshooting/crashloopbackoff.html" class="active">CrashLoopBackOff</a></li>
+          <li><a href="/docs/troubleshooting/rollout-stuck.html">Rollout stuck</a></li>
+          <li><a href="/docs/troubleshooting/high-cpu-memory.html">High CPU / memory</a></li>
+          <li><a href="/docs/troubleshooting/restarts-after-config-change.html">Restarts after config change</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Workflows</h3>
+        <ul>
+          <li><a href="/docs/workflows/debug-crashloop.html">Debug CrashLoopBackOff</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Features</h3>
+        <ul>
+          <li><a href="/docs/resource-map.html">Resource Map</a></li>
+          <li><a href="/docs/security.html">Security Analysis</a></li>
+          <li><a href="/docs/plugins.html">Plugins</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="https://github.com/kubegraf/kubegraf">GitHub</a></li>
+          <li><a href="https://github.com/kubegraf/kubegraf/releases">Releases</a></li>
+          <li><a href="https://github.com/kubegraf/kubegraf/issues">Report Issue</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <div class="floating-orbs">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+
+    <main class="docs-content">
+      <h1>CrashLoopBackOff Kubernetes Debugging Playbook</h1>
+
+      <h2>Why this matters</h2>
+      <p>
+        CrashLoopBackOff means a container is repeatedly starting and crashing. It usually points to a real bug or a bad
+        configuration. Every restart wastes resources and delays user traffic; in production this often shows up as 5xx errors,
+        timeouts, or failing background jobs.
+      </p>
+
+      <div class="callout">
+        <p><strong>Tip:</strong> Always confirm <code>kubectl config current-context</code> and namespace before diving into logs.</p>
+      </div>
+
+      <h2>Symptoms</h2>
+      <ul>
+        <li><code>kubectl get pods</code> shows STATUS <code>CrashLoopBackOff</code> for one or more pods.</li>
+        <li>Service or ingress in front of the workload is returning 5xx or timeouts.</li>
+        <li>Containers start, run for a few seconds, then exit with a non-zero code.</li>
+        <li>Logs show the same error pattern every time the pod restarts.</li>
+      </ul>
+
+      <h2>Common root causes</h2>
+      <ul>
+        <li>Application startup failures (missing env vars, invalid config, missing migrations).</li>
+        <li>Crash on dependency connection (DB not reachable, message broker auth failure).</li>
+        <li>Image mismatch vs expected config (new image expects different env/flags).</li>
+        <li>Fatal probe configuration (liveness/readiness probe failing on a new path/port).</li>
+        <li>Secrets or ConfigMaps missing, wrong key names, or wrong mount paths.</li>
+      </ul>
+
+      <h2>How KubeGraf helps</h2>
+      <ul>
+        <li>Highlights CrashLooping pods in the namespace so you don&apos;t hunt through raw <code>kubectl</code> output.</li>
+        <li>Shows restart counts, last state (e.g. <code>Error</code>, exit code), and recent events next to the pod.</li>
+        <li>Lets you pivot quickly between pod logs, events, Deployment, ConfigMap, and Secret.</li>
+        <li>Incident timeline view helps correlate: image deployed &rarr; config changed &rarr; probes failing &rarr; CrashLoopBackOff.</li>
+      </ul>
+
+      <h2>Step-by-step using KubeGraf UI</h2>
+
+      <h3>1. Confirm the problem in the right cluster/namespace</h3>
+      <pre><code>kubectl config current-context
+kubectl get pods -n &lt;namespace&gt;</code></pre>
+      <ul>
+        <li>Start KubeGraf Terminal UI with <code>kubegraf</code>.</li>
+        <li>Ensure the context and namespace in KubeGraf match what you just checked.</li>
+      </ul>
+
+      <h3>2. Locate CrashLooping pods</h3>
+      <ul>
+        <li>Open the <strong>Pods</strong> view for the affected namespace.</li>
+        <li>Use filters to show only unhealthy pods (status <code>CrashLoopBackOff</code> / <code>Error</code>).</li>
+        <li>Note restart count, age, and container name (if multi-container pod).</li>
+      </ul>
+
+      <h3>3. Inspect recent events and reasons</h3>
+      <ul>
+        <li>From the pod details, open <strong>Events</strong>.</li>
+        <li>Look for messages such as <code>Back-off restarting failed container</code>, probe failures, or image pull errors.</li>
+      </ul>
+
+      <h3>4. Inspect logs around the crash</h3>
+      <pre><code>2025-03-22T12:01:03Z ERROR app Failed to start HTTP server: DB_CONNECTION_STRING not set
+2025-03-22T12:01:03Z ERROR app Exiting with code 1</code></pre>
+      <ul>
+        <li>From the same pod, open <strong>Logs</strong> in KubeGraf and scroll to the last lines before exit.</li>
+        <li>Capture the exact error message and exit code.</li>
+      </ul>
+
+      <h3>5. Check configuration linked to the pod</h3>
+      <ul>
+        <li>From pod details, jump to its <strong>Deployment</strong> (or StatefulSet/Job).</li>
+        <li>Review container image tag, env vars, and probes.</li>
+        <li>Follow links to <strong>ConfigMaps</strong> and <strong>Secrets</strong> referenced by the pod and compare with what the app expects.</li>
+      </ul>
+
+      <h3>6. Use Incident Timeline / change history</h3>
+      <ul>
+        <li>Open the Incident Timeline for this workload/namespace.</li>
+        <li>Look for deploys, config updates, or probe changes just before the CrashLoopBackOff started.</li>
+      </ul>
+
+      <h3>7. Apply fix and watch recovery</h3>
+      <ul>
+        <li>Typical fixes include reverting a bad config/Secret, fixing missing env vars, or correcting probe path/port.</li>
+      </ul>
+      <pre><code>kubectl rollout undo deployment/&lt;name&gt; -n &lt;namespace&gt;
+kubectl edit configmap &lt;config-name&gt; -n &lt;namespace&gt;</code></pre>
+      <ul>
+        <li>Use KubeGraf to watch new pods transition from <code>CrashLoopBackOff</code> to <code>Running</code>.</li>
+      </ul>
+
+      <h2>What to check next</h2>
+      <ul>
+        <li>Are other pods in the same Deployment also impacted, or only one replica?</li>
+        <li>Does the issue correlate with a specific node (node-local problem)?</li>
+        <li>Is the CrashLoop only in one namespace or across multiple environments (dev/staging/prod)?</li>
+      </ul>
+
+      <h2>Common mistakes</h2>
+      <ul>
+        <li>Debugging the wrong cluster/namespace because the kubeconfig context was not checked.</li>
+        <li>Only looking at logs and ignoring Events (probe misconfig is often obvious there).</li>
+        <li>Fixing a single pod manually instead of changing the Deployment/ConfigMap/Secret.</li>
+        <li>Rolling back an image without rolling back the config that was changed at the same time.</li>
+      </ul>
+
+      <h2>Related issues</h2>
+      <ul>
+        <li><a href="/docs/troubleshooting/rollout-stuck.html">Deployment rollout stuck / ProgressDeadlineExceeded</a></li>
+        <li><a href="/docs/troubleshooting/restarts-after-config-change.html">Pods restarting after ConfigMap or Secret change</a></li>
+        <li><a href="/docs/troubleshooting/was-working-yesterday.html">"It was working yesterday" incidents</a></li>
+      </ul>
+
+      <h2>Expected outcome</h2>
+      <p>After following this playbook you should:</p>
+      <ul>
+        <li>Identify whether the CrashLoopBackOff is due to configuration, code, or environment.</li>
+        <li>Know which change introduced the failure and either roll back or fix forward safely.</li>
+        <li>See pods return to <code>Running</code> and external symptoms (5xx, latency) disappear.</li>
+      </ul>
+
+      <pre><code>[ TODO: screenshot showing KubeGraf with a CrashLoopBackOff pod selected, logs + events visible. ]</code></pre>
+    </main>
+  </div>
+  <!-- Theme Toggle Button -->
+  <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+    <span class="theme-icon">☀️</span>
+  </button>
+</body>
+</html>

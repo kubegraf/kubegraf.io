@@ -1,23 +1,13 @@
 import { Terminal, Globe, Code, Database, Lock, Zap, AlertCircle, CheckCircle, Clock, FileText } from "lucide-react";
+import { Link } from "wouter";
+import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
 export default function WhatIsKubeGraf() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      {/* Header */}
-      <header className="border-b border-white/5 py-4 px-6">
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <a href="/" className="flex items-center gap-2 font-display font-bold text-xl">
-            <img src="/assets/logo/kubegraf_color_icon.png" alt="KubeGraf" className="object-contain" style={{ width: 96, height: 96 }} />
-            KubēGraf
-          </a>
-          <nav className="hidden md:flex gap-6 text-sm text-muted-foreground">
-            <a href="/" className="hover:text-primary transition-colors">Home</a>
-            <a href="/docs/" className="hover:text-primary transition-colors">Docs</a>
-          </nav>
-        </div>
-      </header>
+      <Navbar />
 
       {/* Hero */}
       <section className="max-w-6xl mx-auto px-6 py-16">

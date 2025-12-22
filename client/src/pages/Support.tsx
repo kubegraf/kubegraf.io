@@ -1,4 +1,3 @@
-import { Link } from "wouter";
 import { Bug, Lightbulb, Shield, Mail, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
@@ -121,9 +120,9 @@ export default function Support() {
           <h2 className="text-xl font-semibold mb-4">Additional Resources</h2>
           <div className="space-y-3 text-sm text-muted-foreground">
             <p>
-              <Link href={LINKS.DOCS_URL} className="text-primary hover:text-primary/80">
+              <a href={LINKS.DOCS_URL} className="text-primary hover:text-primary/80">
                 Documentation
-              </Link>
+              </a>
               {" — "}Browse our docs for installation guides, configuration, and usage examples.
             </p>
             <p>

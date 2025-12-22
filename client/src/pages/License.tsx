@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
+import { Link } from "wouter";
 import Footer from "@/components/layout/Footer";
 
 export default function License() {
@@ -15,7 +16,7 @@ export default function License() {
           </a>
           <nav className="hidden md:flex gap-6 text-sm text-muted-foreground">
             <a href="/" className="hover:text-primary transition-colors">Home</a>
-            <a href="/docs/" className="hover:text-primary transition-colors">Docs</a>
+            <Link href="/docs-overview" className="hover:text-primary transition-colors">Docs</Link>
           </nav>
         </div>
       </header>

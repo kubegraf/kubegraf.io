@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { Link } from "wouter";
 import Footer from "@/components/layout/Footer";
 
 type FAQItemProps = {
@@ -160,7 +161,7 @@ export default function FAQ() {
           </a>
           <nav className="hidden md:flex gap-6 text-sm text-muted-foreground">
             <a href="/" className="hover:text-primary transition-colors">Home</a>
-            <a href="/docs/" className="hover:text-primary transition-colors">Docs</a>
+            <Link href="/docs-overview" className="hover:text-primary transition-colors">Docs</Link>
           </nav>
         </div>
       </header>

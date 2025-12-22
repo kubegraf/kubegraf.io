@@ -49,7 +49,7 @@ function Routes() {
         <Route path="/compare">
           <PageTransition><Compare /></PageTransition>
         </Route>
-        <Route path="/docs">
+        <Route path="/docs-overview">
           <PageTransition><Docs /></PageTransition>
         </Route>
         <Route path="/faq">
