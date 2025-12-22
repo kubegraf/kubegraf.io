@@ -138,25 +138,115 @@
         .feature-icon { width: 24px; height: 24px; color: var(--primary); }
         .badge-small { display: inline-block; padding: 0.15rem 0.5rem; background: rgba(56, 189, 248, 0.15); color: var(--primary); border-radius: 999px; font-size: 0.7rem; font-weight: 600; margin-left: 0.5rem; }
 
+        /* Mobile Menu Button */
+        /* Mobile Menu Buttons */
+        .mobile-menu-btn,
+        .mobile-home-btn.mobile-menu-btn {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1001;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.5rem;
+            line-height: 1;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            min-width: 48px;
+            min-height: 48px;
+        }
+
+        .mobile-menu-btn {
+            left: 1rem;
+        }
+
+        .mobile-home-btn$MOBILE_HOME_BTN_CSS
+
+        .mobile-menu-btn:hover,
+        .mobile-menu-btn:active {
+            background: var(--bg-tertiary);
+            transform: scale(1.05);
+        }
+
+        .mobile-home-btn:hover,
+        .mobile-home-btn:active.mobile-menu-btn:hover,
+        .mobile-menu-btn:active {
+            background: var(--bg-tertiary);
+            transform: scale(1.05);
+        }
+
+        /* Mobile Sidebar Overlay */
+        .mobile-sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+        }
+
+        .mobile-sidebar-overlay.active {
+            display: block;
+        }
+
         @media (max-width: 900px) {
-            .sidebar { display: none; }
-            .docs-content { margin-left: 0; padding: 2rem 1.5rem; }
+            .mobile-menu-btn {
+                display: block;
+            }
+            .mobile-home-btn {
+                display: block;
+            }
+            
+            .sidebar {
+                position: fixed !important;
+                left: -280px !important;
+                top: 0;
+                z-index: 1000;
+                transition: left 0.3s ease;
+                box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+            }
+            
+            .sidebar.mobile-open {
+                left: 0 !important;
+            }
+            
+            .docs-content { 
+                margin-left: 0; 
+                padding: 2rem 1.5rem; 
+                padding-top: 5rem !important;
+            }
             .two-col { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
     <div class="docs-layout">
-            <aside class="sidebar">
+        <!-- Mobile Menu Button -->
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle navigation menu">
+            ☰
+        </button>
+        
+        <!-- Mobile Sidebar Overlay -->
+        <div class="mobile-sidebar-overlay" id="mobile-sidebar-overlay"></div>
+        
+        <aside class="sidebar" id="sidebar">
       <a href="/" class="sidebar-logo">
         <img src="/assets/logo/kubegraf_color_icon.png" alt="KubeGraf logo" class="sidebar-logo-icon">
-        KubeGraf
+        KubēGraf
       </a>
 
+      
+      
+      
       <div class="sidebar-section">
-        <h3>Introduction</h3>
         <ul>
-          <li><a href="/docs/introduction/what-is-kubegraf.html">What is KubeGraf</a></li>
+          <li><a href="/">🏠 Home</a></li>
         </ul>
       </div>
 
@@ -164,9 +254,16 @@
         <h3>Getting Started</h3>
         <ul>
           <li><a href="/docs/">Overview</a></li>
-          <li><a href="/docs/installation.html">Installation</a></li>
           <li><a href="/docs/quickstart.html" class="active">Quick Start</a></li>
+          <li><a href="/docs/installation.html">Installation</a></li>
           <li><a href="/docs/getting-started/first-cluster.html">First cluster</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Introduction</h3>
+        <ul>
+          <li><a href="/docs/introduction/what-is-kubegraf.html">What is KubeGraf</a></li>
         </ul>
       </div>
 
@@ -177,6 +274,15 @@
           <li><a href="/docs/web-dashboard.html">Web Dashboard</a></li>
           <li><a href="/docs/commands.html">Commands</a></li>
           <li><a href="/docs/configuration.html">Configuration</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Features</h3>
+        <ul>
+          <li><a href="/docs/resource-map.html">Resource Map</a></li>
+          <li><a href="/docs/security.html">Security Analysis</a></li>
+          <li><a href="/docs/plugins.html">Plugins</a></li>
         </ul>
       </div>
 
@@ -198,20 +304,11 @@
       </div>
 
       <div class="sidebar-section">
-        <h3>Features</h3>
-        <ul>
-          <li><a href="/docs/resource-map.html">Resource Map</a></li>
-          <li><a href="/docs/security.html">Security Analysis</a></li>
-          <li><a href="/docs/plugins.html">Plugins</a></li>
-        </ul>
-      </div>
-
-      <div class="sidebar-section">
         <h3>Resources</h3>
         <ul>
-          <li><a href="https://github.com/kubegraf/kubegraf">GitHub</a></li>
-          <li><a href="https://github.com/kubegraf/kubegraf/releases">Releases</a></li>
-          <li><a href="https://github.com/kubegraf/kubegraf/issues">Report Issue</a></li>
+          <li><a href="https://github.com/kubegraf/kubegraf" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://github.com/kubegraf/kubegraf/releases" target="_blank" rel="noopener noreferrer">Releases</a></li>
+          <li><a href="https://github.com/kubegraf/kubegraf/issues" target="_blank" rel="noopener noreferrer">Report Issue</a></li>
         </ul>
       </div>
     </aside>
@@ -227,60 +324,79 @@
             <div class="docs-hero">
                 <div class="grid-pattern"></div>
                 <h1><span>Quick Start</span></h1>
-                <p class="intro">Get KubeGraf running and connected to your cluster in under a minute.</p>
+                <p class="intro">Get KubeGraf running and see value in under 5 minutes.</p>
+            </div>
+
+            <div class="note">
+                <p><strong>Prerequisites:</strong> You need a working <code>kubectl</code> configuration with access to a Kubernetes cluster. If you haven't installed KubeGraf yet, see the <a href="/docs/installation.html">Installation guide</a> first.</p>
             </div>
 
             <div class="step">
                 <div class="step-number">1</div>
                 <div class="step-content">
-                    <h3>Install KubeGraf</h3>
-                    <p>Run the install script (macOS/Linux):</p>
-                    <pre><code>curl -sSL https://kubegraf.io/install.sh | bash</code></pre>
-                    <p>Or use a package manager. See <a href="/docs/installation.html">Installation</a> for more options.</p>
+                    <h3>Launch KubeGraf</h3>
+                    <p>Start the terminal UI (recommended for first-time users):</p>
+                    <pre><code>kubegraf</code></pre>
+                    <p>KubeGraf automatically reads your <code>~/.kube/config</code> and connects to the current context.</p>
+                    <p><strong>Or</strong> launch the web dashboard:</p>
+                    <pre><code>kubegraf --web</code></pre>
+                    <p>Then open <a href="http://localhost:8080">http://localhost:8080</a> in your browser.</p>
                 </div>
             </div>
 
             <div class="step">
                 <div class="step-number">2</div>
                 <div class="step-content">
-                    <h3>Launch Terminal UI</h3>
-                    <p>Simply run <code>kubegraf</code> in your terminal:</p>
-                    <pre><code>kubegraf</code></pre>
-                    <p>KubeGraf automatically reads your <code>~/.kube/config</code> and connects to the current context.</p>
+                    <h3>Explore Your Cluster</h3>
+                    <p>Once KubeGraf is running, you'll see:</p>
+                    <ul>
+                        <li><strong>Resource Overview</strong> - Pods, deployments, services in your cluster</li>
+                        <li><strong>Incident Detection</strong> - Automatic alerts for CrashLoopBackOff, OOMKilled, probe failures</li>
+                        <li><strong>Real-time Events</strong> - Live updates as your cluster changes</li>
+                    </ul>
+                    <p>Navigate using <kbd>Tab</kbd> to switch views, <kbd>j</kbd>/<kbd>k</kbd> to move up/down, and <kbd>Enter</kbd> to view details.</p>
                 </div>
             </div>
 
             <div class="step">
                 <div class="step-number">3</div>
                 <div class="step-content">
-                    <h3>Or Launch Web Dashboard</h3>
-                    <p>Start the web UI with:</p>
-                    <pre><code>kubegraf --web</code></pre>
-                    <p>Then open <a href="http://localhost:8080">http://localhost:8080</a> in your browser.</p>
+                    <h3>Try Incident Diagnosis</h3>
+                    <p>Press <kbd>d</kbd> on any failing pod to see KubeGraf's intelligent diagnosis:</p>
+                    <ul>
+                        <li>Correlated events and logs explaining the failure</li>
+                        <li>Recent changes (deployments, configs, secrets)</li>
+                        <li>Suggested fixes with dry-run preview</li>
+                    </ul>
+                    <p>This is where KubeGraf's value becomes clear—it explains <em>why</em> things failed, not just <em>what</em> failed.</p>
                 </div>
             </div>
 
-            <h2>Understanding Incident Detection</h2>
-            <p>KubeGraf automatically monitors your cluster for common failure patterns:</p>
-            <ul>
-                <li><strong>CrashLoopBackOff</strong> - Containers repeatedly failing to start</li>
-                <li><strong>OOMKilled</strong> - Pods killed due to memory limits</li>
-                <li><strong>ImagePullBackOff</strong> - Unable to pull container images</li>
-                <li><strong>Probe Failures</strong> - Liveness or readiness checks failing</li>
-                <li><strong>Pending Pods</strong> - Scheduling failures or insufficient resources</li>
-                <li><strong>Restart Storms</strong> - High restart count in short time window</li>
-            </ul>
-
-            <p>When an incident is detected, KubeGraf will:</p>
-            <ol>
-                <li>Show a visual indicator in the UI</li>
-                <li>Correlate events and logs to explain what failed</li>
-                <li>Display recent changes (deployments, configs, secrets)</li>
-                <li>Suggest fixes with dry-run preview</li>
-            </ol>
-
-            <div class="tip">
-                <p><strong>Try it:</strong> To see incident detection in action, view the <a href="/docs/troubleshooting/crashloopbackoff.html">CrashLoopBackOff troubleshooting guide</a>.</p>
+            <h2>What You'll See</h2>
+            <p>KubeGraf automatically monitors your cluster and highlights issues:</p>
+            <div class="two-col">
+                <div class="feature-card">
+                    <h3>🔴 Incident Detection</h3>
+                    <p>Automatically detects and highlights:</p>
+                    <ul>
+                        <li>CrashLoopBackOff</li>
+                        <li>OOMKilled</li>
+                        <li>ImagePullBackOff</li>
+                        <li>Probe failures</li>
+                        <li>Pending pods</li>
+                        <li>Restart storms</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h3>💡 Intelligent Diagnosis</h3>
+                    <p>Press <kbd>d</kbd> on any failing pod to see:</p>
+                    <ul>
+                        <li>Correlated events timeline</li>
+                        <li>Relevant log excerpts</li>
+                        <li>Recent configuration changes</li>
+                        <li>Suggested fixes</li>
+                    </ul>
+                </div>
             </div>
 
             <h2>Basic Navigation (Terminal UI)</h2>
@@ -316,57 +432,47 @@
                 <p><strong>Pro tip:</strong> Press <kbd>d</kbd> on any failing pod to see KubeGraf's incident diagnosis with correlated events, logs, and suggested fixes.</p>
             </div>
 
-            <h2>Switching Clusters</h2>
-            <p>KubeGraf supports multiple cluster contexts:</p>
-            <pre><code># Use a specific context
-kubegraf --context my-cluster
-
-# Use a specific kubeconfig file
-kubegraf --kubeconfig /path/to/config
-
-# List available contexts
-kubegraf contexts</code></pre>
-
-            <h2>Common Commands</h2>
-
+            <h2>Quick Tips</h2>
             <div class="two-col">
                 <div class="feature-card">
-                    <h3>Launch Modes</h3>
-                    <pre><code># Terminal UI (default)
-kubegraf
-
-# Web dashboard
-kubegraf --web
-
-# Custom port
-kubegraf --web --port 3000</code></pre>
+                    <h3>Switch Clusters</h3>
+                    <p>Use different contexts or kubeconfig files:</p>
+                    <pre><code>kubegraf --context my-cluster
+kubegraf --kubeconfig /path/to/config</code></pre>
                 </div>
 
                 <div class="feature-card">
-                    <h3>Namespace & Context</h3>
-                    <pre><code># Specific namespace
-kubegraf -n kube-system
-
-# All namespaces
-kubegraf -A
-
-# Specific context
-kubegraf --context prod</code></pre>
+                    <h3>Filter by Namespace</h3>
+                    <p>Focus on specific namespaces:</p>
+                    <pre><code>kubegraf -n kube-system
+kubegraf -A  # All namespaces</code></pre>
                 </div>
             </div>
 
             <h2>Next Steps</h2>
-            <p>Now that you're up and running, explore KubeGraf's core capabilities:</p>
-            <ul>
-                <li><a href="/docs/troubleshooting/crashloopbackoff.html">Troubleshoot CrashLoopBackOff</a> - See incident detection in action</li>
-                <li><a href="/docs/workflows/debug-crashloop.html">Debug Workflows</a> - Step-by-step incident response</li>
-                <li><a href="/docs/terminal-ui.html">Master the Terminal UI</a> - Learn all keyboard shortcuts</li>
-                <li><a href="/docs/web-dashboard.html">Explore the Web Dashboard</a> - Visual interface guide</li>
-                <li><a href="/docs/configuration.html">Configuration</a> - Customize themes, keybindings</li>
-            </ul>
+            <p>You're ready to use KubeGraf! Here's what to explore next:</p>
+            <div class="two-col">
+                <div class="feature-card">
+                    <h3>📚 Learn More</h3>
+                    <ul>
+                        <li><a href="/docs/getting-started/first-cluster.html">Connect your first cluster</a></li>
+                        <li><a href="/docs/terminal-ui.html">Master the Terminal UI</a></li>
+                        <li><a href="/docs/web-dashboard.html">Explore the Web Dashboard</a></li>
+                        <li><a href="/docs/configuration.html">Customize settings</a></li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h3>🔧 Troubleshooting</h3>
+                    <ul>
+                        <li><a href="/docs/troubleshooting/crashloopbackoff.html">Debug CrashLoopBackOff</a></li>
+                        <li><a href="/docs/workflows/debug-crashloop.html">Incident workflows</a></li>
+                        <li><a href="/docs/troubleshooting/rollout-stuck.html">Rollout issues</a></li>
+                    </ul>
+                </div>
+            </div>
 
             <div class="tip">
-                <p><strong>Local-first:</strong> All incident history is stored locally in <code>~/.kubegraf/knowledge-bank.db</code>. No data leaves your machine.</p>
+                <p><strong>💾 Local-first:</strong> All incident history is stored locally in <code>~/.kubegraf/knowledge-bank.db</code>. No data leaves your machine.</p>
             </div>
         </main>
         </div>
@@ -391,5 +497,7 @@ kubegraf --context prod</code></pre>
             </div>
         </footer>
     </div>
+    
+    <script src="/docs/mobile-menu.js"></script>
 </body>
 </html>

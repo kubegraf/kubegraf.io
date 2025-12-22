@@ -197,7 +197,12 @@
         /* Layout */
         .docs-layout {
             display: flex;
+            flex-direction: column;
             min-height: 100vh;
+        }
+        
+        .docs-main-wrapper {
+            flex: 1;
         }
 
         /* Sidebar */
@@ -225,8 +230,8 @@
         .sidebar-logo svg { width: 28px; height: 28px; }
 
         .sidebar-logo-icon {
-            width: 32px;
-            height: 32px;
+            width: 96px;
+            height: 96px;
             border-radius: 8px;
             object-fit: contain;
         }
@@ -390,31 +395,111 @@
             margin-bottom: 2rem;
         }
 
+        /* Mobile Menu Buttons */
+        .mobile-menu-btn,
+        .mobile-home-btn {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            z-index: 1001;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.5rem;
+            line-height: 1;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            min-width: 48px;
+            min-height: 48px;
+            text-decoration: none;
+        }
+
+        .mobile-menu-btn {
+            left: 1rem;
+        }
+
+        .mobile-home-btn {
+            left: 4.5rem;
+        }
+
+        .mobile-menu-btn:hover,
+        .mobile-menu-btn:active,
+        .mobile-home-btn:hover,
+        .mobile-home-btn:active {
+            background: var(--bg-tertiary);
+            transform: scale(1.05);
+        }
+
+        /* Mobile Sidebar Overlay */
+        .mobile-sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+        }
+
+        .mobile-sidebar-overlay.active {
+            display: block;
+        }
+
         /* Responsive */
         @media (max-width: 900px) {
-            .sidebar {
-                display: none;
+            .mobile-menu-btn {
+                display: block;
             }
+            
+            .sidebar {
+                position: fixed;
+                left: -280px;
+                top: 0;
+                z-index: 1000;
+                transition: left 0.3s ease;
+                box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+            }
+            
+            .sidebar.mobile-open {
+                left: 0;
+            }
+            
             .docs-content {
                 margin-left: 0;
                 padding: 2rem 1.5rem;
+                padding-top: 5rem;
             }
         }
     </style>
 </head>
 <body>
     <div class="docs-layout">
+        <!-- Mobile Menu Buttons -->
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle navigation menu">
+            ☰
+        </button>
+        <a href="/" class="mobile-home-btn" aria-label="Go to home page">
+            🏠
+        </a>
+        
+        <!-- Mobile Sidebar Overlay -->
+        <div class="mobile-sidebar-overlay" id="mobile-sidebar-overlay"></div>
+        
         <!-- Sidebar -->
-            <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
       <a href="/" class="sidebar-logo">
         <img src="/assets/logo/kubegraf_color_icon.png" alt="KubeGraf logo" class="sidebar-logo-icon">
-        KubeGraf
+        KubēGraf
       </a>
 
+      
+      
       <div class="sidebar-section">
-        <h3>Introduction</h3>
         <ul>
-          <li><a href="/docs/introduction/what-is-kubegraf.html">What is KubeGraf</a></li>
+          <li><a href="/">🏠 Home</a></li>
         </ul>
       </div>
 
@@ -422,9 +507,16 @@
         <h3>Getting Started</h3>
         <ul>
           <li><a href="/docs/" class="active">Overview</a></li>
-          <li><a href="/docs/installation.html">Installation</a></li>
           <li><a href="/docs/quickstart.html">Quick Start</a></li>
+          <li><a href="/docs/installation.html">Installation</a></li>
           <li><a href="/docs/getting-started/first-cluster.html">First cluster</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Introduction</h3>
+        <ul>
+          <li><a href="/docs/introduction/what-is-kubegraf.html">What is KubeGraf</a></li>
         </ul>
       </div>
 
@@ -435,6 +527,15 @@
           <li><a href="/docs/web-dashboard.html">Web Dashboard</a></li>
           <li><a href="/docs/commands.html">Commands</a></li>
           <li><a href="/docs/configuration.html">Configuration</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Features</h3>
+        <ul>
+          <li><a href="/docs/resource-map.html">Resource Map</a></li>
+          <li><a href="/docs/security.html">Security Analysis</a></li>
+          <li><a href="/docs/plugins.html">Plugins</a></li>
         </ul>
       </div>
 
@@ -456,23 +557,15 @@
       </div>
 
       <div class="sidebar-section">
-        <h3>Features</h3>
-        <ul>
-          <li><a href="/docs/resource-map.html">Resource Map</a></li>
-          <li><a href="/docs/security.html">Security Analysis</a></li>
-          <li><a href="/docs/plugins.html">Plugins</a></li>
-        </ul>
-      </div>
-
-      <div class="sidebar-section">
         <h3>Resources</h3>
         <ul>
-          <li><a href="https://github.com/kubegraf/kubegraf">GitHub</a></li>
-          <li><a href="https://github.com/kubegraf/kubegraf/releases">Releases</a></li>
-          <li><a href="https://github.com/kubegraf/kubegraf/issues">Report Issue</a></li>
+          <li><a href="https://github.com/kubegraf/kubegraf" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://github.com/kubegraf/kubegraf/releases" target="_blank" rel="noopener noreferrer">Releases</a></li>
+          <li><a href="https://github.com/kubegraf/kubegraf/issues" target="_blank" rel="noopener noreferrer">Report Issue</a></li>
         </ul>
       </div>
     </aside>
+        <div class="docs-main-wrapper">
 
         <!-- Floating Orbs Background -->
         <div class="floating-orbs">
@@ -632,11 +725,79 @@
                 Homebrew, Scoop, and manual installation.
             </p>
         </main>
-    </div>
+        </div>
 
-    <!-- Theme Toggle Button -->
-    <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
-        <span class="theme-icon">☀️</span>
-    </button>
+        <footer class="docs-footer">
+            <div class="docs-footer-content">
+                <div class="docs-footer-links">
+                    <a href="https://github.com/kubegraf/kubegraf/issues/new?template=bug_report.yml" target="_blank" rel="noopener noreferrer">Report a bug</a>
+                    <a href="https://github.com/kubegraf/kubegraf/issues/new?template=feature_request.yml" target="_blank" rel="noopener noreferrer">Request a feature</a>
+                    <a href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+                    <a href="/license" target="_blank" rel="noopener noreferrer">License (Apache 2.0)</a>
+                    <a href="mailto:contact@kubegraf.io">Contact</a>
+                    <div class="theme-selector">
+                        <button id="theme-light-btn" onclick="setTheme('light')" aria-label="Light theme" title="Light">
+                            ☀️
+                        </button>
+                        <button id="theme-dark-btn" onclick="setTheme('dark')" aria-label="Dark theme" title="Dark">
+                            🌙
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        // Wait for DOM to be ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('mobile-sidebar-overlay');
+            
+            function toggleMobileMenu() {
+                if (sidebar && overlay) {
+                    sidebar.classList.toggle('mobile-open');
+                    overlay.classList.toggle('active');
+                }
+            }
+            
+            function closeMobileMenu() {
+                if (sidebar && overlay) {
+                    sidebar.classList.remove('mobile-open');
+                    overlay.classList.remove('active');
+                }
+            }
+            
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            }
+            
+            if (overlay) {
+                overlay.addEventListener('click', closeMobileMenu);
+            }
+            
+            // Close menu when clicking on a sidebar link (mobile only)
+            if (sidebar) {
+                const sidebarLinks = sidebar.querySelectorAll('a');
+                sidebarLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        // Only close on mobile
+                        if (window.innerWidth <= 900) {
+                            setTimeout(closeMobileMenu, 100);
+                        }
+                    });
+                });
+            }
+            
+            // Close menu on escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && sidebar && sidebar.classList.contains('mobile-open')) {
+                    closeMobileMenu();
+                }
+            });
+        });
+    </script>
 </body>
 </html>

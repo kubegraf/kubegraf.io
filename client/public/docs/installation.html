@@ -78,7 +78,16 @@
         a { color: var(--primary); text-decoration: none; }
         a:hover { text-decoration: underline; }
 
-        .docs-layout { display: flex; min-height: 100vh; }
+        .docs-layout { 
+            display: flex; 
+            flex-direction: column;
+            min-height: 100vh; 
+        }
+        
+        .docs-main-wrapper {
+            display: flex;
+            flex: 1;
+        }
 
         .sidebar {
             width: 280px;
@@ -201,6 +210,8 @@
             padding: 1rem 1.25rem;
             overflow-x: auto;
             margin: 1rem 0;
+            word-wrap: break-word;
+            max-width: 100%;
         }
 
         .docs-content pre code {
@@ -256,6 +267,15 @@
 
         .note p { margin: 0; color: var(--text); }
 
+        .note a {
+            transition: opacity 0.2s;
+        }
+
+        .note a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
         /* Two-column layout */
         .two-col {
             display: grid;
@@ -280,15 +300,50 @@
 
         .feature-card h3 {
             margin-top: 0;
+            margin-bottom: 0.5rem;
             font-size: 1.1rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
+        .feature-card > p:first-of-type {
+            margin-top: 0;
+        }
+
         .feature-card p {
             color: var(--text-muted);
             font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card ol,
+        .feature-card ul {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        .feature-card h4 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .feature-card .two-col {
+            margin-top: 1rem;
+            margin-bottom: 0;
+        }
+
+        .feature-card .two-col > div {
+            min-width: 0;
+            overflow: hidden;
+        }
+
+        .feature-card .two-col pre {
+            overflow-x: auto;
+            word-wrap: break-word;
+            white-space: pre-wrap;
         }
 
         /* Badge styling */
@@ -311,26 +366,117 @@
             margin: 2rem 0;
         }
 
+        /* Mobile Menu Button */
+        /* Mobile Menu Buttons */
+        .mobile-menu-btn,
+        .mobile-home-btn.mobile-menu-btn {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1001;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.5rem;
+            line-height: 1;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            min-width: 48px;
+            min-height: 48px;
+        }
+
+        .mobile-menu-btn {
+            left: 1rem;
+        }
+
+        .mobile-home-btn$MOBILE_HOME_BTN_CSS
+
+        .mobile-menu-btn:hover,
+        .mobile-menu-btn:active {
+            background: var(--bg-tertiary);
+            transform: scale(1.05);
+        }
+
+        .mobile-home-btn:hover,
+        .mobile-home-btn:active.mobile-menu-btn:hover,
+        .mobile-menu-btn:active {
+            background: var(--bg-tertiary);
+            transform: scale(1.05);
+        }
+
+        /* Mobile Sidebar Overlay */
+        .mobile-sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+        }
+
+        .mobile-sidebar-overlay.active {
+            display: block;
+        }
+
         @media (max-width: 900px) {
-            .sidebar { display: none; }
-            .docs-content { margin-left: 0; padding: 2rem 1.5rem; }
+            .mobile-menu-btn {
+                display: block;
+            }
+            .mobile-home-btn {
+                display: block;
+            }
+            
+            .sidebar {
+                position: fixed !important;
+                left: -280px !important;
+                top: 0;
+                z-index: 1000;
+                transition: left 0.3s ease;
+                box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+            }
+            
+            .sidebar.mobile-open {
+                left: 0 !important;
+            }
+            
+            .docs-content { 
+                margin-left: 0; 
+                padding: 2rem 1.5rem; 
+                padding-top: 5rem !important;
+            }
             .two-col { grid-template-columns: 1fr; gap: 1rem; }
             .platform-grid { grid-template-columns: 1fr; }
+            .feature-card .two-col { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
     <div class="docs-layout">
-            <aside class="sidebar">
+        <!-- Mobile Menu Button -->
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle navigation menu">
+            ☰
+        </button>
+        
+        <!-- Mobile Sidebar Overlay -->
+        <div class="mobile-sidebar-overlay" id="mobile-sidebar-overlay"></div>
+        
+        <aside class="sidebar" id="sidebar">
       <a href="/" class="sidebar-logo">
         <img src="/assets/logo/kubegraf_color_icon.png" alt="KubeGraf logo" class="sidebar-logo-icon">
-        KubeGraf
+        KubēGraf
       </a>
 
+      
+      
+      
       <div class="sidebar-section">
-        <h3>Introduction</h3>
         <ul>
-          <li><a href="/docs/introduction/what-is-kubegraf.html">What is KubeGraf</a></li>
+          <li><a href="/">🏠 Home</a></li>
         </ul>
       </div>
 
@@ -338,9 +484,16 @@
         <h3>Getting Started</h3>
         <ul>
           <li><a href="/docs/">Overview</a></li>
-          <li><a href="/docs/installation.html" class="active">Installation</a></li>
           <li><a href="/docs/quickstart.html">Quick Start</a></li>
+          <li><a href="/docs/installation.html" class="active">Installation</a></li>
           <li><a href="/docs/getting-started/first-cluster.html">First cluster</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Introduction</h3>
+        <ul>
+          <li><a href="/docs/introduction/what-is-kubegraf.html">What is KubeGraf</a></li>
         </ul>
       </div>
 
@@ -351,6 +504,15 @@
           <li><a href="/docs/web-dashboard.html">Web Dashboard</a></li>
           <li><a href="/docs/commands.html">Commands</a></li>
           <li><a href="/docs/configuration.html">Configuration</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Features</h3>
+        <ul>
+          <li><a href="/docs/resource-map.html">Resource Map</a></li>
+          <li><a href="/docs/security.html">Security Analysis</a></li>
+          <li><a href="/docs/plugins.html">Plugins</a></li>
         </ul>
       </div>
 
@@ -372,24 +534,16 @@
       </div>
 
       <div class="sidebar-section">
-        <h3>Features</h3>
-        <ul>
-          <li><a href="/docs/resource-map.html">Resource Map</a></li>
-          <li><a href="/docs/security.html">Security Analysis</a></li>
-          <li><a href="/docs/plugins.html">Plugins</a></li>
-        </ul>
-      </div>
-
-      <div class="sidebar-section">
         <h3>Resources</h3>
         <ul>
-          <li><a href="https://github.com/kubegraf/kubegraf">GitHub</a></li>
-          <li><a href="https://github.com/kubegraf/kubegraf/releases">Releases</a></li>
-          <li><a href="https://github.com/kubegraf/kubegraf/issues">Report Issue</a></li>
+          <li><a href="https://github.com/kubegraf/kubegraf" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://github.com/kubegraf/kubegraf/releases" target="_blank" rel="noopener noreferrer">Releases</a></li>
+          <li><a href="https://github.com/kubegraf/kubegraf/issues" target="_blank" rel="noopener noreferrer">Report Issue</a></li>
         </ul>
       </div>
     </aside>
 
+        <div class="docs-main-wrapper">
         <div class="floating-orbs">
             <div class="orb orb-1"></div>
             <div class="orb orb-2"></div>
@@ -527,7 +681,7 @@ sudo mv kubegraf /usr/local/bin/</code></pre>
                 </h3>
                 <p>Download the installer for a graphical installation experience:</p>
                 <ol>
-                    <li><a href="https://github.com/kubegraf/kubegraf/releases/latest" style="font-weight: 600;">Download Latest Installer (.exe)</a> - Get the kubegraf-X.X.X-setup.exe file</li>
+                    <li><a href="https://github.com/kubegraf/kubegraf/releases/latest/download/kubegraf-setup.exe" id="download-windows-exe" style="font-weight: 600;">Download Latest Installer (.exe)</a> - Get the kubegraf-X.X.X-setup.exe file</li>
                     <li>Double-click the downloaded .exe file to run the installer</li>
                     <li>Follow the installation wizard (click Next, Accept, Install)</li>
                     <li><strong>Make sure "Add KubeGraf to PATH" is checked during installation</strong></li>
@@ -537,24 +691,28 @@ sudo mv kubegraf /usr/local/bin/</code></pre>
                 <div class="note">
                     <p><strong>Note:</strong> The <code>kubegraf</code> command will only work in new terminal windows opened after installation. PATH changes don't apply to already-open terminals.</p>
                 </div>
+                <div class="note" style="background: rgba(251, 191, 36, 0.1); border-left-color: #fbbf24; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+                    <p style="margin: 0; flex: 1;"><strong>⚠️ Windows SmartScreen Warning:</strong> When you download and run the installer, Windows may show a "Windows protected your PC" warning. This is normal for unsigned installers.</p>
+                    <a href="/docs/windows-smartscreen.html" style="display: inline-block; padding: 0.5rem 1rem; background: #fbbf24; color: #09090b; border-radius: 6px; font-weight: 600; text-decoration: none; white-space: nowrap; transition: all 0.2s;">Learn How to Proceed →</a>
+                </div>
                 <p><strong>What you get:</strong> Automatic PATH setup, Start Menu shortcuts, Desktop shortcut (optional), Professional uninstaller</p>
             </div>
 
             <div class="two-col">
                 <div class="feature-card">
-                    <h3 style="margin-bottom: 0.5rem;">Scoop <span class="badge-small">Package Manager</span></h3>
-                    <p style="margin-bottom: 1rem;">For users with Scoop package manager installed</p>
+                    <h3 style="margin-bottom: 0.5rem; margin-top: 0;">Scoop <span class="badge-small">Package Manager</span></h3>
+                    <p style="margin-bottom: 1rem; margin-top: 0;">For users with Scoop package manager installed</p>
                     <pre style="margin: 0 0 1rem 0;"><code>scoop bucket add kubegraf https://github.com/kubegraf/scoop-bucket
 scoop install kubegraf</code></pre>
                     <p style="margin: 0; font-size: 0.9rem;"><strong>To upgrade:</strong> <code>scoop update kubegraf</code></p>
                 </div>
 
                 <div class="feature-card">
-                    <h3 style="margin-bottom: 0.5rem;">Manual Download</h3>
-                    <p style="margin-bottom: 1rem;">Direct binary download without package manager</p>
-                    <ol style="margin: 0; padding-left: 1.2rem; color: var(--text-muted); font-size: 0.95rem;">
-                        <li style="margin-bottom: 0.5rem;"><a href="https://github.com/kubegraf/kubegraf/releases/latest">Download kubegraf-windows-amd64.zip</a></li>
-                        <li style="margin-bottom: 0.5rem;">Extract to a folder (e.g., <code>C:\kubegraf</code>)</li>
+                    <h3 style="margin-bottom: 0.5rem; margin-top: 0;">Manual Download</h3>
+                    <p style="margin-bottom: 1rem; margin-top: 0;">Direct binary download without package manager</p>
+                    <ol style="margin: 0; padding-left: 1.5rem; color: var(--text-muted); font-size: 0.95rem; line-height: 1.8;">
+                        <li style="margin-bottom: 0.75rem;"><a href="https://github.com/kubegraf/kubegraf/releases/latest">Download kubegraf-windows-amd64.zip</a></li>
+                        <li style="margin-bottom: 0.75rem;">Extract to a folder (e.g., <code>C:\kubegraf</code>)</li>
                         <li style="margin-bottom: 0;">Add folder to PATH (see troubleshooting below)</li>
                     </ol>
                 </div>
@@ -579,16 +737,16 @@ scoop install kubegraf</code></pre>
                 <p><strong>The issue:</strong> The directory containing kubegraf.exe is not in your PATH.</p>
 
                 <div class="two-col" style="gap: 1rem; margin-top: 1rem;">
-                    <div>
+                    <div style="min-width: 0;">
                         <p><strong>✅ Solution: Add to PATH permanently</strong></p>
-                        <pre><code>[Environment]::SetEnvironmentVariable("Path", $env:Path + ";$env:USERPROFILE\bin", [EnvironmentVariableTarget]::User)
+                        <pre style="margin: 0.5rem 0;"><code>[Environment]::SetEnvironmentVariable("Path", $env:Path + ";$env:USERPROFILE\bin", [EnvironmentVariableTarget]::User)
 
 # Close and reopen PowerShell, then test
 kubegraf --version</code></pre>
                     </div>
-                    <div>
+                    <div style="min-width: 0;">
                         <p><strong>Quick fix: Current session only</strong></p>
-                        <pre><code># Only works until you close PowerShell
+                        <pre style="margin: 0.5rem 0;"><code># Only works until you close PowerShell
 $env:Path += ";$env:USERPROFILE\bin"
 kubegraf --version</code></pre>
                     </div>
@@ -601,16 +759,16 @@ kubegraf --version</code></pre>
                 <pre><code>.\install.ps1 : File C:\Users\...\install.ps1 cannot be loaded because running scripts is disabled on this system.</code></pre>
 
                 <div class="two-col" style="gap: 1rem; margin-top: 1rem;">
-                    <div>
+                    <div style="min-width: 0;">
                         <p><strong>✅ Solution 1: Bypass (Recommended)</strong></p>
-                        <pre><code>Invoke-WebRequest -Uri https://kubegraf.io/install.ps1 -OutFile install.ps1
+                        <pre style="margin: 0.5rem 0;"><code>Invoke-WebRequest -Uri https://kubegraf.io/install.ps1 -OutFile install.ps1
 powershell -ExecutionPolicy Bypass -File install.ps1</code></pre>
-                        <p style="font-size: 0.85rem;">No permanent changes to your system.</p>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">No permanent changes to your system.</p>
                     </div>
-                    <div>
+                    <div style="min-width: 0;">
                         <p><strong>Solution 2: Change execution policy</strong></p>
-                        <pre><code>Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force</code></pre>
-                        <p style="font-size: 0.85rem;">Then run installation normally. This change persists.</p>
+                        <pre style="margin: 0.5rem 0;"><code>Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force</code></pre>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">Then run installation normally. This change persists.</p>
                     </div>
                 </div>
             </div>
@@ -621,10 +779,10 @@ powershell -ExecutionPolicy Bypass -File install.ps1</code></pre>
                 <div class="feature-card">
                     <h4 style="margin-top: 0; color: var(--primary);">macOS: Homebrew permission errors</h4>
                     <p>If you see "directories are not writable" error:</p>
-                    <pre><code>Error: The following directories are not writable by your user:
+                    <pre style="margin: 0.5rem 0;"><code>Error: The following directories are not writable by your user:
 /usr/local/share/man/man8</code></pre>
                     <p><strong>Solution:</strong> Fix permissions with:</p>
-                    <pre><code>sudo chown -R $(whoami) /usr/local/share/man/man8
+                    <pre style="margin: 0.5rem 0;"><code>sudo chown -R $(whoami) /usr/local/share/man/man8
 chmod u+w /usr/local/share/man/man8
 
 brew tap kubegraf/tap
@@ -634,25 +792,73 @@ brew install kubegraf</code></pre>
                 <div class="feature-card">
                     <h4 style="margin-top: 0; color: var(--primary);">macOS: "kubegraf cannot be opened"</h4>
                     <p>If you see a security warning on macOS:</p>
-                    <pre><code>sudo xattr -rd com.apple.quarantine /usr/local/bin/kubegraf</code></pre>
-                    <p style="font-size: 0.85rem;">This removes the quarantine attribute that prevents unsigned binaries from running.</p>
+                    <pre style="margin: 0.5rem 0;"><code>sudo xattr -rd com.apple.quarantine /usr/local/bin/kubegraf</code></pre>
+                    <p style="font-size: 0.85rem; margin-top: 0.5rem;">This removes the quarantine attribute that prevents unsigned binaries from running.</p>
                 </div>
             </div>
 
             <div class="feature-card" style="margin-top: 1rem;">
                 <h4 style="margin-top: 0; color: var(--primary);">Linux: Permission denied</h4>
                 <p>If you get permission errors when running kubegraf:</p>
-                <pre><code>sudo chmod +x /usr/local/bin/kubegraf</code></pre>
-                <p style="font-size: 0.85rem;">This makes the binary executable for all users.</p>
+                <pre style="margin: 0.5rem 0;"><code>sudo chmod +x /usr/local/bin/kubegraf</code></pre>
+                <p style="font-size: 0.85rem; margin-top: 0.5rem;">This makes the binary executable for all users.</p>
             </div>
 
             <h2>Next Steps</h2>
             <p>Now that KubeGraf is installed, check out the <a href="/docs/quickstart.html">Quick Start Guide</a> to connect to your first cluster.</p>
         </main>
+        </div>
+
+        <footer class="docs-footer">
+            <div class="docs-footer-content">
+                <div class="docs-footer-links">
+                    <a href="https://github.com/kubegraf/kubegraf/issues/new?template=bug_report.yml" target="_blank" rel="noopener noreferrer">Report a bug</a>
+                    <a href="https://github.com/kubegraf/kubegraf/issues/new?template=feature_request.yml" target="_blank" rel="noopener noreferrer">Request a feature</a>
+                    <a href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+                    <a href="/license" target="_blank" rel="noopener noreferrer">License (Apache 2.0)</a>
+                    <a href="mailto:contact@kubegraf.io">Contact</a>
+                    <div class="theme-selector">
+                        <button id="theme-light-btn" onclick="setTheme('light')" aria-label="Light theme" title="Light">
+                            ☀️
+                        </button>
+                        <button id="theme-dark-btn" onclick="setTheme('dark')" aria-label="Dark theme" title="Dark">
+                            🌙
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
-  <!-- Theme Toggle Button -->
-  <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
-    <span class="theme-icon">☀️</span>
-  </button>
+    
+    <script src="/docs/mobile-menu.js"></script>
+    <script>
+        // Fetch latest Windows installer download URL
+        (function() {
+            const downloadLink = document.getElementById('download-windows-exe');
+            if (!downloadLink) return;
+            
+            // Fetch latest release info from GitHub API
+            fetch('https://api.github.com/repos/kubegraf/kubegraf/releases/latest')
+                .then(response => response.json())
+                .then(data => {
+                    // Find the Windows .exe installer asset
+                    const exeAsset = data.assets.find(asset => 
+                        asset.name.includes('setup.exe') || 
+                        (asset.name.endsWith('.exe') && asset.name.includes('kubegraf'))
+                    );
+                    
+                    if (exeAsset) {
+                        // Update the download link to directly download the .exe
+                        downloadLink.href = exeAsset.browser_download_url;
+                        downloadLink.download = exeAsset.name;
+                    }
+                })
+                .catch(error => {
+                    console.error('Failed to fetch latest release:', error);
+                    // Fallback to releases page if API fails
+                    downloadLink.href = 'https://github.com/kubegraf/kubegraf/releases/latest';
+                });
+        })();
+    </script>
 </body>
 </html>

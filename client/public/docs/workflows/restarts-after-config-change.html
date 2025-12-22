@@ -50,16 +50,7 @@
     .orb-3 { width: 400px; height: 400px; background: var(--accent); top: 60%; right: -100px; animation-delay: -10s; }
     @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 25% { transform: translate(20px, -20px) scale(1.03); } 50% { transform: translate(-15px, 15px) scale(0.97); } 75% { transform: translate(15px, 20px) scale(1.01); } }
 
-    .docs-layout { 
-            display: flex; 
-            flex-direction: column;
-            min-height: 100vh; 
-        }
-        
-        .docs-main-wrapper {
-            display: flex;
-            flex: 1;
-        }
+    .docs-layout { display: flex; min-height: 100vh; }
     .sidebar { width: 280px; background: var(--bg-secondary); border-right: 1px solid var(--border); padding: 1.5rem; position: fixed; height: 100vh; overflow-y: auto; }
     .sidebar-logo { display: flex; align-items: center; gap: 0.5rem; font-size: 1.25rem; font-weight: 700; color: var(--text); text-decoration: none; margin-bottom: 2rem; }
     .sidebar-logo-icon { width: 44px; height: 44px; border-radius: 8px; object-fit: contain; }
@@ -81,115 +72,21 @@
     .docs-content pre { background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 0.75rem; padding: 1rem 1.25rem; overflow-x: auto; margin: 1rem 0 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
     .callout { border-radius: 0.75rem; border: 1px solid rgba(148, 163, 184, 0.35); padding: 0.9rem 1rem; background: rgba(15, 23, 42, 0.9); margin: 1.25rem 0; }
     .callout strong { color: var(--text); }
-    
-        
-        /* Mobile Menu Button */
-        /* Mobile Menu Buttons */
-        .mobile-menu-btn,
-        .mobile-home-btn.mobile-menu-btn {
-            display: none;
-            position: fixed;
-            top: 1rem;
-            left: 1rem;
-            z-index: 1001;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 0.75rem 1rem;
-            color: var(--text);
-            cursor: pointer;
-            font-size: 1.5rem;
-            line-height: 1;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-            min-width: 48px;
-            min-height: 48px;
-        }
-
-        .mobile-menu-btn {
-            left: 1rem;
-        }
-
-        .mobile-home-btn$MOBILE_HOME_BTN_CSS
-
-        .mobile-menu-btn:hover,
-        .mobile-menu-btn:active {
-            background: var(--bg-tertiary);
-            transform: scale(1.05);
-        }
-
-        .mobile-home-btn:hover,
-        .mobile-home-btn:active.mobile-menu-btn:hover,
-        .mobile-menu-btn:active {
-            background: var(--bg-tertiary);
-            transform: scale(1.05);
-        }
-
-        /* Mobile Sidebar Overlay */
-        .mobile-sidebar-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 999;
-        }
-
-        .mobile-sidebar-overlay.active {
-            display: block;
-        }
-@media (max-width: 900px) {
-            .mobile-menu-btn {
-                display: block;
-            }
-            .mobile-home-btn {
-                display: block;
-            }
-            
-            .sidebar {
-                position: fixed !important;
-                left: -280px !important;
-                top: 0;
-                z-index: 1000;
-                transition: left 0.3s ease;
-                box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
-            }
-            
-            .sidebar.mobile-open {
-                left: 0 !important;
-            }
-            
-            .docs-content { 
-                margin-left: 0; 
-                padding: 2rem 1.5rem; 
-                padding-top: 5rem !important;
-            } .docs-content { margin-left: 0; padding: 2rem 1.5rem; } }
+    @media (max-width: 900px) { .sidebar { display: none; } .docs-content { margin-left: 0; padding: 2rem 1.5rem; } }
   </style>
 </head>
 <body>
   <div class="docs-layout">
-        
-        <!-- Mobile Menu Button -->
-        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle navigation menu">
-            ☰
-        </button>
-        
-        <!-- Mobile Sidebar Overlay -->
-        <div class="mobile-sidebar-overlay" id="mobile-sidebar-overlay"></div>
-        
-<aside class="sidebar" id="sidebar">
+        <aside class="sidebar">
       <a href="/" class="sidebar-logo">
         <img src="/assets/logo/kubegraf_color_icon.png" alt="KubeGraf logo" class="sidebar-logo-icon">
-        KubēGraf
+        KubeGraf
       </a>
 
-      
-      
-      
       <div class="sidebar-section">
+        <h3>Introduction</h3>
         <ul>
-          <li><a href="/">🏠 Home</a></li>
+          <li><a href="/docs/introduction/what-is-kubegraf.html">What is KubeGraf</a></li>
         </ul>
       </div>
 
@@ -197,16 +94,9 @@
         <h3>Getting Started</h3>
         <ul>
           <li><a href="/docs/">Overview</a></li>
-          <li><a href="/docs/quickstart.html">Quick Start</a></li>
           <li><a href="/docs/installation.html">Installation</a></li>
+          <li><a href="/docs/quickstart.html">Quick Start</a></li>
           <li><a href="/docs/getting-started/first-cluster.html">First cluster</a></li>
-        </ul>
-      </div>
-
-      <div class="sidebar-section">
-        <h3>Introduction</h3>
-        <ul>
-          <li><a href="/docs/introduction/what-is-kubegraf.html">What is KubeGraf</a></li>
         </ul>
       </div>
 
@@ -217,15 +107,6 @@
           <li><a href="/docs/web-dashboard.html">Web Dashboard</a></li>
           <li><a href="/docs/commands.html">Commands</a></li>
           <li><a href="/docs/configuration.html">Configuration</a></li>
-        </ul>
-      </div>
-
-      <div class="sidebar-section">
-        <h3>Features</h3>
-        <ul>
-          <li><a href="/docs/resource-map.html">Resource Map</a></li>
-          <li><a href="/docs/security.html">Security Analysis</a></li>
-          <li><a href="/docs/plugins.html">Plugins</a></li>
         </ul>
       </div>
 
@@ -247,15 +128,23 @@
       </div>
 
       <div class="sidebar-section">
+        <h3>Features</h3>
+        <ul>
+          <li><a href="/docs/resource-map.html">Resource Map</a></li>
+          <li><a href="/docs/security.html">Security Analysis</a></li>
+          <li><a href="/docs/plugins.html">Plugins</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
         <h3>Resources</h3>
         <ul>
-          <li><a href="https://github.com/kubegraf/kubegraf" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-          <li><a href="https://github.com/kubegraf/kubegraf/releases" target="_blank" rel="noopener noreferrer">Releases</a></li>
-          <li><a href="https://github.com/kubegraf/kubegraf/issues" target="_blank" rel="noopener noreferrer">Report Issue</a></li>
+          <li><a href="https://github.com/kubegraf/kubegraf">GitHub</a></li>
+          <li><a href="https://github.com/kubegraf/kubegraf/releases">Releases</a></li>
+          <li><a href="https://github.com/kubegraf/kubegraf/issues">Report Issue</a></li>
         </ul>
       </div>
     </aside>
-        <div class="docs-main-wrapper">
 
     <div class="floating-orbs">
       <div class="orb orb-1"></div>
@@ -378,28 +267,10 @@
 
       <pre><code>[ TODO: screenshot showing KubeGraf Incident Timeline with a ConfigMap change followed by pod restarts. ]</code></pre>
     </main>
-        </div>
-
-    <footer class="docs-footer">
-      <div class="docs-footer-content">
-        <div class="docs-footer-links">
-          <a href="https://github.com/kubegraf/kubegraf/issues/new?template=bug_report.yml" target="_blank" rel="noopener noreferrer">Report a bug</a>
-          <a href="https://github.com/kubegraf/kubegraf/issues/new?template=feature_request.yml" target="_blank" rel="noopener noreferrer">Request a feature</a>
-          <a href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
-          <a href="/license" target="_blank" rel="noopener noreferrer">License (Apache 2.0)</a>
-          <a href="mailto:contact@kubegraf.io">Contact</a>
-          <div class="theme-selector">
-            <button id="theme-light-btn" onclick="setTheme('light')" aria-label="Light theme" title="Light">
-              ☀️
-            </button>
-            <button id="theme-dark-btn" onclick="setTheme('dark')" aria-label="Dark theme" title="Dark">
-              🌙
-            </button>
-          </div>
-        </div>
-      </div>
-    </footer>
   </div>
-    <script src="/docs/mobile-menu.js"></script>
+  <!-- Theme Toggle Button -->
+  <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+    <span class="theme-icon">☀️</span>
+  </button>
 </body>
 </html>

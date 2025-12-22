@@ -30,15 +30,14 @@ export default function NotFound() {
                 Home
               </Button>
             </Link>
-            <Link href="/docs/">
-              <Button
-                variant="outline"
-                className="w-full justify-start gap-2 border-primary/50 hover:bg-primary/10"
-              >
-                <Book className="w-4 h-4" />
-                Documentation
-              </Button>
-            </Link>
+            <Button
+              variant="outline"
+              className="w-full justify-start gap-2 border-primary/50 hover:bg-primary/10"
+              onClick={() => window.location.href = '/docs/index.html'}
+            >
+              <Book className="w-4 h-4" />
+              Documentation
+            </Button>
             <Link href="/faq">
               <Button
                 variant="outline"

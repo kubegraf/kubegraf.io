@@ -41,7 +41,7 @@ export default function Navbar() {
             <a href="/#features" className="hover:text-primary transition-colors ml-2">Features</a>
             <a href="/kubegraf" className="hover:text-primary transition-colors">What is KubeGraf?</a>
             <Link href="/compare" className="hover:text-primary transition-colors">Compare</Link>
-            <Link href="/docs/" className="hover:text-primary transition-colors">Docs</Link>
+            <Link href="/docs-overview" className="hover:text-primary transition-colors">Docs</Link>
             <Link href="/pricing" className="hover:text-primary transition-colors">Pricing</Link>
           </div>
 
@@ -124,7 +124,7 @@ export default function Navbar() {
                   Compare
                 </Link>
                 <Link
-                  href="/docs/"
+                  href="/docs-overview"
                   className="px-4 py-3 rounded-lg hover:bg-white/5 transition-colors text-base font-medium focus:outline-none focus:ring-2 focus:ring-primary focus:ring-inset"
                   onClick={() => setMobileMenuOpen(false)}
                 >
