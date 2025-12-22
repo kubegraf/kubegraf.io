@@ -27,7 +27,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <!-- Theme Switcher -->
   <link rel="stylesheet" href="/docs/theme-styles.css">
-  <script src="/docs/theme-switcher.js"></script>
   <style>
     :root {
       --primary: #06b6d4;
@@ -165,6 +164,94 @@
                 padding: 2rem 1.5rem; 
                 padding-top: 5rem !important;
             } .docs-content { margin-left: 0; padding: 2rem 1.5rem; } }
+  
+    .docs-footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 4rem;
+      margin-top: auto;
+      background: var(--bg-secondary);
+      margin-left: 280px;
+      width: calc(100% - 280px);
+      flex-shrink: 0;
+    }
+
+    .docs-footer-content {
+      max-width: 900px;
+      text-align: center;
+    }
+
+    .docs-footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem 1.5rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .docs-footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .docs-footer-links a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    .docs-footer-links .theme-selector {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.25rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      vertical-align: middle;
+      margin-left: 0;
+    }
+
+    .docs-footer-links .theme-selector button {
+      padding: 0.25rem 0.5rem;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 0.875rem;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 2rem;
+      opacity: 0.4;
+    }
+
+    .docs-footer-links .theme-selector button:hover {
+      opacity: 0.6;
+      background: var(--bg-secondary);
+    }
+
+    .docs-footer-links .theme-selector button.active {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+
+    .docs-footer-links .theme-selector button:not(.active):hover {
+      opacity: 0.8;
+    }
+
+    @media (max-width: 900px) {
+      .docs-footer {
+        margin-left: 0;
+        padding: 2rem 1.5rem;
+      }
+
+      .docs-footer-links {
+        gap: 0.75rem 1rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -402,5 +489,6 @@
     </footer>
   </div>
     <script src="/docs/mobile-menu.js"></script>
+    <script src="/docs/theme-switcher.js"></script>
 </body>
 </html>
