@@ -1,95 +1,420 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kubernetes Deployment Rollout Stuck / ProgressDeadlineExceeded - KubeGraf Documentation</title>
-  <meta name="description" content="Troubleshoot Kubernetes Deployment rollouts that are stuck or hitting ProgressDeadlineExceeded using KubeGraf.">
-  <link rel="canonical" href="https://kubegraf.io/docs/troubleshooting/rollout-stuck.html" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kubernetes Deployment Rollout Stuck / ProgressDeadlineExceeded - KubeGraf Documentation</title>
+    <meta name="description" content="KubeGraf documentation - Learn how to install, configure, and use KubeGraf for Kubernetes visualization.">
+    <link rel="canonical" href="https://kubegraf.io/docs/" />
 
-  <meta property="og:title" content="Kubernetes Deployment Rollout Stuck / ProgressDeadlineExceeded - KubeGraf" />
-  <meta property="og:description" content="Use KubeGraf to debug Kubernetes Deployment rollouts that never become Ready or hit ProgressDeadlineExceeded." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://kubegraf.io/docs/troubleshooting/rollout-stuck.html" />
-  <meta property="og:site_name" content="KubeGraf" />
-  <meta property="og:image" content="https://kubegraf.io/opengraph.jpg" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:site" content="@kubegraf" />
-  <meta name="twitter:title" content="Kubernetes Deployment Rollout Stuck / ProgressDeadlineExceeded - KubeGraf" />
-  <meta name="twitter:description" content="Use KubeGraf to debug Kubernetes Deployment rollouts that never become Ready or hit ProgressDeadlineExceeded." />
-  <meta name="twitter:image" content="https://kubegraf.io/opengraph.jpg" />
+    <meta property="og:title" content="KubeGraf Documentation – Intelligent Insight for Kubernetes Incidents" />
+    <meta property="og:description" content="Official KubeGraf documentation for detecting incidents, diagnosing root causes, and safely responding to Kubernetes failures." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kubegraf.io/docs/" />
+    <meta property="og:site_name" content="KubeGraf" />
+    <meta property="og:image" content="https://kubegraf.io/opengraph.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@kubegraf" />
+    <meta name="twitter:title" content="KubeGraf Documentation – Intelligent Insight for Kubernetes Incidents" />
+    <meta name="twitter:description" content="Official KubeGraf documentation for detecting incidents, diagnosing root causes, and safely responding to Kubernetes failures." />
+    <meta name="twitter:image" content="https://kubegraf.io/opengraph.jpg" />
+    <!-- Use the same favicon as the main landing page -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+    <!-- Use the same font stack as the main landing page -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Theme Switcher -->
+    <link rel="stylesheet" href="/docs/theme-styles.css">
+    <style>
+        :root {
+            /* Align colors with main landing page palette */
+            --primary: #06b6d4;         /* Neon cyan */
+            --primary-dark: #0f172a;
+            --secondary: #4c1d95;       /* Deep purple */
+            --accent: #8b5cf6;
+            --text: #f9fafb;
+            --text-muted: #9ca3af;
+            --bg: #09090b;              /* Same as main background */
+            --bg-secondary: #020617;
+            --bg-tertiary: #111827;
+            --border: rgba(148, 163, 184, 0.25);
+            --border-hover: rgba(56, 189, 248, 0.55);
+        }
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
-  <link rel="shortcut icon" href="/favicon.ico">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <!-- Theme Switcher -->
-  <link rel="stylesheet" href="/docs/theme-styles.css">
-  <style>
-    :root {
-      --primary: #06b6d4;
-      --secondary: #4c1d95;
-      --accent: #8b5cf6;
-      --text: #f9fafb;
-      --text-muted: #9ca3af;
-      --bg: #09090b;
-      --bg-secondary: #020617;
-      --bg-tertiary: #111827;
-      --border: rgba(148, 163, 184, 0.25);
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Outfit', -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    .floating-orbs { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
-    .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.12; animation: float 20s ease-in-out infinite; }
-    .orb-1 { width: 500px; height: 500px; background: var(--primary); top: -150px; right: -100px; }
-    .orb-2 { width: 350px; height: 350px; background: var(--secondary); bottom: 30%; left: 200px; animation-delay: -5s; }
-    .orb-3 { width: 400px; height: 400px; background: var(--accent); top: 60%; right: -100px; animation-delay: -10s; }
-    @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 25% { transform: translate(20px, -20px) scale(1.03); } 50% { transform: translate(-15px, 15px) scale(0.97); } 75% { transform: translate(15px, 20px) scale(1.01); } }
+        body {
+            font-family: 'Outfit', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
 
-    .docs-layout { 
-            display: flex; 
+        /* Floating orbs background */
+        .floating-orbs {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.12;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: var(--primary);
+            top: -150px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 350px;
+            height: 350px;
+            background: var(--secondary);
+            bottom: 30%;
+            left: 200px;
+            animation-delay: -5s;
+        }
+
+        .orb-3 {
+            width: 400px;
+            height: 400px;
+            background: var(--accent);
+            top: 60%;
+            right: -100px;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(20px, -20px) scale(1.03); }
+            50% { transform: translate(-15px, 15px) scale(0.97); }
+            75% { transform: translate(15px, 20px) scale(1.01); }
+        }
+
+        /* Hero header section */
+        .docs-hero {
+            position: relative;
+            padding: 3rem 0 2rem;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .docs-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(50, 108, 229, 0.15), transparent),
+                radial-gradient(ellipse 60% 40% at 80% 50%, rgba(0, 212, 170, 0.08), transparent);
+            pointer-events: none;
+        }
+
+        .docs-hero .grid-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(50, 108, 229, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(50, 108, 229, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            mask-image: radial-gradient(ellipse 70% 70% at 50% 30%, black 0%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 30%, black 0%, transparent 70%);
+        }
+
+        .docs-hero h1 {
+            position: relative;
+            z-index: 1;
+            animation: heroFadeIn 0.8s ease-out;
+        }
+
+        .docs-hero h1 span {
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 5s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes heroFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .docs-hero .intro {
+            position: relative;
+            z-index: 1;
+            animation: heroFadeIn 0.8s ease-out 0.2s both;
+        }
+
+        /* Animated underline for h1 */
+        .docs-hero h1::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            margin-top: 1rem;
+            border-radius: 2px;
+            animation: expandLine 0.8s ease-out 0.4s both;
+        }
+
+        @keyframes expandLine {
+            from { width: 0; opacity: 0; }
+            to { width: 80px; opacity: 1; }
+        }
+
+        a { color: var(--primary); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* Layout */
+        .docs-layout {
+            display: flex;
             flex-direction: column;
-            min-height: 100vh; 
+            min-height: 100vh;
         }
         
         .docs-main-wrapper {
-            display: flex;
             flex: 1;
         }
-    .sidebar { width: 280px; background: var(--bg-secondary); border-right: 1px solid var(--border); padding: 1.5rem; position: fixed; height: 100vh; overflow-y: auto; }
-    .sidebar-logo { display: flex; align-items: center; gap: 0.5rem; font-size: 1.25rem; font-weight: 700; color: var(--text); text-decoration: none; margin-bottom: 2rem; }
-    .sidebar-logo-icon { width: 44px; height: 44px; border-radius: 8px; object-fit: contain; }
-    .sidebar-section { margin-bottom: 1.5rem; }
-    .sidebar-section h3 { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 0.75rem; }
-    .sidebar-section ul { list-style: none; }
-    .sidebar-section a { display: block; padding: 0.5rem 0.75rem; color: var(--text-muted); border-radius: 6px; font-size: 0.9rem; transition: all 0.2s; text-decoration: none; }
-    .sidebar-section a:hover { background: var(--bg-tertiary); color: var(--text); }
-    .sidebar-section a.active { background: rgba(50, 108, 229, 0.15); color: var(--primary); }
 
-    .docs-content { flex: 1; margin-left: 280px; padding: 3rem 4rem 3rem 3rem; max-width: 1400px; position: relative; z-index: 1; }
-    .docs-content h1 { font-size: 2.2rem; font-weight: 600; margin-bottom: 0.75rem; font-family: 'Space Grotesk', system-ui, sans-serif; letter-spacing: -0.03em; }
-    .docs-content h2 { font-size: 1.4rem; font-weight: 600; margin: 2rem 0 0.75rem; padding-bottom: 0.35rem; border-bottom: 1px solid var(--border); font-family: 'Space Grotesk', system-ui, sans-serif; }
-    .docs-content h3 { font-size: 1.1rem; font-weight: 600; margin: 1.5rem 0 0.5rem; }
-    .docs-content p { color: var(--text-muted); margin-bottom: 0.9rem; }
-    .docs-content ul { color: var(--text-muted); margin: 0.75rem 0 0.9rem 1.5rem; }
-    .docs-content li { margin-bottom: 0.4rem; }
-    .docs-content code { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; background: var(--bg-tertiary); padding: 0.15rem 0.35rem; border-radius: 4px; color: var(--accent); }
-    .docs-content pre { background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 0.75rem; padding: 1rem 1.25rem; overflow-x: auto; margin: 1rem 0 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
-    .callout { border-radius: 0.75rem; border: 1px solid rgba(148, 163, 184, 0.35); padding: 0.9rem 1rem; background: rgba(15, 23, 42, 0.9); margin: 1.25rem 0; }
-    .callout strong { color: var(--text); }
-    
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border);
+            padding: 1.5rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-logo svg { width: 28px; height: 28px; }
+
+        .sidebar-logo-icon {
+            width: 96px;
+            height: 96px;
+            border-radius: 8px;
+            object-fit: contain;
+        }
+
+        .sidebar-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-section h3 {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .sidebar-section ul {
+            list-style: none;
+        }
+
+        .sidebar-section a {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            color: var(--text-muted);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .sidebar-section a:hover {
+            background: var(--bg-tertiary);
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .sidebar-section a.active {
+            background: rgba(50, 108, 229, 0.15);
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        .docs-content,
+        main.content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 3rem 4rem;
+            max-width: 1400px;
+            
+            box-sizing: border-box;
+        }
         
-        /* Mobile Menu Button */
+        /* Ensure content doesn't overlap sidebar */
+        main.content.docs-content {
+            
+        }
+        
+        /* Ensure docs-main-wrapper also has proper spacing */
+        .docs-main-wrapper {
+            margin-left: 280px;
+            
+        }
+
+        .docs-content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-family: 'Space Grotesk', system-ui, sans-serif;
+            letter-spacing: -0.03em;
+        }
+
+        .docs-content h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+            font-family: 'Space Grotesk', system-ui, sans-serif;
+        }
+
+        .docs-content h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 2rem 0 0.75rem;
+        }
+
+        .docs-content p {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .docs-content ul, .docs-content ol {
+            color: var(--text-muted);
+            margin: 1rem 0 1rem 1.5rem;
+        }
+
+        .docs-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Code blocks */
+        .docs-content code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            background: var(--bg-tertiary);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: var(--secondary);
+        }
+
+        .docs-content pre {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        .docs-content pre code {
+            background: none;
+            padding: 0;
+            color: #e2e8f0;
+        }
+
+        /* Cards Grid */
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .docs-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .docs-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+            text-decoration: none;
+        }
+
+        .docs-card h3 {
+            color: var(--text);
+            font-size: 1.1rem;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .docs-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .docs-card .icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: rgba(50, 108, 229, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        /* Intro text */
+        .intro {
+            font-size: 1.15rem;
+            color: var(--text);
+            margin-bottom: 2rem;
+        }
+
         /* Mobile Menu Buttons */
         .mobile-menu-btn,
-        .mobile-home-btn.mobile-menu-btn {
+        .mobile-home-btn {
             display: none;
             position: fixed;
             top: 1rem;
-            left: 1rem;
             z-index: 1001;
             background: var(--bg-secondary);
             border: 1px solid var(--border);
@@ -102,23 +427,21 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
             min-width: 48px;
             min-height: 48px;
+            text-decoration: none;
         }
 
         .mobile-menu-btn {
             left: 1rem;
         }
 
-        .mobile-home-btn$MOBILE_HOME_BTN_CSS
-
-        .mobile-menu-btn:hover,
-        .mobile-menu-btn:active {
-            background: var(--bg-tertiary);
-            transform: scale(1.05);
+        .mobile-home-btn {
+            left: 4.5rem;
         }
 
+        .mobile-menu-btn:hover,
+        .mobile-menu-btn:active,
         .mobile-home-btn:hover,
-        .mobile-home-btn:active.mobile-menu-btn:hover,
-        .mobile-menu-btn:active {
+        .mobile-home-btn:active {
             background: var(--bg-tertiary);
             transform: scale(1.05);
         }
@@ -138,17 +461,16 @@
         .mobile-sidebar-overlay.active {
             display: block;
         }
-@media (max-width: 900px) {
+
+        /* Responsive */
+        @media (max-width: 900px) {
             .mobile-menu-btn {
-                display: block;
-            }
-            .mobile-home-btn {
                 display: block;
             }
             
             .sidebar {
-                position: fixed !important;
-                left: -280px !important;
+                position: fixed;
+                left: -280px;
                 top: 0;
                 z-index: 1000;
                 transition: left 0.3s ease;
@@ -156,121 +478,39 @@
             }
             
             .sidebar.mobile-open {
-                left: 0 !important;
+                left: 0;
             }
             
-            .docs-content { 
-                margin-left: 0; 
-                padding: 2rem 1.5rem; 
-                padding-top: 5rem !important;
-            } .docs-content { margin-left: 0; padding: 2rem 1.5rem; } }
-  
-    .docs-footer {
-      border-top: 1px solid var(--border);
-      padding: 2rem 4rem;
-      margin-top: auto;
-      background: var(--bg-secondary);
-      margin-left: 280px;
-      width: calc(100% - 280px);
-      flex-shrink: 0;
-    }
-
-    .docs-footer-content {
-      max-width: 900px;
-      text-align: center;
-    }
-
-    .docs-footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      gap: 1rem 1.5rem;
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-
-    .docs-footer-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .docs-footer-links a:hover {
-      color: var(--primary);
-      text-decoration: underline;
-    }
-
-    .docs-footer-links .theme-selector {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-      padding: 0.25rem;
-      background: var(--bg-tertiary);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      vertical-align: middle;
-      margin-left: 0;
-    }
-
-    .docs-footer-links .theme-selector button {
-      padding: 0.25rem 0.5rem;
-      border: none;
-      background: transparent;
-      cursor: pointer;
-      border-radius: 4px;
-      font-size: 0.875rem;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 2rem;
-      opacity: 0.4;
-    }
-
-    .docs-footer-links .theme-selector button:hover {
-      opacity: 0.6;
-      background: var(--bg-secondary);
-    }
-
-    .docs-footer-links .theme-selector button.active {
-      opacity: 1;
-      transform: scale(1.1);
-    }
-
-    .docs-footer-links .theme-selector button:not(.active):hover {
-      opacity: 0.8;
-    }
-
-    @media (max-width: 900px) {
-      .docs-footer {
-        margin-left: 0;
-        padding: 2rem 1.5rem;
-      }
-
-      .docs-footer-links {
-        gap: 0.75rem 1rem;
-      }
-    }
-  </style>
+            .docs-content {
+                margin-left: 0;
+                padding: 2rem 1.5rem;
+                padding-top: 5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="docs-layout">
-        
-        <!-- Mobile Menu Button -->
+    <div class="docs-layout">
+        <!-- Mobile Menu Buttons -->
         <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle navigation menu">
             ☰
         </button>
+        <a href="/" class="mobile-home-btn" aria-label="Go to home page">
+            🏠
+        </a>
         
         <!-- Mobile Sidebar Overlay -->
         <div class="mobile-sidebar-overlay" id="mobile-sidebar-overlay"></div>
         
-<aside class="sidebar" id="sidebar">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
       <a href="/" class="sidebar-logo">
         <img src="/assets/logo/kubegraf_color_icon.png" alt="KubeGraf logo" class="sidebar-logo-icon">
         KubēGraf
       </a>
 
+      
+      
       
       
       
@@ -298,12 +538,26 @@
       </div>
 
       <div class="sidebar-section">
+        <h3>Core Concepts</h3>
+        <ul>
+          <li><a href="/docs/core-concepts/incident-intelligence.html">Incident Intelligence</a></li>
+          <li><a href="/docs/core-concepts/deterministic-diagnosis.html">Deterministic Diagnosis</a></li>
+          <li><a href="/docs/core-concepts/evidence-and-confidence.html">Evidence & Confidence</a></li>
+          <li><a href="/docs/core-concepts/safety-model.html">Safety Model</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
         <h3>User Guide</h3>
         <ul>
           <li><a href="/docs/terminal-ui.html">Terminal UI</a></li>
           <li><a href="/docs/web-dashboard.html">Web Dashboard</a></li>
           <li><a href="/docs/commands.html">Commands</a></li>
           <li><a href="/docs/configuration.html">Configuration</a></li>
+          <li><a href="/docs/user-guide/incidents-overview.html">Incidents Overview</a></li>
+          <li><a href="/docs/user-guide/incident-detail-view.html">Incident Detail View</a></li>
+          <li><a href="/docs/user-guide/fix-preview-and-apply.html">Fix Preview and Apply</a></li>
+          <li><a href="/docs/user-guide/knowledge-bank.html">Knowledge Bank</a></li>
         </ul>
       </div>
 
@@ -320,7 +574,7 @@
         <h3>Troubleshooting</h3>
         <ul>
           <li><a href="/docs/troubleshooting/crashloopbackoff.html">CrashLoopBackOff</a></li>
-          <li><a href="/docs/troubleshooting/rollout-stuck.html" class="active">Rollout stuck</a></li>
+          <li><a href="/docs/troubleshooting/rollout-stuck.html">Rollout stuck</a></li>
           <li><a href="/docs/troubleshooting/high-cpu-memory.html">High CPU / memory</a></li>
           <li><a href="/docs/troubleshooting/restarts-after-config-change.html">Restarts after config change</a></li>
         </ul>
@@ -330,6 +584,35 @@
         <h3>Workflows</h3>
         <ul>
           <li><a href="/docs/workflows/debug-crashloop.html">Debug CrashLoopBackOff</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Compare</h3>
+        <ul>
+          <li><a href="/docs/compare/kubegraf-vs-lens.html">KubeGraf vs Kubernetes IDEs</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Reference</h3>
+        <ul>
+          <li><a href="/docs/reference/cli.html">CLI</a></li>
+          <li><a href="/docs/reference/config.html">Config</a></li>
+          <li><a href="/docs/reference/plugins.html">Plugins</a></li>
+          <li><a href="/docs/reference/api.html">API schema</a></li>
+          <li><a href="/docs/reference/faq.html">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Architecture & Internals</h3>
+        <ul>
+          <li><a href="/docs/architecture/system-overview.html">System Overview</a></li>
+          <li><a href="/docs/architecture/intelligence-pipeline.html">Intelligence Pipeline</a></li>
+          <li><a href="/docs/architecture/snapshot-architecture.html">Snapshot Architecture</a></li>
+          <li><a href="/docs/architecture/runbooks-and-remediation.html">Runbooks & Remediation</a></li>
+          <li><a href="/docs/architecture/learning-engine.html">Learning Engine</a></li>
         </ul>
       </div>
 
@@ -344,167 +627,229 @@
     </aside>
         <div class="docs-main-wrapper">
 
-    <div class="floating-orbs">
-      <div class="orb orb-1"></div>
-      <div class="orb orb-2"></div>
-      <div class="orb orb-3"></div>
+        <!-- Floating Orbs Background -->
+        <div class="floating-orbs">
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+            <div class="orb orb-3"></div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="content docs-content"><h1>Kubernetes Deployment Rollout Stuck / ProgressDeadlineExceeded</h1>
+<h2>Why this matters</h2>
+<p>A stuck rollout means a new version of your application never becomes healthy.
+If you don’t catch it quickly, traffic may be served by a half-updated fleet, or the rollout might silently stall during an incident.</p>
+<blockquote>
+<p><strong>Warning:</strong> Do not delete pods manually to unblock a rollout; fix the Deployment spec or roll back instead.</p>
+</blockquote>
+<h2>Symptoms</h2>
+<ul>
+<li><code>kubectl rollout status deployment/&lt;name&gt;</code> hangs or reports <code>progress deadline exceeded</code>.</li>
+<li>Some pods for the Deployment are <code>Pending</code>, <code>CrashLoopBackOff</code>, or failing probes.</li>
+<li>New pods are never marked <code>Ready</code>, or the number of <code>Ready</code> replicas never reaches the desired count.</li>
+<li>HPA or external traffic splits may still be routing to old replicas.</li>
+</ul>
+<h2>Common root causes</h2>
+<ul>
+<li>Broken image (app fails to start, missing dependency).</li>
+<li>Liveness/readiness probes misconfigured for the new version.</li>
+<li>Resource requests too high for available nodes → unschedulable pods.</li>
+<li>PodDisruptionBudget, affinity/anti-affinity, or node selectors preventing enough replicas from running.</li>
+<li>Networking/DNS issues preventing the app from reaching required backends.</li>
+</ul>
+<h2>How KubeGraf helps</h2>
+<ul>
+<li>Shows rollout status visually: desired vs updated vs available replicas.</li>
+<li>Highlights pods that are blocking progress (probe failures, CrashLoopBackOff, Pending with scheduling errors).</li>
+<li>Exposes Events attached to pods and the Deployment in one place.</li>
+<li>Lets you inspect the exact spec diff between the previous ReplicaSet and the new one.</li>
+</ul>
+<h2>Step-by-step using KubeGraf UI</h2>
+<ol>
+<li><p><strong>Confirm the rollout is stuck</strong></p>
+<ul>
+<li>In a terminal: <code>kubectl rollout status deployment/&lt;name&gt; -n &lt;namespace&gt;</code>.</li>
+<li>Note any message like <code>progress deadline exceeded</code>.</li>
+<li>Open KubeGraf and select the correct cluster and namespace.</li>
+</ul>
+</li>
+<li><p><strong>Open the Deployment view</strong></p>
+<ul>
+<li>In KubeGraf, go to <strong>Deployments</strong> and select the affected Deployment.</li>
+<li>Check the summary:<ul>
+<li>Desired replicas.</li>
+<li>Updated replicas.</li>
+<li>Available/Ready replicas.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Identify blocking pods</strong></p>
+<ul>
+<li>From the Deployment details, open the <strong>ReplicaSets</strong> and <strong>Pods</strong> linked to this rollout.</li>
+<li>Look for:<ul>
+<li>Pods in <code>Pending</code> (scheduling issues).</li>
+<li>Pods in <code>CrashLoopBackOff</code> or <code>Error</code>.</li>
+<li>Pods with failing readiness probes.</li>
+</ul>
+</li>
+<li>Use filters to narrow down to non-Ready pods.</li>
+</ul>
+</li>
+<li><p><strong>Inspect Events for scheduling or probe issues</strong></p>
+<ul>
+<li>On a problematic pod, open <strong>Events</strong>.</li>
+<li>Look for messages like:<ul>
+<li><code>0/3 nodes are available: 3 Insufficient cpu/memory</code>.</li>
+<li><code>Readiness probe failed: HTTP 500/404</code>.</li>
+<li><code>FailedScheduling</code> with taints, node selectors, or affinity diagnostics.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Compare new vs previous spec</strong></p>
+<ul>
+<li>In the Deployment view, open the history / ReplicaSets panel.</li>
+<li>Compare the new ReplicaSet to the previous one:<ul>
+<li>Image tag.</li>
+<li>Resource requests/limits.</li>
+<li>Probes.</li>
+<li>Env vars and config references.</li>
+</ul>
+</li>
+<li>This helps identify exactly what changed.</li>
+</ul>
+</li>
+<li><p><strong>Decide: roll back vs fix forward</strong></p>
+<ul>
+<li>If the change is clearly broken and you need fast recovery:<ul>
+<li>Use your GitOps/CI pipeline or <code>kubectl rollout undo deployment/&lt;name&gt;</code>.</li>
+<li>In KubeGraf, watch pods for the previous ReplicaSet return to <code>Ready</code>.</li>
+</ul>
+</li>
+<li>If you can fix forward (e.g. adjust probe or config):<ul>
+<li>Edit the Deployment spec in code.</li>
+<li>Apply via CI/GitOps.</li>
+<li>Confirm new pods converge to <code>Ready</code>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Verify impact at the service level</strong></p>
+<ul>
+<li>In KubeGraf, move to the <strong>Topology</strong> / <strong>Services</strong> view (if available).</li>
+<li>Confirm:<ul>
+<li>The Service endpoints are all <code>Ready</code>.</li>
+<li>No backend endpoints are in <code>NotReady</code> state.</li>
+</ul>
+</li>
+<li>Validate external checks (synthetic probes, API health) if integrated.</li>
+</ul>
+</li>
+</ol>
+<h2>What to check next</h2>
+<ul>
+<li>Are other Deployments rolling out at the same time on the same nodes (resource contention)?</li>
+<li>Is there a cluster-wide issue (node pressure, CNI problems) reflected in Events?</li>
+<li>Are there PDBs or policies that restrict how many pods can be unavailable during rollout?</li>
+</ul>
+<h2>Common mistakes</h2>
+<ul>
+<li>Focusing only on the Deployment object and ignoring pod-level Events.</li>
+<li>Forgetting to check node-level constraints (taints, capacity) when pods are Pending.</li>
+<li>Rolling back image but leaving an incompatible probe or config in place.</li>
+<li>Manually deleting pods to “unstick” rollout instead of fixing the spec.</li>
+</ul>
+<h2>Related issues</h2>
+<ul>
+<li><a href="/docs/troubleshooting/crashloopbackoff">CrashLoopBackOff Kubernetes debugging</a></li>
+<li><a href="/docs/troubleshooting/restarts-after-config-change">Pods restarting after ConfigMap or Secret change</a></li>
+<li><a href="/docs/troubleshooting/high-cpu-memory">Sudden CPU or memory spikes</a></li>
+</ul>
+<h2>Expected outcome</h2>
+<ul>
+<li>You understand why the rollout is stalled (scheduling, crash, probes, or config).</li>
+<li>You either roll back safely or apply a corrected spec that converges to the desired <code>Ready</code> replicas.</li>
+<li>Future rollouts of this Deployment can be monitored via KubeGraf with clear visibility into progress.</li>
+</ul>
+<!-- TODO: screenshot showing KubeGraf Deployment view with rollout status and blocking pods highlighted. -->
+
+
+</main>
+        </div>
+
+        <footer class="docs-footer">
+            <div class="docs-footer-content">
+                <div class="docs-footer-links">
+                    <a href="https://github.com/kubegraf/kubegraf/issues/new?template=bug_report.yml" target="_blank" rel="noopener noreferrer">Report a bug</a>
+                    <a href="https://github.com/kubegraf/kubegraf/issues/new?template=feature_request.yml" target="_blank" rel="noopener noreferrer">Request a feature</a>
+                    <a href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+                    <a href="/license" target="_blank" rel="noopener noreferrer">License (Apache 2.0)</a>
+                    <a href="mailto:contact@kubegraf.io">Contact</a>
+                    <div class="theme-selector">
+                        <button id="theme-light-btn" onclick="setTheme('light')" aria-label="Light theme" title="Light">
+                            ☀️
+                        </button>
+                        <button id="theme-dark-btn" onclick="setTheme('dark')" aria-label="Dark theme" title="Dark">
+                            🌙
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
-
-    <main class="docs-content">
-      <h1>Kubernetes Deployment Rollout Stuck / ProgressDeadlineExceeded</h1>
-
-      <h2>Why this matters</h2>
-      <p>
-        A stuck rollout means a new version of your application never becomes healthy.
-        If you don&apos;t catch it quickly, traffic may be served by a half-updated fleet, or the rollout might silently stall
-        during an incident.
-      </p>
-
-      <div class="callout">
-        <p><strong>Warning:</strong> Do not delete pods manually to unblock a rollout; fix the Deployment spec or roll back instead.</p>
-      </div>
-
-      <h2>Symptoms</h2>
-      <ul>
-        <li><code>kubectl rollout status deployment/&lt;name&gt;</code> hangs or reports <code>progress deadline exceeded</code>.</li>
-        <li>Some pods for the Deployment are <code>Pending</code>, <code>CrashLoopBackOff</code>, or failing probes.</li>
-        <li>New pods are never marked <code>Ready</code>, or the number of <code>Ready</code> replicas never reaches the desired count.</li>
-        <li>HPA or traffic routing still points partially at old replicas.</li>
-      </ul>
-
-      <h2>Common root causes</h2>
-      <ul>
-        <li>Broken image (application fails to start, missing dependency).</li>
-        <li>Liveness/readiness probes misconfigured for the new version.</li>
-        <li>Resource requests too high for available nodes, leaving pods unschedulable.</li>
-        <li>PodDisruptionBudget, affinity/anti-affinity, or node selectors preventing enough replicas from running.</li>
-        <li>Networking/DNS issues preventing the app from reaching required backends.</li>
-      </ul>
-
-      <h2>How KubeGraf helps</h2>
-      <ul>
-        <li>Shows rollout status visually: desired vs updated vs available replicas.</li>
-        <li>Highlights pods that are blocking progress (probe failures, CrashLoopBackOff, Pending with scheduling errors).</li>
-        <li>Exposes Events attached to pods and the Deployment in one place.</li>
-        <li>Lets you inspect the spec diff between the previous ReplicaSet and the new one.</li>
-      </ul>
-
-      <h2>Step-by-step using KubeGraf UI</h2>
-
-      <h3>1. Confirm the rollout is stuck</h3>
-      <pre><code>kubectl rollout status deployment/&lt;name&gt; -n &lt;namespace&gt;</code></pre>
-      <p>Note any message like <code>progress deadline exceeded</code>. Then:</p>
-      <ul>
-        <li>Open KubeGraf and select the correct cluster and namespace.</li>
-        <li>Verify the Deployment name matches what you checked with <code>kubectl</code>.</li>
-      </ul>
-
-      <h3>2. Open the Deployment view</h3>
-      <ul>
-        <li>In KubeGraf, go to <strong>Deployments</strong> and select the affected Deployment.</li>
-        <li>Check the summary: desired, updated, and available/Ready replicas.</li>
-      </ul>
-
-      <h3>3. Identify blocking pods</h3>
-      <ul>
-        <li>From the Deployment details, open the linked ReplicaSets and Pods.</li>
-        <li>Look for pods in <code>Pending</code>, <code>CrashLoopBackOff</code>, or with failing readiness probes.</li>
-        <li>Use filters to narrow the list to non-Ready pods.</li>
-      </ul>
-
-      <h3>4. Inspect Events for scheduling or probe issues</h3>
-      <ul>
-        <li>On a problematic pod, open <strong>Events</strong>.</li>
-        <li>Look for messages such as:</li>
-      </ul>
-      <pre><code>0/3 nodes are available: 3 Insufficient cpu/memory
-Readiness probe failed: HTTP 500
-FailedScheduling: 0/3 nodes available due to taints</code></pre>
-
-      <h3>5. Compare new vs previous ReplicaSet spec</h3>
-      <ul>
-        <li>In the Deployment view, open the history / ReplicaSets panel.</li>
-        <li>Compare the new ReplicaSet to the previous one:</li>
-      </ul>
-      <ul>
-        <li>Image tag.</li>
-        <li>Resource requests/limits.</li>
-        <li>Probes (paths, ports, thresholds).</li>
-        <li>Env vars and config references.</li>
-      </ul>
-
-      <h3>6. Decide: roll back vs fix forward</h3>
-      <ul>
-        <li>If the change is clearly broken and you need fast recovery:</li>
-      </ul>
-      <pre><code>kubectl rollout undo deployment/&lt;name&gt; -n &lt;namespace&gt;
-kubectl rollout status deployment/&lt;name&gt; -n &lt;namespace&gt;</code></pre>
-      <ul>
-        <li>Watch in KubeGraf as pods for the previous ReplicaSet return to <code>Ready</code>.</li>
-        <li>If you can fix forward (e.g. adjust probe or config), update the spec via code and apply through CI/GitOps.</li>
-      </ul>
-
-      <h3>7. Verify impact at the service level</h3>
-      <ul>
-        <li>In KubeGraf, move to the <strong>Topology</strong> or <strong>Services</strong> view.</li>
-        <li>Confirm Service endpoints are all <code>Ready</code> and no backend endpoints are <code>NotReady</code>.</li>
-      </ul>
-
-      <h2>What to check next</h2>
-      <ul>
-        <li>Are other Deployments rolling out at the same time on the same nodes (resource contention)?</li>
-        <li>Is there a cluster-wide issue (node pressure, CNI problems) reflected in Events?</li>
-        <li>Are there PDBs or policies that restrict how many pods can be unavailable during rollout?</li>
-      </ul>
-
-      <h2>Common mistakes</h2>
-      <ul>
-        <li>Focusing only on the Deployment object and ignoring pod-level Events.</li>
-        <li>Forgetting to check node-level constraints when pods are Pending.</li>
-        <li>Rolling back image but leaving an incompatible probe or config in place.</li>
-        <li>Manually deleting pods to "unstick" a rollout instead of fixing the spec.</li>
-      </ul>
-
-      <h2>Related issues</h2>
-      <ul>
-        <li><a href="/docs/troubleshooting/crashloopbackoff.html">CrashLoopBackOff Kubernetes debugging</a></li>
-        <li><a href="/docs/troubleshooting/restarts-after-config-change.html">Pods restarting after ConfigMap or Secret change</a></li>
-        <li><a href="/docs/troubleshooting/high-cpu-memory.html">Sudden CPU or memory spikes</a></li>
-      </ul>
-
-      <h2>Expected outcome</h2>
-      <p>After following this playbook you should:</p>
-      <ul>
-        <li>Understand why the rollout is stalled (scheduling, crash, probes, or config).</li>
-        <li>Either roll back safely or apply a corrected spec that converges to the desired <code>Ready</code> replicas.</li>
-        <li>Be able to monitor future rollouts of this Deployment in KubeGraf with clear visibility into progress.</li>
-      </ul>
-
-      <pre><code>[ TODO: screenshot showing KubeGraf Deployment view with rollout status and blocking pods highlighted. ]</code></pre>
-    </main>
-        </div>
-
-    <footer class="docs-footer">
-      <div class="docs-footer-content">
-        <div class="docs-footer-links">
-          <a href="https://github.com/kubegraf/kubegraf/issues/new?template=bug_report.yml" target="_blank" rel="noopener noreferrer">Report a bug</a>
-          <a href="https://github.com/kubegraf/kubegraf/issues/new?template=feature_request.yml" target="_blank" rel="noopener noreferrer">Request a feature</a>
-          <a href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
-          <a href="/license" target="_blank" rel="noopener noreferrer">License (Apache 2.0)</a>
-          <a href="mailto:contact@kubegraf.io">Contact</a>
-          <div class="theme-selector">
-            <button id="theme-light-btn" onclick="setTheme('light')" aria-label="Light theme" title="Light">
-              ☀️
-            </button>
-            <button id="theme-dark-btn" onclick="setTheme('dark')" aria-label="Dark theme" title="Dark">
-              🌙
-            </button>
-          </div>
-        </div>
-      </div>
-    </footer>
-  </div>
-    <script src="/docs/mobile-menu.js"></script>
+    
+    <script>
+        // Wait for DOM to be ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('mobile-sidebar-overlay');
+            
+            function toggleMobileMenu() {
+                if (sidebar && overlay) {
+                    sidebar.classList.toggle('mobile-open');
+                    overlay.classList.toggle('active');
+                }
+            }
+            
+            function closeMobileMenu() {
+                if (sidebar && overlay) {
+                    sidebar.classList.remove('mobile-open');
+                    overlay.classList.remove('active');
+                }
+            }
+            
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            }
+            
+            if (overlay) {
+                overlay.addEventListener('click', closeMobileMenu);
+            }
+            
+            // Close menu when clicking on a sidebar link (mobile only)
+            if (sidebar) {
+                const sidebarLinks = sidebar.querySelectorAll('a');
+                sidebarLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        // Only close on mobile
+                        if (window.innerWidth <= 900) {
+                            setTimeout(closeMobileMenu, 100);
+                        }
+                    });
+                });
+            }
+            
+            // Close menu on escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && sidebar && sidebar.classList.contains('mobile-open')) {
+                    closeMobileMenu();
+                }
+            });
+        });
+    </script>
     <script src="/docs/theme-switcher.js"></script>
 </body>
 </html>

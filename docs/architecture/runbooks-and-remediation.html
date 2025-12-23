@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Runbooks & Remediation - KubeGraf Documentation</title>
+    <meta name="description" content="KubeGraf documentation - Learn how to install, configure, and use KubeGraf for Kubernetes visualization.">
+    <link rel="canonical" href="https://kubegraf.io/docs/" />
+
+    <meta property="og:title" content="KubeGraf Documentation – Intelligent Insight for Kubernetes Incidents" />
+    <meta property="og:description" content="Official KubeGraf documentation for detecting incidents, diagnosing root causes, and safely responding to Kubernetes failures." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kubegraf.io/docs/" />
+    <meta property="og:site_name" content="KubeGraf" />
+    <meta property="og:image" content="https://kubegraf.io/opengraph.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@kubegraf" />
+    <meta name="twitter:title" content="KubeGraf Documentation – Intelligent Insight for Kubernetes Incidents" />
+    <meta name="twitter:description" content="Official KubeGraf documentation for detecting incidents, diagnosing root causes, and safely responding to Kubernetes failures." />
+    <meta name="twitter:image" content="https://kubegraf.io/opengraph.jpg" />
+    <!-- Use the same favicon as the main landing page -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+    <!-- Use the same font stack as the main landing page -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Theme Switcher -->
+    <link rel="stylesheet" href="/docs/theme-styles.css">
+    <style>
+        :root {
+            /* Align colors with main landing page palette */
+            --primary: #06b6d4;         /* Neon cyan */
+            --primary-dark: #0f172a;
+            --secondary: #4c1d95;       /* Deep purple */
+            --accent: #8b5cf6;
+            --text: #f9fafb;
+            --text-muted: #9ca3af;
+            --bg: #09090b;              /* Same as main background */
+            --bg-secondary: #020617;
+            --bg-tertiary: #111827;
+            --border: rgba(148, 163, 184, 0.25);
+            --border-hover: rgba(56, 189, 248, 0.55);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Outfit', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        /* Floating orbs background */
+        .floating-orbs {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.12;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: var(--primary);
+            top: -150px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 350px;
+            height: 350px;
+            background: var(--secondary);
+            bottom: 30%;
+            left: 200px;
+            animation-delay: -5s;
+        }
+
+        .orb-3 {
+            width: 400px;
+            height: 400px;
+            background: var(--accent);
+            top: 60%;
+            right: -100px;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(20px, -20px) scale(1.03); }
+            50% { transform: translate(-15px, 15px) scale(0.97); }
+            75% { transform: translate(15px, 20px) scale(1.01); }
+        }
+
+        /* Hero header section */
+        .docs-hero {
+            position: relative;
+            padding: 3rem 0 2rem;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .docs-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(50, 108, 229, 0.15), transparent),
+                radial-gradient(ellipse 60% 40% at 80% 50%, rgba(0, 212, 170, 0.08), transparent);
+            pointer-events: none;
+        }
+
+        .docs-hero .grid-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(50, 108, 229, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(50, 108, 229, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            mask-image: radial-gradient(ellipse 70% 70% at 50% 30%, black 0%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 30%, black 0%, transparent 70%);
+        }
+
+        .docs-hero h1 {
+            position: relative;
+            z-index: 1;
+            animation: heroFadeIn 0.8s ease-out;
+        }
+
+        .docs-hero h1 span {
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 5s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes heroFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .docs-hero .intro {
+            position: relative;
+            z-index: 1;
+            animation: heroFadeIn 0.8s ease-out 0.2s both;
+        }
+
+        /* Animated underline for h1 */
+        .docs-hero h1::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            margin-top: 1rem;
+            border-radius: 2px;
+            animation: expandLine 0.8s ease-out 0.4s both;
+        }
+
+        @keyframes expandLine {
+            from { width: 0; opacity: 0; }
+            to { width: 80px; opacity: 1; }
+        }
+
+        a { color: var(--primary); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* Layout */
+        .docs-layout {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .docs-main-wrapper {
+            flex: 1;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border);
+            padding: 1.5rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-logo svg { width: 28px; height: 28px; }
+
+        .sidebar-logo-icon {
+            width: 96px;
+            height: 96px;
+            border-radius: 8px;
+            object-fit: contain;
+        }
+
+        .sidebar-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-section h3 {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .sidebar-section ul {
+            list-style: none;
+        }
+
+        .sidebar-section a {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            color: var(--text-muted);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .sidebar-section a:hover {
+            background: var(--bg-tertiary);
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .sidebar-section a.active {
+            background: rgba(50, 108, 229, 0.15);
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        .docs-content,
+        main.content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 3rem 4rem;
+            max-width: 1400px;
+            
+            box-sizing: border-box;
+        }
+        
+        /* Ensure content doesn't overlap sidebar */
+        main.content.docs-content {
+            
+        }
+        
+        /* Ensure docs-main-wrapper also has proper spacing */
+        .docs-main-wrapper {
+            margin-left: 280px;
+            
+        }
+
+        .docs-content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-family: 'Space Grotesk', system-ui, sans-serif;
+            letter-spacing: -0.03em;
+        }
+
+        .docs-content h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+            font-family: 'Space Grotesk', system-ui, sans-serif;
+        }
+
+        .docs-content h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 2rem 0 0.75rem;
+        }
+
+        .docs-content p {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .docs-content ul, .docs-content ol {
+            color: var(--text-muted);
+            margin: 1rem 0 1rem 1.5rem;
+        }
+
+        .docs-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Code blocks */
+        .docs-content code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            background: var(--bg-tertiary);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: var(--secondary);
+        }
+
+        .docs-content pre {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        .docs-content pre code {
+            background: none;
+            padding: 0;
+            color: #e2e8f0;
+        }
+
+        /* Cards Grid */
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .docs-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .docs-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+            text-decoration: none;
+        }
+
+        .docs-card h3 {
+            color: var(--text);
+            font-size: 1.1rem;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .docs-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .docs-card .icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: rgba(50, 108, 229, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        /* Intro text */
+        .intro {
+            font-size: 1.15rem;
+            color: var(--text);
+            margin-bottom: 2rem;
+        }
+
+        /* Mobile Menu Buttons */
+        .mobile-menu-btn,
+        .mobile-home-btn {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            z-index: 1001;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.5rem;
+            line-height: 1;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            min-width: 48px;
+            min-height: 48px;
+            text-decoration: none;
+        }
+
+        .mobile-menu-btn {
+            left: 1rem;
+        }
+
+        .mobile-home-btn {
+            left: 4.5rem;
+        }
+
+        .mobile-menu-btn:hover,
+        .mobile-menu-btn:active,
+        .mobile-home-btn:hover,
+        .mobile-home-btn:active {
+            background: var(--bg-tertiary);
+            transform: scale(1.05);
+        }
+
+        /* Mobile Sidebar Overlay */
+        .mobile-sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+        }
+
+        .mobile-sidebar-overlay.active {
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .sidebar {
+                position: fixed;
+                left: -280px;
+                top: 0;
+                z-index: 1000;
+                transition: left 0.3s ease;
+                box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+            }
+            
+            .sidebar.mobile-open {
+                left: 0;
+            }
+            
+            .docs-content {
+                margin-left: 0;
+                padding: 2rem 1.5rem;
+                padding-top: 5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="docs-layout">
+        <!-- Mobile Menu Buttons -->
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle navigation menu">
+            ☰
+        </button>
+        <a href="/" class="mobile-home-btn" aria-label="Go to home page">
+            🏠
+        </a>
+        
+        <!-- Mobile Sidebar Overlay -->
+        <div class="mobile-sidebar-overlay" id="mobile-sidebar-overlay"></div>
+        
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+      <a href="/" class="sidebar-logo">
+        <img src="/assets/logo/kubegraf_color_icon.png" alt="KubeGraf logo" class="sidebar-logo-icon">
+        KubēGraf
+      </a>
+
+      
+      
+      
+      
+      
+      <div class="sidebar-section">
+        <ul>
+          <li><a href="/">🏠 Home</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Getting Started</h3>
+        <ul>
+          <li><a href="/docs/">Overview</a></li>
+          <li><a href="/docs/quickstart.html">Quick Start</a></li>
+          <li><a href="/docs/installation.html">Installation</a></li>
+          <li><a href="/docs/getting-started/first-cluster.html">First cluster</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Introduction</h3>
+        <ul>
+          <li><a href="/docs/introduction/what-is-kubegraf.html">What is KubeGraf</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Core Concepts</h3>
+        <ul>
+          <li><a href="/docs/core-concepts/incident-intelligence.html">Incident Intelligence</a></li>
+          <li><a href="/docs/core-concepts/deterministic-diagnosis.html">Deterministic Diagnosis</a></li>
+          <li><a href="/docs/core-concepts/evidence-and-confidence.html">Evidence & Confidence</a></li>
+          <li><a href="/docs/core-concepts/safety-model.html">Safety Model</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>User Guide</h3>
+        <ul>
+          <li><a href="/docs/terminal-ui.html">Terminal UI</a></li>
+          <li><a href="/docs/web-dashboard.html">Web Dashboard</a></li>
+          <li><a href="/docs/commands.html">Commands</a></li>
+          <li><a href="/docs/configuration.html">Configuration</a></li>
+          <li><a href="/docs/user-guide/incidents-overview.html">Incidents Overview</a></li>
+          <li><a href="/docs/user-guide/incident-detail-view.html">Incident Detail View</a></li>
+          <li><a href="/docs/user-guide/fix-preview-and-apply.html">Fix Preview and Apply</a></li>
+          <li><a href="/docs/user-guide/knowledge-bank.html">Knowledge Bank</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Features</h3>
+        <ul>
+          <li><a href="/docs/resource-map.html">Resource Map</a></li>
+          <li><a href="/docs/security.html">Security Analysis</a></li>
+          <li><a href="/docs/plugins.html">Plugins</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Troubleshooting</h3>
+        <ul>
+          <li><a href="/docs/troubleshooting/crashloopbackoff.html">CrashLoopBackOff</a></li>
+          <li><a href="/docs/troubleshooting/rollout-stuck.html">Rollout stuck</a></li>
+          <li><a href="/docs/troubleshooting/high-cpu-memory.html">High CPU / memory</a></li>
+          <li><a href="/docs/troubleshooting/restarts-after-config-change.html">Restarts after config change</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Workflows</h3>
+        <ul>
+          <li><a href="/docs/workflows/debug-crashloop.html">Debug CrashLoopBackOff</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Compare</h3>
+        <ul>
+          <li><a href="/docs/compare/kubegraf-vs-lens.html">KubeGraf vs Kubernetes IDEs</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Reference</h3>
+        <ul>
+          <li><a href="/docs/reference/cli.html">CLI</a></li>
+          <li><a href="/docs/reference/config.html">Config</a></li>
+          <li><a href="/docs/reference/plugins.html">Plugins</a></li>
+          <li><a href="/docs/reference/api.html">API schema</a></li>
+          <li><a href="/docs/reference/faq.html">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Architecture & Internals</h3>
+        <ul>
+          <li><a href="/docs/architecture/system-overview.html">System Overview</a></li>
+          <li><a href="/docs/architecture/intelligence-pipeline.html">Intelligence Pipeline</a></li>
+          <li><a href="/docs/architecture/snapshot-architecture.html">Snapshot Architecture</a></li>
+          <li><a href="/docs/architecture/runbooks-and-remediation.html" class="active">Runbooks & Remediation</a></li>
+          <li><a href="/docs/architecture/learning-engine.html">Learning Engine</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="https://github.com/kubegraf/kubegraf" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://github.com/kubegraf/kubegraf/releases" target="_blank" rel="noopener noreferrer">Releases</a></li>
+          <li><a href="https://github.com/kubegraf/kubegraf/issues" target="_blank" rel="noopener noreferrer">Report Issue</a></li>
+        </ul>
+      </div>
+    </aside>
+        <div class="docs-main-wrapper">
+
+        <!-- Floating Orbs Background -->
+        <div class="floating-orbs">
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+            <div class="orb orb-3"></div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="content docs-content"><h1>Runbooks &amp; Remediation</h1>
+<p><strong>Audience:</strong> This documentation is for engineers working on or extending KubeGraf&#39;s Incident Intelligence System. It provides deep technical details about the runbook-driven fix engine and auto-remediation system.</p>
+<h2>Runbook-Driven Fix Engine</h2>
+<p>Fixes are driven by <strong>runbooks</strong> - predefined, tested remediation procedures. This ensures consistency, safety, and learnability.</p>
+<h2>Runbook Model</h2>
+<pre><code class="language-go">type Runbook struct {
+    ID            string          // Unique runbook ID
+    Name          string          // Human-readable name
+    Description   string          // What this runbook does
+    Pattern       FailurePattern  // Target failure pattern
+    Preconditions []Check         // Must pass before execution
+    Action        RunbookAction   // The actual fix action
+    Verification  []Check         // Must pass after execution
+    Rollback      *RunbookAction  // How to undo if verification fails
+    Risk          RiskLevel       // low | medium | high | critical
+    AutonomyLevel AutonomyLevel   // 0-3 (Observe/Recommend/Propose/Auto-Execute)
+    SuccessRate   float64         // Historical success rate (0.0-1.0)
+    BlastRadius   int             // Number of resources affected
+}
+</code></pre>
+<h3>Runbook Components</h3>
+<p><strong>Preconditions:</strong></p>
+<ul>
+<li>Checks that must pass before execution</li>
+<li>Validates resource state</li>
+<li>Ensures safe execution context</li>
+<li>Example: &quot;Pod must exist&quot;, &quot;Deployment must have replicas &gt; 0&quot;</li>
+</ul>
+<p><strong>Action:</strong></p>
+<ul>
+<li>The actual remediation step</li>
+<li>Can be: restart, scale, patch, delete, create</li>
+<li>Includes resource references</li>
+<li>Includes parameter values</li>
+</ul>
+<p><strong>Verification:</strong></p>
+<ul>
+<li>Checks that must pass after execution</li>
+<li>Validates fix success</li>
+<li>Triggers rollback if fails</li>
+<li>Example: &quot;Pod must be ready&quot;, &quot;Service must have endpoints&quot;</li>
+</ul>
+<p><strong>Rollback:</strong></p>
+<ul>
+<li>How to undo the fix if verification fails</li>
+<li>Optional (required for auto-execute)</li>
+<li>Must restore previous state</li>
+<li>Example: &quot;Restore previous replica count&quot;, &quot;Revert patch&quot;</li>
+</ul>
+<h2>Built-in Runbooks</h2>
+<table>
+<thead>
+<tr>
+<th>Runbook</th>
+<th>Pattern</th>
+<th>Risk</th>
+<th>Autonomy</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>restart-pod</code></td>
+<td>RESTART_STORM</td>
+<td>Low</td>
+<td>Auto-Execute (L3)</td>
+<td>Delete pod to trigger recreation</td>
+</tr>
+<tr>
+<td><code>scale-up-deployment</code></td>
+<td>DEPLOYMENT_UNAVAILABLE</td>
+<td>Low</td>
+<td>Auto-Execute (L3)</td>
+<td>Scale deployment +1 replica</td>
+</tr>
+<tr>
+<td><code>rolling-restart</code></td>
+<td>NO_READY_ENDPOINTS</td>
+<td>Low</td>
+<td>Auto-Execute (L3)</td>
+<td>Rolling restart deployment</td>
+</tr>
+<tr>
+<td><code>increase-memory</code></td>
+<td>OOM_PRESSURE</td>
+<td>Medium</td>
+<td>Propose (L2)</td>
+<td>Patch memory limits +50%</td>
+</tr>
+<tr>
+<td><code>retry-job</code></td>
+<td>APP_CRASH</td>
+<td>Low</td>
+<td>Propose (L2)</td>
+<td>Delete failed job to retry</td>
+</tr>
+</tbody></table>
+<h3>Runbook Registry</h3>
+<p>Runbooks are registered in a central registry (<code>runbooks.go</code>):</p>
+<pre><code class="language-go">type RunbookRegistry struct {
+    runbooks map[string]*Runbook
+    mutex    sync.RWMutex
+}
+</code></pre>
+<p><strong>Registration:</strong></p>
+<ul>
+<li>Runbooks registered at startup</li>
+<li>Can be extended via plugins</li>
+<li>Registry provides lookup by ID or pattern</li>
+</ul>
+<p><strong>Lookup:</strong></p>
+<ul>
+<li>Find runbooks by failure pattern</li>
+<li>Filter by risk level</li>
+<li>Filter by autonomy level</li>
+<li>Sort by success rate</li>
+</ul>
+<h2>Runbook Execution</h2>
+<h3>Execution Flow</h3>
+<ol>
+<li><p><strong>Precondition Checks</strong></p>
+<ul>
+<li>Run all precondition checks</li>
+<li>Fail if any check fails</li>
+<li>Log failure reason</li>
+</ul>
+</li>
+<li><p><strong>Action Execution</strong></p>
+<ul>
+<li>Execute runbook action</li>
+<li>Track execution status</li>
+<li>Capture output/errors</li>
+</ul>
+</li>
+<li><p><strong>Verification Checks</strong></p>
+<ul>
+<li>Wait for resource state to stabilize</li>
+<li>Run all verification checks</li>
+<li>Determine success/failure</li>
+</ul>
+</li>
+<li><p><strong>Rollback (if needed)</strong></p>
+<ul>
+<li>If verification fails, execute rollback</li>
+<li>Restore previous state</li>
+<li>Log rollback reason</li>
+</ul>
+</li>
+</ol>
+<h3>Execution Modes</h3>
+<p><strong>Preview Mode:</strong></p>
+<ul>
+<li>Shows what would change</li>
+<li>Dry-run validation</li>
+<li>No actual changes</li>
+<li>Used in UI fix preview</li>
+</ul>
+<p><strong>Dry-Run Mode:</strong></p>
+<ul>
+<li>Kubernetes server-side validation</li>
+<li>Admission controllers run</li>
+<li>Webhooks validate</li>
+<li>No changes made</li>
+</ul>
+<p><strong>Apply Mode:</strong></p>
+<ul>
+<li>Actual execution</li>
+<li>Changes applied to cluster</li>
+<li>Verification runs</li>
+<li>Rollback on failure</li>
+</ul>
+<h2>Auto-Remediation</h2>
+<p>Auto-remediation automatically executes runbooks when incidents are detected, subject to safety guards.</p>
+<h3>Autonomy Levels</h3>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Name</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>Observe</td>
+<td>Only collect data, no recommendations</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Recommend</td>
+<td>Show suggestions to user</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Propose</td>
+<td>Show fix preview with diff, require user apply</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Auto-Execute</td>
+<td>Execute low-risk fixes automatically</td>
+</tr>
+</tbody></table>
+<h3>Safety Guards</h3>
+<p>Auto-execute only allowed when <strong>all</strong> of these conditions are met:</p>
+<ul>
+<li>✅ <strong>Confidence ≥ 0.9</strong> (configurable, default 0.9)</li>
+<li>✅ <strong>Success rate ≥ 0.95</strong> (configurable, default 0.95)</li>
+<li>✅ <strong>Runbook risk level is Low</strong></li>
+<li>✅ <strong>Rollback defined</strong> (required for auto-execute)</li>
+<li>✅ <strong>Resource not in blocked namespaces</strong></li>
+<li>✅ <strong>Runbook autonomy level ≥ 3</strong> (Auto-Execute)</li>
+</ul>
+<h3>Blocked Namespaces</h3>
+<p>These namespaces are never auto-remediated:</p>
+<ul>
+<li><code>kube-system</code></li>
+<li><code>kube-public</code></li>
+<li><code>kube-node-lease</code></li>
+</ul>
+<h3>Auto-Remediation Engine</h3>
+<p>The auto-remediation engine (<code>autoremediation.go</code>) manages automatic fix execution:</p>
+<pre><code class="language-go">type AutoRemediationEngine struct {
+    enabled     bool
+    config      AutoRemediationConfig
+    registry    *RunbookRegistry
+    decisions   []RemediationDecision
+    mutex       sync.RWMutex
+}
+</code></pre>
+<p><strong>Decision Process:</strong></p>
+<ol>
+<li>Incident detected</li>
+<li>Find applicable runbooks</li>
+<li>Check safety guards</li>
+<li>Make decision: execute, skip, or blocked</li>
+<li>Execute if approved</li>
+<li>Track outcome</li>
+</ol>
+<h3>Status Tracking</h3>
+<p>Auto-remediation tracks comprehensive statistics:</p>
+<ul>
+<li><strong>Total</strong> - Total number of auto-remediation attempts</li>
+<li><strong>Success</strong> - Successfully applied and verified fixes</li>
+<li><strong>Failed</strong> - Fixes that failed verification</li>
+<li><strong>Rolled Back</strong> - Fixes that were rolled back</li>
+<li><strong>Active</strong> - Currently executing fixes</li>
+<li><strong>Queued</strong> - Fixes waiting to execute</li>
+<li><strong>In Cooldown</strong> - Resources in cooldown period (prevents rapid re-execution)</li>
+</ul>
+<h3>Cooldown Period</h3>
+<p>Resources enter cooldown after auto-remediation:</p>
+<ul>
+<li><strong>Duration:</strong> 5 minutes (configurable)</li>
+<li><strong>Purpose:</strong> Prevents rapid re-execution on same resource</li>
+<li><strong>Scope:</strong> Per-resource (not per-incident)</li>
+<li><strong>Reset:</strong> On manual intervention or incident resolution</li>
+</ul>
+<h3>Recent Decisions</h3>
+<p>The system tracks recent auto-remediation decisions:</p>
+<pre><code class="language-go">type RemediationDecision struct {
+    IncidentID    string
+    RunbookID     string
+    Decision      string  // execute | skip | blocked
+    Reason        string
+    Confidence    float64
+    SuccessRate   float64
+    Timestamp     time.Time
+}
+</code></pre>
+<p><strong>Decision Reasons:</strong></p>
+<ul>
+<li><code>executed</code> - Fix was applied</li>
+<li><code>skipped_low_confidence</code> - Confidence below threshold</li>
+<li><code>skipped_low_success_rate</code> - Success rate below threshold</li>
+<li><code>blocked_namespace</code> - Resource in blocked namespace</li>
+<li><code>blocked_no_rollback</code> - No rollback defined</li>
+<li><code>blocked_high_risk</code> - Risk level too high</li>
+</ul>
+<h2>Fix Preview and Apply</h2>
+<h3>Preview API</h3>
+<pre><code class="language-bash">POST /api/v2/incidents/{id}/fix-preview
+{
+  &quot;fixId&quot;: &quot;rb-restart-pod&quot;,
+  &quot;resourceNamespace&quot;: &quot;default&quot;,
+  &quot;resourceKind&quot;: &quot;Pod&quot;,
+  &quot;resourceName&quot;: &quot;my-pod&quot;
+}
+</code></pre>
+<p><strong>Response:</strong></p>
+<ul>
+<li>Fix description</li>
+<li>YAML diff (for patches)</li>
+<li>Dry-run command</li>
+<li>Apply command</li>
+<li>Expected impact</li>
+</ul>
+<h3>Apply API</h3>
+<pre><code class="language-bash">POST /api/v2/incidents/{id}/fix-apply
+{
+  &quot;fixId&quot;: &quot;rb-restart-pod&quot;,
+  &quot;confirmed&quot;: true,
+  &quot;resourceNamespace&quot;: &quot;default&quot;,
+  &quot;resourceKind&quot;: &quot;Pod&quot;,
+  &quot;resourceName&quot;: &quot;my-pod&quot;
+}
+</code></pre>
+<p><strong>Response:</strong></p>
+<ul>
+<li>Execution status</li>
+<li>Output/errors</li>
+<li>Verification results</li>
+<li>Rollback status (if needed)</li>
+</ul>
+<h3>Execution Flow</h3>
+<ol>
+<li><p><strong>Validate Request</strong></p>
+<ul>
+<li>Check incident exists</li>
+<li>Check runbook exists</li>
+<li>Check resource exists</li>
+<li>Check permissions</li>
+</ul>
+</li>
+<li><p><strong>Run Preconditions</strong></p>
+<ul>
+<li>Execute all precondition checks</li>
+<li>Fail if any check fails</li>
+</ul>
+</li>
+<li><p><strong>Execute Action</strong></p>
+<ul>
+<li>Run in preview/dry-run/apply mode</li>
+<li>Capture output</li>
+<li>Track execution status</li>
+</ul>
+</li>
+<li><p><strong>Run Verification</strong></p>
+<ul>
+<li>Wait for stabilization</li>
+<li>Execute verification checks</li>
+<li>Determine success/failure</li>
+</ul>
+</li>
+<li><p><strong>Handle Rollback</strong></p>
+<ul>
+<li>If verification fails, execute rollback</li>
+<li>Restore previous state</li>
+<li>Return error</li>
+</ul>
+</li>
+<li><p><strong>Update Incident</strong></p>
+<ul>
+<li>Record fix application</li>
+<li>Update incident status</li>
+<li>Track outcome for learning</li>
+</ul>
+</li>
+</ol>
+<h2>Runbook Execution Engine</h2>
+<p>The runbook executor (<code>runbooks.go</code>) handles execution:</p>
+<pre><code class="language-go">type RunbookExecutor struct {
+    registry    *RunbookRegistry
+    k8sClient   kubernetes.Interface
+    mutex       sync.Mutex
+}
+</code></pre>
+<p><strong>Execution Methods:</strong></p>
+<ul>
+<li><code>ExecutePreview()</code> - Preview mode</li>
+<li><code>ExecuteDryRun()</code> - Dry-run mode</li>
+<li><code>ExecuteApply()</code> - Apply mode</li>
+<li><code>ExecuteRollback()</code> - Rollback execution</li>
+</ul>
+<p><strong>Action Types:</strong></p>
+<ul>
+<li><code>RestartPod</code> - Delete pod to trigger recreation</li>
+<li><code>ScaleDeployment</code> - Change replica count</li>
+<li><code>PatchResource</code> - Apply JSON patch</li>
+<li><code>DeleteResource</code> - Delete resource</li>
+<li><code>CreateResource</code> - Create resource</li>
+</ul>
+<h2>Learning Integration</h2>
+<p>Runbook execution outcomes feed into the learning system:</p>
+<ul>
+<li><strong>Success Rate Tracking</strong> - Updates runbook success rates</li>
+<li><strong>Pattern Correlation</strong> - Links runbooks to patterns</li>
+<li><strong>Resource Correlation</strong> - Tracks success by resource type</li>
+<li><strong>Feedback Integration</strong> - Incorporates user feedback</li>
+</ul>
+<p>This enables:</p>
+<ul>
+<li>Runbook ranking by success rate</li>
+<li>Pattern-specific runbook recommendations</li>
+<li>Continuous improvement of auto-remediation decisions</li>
+</ul>
+<h2>API Endpoints</h2>
+<h3>Auto-Remediation APIs</h3>
+<pre><code class="language-bash"># Get auto-remediation status
+GET /api/v2/auto-remediation/status
+
+# Response includes:
+# {
+#   &quot;enabled&quot;: true/false,
+#   &quot;total&quot;: 0,
+#   &quot;success&quot;: 0,
+#   &quot;failed&quot;: 0,
+#   &quot;rolledBack&quot;: 0,
+#   &quot;active&quot;: 0,
+#   &quot;queued&quot;: 0,
+#   &quot;inCooldown&quot;: 0
+# }
+
+# Enable auto-remediation globally
+POST /api/v2/auto-remediation/enable
+
+# Disable auto-remediation globally
+POST /api/v2/auto-remediation/disable
+
+# Get recent decisions (last 20)
+GET /api/v2/auto-remediation/decisions
+</code></pre>
+<h3>Fix APIs</h3>
+<pre><code class="language-bash"># Preview a fix (shows diff, dry-run command)
+POST /api/v2/incidents/{id}/fix-preview
+{
+  &quot;fixId&quot;: &quot;rb-restart-pod&quot;,
+  &quot;resourceNamespace&quot;: &quot;default&quot;,
+  &quot;resourceKind&quot;: &quot;Pod&quot;,
+  &quot;resourceName&quot;: &quot;my-pod&quot;
+}
+
+# Apply a fix
+POST /api/v2/incidents/{id}/fix-apply
+{
+  &quot;fixId&quot;: &quot;rb-restart-pod&quot;,
+  &quot;confirmed&quot;: true,
+  &quot;resourceNamespace&quot;: &quot;default&quot;,
+  &quot;resourceKind&quot;: &quot;Pod&quot;,
+  &quot;resourceName&quot;: &quot;my-pod&quot;
+}
+</code></pre>
+<hr>
+<p><strong>Next:</strong> Learn about the <a href="learning-engine.md">Learning Engine</a> that improves over time.</p>
+</main>
+        </div>
+
+        <footer class="docs-footer">
+            <div class="docs-footer-content">
+                <div class="docs-footer-links">
+                    <a href="https://github.com/kubegraf/kubegraf/issues/new?template=bug_report.yml" target="_blank" rel="noopener noreferrer">Report a bug</a>
+                    <a href="https://github.com/kubegraf/kubegraf/issues/new?template=feature_request.yml" target="_blank" rel="noopener noreferrer">Request a feature</a>
+                    <a href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+                    <a href="/license" target="_blank" rel="noopener noreferrer">License (Apache 2.0)</a>
+                    <a href="mailto:contact@kubegraf.io">Contact</a>
+                    <div class="theme-selector">
+                        <button id="theme-light-btn" onclick="setTheme('light')" aria-label="Light theme" title="Light">
+                            ☀️
+                        </button>
+                        <button id="theme-dark-btn" onclick="setTheme('dark')" aria-label="Dark theme" title="Dark">
+                            🌙
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        // Wait for DOM to be ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('mobile-sidebar-overlay');
+            
+            function toggleMobileMenu() {
+                if (sidebar && overlay) {
+                    sidebar.classList.toggle('mobile-open');
+                    overlay.classList.toggle('active');
+                }
+            }
+            
+            function closeMobileMenu() {
+                if (sidebar && overlay) {
+                    sidebar.classList.remove('mobile-open');
+                    overlay.classList.remove('active');
+                }
+            }
+            
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            }
+            
+            if (overlay) {
+                overlay.addEventListener('click', closeMobileMenu);
+            }
+            
+            // Close menu when clicking on a sidebar link (mobile only)
+            if (sidebar) {
+                const sidebarLinks = sidebar.querySelectorAll('a');
+                sidebarLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        // Only close on mobile
+                        if (window.innerWidth <= 900) {
+                            setTimeout(closeMobileMenu, 100);
+                        }
+                    });
+                });
+            }
+            
+            // Close menu on escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && sidebar && sidebar.classList.contains('mobile-open')) {
+                    closeMobileMenu();
+                }
+            });
+        });
+    </script>
+    <script src="/docs/theme-switcher.js"></script>
+</body>
+</html>

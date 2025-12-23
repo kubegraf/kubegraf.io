@@ -30,12 +30,26 @@ const NEW_SIDEBAR = `
       </div>
 
       <div class="sidebar-section">
+        <h3>Core Concepts</h3>
+        <ul>
+          <li><a href="/docs/core-concepts/incident-intelligence.html">Incident Intelligence</a></li>
+          <li><a href="/docs/core-concepts/deterministic-diagnosis.html">Deterministic Diagnosis</a></li>
+          <li><a href="/docs/core-concepts/evidence-and-confidence.html">Evidence & Confidence</a></li>
+          <li><a href="/docs/core-concepts/safety-model.html">Safety Model</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
         <h3>User Guide</h3>
         <ul>
           <li><a href="/docs/terminal-ui.html">Terminal UI</a></li>
           <li><a href="/docs/web-dashboard.html">Web Dashboard</a></li>
           <li><a href="/docs/commands.html">Commands</a></li>
           <li><a href="/docs/configuration.html">Configuration</a></li>
+          <li><a href="/docs/user-guide/incidents-overview.html">Incidents Overview</a></li>
+          <li><a href="/docs/user-guide/incident-detail-view.html">Incident Detail View</a></li>
+          <li><a href="/docs/user-guide/fix-preview-and-apply.html">Fix Preview and Apply</a></li>
+          <li><a href="/docs/user-guide/knowledge-bank.html">Knowledge Bank</a></li>
         </ul>
       </div>
 
@@ -62,6 +76,35 @@ const NEW_SIDEBAR = `
         <h3>Workflows</h3>
         <ul>
           <li><a href="/docs/workflows/debug-crashloop.html">Debug CrashLoopBackOff</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Compare</h3>
+        <ul>
+          <li><a href="/docs/compare/kubegraf-vs-lens.html">KubeGraf vs Kubernetes IDEs</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Reference</h3>
+        <ul>
+          <li><a href="/docs/reference/cli.html">CLI</a></li>
+          <li><a href="/docs/reference/config.html">Config</a></li>
+          <li><a href="/docs/reference/plugins.html">Plugins</a></li>
+          <li><a href="/docs/reference/api.html">API schema</a></li>
+          <li><a href="/docs/reference/faq.html">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Architecture & Internals</h3>
+        <ul>
+          <li><a href="/docs/architecture/system-overview.html">System Overview</a></li>
+          <li><a href="/docs/architecture/intelligence-pipeline.html">Intelligence Pipeline</a></li>
+          <li><a href="/docs/architecture/snapshot-architecture.html">Snapshot Architecture</a></li>
+          <li><a href="/docs/architecture/runbooks-and-remediation.html">Runbooks & Remediation</a></li>
+          <li><a href="/docs/architecture/learning-engine.html">Learning Engine</a></li>
         </ul>
       </div>
 
@@ -180,6 +223,88 @@ async function processFile(filePath: string) {
         finalContent = finalContent.replace(
           '<a href="/docs/workflows/debug-crashloop.html">Debug CrashLoopBackOff</a>',
           '<a href="/docs/workflows/debug-crashloop.html" class="active">Debug CrashLoopBackOff</a>'
+        );
+      }
+      
+      // Core Concepts active states
+      if (filePath.includes('core-concepts/incident-intelligence')) {
+        finalContent = finalContent.replace(
+          '<a href="/docs/core-concepts/incident-intelligence.html">Incident Intelligence</a>',
+          '<a href="/docs/core-concepts/incident-intelligence.html" class="active">Incident Intelligence</a>'
+        );
+      } else if (filePath.includes('core-concepts/deterministic-diagnosis')) {
+        finalContent = finalContent.replace(
+          '<a href="/docs/core-concepts/deterministic-diagnosis.html">Deterministic Diagnosis</a>',
+          '<a href="/docs/core-concepts/deterministic-diagnosis.html" class="active">Deterministic Diagnosis</a>'
+        );
+      } else if (filePath.includes('core-concepts/evidence-and-confidence')) {
+        finalContent = finalContent.replace(
+          '<a href="/docs/core-concepts/evidence-and-confidence.html">Evidence & Confidence</a>',
+          '<a href="/docs/core-concepts/evidence-and-confidence.html" class="active">Evidence & Confidence</a>'
+        );
+      } else if (filePath.includes('core-concepts/safety-model')) {
+        finalContent = finalContent.replace(
+          '<a href="/docs/core-concepts/safety-model.html">Safety Model</a>',
+          '<a href="/docs/core-concepts/safety-model.html" class="active">Safety Model</a>'
+        );
+      }
+      
+      // User Guide active states
+      if (filePath.includes('user-guide/incidents-overview')) {
+        finalContent = finalContent.replace(
+          '<a href="/docs/user-guide/incidents-overview.html">Incidents Overview</a>',
+          '<a href="/docs/user-guide/incidents-overview.html" class="active">Incidents Overview</a>'
+        );
+      } else if (filePath.includes('user-guide/incident-detail-view')) {
+        finalContent = finalContent.replace(
+          '<a href="/docs/user-guide/incident-detail-view.html">Incident Detail View</a>',
+          '<a href="/docs/user-guide/incident-detail-view.html" class="active">Incident Detail View</a>'
+        );
+      } else if (filePath.includes('user-guide/fix-preview-and-apply')) {
+        finalContent = finalContent.replace(
+          '<a href="/docs/user-guide/fix-preview-and-apply.html">Fix Preview and Apply</a>',
+          '<a href="/docs/user-guide/fix-preview-and-apply.html" class="active">Fix Preview and Apply</a>'
+        );
+      } else if (filePath.includes('user-guide/knowledge-bank')) {
+        finalContent = finalContent.replace(
+          '<a href="/docs/user-guide/knowledge-bank.html">Knowledge Bank</a>',
+          '<a href="/docs/user-guide/knowledge-bank.html" class="active">Knowledge Bank</a>'
+        );
+      }
+      
+      // Compare active states
+      if (filePath.includes('compare/kubegraf-vs-lens')) {
+        finalContent = finalContent.replace(
+          '<a href="/docs/compare/kubegraf-vs-lens.html">KubeGraf vs Kubernetes IDEs</a>',
+          '<a href="/docs/compare/kubegraf-vs-lens.html" class="active">KubeGraf vs Kubernetes IDEs</a>'
+        );
+      }
+      
+      // Architecture active states
+      if (filePath.includes('architecture/system-overview')) {
+        finalContent = finalContent.replace(
+          '<a href="/docs/architecture/system-overview.html">System Overview</a>',
+          '<a href="/docs/architecture/system-overview.html" class="active">System Overview</a>'
+        );
+      } else if (filePath.includes('architecture/intelligence-pipeline')) {
+        finalContent = finalContent.replace(
+          '<a href="/docs/architecture/intelligence-pipeline.html">Intelligence Pipeline</a>',
+          '<a href="/docs/architecture/intelligence-pipeline.html" class="active">Intelligence Pipeline</a>'
+        );
+      } else if (filePath.includes('architecture/snapshot-architecture')) {
+        finalContent = finalContent.replace(
+          '<a href="/docs/architecture/snapshot-architecture.html">Snapshot Architecture</a>',
+          '<a href="/docs/architecture/snapshot-architecture.html" class="active">Snapshot Architecture</a>'
+        );
+      } else if (filePath.includes('architecture/runbooks-and-remediation')) {
+        finalContent = finalContent.replace(
+          '<a href="/docs/architecture/runbooks-and-remediation.html">Runbooks & Remediation</a>',
+          '<a href="/docs/architecture/runbooks-and-remediation.html" class="active">Runbooks & Remediation</a>'
+        );
+      } else if (filePath.includes('architecture/learning-engine')) {
+        finalContent = finalContent.replace(
+          '<a href="/docs/architecture/learning-engine.html">Learning Engine</a>',
+          '<a href="/docs/architecture/learning-engine.html" class="active">Learning Engine</a>'
         );
       }
       
