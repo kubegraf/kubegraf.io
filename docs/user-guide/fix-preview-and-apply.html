@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fix Preview and Apply - KubeGraf Documentation</title>
+    <meta name="description" content="KubeGraf documentation - Learn how to install, configure, and use KubeGraf for Kubernetes visualization.">
+    <link rel="canonical" href="https://kubegraf.io/docs/" />
+
+    <meta property="og:title" content="KubeGraf Documentation – Intelligent Insight for Kubernetes Incidents" />
+    <meta property="og:description" content="Official KubeGraf documentation for detecting incidents, diagnosing root causes, and safely responding to Kubernetes failures." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kubegraf.io/docs/" />
+    <meta property="og:site_name" content="KubeGraf" />
+    <meta property="og:image" content="https://kubegraf.io/opengraph.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@kubegraf" />
+    <meta name="twitter:title" content="KubeGraf Documentation – Intelligent Insight for Kubernetes Incidents" />
+    <meta name="twitter:description" content="Official KubeGraf documentation for detecting incidents, diagnosing root causes, and safely responding to Kubernetes failures." />
+    <meta name="twitter:image" content="https://kubegraf.io/opengraph.jpg" />
+    <!-- Use the same favicon as the main landing page -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+    <!-- Use the same font stack as the main landing page -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Theme Switcher -->
+    <link rel="stylesheet" href="/docs/theme-styles.css">
+    <style>
+        :root {
+            /* Align colors with main landing page palette */
+            --primary: #06b6d4;         /* Neon cyan */
+            --primary-dark: #0f172a;
+            --secondary: #4c1d95;       /* Deep purple */
+            --accent: #8b5cf6;
+            --text: #f9fafb;
+            --text-muted: #9ca3af;
+            --bg: #09090b;              /* Same as main background */
+            --bg-secondary: #020617;
+            --bg-tertiary: #111827;
+            --border: rgba(148, 163, 184, 0.25);
+            --border-hover: rgba(56, 189, 248, 0.55);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Outfit', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        /* Floating orbs background */
+        .floating-orbs {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.12;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: var(--primary);
+            top: -150px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 350px;
+            height: 350px;
+            background: var(--secondary);
+            bottom: 30%;
+            left: 200px;
+            animation-delay: -5s;
+        }
+
+        .orb-3 {
+            width: 400px;
+            height: 400px;
+            background: var(--accent);
+            top: 60%;
+            right: -100px;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(20px, -20px) scale(1.03); }
+            50% { transform: translate(-15px, 15px) scale(0.97); }
+            75% { transform: translate(15px, 20px) scale(1.01); }
+        }
+
+        /* Hero header section */
+        .docs-hero {
+            position: relative;
+            padding: 3rem 0 2rem;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .docs-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(50, 108, 229, 0.15), transparent),
+                radial-gradient(ellipse 60% 40% at 80% 50%, rgba(0, 212, 170, 0.08), transparent);
+            pointer-events: none;
+        }
+
+        .docs-hero .grid-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(50, 108, 229, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(50, 108, 229, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            mask-image: radial-gradient(ellipse 70% 70% at 50% 30%, black 0%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 30%, black 0%, transparent 70%);
+        }
+
+        .docs-hero h1 {
+            position: relative;
+            z-index: 1;
+            animation: heroFadeIn 0.8s ease-out;
+        }
+
+        .docs-hero h1 span {
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 5s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes heroFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .docs-hero .intro {
+            position: relative;
+            z-index: 1;
+            animation: heroFadeIn 0.8s ease-out 0.2s both;
+        }
+
+        /* Animated underline for h1 */
+        .docs-hero h1::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            margin-top: 1rem;
+            border-radius: 2px;
+            animation: expandLine 0.8s ease-out 0.4s both;
+        }
+
+        @keyframes expandLine {
+            from { width: 0; opacity: 0; }
+            to { width: 80px; opacity: 1; }
+        }
+
+        a { color: var(--primary); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* Layout */
+        .docs-layout {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .docs-main-wrapper {
+            flex: 1;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border);
+            padding: 1.5rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-logo svg { width: 28px; height: 28px; }
+
+        .sidebar-logo-icon {
+            width: 96px;
+            height: 96px;
+            border-radius: 8px;
+            object-fit: contain;
+        }
+
+        .sidebar-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-section h3 {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .sidebar-section ul {
+            list-style: none;
+        }
+
+        .sidebar-section a {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            color: var(--text-muted);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .sidebar-section a:hover {
+            background: var(--bg-tertiary);
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .sidebar-section a.active {
+            background: rgba(50, 108, 229, 0.15);
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        .docs-content,
+        main.content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 3rem 4rem;
+            max-width: 1400px;
+            
+            box-sizing: border-box;
+        }
+        
+        /* Ensure content doesn't overlap sidebar */
+        main.content.docs-content {
+            
+        }
+        
+        /* Ensure docs-main-wrapper also has proper spacing */
+        .docs-main-wrapper {
+            margin-left: 280px;
+            
+        }
+
+        .docs-content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-family: 'Space Grotesk', system-ui, sans-serif;
+            letter-spacing: -0.03em;
+        }
+
+        .docs-content h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+            font-family: 'Space Grotesk', system-ui, sans-serif;
+        }
+
+        .docs-content h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 2rem 0 0.75rem;
+        }
+
+        .docs-content p {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .docs-content ul, .docs-content ol {
+            color: var(--text-muted);
+            margin: 1rem 0 1rem 1.5rem;
+        }
+
+        .docs-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Code blocks */
+        .docs-content code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            background: var(--bg-tertiary);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: var(--secondary);
+        }
+
+        .docs-content pre {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        .docs-content pre code {
+            background: none;
+            padding: 0;
+            color: #e2e8f0;
+        }
+
+        /* Cards Grid */
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .docs-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .docs-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+            text-decoration: none;
+        }
+
+        .docs-card h3 {
+            color: var(--text);
+            font-size: 1.1rem;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .docs-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .docs-card .icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: rgba(50, 108, 229, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        /* Intro text */
+        .intro {
+            font-size: 1.15rem;
+            color: var(--text);
+            margin-bottom: 2rem;
+        }
+
+        /* Mobile Menu Buttons */
+        .mobile-menu-btn,
+        .mobile-home-btn {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            z-index: 1001;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.5rem;
+            line-height: 1;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            min-width: 48px;
+            min-height: 48px;
+            text-decoration: none;
+        }
+
+        .mobile-menu-btn {
+            left: 1rem;
+        }
+
+        .mobile-home-btn {
+            left: 4.5rem;
+        }
+
+        .mobile-menu-btn:hover,
+        .mobile-menu-btn:active,
+        .mobile-home-btn:hover,
+        .mobile-home-btn:active {
+            background: var(--bg-tertiary);
+            transform: scale(1.05);
+        }
+
+        /* Mobile Sidebar Overlay */
+        .mobile-sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+        }
+
+        .mobile-sidebar-overlay.active {
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .sidebar {
+                position: fixed;
+                left: -280px;
+                top: 0;
+                z-index: 1000;
+                transition: left 0.3s ease;
+                box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+            }
+            
+            .sidebar.mobile-open {
+                left: 0;
+            }
+            
+            .docs-content {
+                margin-left: 0;
+                padding: 2rem 1.5rem;
+                padding-top: 5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="docs-layout">
+        <!-- Mobile Menu Buttons -->
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle navigation menu">
+            ☰
+        </button>
+        <a href="/" class="mobile-home-btn" aria-label="Go to home page">
+            🏠
+        </a>
+        
+        <!-- Mobile Sidebar Overlay -->
+        <div class="mobile-sidebar-overlay" id="mobile-sidebar-overlay"></div>
+        
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+      <a href="/" class="sidebar-logo">
+        <img src="/assets/logo/kubegraf_color_icon.png" alt="KubeGraf logo" class="sidebar-logo-icon">
+        KubēGraf
+      </a>
+
+      
+      
+      
+      
+      
+      <div class="sidebar-section">
+        <ul>
+          <li><a href="/">🏠 Home</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Getting Started</h3>
+        <ul>
+          <li><a href="/docs/">Overview</a></li>
+          <li><a href="/docs/quickstart.html">Quick Start</a></li>
+          <li><a href="/docs/installation.html">Installation</a></li>
+          <li><a href="/docs/getting-started/first-cluster.html">First cluster</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Introduction</h3>
+        <ul>
+          <li><a href="/docs/introduction/what-is-kubegraf.html">What is KubeGraf</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Core Concepts</h3>
+        <ul>
+          <li><a href="/docs/core-concepts/incident-intelligence.html">Incident Intelligence</a></li>
+          <li><a href="/docs/core-concepts/deterministic-diagnosis.html">Deterministic Diagnosis</a></li>
+          <li><a href="/docs/core-concepts/evidence-and-confidence.html">Evidence & Confidence</a></li>
+          <li><a href="/docs/core-concepts/safety-model.html">Safety Model</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>User Guide</h3>
+        <ul>
+          <li><a href="/docs/terminal-ui.html">Terminal UI</a></li>
+          <li><a href="/docs/web-dashboard.html">Web Dashboard</a></li>
+          <li><a href="/docs/commands.html">Commands</a></li>
+          <li><a href="/docs/configuration.html">Configuration</a></li>
+          <li><a href="/docs/user-guide/incidents-overview.html">Incidents Overview</a></li>
+          <li><a href="/docs/user-guide/incident-detail-view.html">Incident Detail View</a></li>
+          <li><a href="/docs/user-guide/fix-preview-and-apply.html" class="active">Fix Preview and Apply</a></li>
+          <li><a href="/docs/user-guide/knowledge-bank.html">Knowledge Bank</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Features</h3>
+        <ul>
+          <li><a href="/docs/resource-map.html">Resource Map</a></li>
+          <li><a href="/docs/security.html">Security Analysis</a></li>
+          <li><a href="/docs/plugins.html">Plugins</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Troubleshooting</h3>
+        <ul>
+          <li><a href="/docs/troubleshooting/crashloopbackoff.html">CrashLoopBackOff</a></li>
+          <li><a href="/docs/troubleshooting/rollout-stuck.html">Rollout stuck</a></li>
+          <li><a href="/docs/troubleshooting/high-cpu-memory.html">High CPU / memory</a></li>
+          <li><a href="/docs/troubleshooting/restarts-after-config-change.html">Restarts after config change</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Workflows</h3>
+        <ul>
+          <li><a href="/docs/workflows/debug-crashloop.html">Debug CrashLoopBackOff</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Compare</h3>
+        <ul>
+          <li><a href="/docs/compare/kubegraf-vs-lens.html">KubeGraf vs Kubernetes IDEs</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Reference</h3>
+        <ul>
+          <li><a href="/docs/reference/cli.html">CLI</a></li>
+          <li><a href="/docs/reference/config.html">Config</a></li>
+          <li><a href="/docs/reference/plugins.html">Plugins</a></li>
+          <li><a href="/docs/reference/api.html">API schema</a></li>
+          <li><a href="/docs/reference/faq.html">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Architecture & Internals</h3>
+        <ul>
+          <li><a href="/docs/architecture/system-overview.html">System Overview</a></li>
+          <li><a href="/docs/architecture/intelligence-pipeline.html">Intelligence Pipeline</a></li>
+          <li><a href="/docs/architecture/snapshot-architecture.html">Snapshot Architecture</a></li>
+          <li><a href="/docs/architecture/runbooks-and-remediation.html">Runbooks & Remediation</a></li>
+          <li><a href="/docs/architecture/learning-engine.html">Learning Engine</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="https://github.com/kubegraf/kubegraf" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://github.com/kubegraf/kubegraf/releases" target="_blank" rel="noopener noreferrer">Releases</a></li>
+          <li><a href="https://github.com/kubegraf/kubegraf/issues" target="_blank" rel="noopener noreferrer">Report Issue</a></li>
+        </ul>
+      </div>
+    </aside>
+        <div class="docs-main-wrapper">
+
+        <!-- Floating Orbs Background -->
+        <div class="floating-orbs">
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+            <div class="orb orb-3"></div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="content docs-content"><h1>Fix Preview and Apply</h1>
+<p>This is the most important workflow in KubeGraf: safely previewing and applying fixes to resolve incidents. Every fix goes through a three-stage safety process: Preview, Dry Run, and Apply.</p>
+<h2>Overview: The Safety Flow</h2>
+<p>Before any change touches your cluster, it goes through three stages:</p>
+<ol>
+<li><strong>Preview</strong> — See exactly what will change</li>
+<li><strong>Dry Run</strong> — Validate the change with Kubernetes (no changes made)</li>
+<li><strong>Apply</strong> — Execute the change with full transparency</li>
+</ol>
+<p>You can stop at any stage. Nothing changes your cluster until you explicitly confirm the Apply stage.</p>
+<h2>Starting the Fix Workflow</h2>
+<h3>From the Incident Detail View</h3>
+<ol>
+<li>Open an incident that has recommended fixes</li>
+<li>In the <strong>Recommendations</strong> section, find the fix you want to apply</li>
+<li>Click <strong>Preview Fix</strong></li>
+</ol>
+<p>This opens the Fix Preview modal, which shows you exactly what will change.</p>
+<h3>From the Incidents Table</h3>
+<ol>
+<li>Find an incident with fixes available (the &quot;Fixes&quot; column shows a number)</li>
+<li>Click the <strong>Actions</strong> menu</li>
+<li>Select <strong>Preview Fix</strong></li>
+</ol>
+<h2>Stage 1: Preview</h2>
+<p>The Preview stage shows you what will change before anything happens.</p>
+<h3>What You&#39;ll See</h3>
+<p><strong>Fix Summary</strong> — A clear description of what the fix will do:</p>
+<ul>
+<li>Which resource will be changed</li>
+<li>What property will be updated</li>
+<li>The old value → new value</li>
+</ul>
+<p><strong>YAML Diff</strong> — A side-by-side or unified diff showing:</p>
+<ul>
+<li>Lines that will be added (green, +)</li>
+<li>Lines that will be removed (red, -)</li>
+<li>Lines that will be modified (highlighted)</li>
+</ul>
+<p><strong>Impact Assessment</strong> — What will happen when you apply:</p>
+<ul>
+<li>Which resources will be affected</li>
+<li>Whether pods will be restarted</li>
+<li>Whether services will be interrupted</li>
+<li>Estimated downtime (if any)</li>
+</ul>
+<p><strong>Resource Details</strong> — Information about the resource being changed:</p>
+<ul>
+<li>Resource name and namespace</li>
+<li>Current state</li>
+<li>Labels and annotations</li>
+</ul>
+<h3>Understanding the Preview</h3>
+<p>The preview is your first safety checkpoint. Review it carefully:</p>
+<ul>
+<li><strong>Is this the right fix?</strong> — Does it address the root cause?</li>
+<li><strong>Is this the right resource?</strong> — Are you changing what you intend to change?</li>
+<li><strong>Is the change reasonable?</strong> — Does the new value make sense?</li>
+</ul>
+<p>If anything looks wrong, you can close the preview and investigate further. No changes have been made yet.</p>
+<h3>Actions Available</h3>
+<ul>
+<li><strong>View Full YAML</strong> — See the complete YAML that will be applied</li>
+<li><strong>Cancel</strong> — Close the preview without proceeding</li>
+<li><strong>Continue to Dry Run</strong> — Proceed to validation</li>
+</ul>
+<h2>Stage 2: Dry Run</h2>
+<p>The Dry Run stage validates your change with Kubernetes without making any changes.</p>
+<h3>What Happens During Dry Run</h3>
+<p>KubeGraf sends your change to Kubernetes with the <code>--dry-run</code> flag. Kubernetes:</p>
+<ul>
+<li><strong>Validates the YAML</strong> — Checks syntax and required fields</li>
+<li><strong>Runs admission controllers</strong> — Applies policies and validations</li>
+<li><strong>Checks resource quotas</strong> — Verifies you have capacity</li>
+<li><strong>Validates webhooks</strong> — Runs any custom validation webhooks</li>
+<li><strong>Checks permissions</strong> — Ensures you have the right to make the change</li>
+</ul>
+<p><strong>Important:</strong> No changes are made to your cluster during dry run. It&#39;s purely validation.</p>
+<h3>What You&#39;ll See</h3>
+<p><strong>Dry Run Output</strong> — Real-time output from Kubernetes showing:</p>
+<ul>
+<li>Validation results</li>
+<li>Any warnings</li>
+<li>Resource counts (e.g., &quot;1 resource would be configured&quot;)</li>
+<li>Server-side validation messages</li>
+</ul>
+<p><strong>Validation Status</strong> — One of:</p>
+<ul>
+<li>✅ <strong>Valid</strong> — The change passed all validations</li>
+<li>⚠️ <strong>Warnings</strong> — The change is valid but has warnings</li>
+<li>❌ <strong>Invalid</strong> — The change failed validation</li>
+</ul>
+<p><strong>Error Messages</strong> — If validation fails, you&#39;ll see:</p>
+<ul>
+<li>What went wrong</li>
+<li>Which validation failed</li>
+<li>How to fix it</li>
+</ul>
+<h3>Understanding Dry Run Results</h3>
+<p><strong>If dry run succeeds:</strong></p>
+<ul>
+<li>The change is valid and safe to apply</li>
+<li>Kubernetes has confirmed it can accept the change</li>
+<li>You can proceed to Apply with confidence</li>
+</ul>
+<p><strong>If dry run shows warnings:</strong></p>
+<ul>
+<li>The change is valid but may have side effects</li>
+<li>Review the warnings carefully</li>
+<li>Decide if the warnings are acceptable</li>
+</ul>
+<p><strong>If dry run fails:</strong></p>
+<ul>
+<li>The change cannot be applied as-is</li>
+<li>Fix the errors before trying again</li>
+<li>Common issues: syntax errors, missing fields, policy violations</li>
+</ul>
+<h3>Actions Available</h3>
+<ul>
+<li><strong>View Full Output</strong> — See complete dry run output</li>
+<li><strong>Cancel</strong> — Stop here without applying</li>
+<li><strong>Retry Dry Run</strong> — Run validation again (useful if something changed)</li>
+<li><strong>Continue to Apply</strong> — Proceed to execution (only if dry run succeeded)</li>
+</ul>
+<h2>Stage 3: Apply</h2>
+<p>The Apply stage executes the change on your cluster. This is the only stage that makes actual changes.</p>
+<h3>Before Applying</h3>
+<p>KubeGraf shows you a final confirmation:</p>
+<ul>
+<li><strong>What will change</strong> — Summary of the change</li>
+<li><strong>Dry run status</strong> — Confirmation that validation passed</li>
+<li><strong>Risk level</strong> — Reminder of the risk level</li>
+<li><strong>Expected impact</strong> — What will happen</li>
+</ul>
+<p>You must explicitly click <strong>Apply</strong> to proceed. This is your last chance to cancel.</p>
+<h3>What Happens During Apply</h3>
+<p>Once you click Apply:</p>
+<ol>
+<li><strong>Execution starts</strong> — KubeGraf begins applying the change</li>
+<li><strong>Real-time output</strong> — You see live output from kubectl</li>
+<li><strong>Progress updates</strong> — Status updates as the change progresses</li>
+<li><strong>Completion</strong> — Final status when done</li>
+</ol>
+<h3>What You&#39;ll See</h3>
+<p><strong>Execution Panel</strong> — A panel in the bottom-right corner showing:</p>
+<ul>
+<li><strong>Status badge</strong> — Running, Succeeded, or Failed</li>
+<li><strong>Mode badge</strong> — Shows &quot;APPLY&quot; to indicate live execution</li>
+<li><strong>Step labels</strong> — Visual indicators: Preview → Dry run → Apply</li>
+<li><strong>Resource summary</strong> — Chips showing what changed:<ul>
+<li>Created: X</li>
+<li>Updated: Y</li>
+<li>Deleted: Z</li>
+</ul>
+</li>
+<li><strong>Live output</strong> — Real-time log output from the command</li>
+<li><strong>Timestamps</strong> — When execution started and completed</li>
+<li><strong>Exit code</strong> — 0 for success, non-zero for failure</li>
+</ul>
+<p><strong>Live Output Stream</strong> — Real-time output showing:</p>
+<ul>
+<li>Command execution progress</li>
+<li>Kubernetes API responses</li>
+<li>Any errors or warnings</li>
+<li>Final confirmation</li>
+</ul>
+<p>The output is color-coded:</p>
+<ul>
+<li><strong>Green/white</strong> — Normal output (stdout)</li>
+<li><strong>Red</strong> — Errors (stderr)</li>
+<li><strong>Timestamps</strong> — Each line shows when it occurred</li>
+</ul>
+<h3>Understanding Apply Results</h3>
+<p><strong>If apply succeeds:</strong></p>
+<ul>
+<li>The change has been applied to your cluster</li>
+<li>The resource summary shows what changed</li>
+<li>You can verify the change in Kubernetes</li>
+<li>The incident may auto-resolve if the fix worked</li>
+</ul>
+<p><strong>If apply fails:</strong></p>
+<ul>
+<li>The execution panel shows the error</li>
+<li>No partial changes were made (Kubernetes ensures atomicity)</li>
+<li>Review the error and try again or choose a different fix</li>
+</ul>
+<h3>After Applying</h3>
+<p><strong>Verify the Fix:</strong></p>
+<ol>
+<li>Check the incident detail view — Has the status changed?</li>
+<li>Check the resource — Is it in the expected state?</li>
+<li>Check pod logs — Are errors resolved?</li>
+<li>Monitor metrics — Is the issue improving?</li>
+</ol>
+<p><strong>If the fix worked:</strong></p>
+<ul>
+<li>The incident may show as &quot;Resolved&quot;</li>
+<li>Related resources should be healthy</li>
+<li>You can close the execution panel</li>
+</ul>
+<p><strong>If the fix didn&#39;t work:</strong></p>
+<ul>
+<li>The incident may still be active</li>
+<li>Review the diagnosis — Was the root cause correct?</li>
+<li>Try a different fix or investigate further</li>
+</ul>
+<h2>The Execution Panel</h2>
+<p>The execution panel is your window into what KubeGraf is doing. It shows:</p>
+<ul>
+<li><strong>What&#39;s happening</strong> — Current stage and status</li>
+<li><strong>Progress</strong> — Real-time output from commands</li>
+<li><strong>Results</strong> — What actually changed</li>
+<li><strong>Errors</strong> — Any failures that occurred</li>
+</ul>
+<h3>Using the Execution Panel</h3>
+<p><strong>Expand/Collapse</strong> — Click to expand and see full output, or collapse to save space</p>
+<p><strong>Scroll</strong> — The output auto-scrolls, but you can scroll up to review earlier messages</p>
+<p><strong>Copy Output</strong> — Select text to copy for sharing or documentation</p>
+<p><strong>Close</strong> — Click × to close when done (execution history is preserved)</p>
+<p><strong>Retry</strong> — If execution failed, you can retry from the panel</p>
+<h2>Safety Features Throughout</h2>
+<p>At every stage, KubeGraf prioritizes safety:</p>
+<ul>
+<li><strong>Preview first</strong> — You always see what will change</li>
+<li><strong>Dry run validation</strong> — Kubernetes validates before execution</li>
+<li><strong>Explicit confirmation</strong> — You must explicitly click Apply</li>
+<li><strong>Transparent execution</strong> — You see everything that happens</li>
+<li><strong>Reversible operations</strong> — Many changes can be undone</li>
+</ul>
+<h2>Common Scenarios</h2>
+<h3>Scenario 1: Fixing a Memory Limit</h3>
+<ol>
+<li><strong>Preview</strong> — See memory limit change from 512Mi → 1024Mi</li>
+<li><strong>Dry Run</strong> — Kubernetes validates the new limit</li>
+<li><strong>Apply</strong> — Update the deployment, pods restart with new limit</li>
+<li><strong>Verify</strong> — Check that pods are running and incident is resolved</li>
+</ol>
+<h3>Scenario 2: Fixing a CrashLoop</h3>
+<ol>
+<li><strong>Preview</strong> — See environment variable or configuration change</li>
+<li><strong>Dry Run</strong> — Validate the new configuration</li>
+<li><strong>Apply</strong> — Update the deployment, new pods start with fix</li>
+<li><strong>Verify</strong> — Check that pods are running and not crashing</li>
+</ol>
+<h3>Scenario 3: Fixing Missing Endpoints</h3>
+<ol>
+<li><strong>Preview</strong> — See pod selector or label change</li>
+<li><strong>Dry Run</strong> — Validate the selector matches pods</li>
+<li><strong>Apply</strong> — Update the service, endpoints populate</li>
+<li><strong>Verify</strong> — Check that service has ready endpoints</li>
+</ol>
+<h2>Best Practices</h2>
+<p><strong>Always preview first</strong> — Don&#39;t skip the preview stage. It&#39;s your first safety checkpoint.</p>
+<p><strong>Review dry run output</strong> — Even if it succeeds, review warnings and messages.</p>
+<p><strong>Verify after applying</strong> — Don&#39;t assume the fix worked. Check the resource and incident status.</p>
+<p><strong>Start with low-risk fixes</strong> — If multiple fixes are available, try low-risk ones first.</p>
+<p><strong>Document what you did</strong> — Copy the proof block and execution summary for your records.</p>
+<p><strong>Don&#39;t rush</strong> — Take time to understand each stage. Safety is more important than speed.</p>
+<hr>
+<p><strong>Summary:</strong> The fix workflow ensures you always know what will change, validates changes before execution, and provides full transparency during application. This three-stage process (Preview → Dry Run → Apply) is designed to prevent mistakes and build confidence.</p>
+</main>
+        </div>
+
+        <footer class="docs-footer">
+            <div class="docs-footer-content">
+                <div class="docs-footer-links">
+                    <a href="https://github.com/kubegraf/kubegraf/issues/new?template=bug_report.yml" target="_blank" rel="noopener noreferrer">Report a bug</a>
+                    <a href="https://github.com/kubegraf/kubegraf/issues/new?template=feature_request.yml" target="_blank" rel="noopener noreferrer">Request a feature</a>
+                    <a href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+                    <a href="/license" target="_blank" rel="noopener noreferrer">License (Apache 2.0)</a>
+                    <a href="mailto:contact@kubegraf.io">Contact</a>
+                    <div class="theme-selector">
+                        <button id="theme-light-btn" onclick="setTheme('light')" aria-label="Light theme" title="Light">
+                            ☀️
+                        </button>
+                        <button id="theme-dark-btn" onclick="setTheme('dark')" aria-label="Dark theme" title="Dark">
+                            🌙
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        // Wait for DOM to be ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('mobile-sidebar-overlay');
+            
+            function toggleMobileMenu() {
+                if (sidebar && overlay) {
+                    sidebar.classList.toggle('mobile-open');
+                    overlay.classList.toggle('active');
+                }
+            }
+            
+            function closeMobileMenu() {
+                if (sidebar && overlay) {
+                    sidebar.classList.remove('mobile-open');
+                    overlay.classList.remove('active');
+                }
+            }
+            
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            }
+            
+            if (overlay) {
+                overlay.addEventListener('click', closeMobileMenu);
+            }
+            
+            // Close menu when clicking on a sidebar link (mobile only)
+            if (sidebar) {
+                const sidebarLinks = sidebar.querySelectorAll('a');
+                sidebarLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        // Only close on mobile
+                        if (window.innerWidth <= 900) {
+                            setTimeout(closeMobileMenu, 100);
+                        }
+                    });
+                });
+            }
+            
+            // Close menu on escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && sidebar && sidebar.classList.contains('mobile-open')) {
+                    closeMobileMenu();
+                }
+            });
+        });
+    </script>
+    <script src="/docs/theme-switcher.js"></script>
+</body>
+</html>

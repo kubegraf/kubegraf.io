@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelligence Pipeline - KubeGraf Documentation</title>
+    <meta name="description" content="KubeGraf documentation - Learn how to install, configure, and use KubeGraf for Kubernetes visualization.">
+    <link rel="canonical" href="https://kubegraf.io/docs/" />
+
+    <meta property="og:title" content="KubeGraf Documentation – Intelligent Insight for Kubernetes Incidents" />
+    <meta property="og:description" content="Official KubeGraf documentation for detecting incidents, diagnosing root causes, and safely responding to Kubernetes failures." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kubegraf.io/docs/" />
+    <meta property="og:site_name" content="KubeGraf" />
+    <meta property="og:image" content="https://kubegraf.io/opengraph.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@kubegraf" />
+    <meta name="twitter:title" content="KubeGraf Documentation – Intelligent Insight for Kubernetes Incidents" />
+    <meta name="twitter:description" content="Official KubeGraf documentation for detecting incidents, diagnosing root causes, and safely responding to Kubernetes failures." />
+    <meta name="twitter:image" content="https://kubegraf.io/opengraph.jpg" />
+    <!-- Use the same favicon as the main landing page -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+    <!-- Use the same font stack as the main landing page -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Theme Switcher -->
+    <link rel="stylesheet" href="/docs/theme-styles.css">
+    <style>
+        :root {
+            /* Align colors with main landing page palette */
+            --primary: #06b6d4;         /* Neon cyan */
+            --primary-dark: #0f172a;
+            --secondary: #4c1d95;       /* Deep purple */
+            --accent: #8b5cf6;
+            --text: #f9fafb;
+            --text-muted: #9ca3af;
+            --bg: #09090b;              /* Same as main background */
+            --bg-secondary: #020617;
+            --bg-tertiary: #111827;
+            --border: rgba(148, 163, 184, 0.25);
+            --border-hover: rgba(56, 189, 248, 0.55);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Outfit', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        /* Floating orbs background */
+        .floating-orbs {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.12;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: var(--primary);
+            top: -150px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 350px;
+            height: 350px;
+            background: var(--secondary);
+            bottom: 30%;
+            left: 200px;
+            animation-delay: -5s;
+        }
+
+        .orb-3 {
+            width: 400px;
+            height: 400px;
+            background: var(--accent);
+            top: 60%;
+            right: -100px;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(20px, -20px) scale(1.03); }
+            50% { transform: translate(-15px, 15px) scale(0.97); }
+            75% { transform: translate(15px, 20px) scale(1.01); }
+        }
+
+        /* Hero header section */
+        .docs-hero {
+            position: relative;
+            padding: 3rem 0 2rem;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .docs-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(50, 108, 229, 0.15), transparent),
+                radial-gradient(ellipse 60% 40% at 80% 50%, rgba(0, 212, 170, 0.08), transparent);
+            pointer-events: none;
+        }
+
+        .docs-hero .grid-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(50, 108, 229, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(50, 108, 229, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            mask-image: radial-gradient(ellipse 70% 70% at 50% 30%, black 0%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 30%, black 0%, transparent 70%);
+        }
+
+        .docs-hero h1 {
+            position: relative;
+            z-index: 1;
+            animation: heroFadeIn 0.8s ease-out;
+        }
+
+        .docs-hero h1 span {
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 5s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes heroFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .docs-hero .intro {
+            position: relative;
+            z-index: 1;
+            animation: heroFadeIn 0.8s ease-out 0.2s both;
+        }
+
+        /* Animated underline for h1 */
+        .docs-hero h1::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            margin-top: 1rem;
+            border-radius: 2px;
+            animation: expandLine 0.8s ease-out 0.4s both;
+        }
+
+        @keyframes expandLine {
+            from { width: 0; opacity: 0; }
+            to { width: 80px; opacity: 1; }
+        }
+
+        a { color: var(--primary); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* Layout */
+        .docs-layout {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .docs-main-wrapper {
+            flex: 1;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border);
+            padding: 1.5rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-logo svg { width: 28px; height: 28px; }
+
+        .sidebar-logo-icon {
+            width: 96px;
+            height: 96px;
+            border-radius: 8px;
+            object-fit: contain;
+        }
+
+        .sidebar-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-section h3 {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .sidebar-section ul {
+            list-style: none;
+        }
+
+        .sidebar-section a {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            color: var(--text-muted);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .sidebar-section a:hover {
+            background: var(--bg-tertiary);
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .sidebar-section a.active {
+            background: rgba(50, 108, 229, 0.15);
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        .docs-content,
+        main.content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 3rem 4rem;
+            max-width: 1400px;
+            
+            box-sizing: border-box;
+        }
+        
+        /* Ensure content doesn't overlap sidebar */
+        main.content.docs-content {
+            
+        }
+        
+        /* Ensure docs-main-wrapper also has proper spacing */
+        .docs-main-wrapper {
+            margin-left: 280px;
+            
+        }
+
+        .docs-content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-family: 'Space Grotesk', system-ui, sans-serif;
+            letter-spacing: -0.03em;
+        }
+
+        .docs-content h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+            font-family: 'Space Grotesk', system-ui, sans-serif;
+        }
+
+        .docs-content h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 2rem 0 0.75rem;
+        }
+
+        .docs-content p {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .docs-content ul, .docs-content ol {
+            color: var(--text-muted);
+            margin: 1rem 0 1rem 1.5rem;
+        }
+
+        .docs-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Code blocks */
+        .docs-content code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            background: var(--bg-tertiary);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: var(--secondary);
+        }
+
+        .docs-content pre {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        .docs-content pre code {
+            background: none;
+            padding: 0;
+            color: #e2e8f0;
+        }
+
+        /* Cards Grid */
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .docs-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .docs-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+            text-decoration: none;
+        }
+
+        .docs-card h3 {
+            color: var(--text);
+            font-size: 1.1rem;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .docs-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .docs-card .icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: rgba(50, 108, 229, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        /* Intro text */
+        .intro {
+            font-size: 1.15rem;
+            color: var(--text);
+            margin-bottom: 2rem;
+        }
+
+        /* Mobile Menu Buttons */
+        .mobile-menu-btn,
+        .mobile-home-btn {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            z-index: 1001;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.5rem;
+            line-height: 1;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            min-width: 48px;
+            min-height: 48px;
+            text-decoration: none;
+        }
+
+        .mobile-menu-btn {
+            left: 1rem;
+        }
+
+        .mobile-home-btn {
+            left: 4.5rem;
+        }
+
+        .mobile-menu-btn:hover,
+        .mobile-menu-btn:active,
+        .mobile-home-btn:hover,
+        .mobile-home-btn:active {
+            background: var(--bg-tertiary);
+            transform: scale(1.05);
+        }
+
+        /* Mobile Sidebar Overlay */
+        .mobile-sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+        }
+
+        .mobile-sidebar-overlay.active {
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .sidebar {
+                position: fixed;
+                left: -280px;
+                top: 0;
+                z-index: 1000;
+                transition: left 0.3s ease;
+                box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+            }
+            
+            .sidebar.mobile-open {
+                left: 0;
+            }
+            
+            .docs-content {
+                margin-left: 0;
+                padding: 2rem 1.5rem;
+                padding-top: 5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="docs-layout">
+        <!-- Mobile Menu Buttons -->
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle navigation menu">
+            ☰
+        </button>
+        <a href="/" class="mobile-home-btn" aria-label="Go to home page">
+            🏠
+        </a>
+        
+        <!-- Mobile Sidebar Overlay -->
+        <div class="mobile-sidebar-overlay" id="mobile-sidebar-overlay"></div>
+        
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+      <a href="/" class="sidebar-logo">
+        <img src="/assets/logo/kubegraf_color_icon.png" alt="KubeGraf logo" class="sidebar-logo-icon">
+        KubēGraf
+      </a>
+
+      
+      
+      
+      
+      
+      <div class="sidebar-section">
+        <ul>
+          <li><a href="/">🏠 Home</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Getting Started</h3>
+        <ul>
+          <li><a href="/docs/">Overview</a></li>
+          <li><a href="/docs/quickstart.html">Quick Start</a></li>
+          <li><a href="/docs/installation.html">Installation</a></li>
+          <li><a href="/docs/getting-started/first-cluster.html">First cluster</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Introduction</h3>
+        <ul>
+          <li><a href="/docs/introduction/what-is-kubegraf.html">What is KubeGraf</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Core Concepts</h3>
+        <ul>
+          <li><a href="/docs/core-concepts/incident-intelligence.html">Incident Intelligence</a></li>
+          <li><a href="/docs/core-concepts/deterministic-diagnosis.html">Deterministic Diagnosis</a></li>
+          <li><a href="/docs/core-concepts/evidence-and-confidence.html">Evidence & Confidence</a></li>
+          <li><a href="/docs/core-concepts/safety-model.html">Safety Model</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>User Guide</h3>
+        <ul>
+          <li><a href="/docs/terminal-ui.html">Terminal UI</a></li>
+          <li><a href="/docs/web-dashboard.html">Web Dashboard</a></li>
+          <li><a href="/docs/commands.html">Commands</a></li>
+          <li><a href="/docs/configuration.html">Configuration</a></li>
+          <li><a href="/docs/user-guide/incidents-overview.html">Incidents Overview</a></li>
+          <li><a href="/docs/user-guide/incident-detail-view.html">Incident Detail View</a></li>
+          <li><a href="/docs/user-guide/fix-preview-and-apply.html">Fix Preview and Apply</a></li>
+          <li><a href="/docs/user-guide/knowledge-bank.html">Knowledge Bank</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Features</h3>
+        <ul>
+          <li><a href="/docs/resource-map.html">Resource Map</a></li>
+          <li><a href="/docs/security.html">Security Analysis</a></li>
+          <li><a href="/docs/plugins.html">Plugins</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Troubleshooting</h3>
+        <ul>
+          <li><a href="/docs/troubleshooting/crashloopbackoff.html">CrashLoopBackOff</a></li>
+          <li><a href="/docs/troubleshooting/rollout-stuck.html">Rollout stuck</a></li>
+          <li><a href="/docs/troubleshooting/high-cpu-memory.html">High CPU / memory</a></li>
+          <li><a href="/docs/troubleshooting/restarts-after-config-change.html">Restarts after config change</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Workflows</h3>
+        <ul>
+          <li><a href="/docs/workflows/debug-crashloop.html">Debug CrashLoopBackOff</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Compare</h3>
+        <ul>
+          <li><a href="/docs/compare/kubegraf-vs-lens.html">KubeGraf vs Kubernetes IDEs</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Reference</h3>
+        <ul>
+          <li><a href="/docs/reference/cli.html">CLI</a></li>
+          <li><a href="/docs/reference/config.html">Config</a></li>
+          <li><a href="/docs/reference/plugins.html">Plugins</a></li>
+          <li><a href="/docs/reference/api.html">API schema</a></li>
+          <li><a href="/docs/reference/faq.html">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Architecture & Internals</h3>
+        <ul>
+          <li><a href="/docs/architecture/system-overview.html">System Overview</a></li>
+          <li><a href="/docs/architecture/intelligence-pipeline.html" class="active">Intelligence Pipeline</a></li>
+          <li><a href="/docs/architecture/snapshot-architecture.html">Snapshot Architecture</a></li>
+          <li><a href="/docs/architecture/runbooks-and-remediation.html">Runbooks & Remediation</a></li>
+          <li><a href="/docs/architecture/learning-engine.html">Learning Engine</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="https://github.com/kubegraf/kubegraf" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://github.com/kubegraf/kubegraf/releases" target="_blank" rel="noopener noreferrer">Releases</a></li>
+          <li><a href="https://github.com/kubegraf/kubegraf/issues" target="_blank" rel="noopener noreferrer">Report Issue</a></li>
+        </ul>
+      </div>
+    </aside>
+        <div class="docs-main-wrapper">
+
+        <!-- Floating Orbs Background -->
+        <div class="floating-orbs">
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+            <div class="orb orb-3"></div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="content docs-content"><h1>Intelligence Pipeline</h1>
+<p><strong>Audience:</strong> This documentation is for engineers working on or extending KubeGraf&#39;s Incident Intelligence System. It provides deep technical details about how signals flow through the system to become structured incidents.</p>
+<h2>Pipeline Overview</h2>
+<p>The intelligence pipeline processes raw Kubernetes data through multiple layers, each adding structure and meaning:</p>
+<pre><code>┌─────────────────────────────────────────────────────────────────┐
+│  Layer 1: SIGNAL INGESTION                                       │
+│  Events → Logs → Pod Status → Metrics → Probes                  │
+└────────────────────────────────┬────────────────────────────────┘
+                                 ↓
+┌─────────────────────────────────────────────────────────────────┐
+│  Layer 2: INCIDENT ENGINE                                        │
+│  Pattern Detection → Confidence Scoring → Aggregation           │
+└────────────────────────────────┬────────────────────────────────┘
+                                 ↓
+┌─────────────────────────────────────────────────────────────────┐
+│  Layer 3: HOT EVIDENCE BUILDER                                   │
+│  RestartCounts + ExitCode + ErrorString + Readiness + Changes   │
+└────────────────────────────────┬────────────────────────────────┘
+                                 ↓
+┌─────────────────────────────────────────────────────────────────┐
+│  Layer 4: SNAPSHOT BUILDER                                       │
+│  Hot Evidence + Diagnosis + Impact + WhyNow + RecommendedAction │
+└────────────────────────────────┬────────────────────────────────┘
+                                 ↓
+┌─────────────────────────────────────────────────────────────────┐
+│  Layer 5: COLD EVIDENCE (Lazy-Loaded)                           │
+│  Logs + Metrics + Changes + Evidence + Citations                │
+└─────────────────────────────────────────────────────────────────┘
+</code></pre>
+<h2>Layer 1: Signal Ingestion</h2>
+<p>The first layer normalizes all Kubernetes data sources into a unified signal format.</p>
+<h3>Signal Normalizer (<code>signals.go</code>)</h3>
+<p>The signal normalizer converts heterogeneous inputs into <code>NormalizedSignal</code> format:</p>
+<ul>
+<li><strong>Kubernetes Events</strong> - Event objects from the Kubernetes API</li>
+<li><strong>Pod Status</strong> - Container states, conditions, restart counts</li>
+<li><strong>Container Logs</strong> - Error messages, stack traces</li>
+<li><strong>Metrics</strong> - CPU, memory, network usage</li>
+<li><strong>Probe Results</strong> - Liveness and readiness probe outcomes</li>
+</ul>
+<p><strong>Key Responsibilities:</strong></p>
+<ul>
+<li>Extract relevant fields from each source</li>
+<li>Normalize timestamps to a common format</li>
+<li>Tag signals with <code>ClusterContext</code> for multi-cluster support</li>
+<li>Preserve source attribution for evidence tracking</li>
+</ul>
+<p><strong>Output:</strong> Stream of <code>NormalizedSignal</code> objects with:</p>
+<ul>
+<li>Source type (event, log, status, metric, probe)</li>
+<li>Timestamp</li>
+<li>Resource reference (namespace, kind, name)</li>
+<li>Signal data (structured fields)</li>
+<li>Cluster context</li>
+</ul>
+<h2>Layer 2: Incident Engine</h2>
+<p>The incident engine processes normalized signals to detect failure patterns.</p>
+<h3>Symptom Detector (<code>symptoms.go</code>)</h3>
+<p>Identifies specific symptoms from signals:</p>
+<ul>
+<li><strong>CrashLoopBackOff</strong> - Detected from pod status waiting state</li>
+<li><strong>OOMKilled</strong> - Detected from container termination reason</li>
+<li><strong>RestartSpike</strong> - Detected from rapid restart count increases</li>
+<li><strong>ImagePullError</strong> - Detected from pod status and events</li>
+<li><strong>NoEndpoints</strong> - Detected from service endpoint counts</li>
+<li><strong>ProbeFailure</strong> - Detected from pod conditions and probe results</li>
+</ul>
+<p><strong>Detection Rules:</strong></p>
+<ul>
+<li>Each symptom has specific detection criteria</li>
+<li>Rules are deterministic and rule-based</li>
+<li>Multiple signals can contribute to a single symptom</li>
+<li>Symptoms are tagged with confidence scores</li>
+</ul>
+<h3>Pattern Matcher (<code>matcher.go</code>)</h3>
+<p>Maps symptoms to failure patterns with confidence:</p>
+<ul>
+<li><strong>Pattern Mapping</strong> - Symptoms → Failure patterns (many-to-one)</li>
+<li><strong>Confidence Scoring</strong> - Calculates confidence based on symptom strength</li>
+<li><strong>Pattern Aggregation</strong> - Groups related symptoms into patterns</li>
+</ul>
+<p><strong>Pattern Matching Logic:</strong></p>
+<ul>
+<li>Each pattern has required and optional symptoms</li>
+<li>Confidence increases with more corroborating symptoms</li>
+<li>Patterns can have multiple symptom combinations</li>
+<li>Low-confidence patterns are flagged for review</li>
+</ul>
+<h3>Incident Aggregator (<code>aggregator.go</code>)</h3>
+<p>Deduplicates and aggregates incidents:</p>
+<ul>
+<li><strong>Fingerprinting</strong> - Creates unique fingerprints from pattern + resource</li>
+<li><strong>Deduplication</strong> - Merges incidents with same fingerprint</li>
+<li><strong>Occurrence Tracking</strong> - Counts how many times pattern detected</li>
+<li><strong>Cluster Context Filtering</strong> - Strict filtering by active cluster</li>
+<li><strong>Cleanup</strong> - Removes incidents from inactive clusters</li>
+</ul>
+<p><strong>Aggregation Strategy:</strong></p>
+<ul>
+<li>Same pattern + same resource = same incident</li>
+<li>Updates <code>LastSeen</code> timestamp on each occurrence</li>
+<li>Increments <code>Occurrences</code> counter</li>
+<li>Preserves <code>FirstSeen</code> timestamp</li>
+</ul>
+<h2>Layer 3: Hot Evidence Builder</h2>
+<p>Hot evidence is precomputed data that loads instantly for UI performance.</p>
+<h3>Hot Evidence Extraction (<code>hot_evidence_builder.go</code>)</h3>
+<p>Extracts frequently-accessed evidence during incident creation:</p>
+<ul>
+<li><strong>Restart Counts</strong> - Container restart history</li>
+<li><strong>Exit Codes</strong> - Container termination exit codes</li>
+<li><strong>Error Strings</strong> - Key error messages from logs</li>
+<li><strong>Readiness Status</strong> - Pod readiness probe results</li>
+<li><strong>Recent Changes</strong> - Deployment/config changes before incident</li>
+</ul>
+<p><strong>Performance Characteristics:</strong></p>
+<ul>
+<li>Extracted synchronously during incident creation</li>
+<li>Stored in incident snapshot</li>
+<li>Cached for fast UI loading</li>
+<li>No additional API calls needed</li>
+</ul>
+<h2>Layer 4: Snapshot Builder</h2>
+<p>Snapshots provide instant loading with precomputed data.</p>
+<h3>Snapshot Generation (<code>snapshot.go</code>)</h3>
+<p>Builds comprehensive incident snapshots:</p>
+<ul>
+<li><strong>Hot Evidence</strong> - Precomputed evidence (from Layer 3)</li>
+<li><strong>Diagnosis</strong> - Human-readable root cause summary</li>
+<li><strong>Impact Assessment</strong> - Affected replicas, service exposure</li>
+<li><strong>Why Now Explanation</strong> - What triggered this incident</li>
+<li><strong>Recommended Action</strong> - First suggested fix</li>
+</ul>
+<p><strong>Snapshot Structure:</strong></p>
+<pre><code class="language-go">type IncidentSnapshot struct {
+    IncidentID        string
+    HotEvidence        HotEvidence
+    Diagnosis          Diagnosis
+    Impact             ImpactAssessment
+    WhyNow             string
+    RecommendedAction  string
+    CachedAt           time.Time
+    TTL                time.Duration  // 5 minutes
+}
+</code></pre>
+<p><strong>Caching Strategy:</strong></p>
+<ul>
+<li>LRU cache with 5-minute TTL</li>
+<li>Cache key: incident ID</li>
+<li>Cache miss triggers rebuild</li>
+<li>Designed for &lt;100ms response (cached) or &lt;500ms (cache miss)</li>
+</ul>
+<h2>Layer 5: Cold Evidence (Lazy-Loaded)</h2>
+<p>Cold evidence is loaded on-demand when users expand sections in the UI.</p>
+<h3>Cold Evidence Sources</h3>
+<p><strong>Logs</strong> (<code>/api/v2/incidents/{id}/logs</code>):</p>
+<ul>
+<li>Container log streams</li>
+<li>Error pattern grouping</li>
+<li>Tail-based retrieval (default: last 20 lines)</li>
+</ul>
+<p><strong>Metrics</strong> (<code>/api/v2/incidents/{id}/metrics</code>):</p>
+<ul>
+<li>Resource usage metrics</li>
+<li>Historical trends</li>
+<li>Anomaly detection data</li>
+</ul>
+<p><strong>Changes</strong> (<code>/api/v2/incidents/{id}/changes</code>):</p>
+<ul>
+<li>Deployment rollouts</li>
+<li>ConfigMap/Secret updates</li>
+<li>Pod lifecycle changes</li>
+<li>Relevance scoring (0.0-1.0)</li>
+</ul>
+<p><strong>Evidence Pack</strong> (<code>/api/v2/incidents/{id}/evidence</code>):</p>
+<ul>
+<li>Structured evidence items</li>
+<li>Categorized by source type</li>
+<li>Full evidence details</li>
+</ul>
+<p><strong>Citations</strong> (<code>/api/v2/incidents/{id}/citations</code>):</p>
+<ul>
+<li>Event references</li>
+<li>Log snippets</li>
+<li>Kubernetes documentation links</li>
+</ul>
+<p><strong>Runbooks</strong> (<code>/api/v2/incidents/{id}/runbooks</code>):</p>
+<ul>
+<li>Applicable runbooks</li>
+<li>Success rate history</li>
+<li>Risk assessments</li>
+</ul>
+<p><strong>Similar Incidents</strong> (<code>/api/v2/incidents/{id}/similar</code>):</p>
+<ul>
+<li>Past incidents with same pattern</li>
+<li>Previous resolutions</li>
+<li>Success rates</li>
+</ul>
+<h2>Evidence Pack Structure</h2>
+<p>Every incident has a structured evidence bundle:</p>
+<pre><code class="language-go">type EvidencePack struct {
+    IncidentID    string         // Linked incident
+    Events        []EvidenceItem // K8s events
+    Logs          []EvidenceItem // Container logs
+    StatusFacts   []EvidenceItem // Pod status snapshots
+    MetricsFacts  []EvidenceItem // Metric observations
+    ChangeHistory []EvidenceItem // Config/deployment changes
+    ProbeResults  []EvidenceItem // Liveness/readiness results
+}
+</code></pre>
+<p><strong>Evidence Item Structure:</strong></p>
+<pre><code class="language-go">type EvidenceItem struct {
+    Source      string    // event | log | status | metric | change | probe
+    Timestamp   time.Time
+    Resource    string    // Resource reference
+    Data        map[string]interface{}  // Structured data
+    Attribution string    // Source attribution (e.g., &quot;[Source: Pod status]&quot;)
+}
+</code></pre>
+<h2>Citations</h2>
+<p>Every diagnosis includes citations to supporting evidence:</p>
+<pre><code class="language-go">type Citation struct {
+    Source string  // event | log | status | doc
+    Ref    string  // Exact reference (event ID, log line, URL)
+    Text   string  // Cited snippet
+    Link   string  // Optional URL for docs
+}
+</code></pre>
+<p><strong>Citation Types:</strong></p>
+<ul>
+<li><strong>Event references</strong> - Exact K8s event IDs</li>
+<li><strong>Log snippets</strong> - Relevant log lines with line numbers</li>
+<li><strong>Kubernetes documentation</strong> - Links to official docs (OOMKilled, CrashLoopBackOff, ImagePullBackOff, DNS failures, RBAC issues, etc.)</li>
+</ul>
+<h2>Diagnosis Generation</h2>
+<p>The diagnosis generator (<code>diagnosis.go</code>) creates human-readable summaries:</p>
+<p><strong>Process:</strong></p>
+<ol>
+<li>Analyzes all symptoms and evidence</li>
+<li>Identifies primary root cause</li>
+<li>Identifies secondary contributing factors</li>
+<li>Builds evidence-backed explanation</li>
+<li>Calculates confidence score</li>
+</ol>
+<p><strong>Output Format:</strong></p>
+<ul>
+<li>Single primary root cause statement</li>
+<li>Optional secondary factors</li>
+<li>Evidence bullets with source attribution</li>
+<li>Confidence level (high/medium/low)</li>
+<li>Deterministic language (no &quot;might be&quot;)</li>
+</ul>
+<h2>Performance Characteristics</h2>
+<p><strong>Hot Path (Snapshot API):</strong></p>
+<ul>
+<li>Target: &lt;100ms (cached)</li>
+<li>Cache miss: &lt;500ms</li>
+<li>Precomputed data only</li>
+<li>No external API calls</li>
+</ul>
+<p><strong>Cold Path (Lazy-Loaded):</strong></p>
+<ul>
+<li>On-demand loading</li>
+<li>User-triggered (expand section)</li>
+<li>Cached in-memory while modal open</li>
+<li>No performance impact on initial load</li>
+</ul>
+<p><strong>Memory Efficiency:</strong></p>
+<ul>
+<li>LRU cache for snapshots (configurable size)</li>
+<li>Cold evidence loaded on-demand</li>
+<li>Automatic cleanup of old incidents</li>
+<li>Cluster context filtering prevents memory bloat</li>
+</ul>
+<hr>
+<p><strong>Next:</strong> Learn about the <a href="snapshot-architecture.md">Snapshot Architecture</a> in detail.</p>
+</main>
+        </div>
+
+        <footer class="docs-footer">
+            <div class="docs-footer-content">
+                <div class="docs-footer-links">
+                    <a href="https://github.com/kubegraf/kubegraf/issues/new?template=bug_report.yml" target="_blank" rel="noopener noreferrer">Report a bug</a>
+                    <a href="https://github.com/kubegraf/kubegraf/issues/new?template=feature_request.yml" target="_blank" rel="noopener noreferrer">Request a feature</a>
+                    <a href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+                    <a href="/license" target="_blank" rel="noopener noreferrer">License (Apache 2.0)</a>
+                    <a href="mailto:contact@kubegraf.io">Contact</a>
+                    <div class="theme-selector">
+                        <button id="theme-light-btn" onclick="setTheme('light')" aria-label="Light theme" title="Light">
+                            ☀️
+                        </button>
+                        <button id="theme-dark-btn" onclick="setTheme('dark')" aria-label="Dark theme" title="Dark">
+                            🌙
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        // Wait for DOM to be ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('mobile-sidebar-overlay');
+            
+            function toggleMobileMenu() {
+                if (sidebar && overlay) {
+                    sidebar.classList.toggle('mobile-open');
+                    overlay.classList.toggle('active');
+                }
+            }
+            
+            function closeMobileMenu() {
+                if (sidebar && overlay) {
+                    sidebar.classList.remove('mobile-open');
+                    overlay.classList.remove('active');
+                }
+            }
+            
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            }
+            
+            if (overlay) {
+                overlay.addEventListener('click', closeMobileMenu);
+            }
+            
+            // Close menu when clicking on a sidebar link (mobile only)
+            if (sidebar) {
+                const sidebarLinks = sidebar.querySelectorAll('a');
+                sidebarLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        // Only close on mobile
+                        if (window.innerWidth <= 900) {
+                            setTimeout(closeMobileMenu, 100);
+                        }
+                    });
+                });
+            }
+            
+            // Close menu on escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && sidebar && sidebar.classList.contains('mobile-open')) {
+                    closeMobileMenu();
+                }
+            });
+        });
+    </script>
+    <script src="/docs/theme-switcher.js"></script>
+</body>
+</html>

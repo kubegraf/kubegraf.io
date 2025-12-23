@@ -152,11 +152,26 @@
             color: var(--primary);
         }
 
-        .docs-content {
+        /* Main Content */
+        .docs-content,
+        main.content {
             flex: 1;
             margin-left: 280px;
             padding: 3rem 4rem;
-            max-width: 900px;
+            max-width: 1400px;
+            
+            box-sizing: border-box;
+        }
+        
+        /* Ensure content doesn't overlap sidebar */
+        main.content.docs-content {
+            
+        }
+        
+        /* Ensure docs-main-wrapper also has proper spacing */
+        .docs-main-wrapper {
+            margin-left: 280px;
+            
         }
 
         .docs-content h1 {
@@ -444,10 +459,10 @@
                 left: 0 !important;
             }
             
-            .docs-content { 
-                margin-left: 0; 
-                padding: 2rem 1.5rem; 
-                padding-top: 5rem !important;
+            .docs-content {
+                margin-left: 0;
+                padding: 2rem 1.5rem;
+                padding-top: 5rem;
             }
             .two-col { grid-template-columns: 1fr; gap: 1rem; }
             .platform-grid { grid-template-columns: 1fr; }
@@ -471,6 +486,9 @@
         KubēGraf
       </a>
 
+      
+      
+      
       
       
       
@@ -498,12 +516,26 @@
       </div>
 
       <div class="sidebar-section">
+        <h3>Core Concepts</h3>
+        <ul>
+          <li><a href="/docs/core-concepts/incident-intelligence.html">Incident Intelligence</a></li>
+          <li><a href="/docs/core-concepts/deterministic-diagnosis.html">Deterministic Diagnosis</a></li>
+          <li><a href="/docs/core-concepts/evidence-and-confidence.html">Evidence & Confidence</a></li>
+          <li><a href="/docs/core-concepts/safety-model.html">Safety Model</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
         <h3>User Guide</h3>
         <ul>
           <li><a href="/docs/terminal-ui.html">Terminal UI</a></li>
           <li><a href="/docs/web-dashboard.html">Web Dashboard</a></li>
           <li><a href="/docs/commands.html">Commands</a></li>
           <li><a href="/docs/configuration.html">Configuration</a></li>
+          <li><a href="/docs/user-guide/incidents-overview.html">Incidents Overview</a></li>
+          <li><a href="/docs/user-guide/incident-detail-view.html">Incident Detail View</a></li>
+          <li><a href="/docs/user-guide/fix-preview-and-apply.html">Fix Preview and Apply</a></li>
+          <li><a href="/docs/user-guide/knowledge-bank.html">Knowledge Bank</a></li>
         </ul>
       </div>
 
@@ -534,6 +566,35 @@
       </div>
 
       <div class="sidebar-section">
+        <h3>Compare</h3>
+        <ul>
+          <li><a href="/docs/compare/kubegraf-vs-lens.html">KubeGraf vs Kubernetes IDEs</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Reference</h3>
+        <ul>
+          <li><a href="/docs/reference/cli.html">CLI</a></li>
+          <li><a href="/docs/reference/config.html">Config</a></li>
+          <li><a href="/docs/reference/plugins.html">Plugins</a></li>
+          <li><a href="/docs/reference/api.html">API schema</a></li>
+          <li><a href="/docs/reference/faq.html">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Architecture & Internals</h3>
+        <ul>
+          <li><a href="/docs/architecture/system-overview.html">System Overview</a></li>
+          <li><a href="/docs/architecture/intelligence-pipeline.html">Intelligence Pipeline</a></li>
+          <li><a href="/docs/architecture/snapshot-architecture.html">Snapshot Architecture</a></li>
+          <li><a href="/docs/architecture/runbooks-and-remediation.html">Runbooks & Remediation</a></li>
+          <li><a href="/docs/architecture/learning-engine.html">Learning Engine</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
         <h3>Resources</h3>
         <ul>
           <li><a href="https://github.com/kubegraf/kubegraf" target="_blank" rel="noopener noreferrer">GitHub</a></li>
@@ -550,7 +611,7 @@
             <div class="orb orb-3"></div>
         </div>
 
-        <main class="docs-content">
+        <main class="content docs-content">
             <div class="docs-hero">
                 <div class="grid-pattern"></div>
                 <h1><span>Installation</span></h1>

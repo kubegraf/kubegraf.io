@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KubeGraf vs Kubernetes IDEs (Lens) - KubeGraf Documentation</title>
+    <meta name="description" content="KubeGraf documentation - Learn how to install, configure, and use KubeGraf for Kubernetes visualization.">
+    <link rel="canonical" href="https://kubegraf.io/docs/" />
+
+    <meta property="og:title" content="KubeGraf Documentation – Intelligent Insight for Kubernetes Incidents" />
+    <meta property="og:description" content="Official KubeGraf documentation for detecting incidents, diagnosing root causes, and safely responding to Kubernetes failures." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kubegraf.io/docs/" />
+    <meta property="og:site_name" content="KubeGraf" />
+    <meta property="og:image" content="https://kubegraf.io/opengraph.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@kubegraf" />
+    <meta name="twitter:title" content="KubeGraf Documentation – Intelligent Insight for Kubernetes Incidents" />
+    <meta name="twitter:description" content="Official KubeGraf documentation for detecting incidents, diagnosing root causes, and safely responding to Kubernetes failures." />
+    <meta name="twitter:image" content="https://kubegraf.io/opengraph.jpg" />
+    <!-- Use the same favicon as the main landing page -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+    <!-- Use the same font stack as the main landing page -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Theme Switcher -->
+    <link rel="stylesheet" href="/docs/theme-styles.css">
+    <style>
+        :root {
+            /* Align colors with main landing page palette */
+            --primary: #06b6d4;         /* Neon cyan */
+            --primary-dark: #0f172a;
+            --secondary: #4c1d95;       /* Deep purple */
+            --accent: #8b5cf6;
+            --text: #f9fafb;
+            --text-muted: #9ca3af;
+            --bg: #09090b;              /* Same as main background */
+            --bg-secondary: #020617;
+            --bg-tertiary: #111827;
+            --border: rgba(148, 163, 184, 0.25);
+            --border-hover: rgba(56, 189, 248, 0.55);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Outfit', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        /* Floating orbs background */
+        .floating-orbs {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.12;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: var(--primary);
+            top: -150px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 350px;
+            height: 350px;
+            background: var(--secondary);
+            bottom: 30%;
+            left: 200px;
+            animation-delay: -5s;
+        }
+
+        .orb-3 {
+            width: 400px;
+            height: 400px;
+            background: var(--accent);
+            top: 60%;
+            right: -100px;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(20px, -20px) scale(1.03); }
+            50% { transform: translate(-15px, 15px) scale(0.97); }
+            75% { transform: translate(15px, 20px) scale(1.01); }
+        }
+
+        /* Hero header section */
+        .docs-hero {
+            position: relative;
+            padding: 3rem 0 2rem;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .docs-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(50, 108, 229, 0.15), transparent),
+                radial-gradient(ellipse 60% 40% at 80% 50%, rgba(0, 212, 170, 0.08), transparent);
+            pointer-events: none;
+        }
+
+        .docs-hero .grid-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(50, 108, 229, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(50, 108, 229, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            mask-image: radial-gradient(ellipse 70% 70% at 50% 30%, black 0%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 30%, black 0%, transparent 70%);
+        }
+
+        .docs-hero h1 {
+            position: relative;
+            z-index: 1;
+            animation: heroFadeIn 0.8s ease-out;
+        }
+
+        .docs-hero h1 span {
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 5s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes heroFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .docs-hero .intro {
+            position: relative;
+            z-index: 1;
+            animation: heroFadeIn 0.8s ease-out 0.2s both;
+        }
+
+        /* Animated underline for h1 */
+        .docs-hero h1::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            margin-top: 1rem;
+            border-radius: 2px;
+            animation: expandLine 0.8s ease-out 0.4s both;
+        }
+
+        @keyframes expandLine {
+            from { width: 0; opacity: 0; }
+            to { width: 80px; opacity: 1; }
+        }
+
+        a { color: var(--primary); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* Layout */
+        .docs-layout {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .docs-main-wrapper {
+            flex: 1;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border);
+            padding: 1.5rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-logo svg { width: 28px; height: 28px; }
+
+        .sidebar-logo-icon {
+            width: 96px;
+            height: 96px;
+            border-radius: 8px;
+            object-fit: contain;
+        }
+
+        .sidebar-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-section h3 {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .sidebar-section ul {
+            list-style: none;
+        }
+
+        .sidebar-section a {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            color: var(--text-muted);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .sidebar-section a:hover {
+            background: var(--bg-tertiary);
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .sidebar-section a.active {
+            background: rgba(50, 108, 229, 0.15);
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        .docs-content,
+        main.content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 3rem 4rem;
+            max-width: 1400px;
+            
+            box-sizing: border-box;
+        }
+        
+        /* Ensure content doesn't overlap sidebar */
+        main.content.docs-content {
+            
+        }
+        
+        /* Ensure docs-main-wrapper also has proper spacing */
+        .docs-main-wrapper {
+            margin-left: 280px;
+            
+        }
+
+        .docs-content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-family: 'Space Grotesk', system-ui, sans-serif;
+            letter-spacing: -0.03em;
+        }
+
+        .docs-content h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+            font-family: 'Space Grotesk', system-ui, sans-serif;
+        }
+
+        .docs-content h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 2rem 0 0.75rem;
+        }
+
+        .docs-content p {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .docs-content ul, .docs-content ol {
+            color: var(--text-muted);
+            margin: 1rem 0 1rem 1.5rem;
+        }
+
+        .docs-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Code blocks */
+        .docs-content code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            background: var(--bg-tertiary);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: var(--secondary);
+        }
+
+        .docs-content pre {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        .docs-content pre code {
+            background: none;
+            padding: 0;
+            color: #e2e8f0;
+        }
+
+        /* Cards Grid */
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .docs-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .docs-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+            text-decoration: none;
+        }
+
+        .docs-card h3 {
+            color: var(--text);
+            font-size: 1.1rem;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .docs-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .docs-card .icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: rgba(50, 108, 229, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        /* Intro text */
+        .intro {
+            font-size: 1.15rem;
+            color: var(--text);
+            margin-bottom: 2rem;
+        }
+
+        /* Mobile Menu Buttons */
+        .mobile-menu-btn,
+        .mobile-home-btn {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            z-index: 1001;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.5rem;
+            line-height: 1;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            min-width: 48px;
+            min-height: 48px;
+            text-decoration: none;
+        }
+
+        .mobile-menu-btn {
+            left: 1rem;
+        }
+
+        .mobile-home-btn {
+            left: 4.5rem;
+        }
+
+        .mobile-menu-btn:hover,
+        .mobile-menu-btn:active,
+        .mobile-home-btn:hover,
+        .mobile-home-btn:active {
+            background: var(--bg-tertiary);
+            transform: scale(1.05);
+        }
+
+        /* Mobile Sidebar Overlay */
+        .mobile-sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+        }
+
+        .mobile-sidebar-overlay.active {
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .sidebar {
+                position: fixed;
+                left: -280px;
+                top: 0;
+                z-index: 1000;
+                transition: left 0.3s ease;
+                box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+            }
+            
+            .sidebar.mobile-open {
+                left: 0;
+            }
+            
+            .docs-content {
+                margin-left: 0;
+                padding: 2rem 1.5rem;
+                padding-top: 5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="docs-layout">
+        <!-- Mobile Menu Buttons -->
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle navigation menu">
+            ☰
+        </button>
+        <a href="/" class="mobile-home-btn" aria-label="Go to home page">
+            🏠
+        </a>
+        
+        <!-- Mobile Sidebar Overlay -->
+        <div class="mobile-sidebar-overlay" id="mobile-sidebar-overlay"></div>
+        
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+      <a href="/" class="sidebar-logo">
+        <img src="/assets/logo/kubegraf_color_icon.png" alt="KubeGraf logo" class="sidebar-logo-icon">
+        KubēGraf
+      </a>
+
+      
+      
+      
+      
+      
+      <div class="sidebar-section">
+        <ul>
+          <li><a href="/">🏠 Home</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Getting Started</h3>
+        <ul>
+          <li><a href="/docs/">Overview</a></li>
+          <li><a href="/docs/quickstart.html">Quick Start</a></li>
+          <li><a href="/docs/installation.html">Installation</a></li>
+          <li><a href="/docs/getting-started/first-cluster.html">First cluster</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Introduction</h3>
+        <ul>
+          <li><a href="/docs/introduction/what-is-kubegraf.html">What is KubeGraf</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Core Concepts</h3>
+        <ul>
+          <li><a href="/docs/core-concepts/incident-intelligence.html">Incident Intelligence</a></li>
+          <li><a href="/docs/core-concepts/deterministic-diagnosis.html">Deterministic Diagnosis</a></li>
+          <li><a href="/docs/core-concepts/evidence-and-confidence.html">Evidence & Confidence</a></li>
+          <li><a href="/docs/core-concepts/safety-model.html">Safety Model</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>User Guide</h3>
+        <ul>
+          <li><a href="/docs/terminal-ui.html">Terminal UI</a></li>
+          <li><a href="/docs/web-dashboard.html">Web Dashboard</a></li>
+          <li><a href="/docs/commands.html">Commands</a></li>
+          <li><a href="/docs/configuration.html">Configuration</a></li>
+          <li><a href="/docs/user-guide/incidents-overview.html">Incidents Overview</a></li>
+          <li><a href="/docs/user-guide/incident-detail-view.html">Incident Detail View</a></li>
+          <li><a href="/docs/user-guide/fix-preview-and-apply.html">Fix Preview and Apply</a></li>
+          <li><a href="/docs/user-guide/knowledge-bank.html">Knowledge Bank</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Features</h3>
+        <ul>
+          <li><a href="/docs/resource-map.html">Resource Map</a></li>
+          <li><a href="/docs/security.html">Security Analysis</a></li>
+          <li><a href="/docs/plugins.html">Plugins</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Troubleshooting</h3>
+        <ul>
+          <li><a href="/docs/troubleshooting/crashloopbackoff.html">CrashLoopBackOff</a></li>
+          <li><a href="/docs/troubleshooting/rollout-stuck.html">Rollout stuck</a></li>
+          <li><a href="/docs/troubleshooting/high-cpu-memory.html">High CPU / memory</a></li>
+          <li><a href="/docs/troubleshooting/restarts-after-config-change.html">Restarts after config change</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Workflows</h3>
+        <ul>
+          <li><a href="/docs/workflows/debug-crashloop.html">Debug CrashLoopBackOff</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Compare</h3>
+        <ul>
+          <li><a href="/docs/compare/kubegraf-vs-lens.html" class="active">KubeGraf vs Kubernetes IDEs</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Reference</h3>
+        <ul>
+          <li><a href="/docs/reference/cli.html">CLI</a></li>
+          <li><a href="/docs/reference/config.html">Config</a></li>
+          <li><a href="/docs/reference/plugins.html">Plugins</a></li>
+          <li><a href="/docs/reference/api.html">API schema</a></li>
+          <li><a href="/docs/reference/faq.html">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Architecture & Internals</h3>
+        <ul>
+          <li><a href="/docs/architecture/system-overview.html">System Overview</a></li>
+          <li><a href="/docs/architecture/intelligence-pipeline.html">Intelligence Pipeline</a></li>
+          <li><a href="/docs/architecture/snapshot-architecture.html">Snapshot Architecture</a></li>
+          <li><a href="/docs/architecture/runbooks-and-remediation.html">Runbooks & Remediation</a></li>
+          <li><a href="/docs/architecture/learning-engine.html">Learning Engine</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="https://github.com/kubegraf/kubegraf" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://github.com/kubegraf/kubegraf/releases" target="_blank" rel="noopener noreferrer">Releases</a></li>
+          <li><a href="https://github.com/kubegraf/kubegraf/issues" target="_blank" rel="noopener noreferrer">Report Issue</a></li>
+        </ul>
+      </div>
+    </aside>
+        <div class="docs-main-wrapper">
+
+        <!-- Floating Orbs Background -->
+        <div class="floating-orbs">
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+            <div class="orb orb-3"></div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="content docs-content"><h1>KubeGraf vs Kubernetes IDEs (Lens)</h1>
+<p>This page compares KubeGraf with Kubernetes IDEs like Lens, focusing on workflows and use cases rather than feature lists. Both tools are valuable, and they serve different purposes in the Kubernetes ecosystem.</p>
+<h2>Overview</h2>
+<p><strong>Kubernetes IDEs (like Lens)</strong> excel at resource management, manifest editing, and cluster navigation. They provide a comprehensive view of your cluster&#39;s current state and make it easy to interact with resources.</p>
+<p><strong>KubeGraf</strong> focuses on a different problem: understanding <em>why</em> things fail and <em>how</em> to fix them. It&#39;s purpose-built for incident diagnosis, root cause analysis, and safe remediation.</p>
+<p>These tools complement each other. Many teams use both: a Kubernetes IDE for day-to-day operations and KubeGraf when something goes wrong.</p>
+<h2>Comparison Table</h2>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Kubernetes IDEs (Lens)</th>
+<th>KubeGraf</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Primary Purpose</strong></td>
+<td>Resource management and cluster navigation</td>
+<td>Incident detection and diagnosis</td>
+</tr>
+<tr>
+<td><strong>Best For</strong></td>
+<td>Editing manifests, viewing resources, cluster exploration</td>
+<td>Understanding failures, root cause analysis, safe remediation</td>
+</tr>
+<tr>
+<td><strong>Workflow Focus</strong></td>
+<td>&quot;What resources exist and how do I manage them?&quot;</td>
+<td>&quot;Why did this fail and how do I fix it safely?&quot;</td>
+</tr>
+<tr>
+<td><strong>Resource Views</strong></td>
+<td>Comprehensive resource browser with filtering</td>
+<td>Incident-focused views with evidence and diagnosis</td>
+</tr>
+<tr>
+<td><strong>Manifest Editing</strong></td>
+<td>Full-featured YAML editor with validation</td>
+<td>Preview and apply fixes with dry-run validation</td>
+</tr>
+<tr>
+<td><strong>Topology Visualization</strong></td>
+<td>Interactive resource graphs and relationships</td>
+<td>Incident timeline and evidence correlation</td>
+</tr>
+<tr>
+<td><strong>Root Cause Analysis</strong></td>
+<td>Manual investigation through logs and events</td>
+<td>Automatic, evidence-backed diagnosis</td>
+</tr>
+<tr>
+<td><strong>Fix Recommendations</strong></td>
+<td>Manual fix discovery</td>
+<td>Deterministic, evidence-backed recommendations</td>
+</tr>
+<tr>
+<td><strong>Safety Features</strong></td>
+<td>Standard Kubernetes validation</td>
+<td>Preview, dry-run, and explicit confirmation for all fixes</td>
+</tr>
+<tr>
+<td><strong>Learning</strong></td>
+<td>Manual pattern recognition</td>
+<td>Automatic learning from past incidents</td>
+</tr>
+<tr>
+<td><strong>Local-First</strong></td>
+<td>Varies by tool</td>
+<td>Fully local, no cloud dependencies</td>
+</tr>
+<tr>
+<td><strong>Offline Operation</strong></td>
+<td>Depends on cluster connectivity</td>
+<td>Works offline with cached data</td>
+</tr>
+</tbody></table>
+<h2>When to Use KubeGraf</h2>
+<p>KubeGraf is ideal when you need to:</p>
+<p><strong>Understand why something failed:</strong></p>
+<ul>
+<li>Pods are crashing and you need to know why</li>
+<li>A service is returning errors and you need root cause analysis</li>
+<li>Resources are misbehaving and you need evidence-backed diagnosis</li>
+</ul>
+<p><strong>Fix incidents safely:</strong></p>
+<ul>
+<li>You want to preview changes before applying them</li>
+<li>You need dry-run validation before making changes</li>
+<li>You want evidence-backed recommendations, not guesswork</li>
+</ul>
+<p><strong>Learn from past incidents:</strong></p>
+<ul>
+<li>You want to see how similar incidents were resolved</li>
+<li>You need pattern recognition across incidents</li>
+<li>You want to improve incident response over time</li>
+</ul>
+<p><strong>Work with incident intelligence:</strong></p>
+<ul>
+<li>You need automatic incident detection</li>
+<li>You want structured incident data, not raw error spam</li>
+<li>You need confidence scores and evidence for diagnoses</li>
+</ul>
+<p><strong>Operate locally and securely:</strong></p>
+<ul>
+<li>You need a tool that works entirely offline</li>
+<li>You want no cloud dependencies</li>
+<li>You need data to stay in your environment</li>
+</ul>
+<h2>When to Use a Kubernetes IDE (Lens)</h2>
+<p>Kubernetes IDEs like Lens are ideal when you need to:</p>
+<p><strong>Manage resources:</strong></p>
+<ul>
+<li>Edit YAML manifests with syntax highlighting and validation</li>
+<li>Create, update, and delete resources through a UI</li>
+<li>Navigate complex cluster topologies visually</li>
+</ul>
+<p><strong>Explore cluster state:</strong></p>
+<ul>
+<li>Browse all resources in your cluster</li>
+<li>View resource relationships and dependencies</li>
+<li>Understand cluster structure and organization</li>
+</ul>
+<p><strong>Perform routine operations:</strong></p>
+<ul>
+<li>Scale deployments</li>
+<li>View logs and events</li>
+<li>Port-forward to services</li>
+<li>Execute kubectl commands through a UI</li>
+</ul>
+<p><strong>Work with multiple clusters:</strong></p>
+<ul>
+<li>Switch between clusters easily</li>
+<li>Manage multiple cluster contexts</li>
+<li>Compare resources across clusters</li>
+</ul>
+<p><strong>Use familiar IDE patterns:</strong></p>
+<ul>
+<li>File-tree navigation</li>
+<li>Tab-based resource views</li>
+<li>Integrated terminal access</li>
+<li>Extensible plugin system</li>
+</ul>
+<h2>How They Work Together</h2>
+<p>KubeGraf and Kubernetes IDEs complement each other in real workflows:</p>
+<h3>Typical Workflow: Incident Response</h3>
+<ol>
+<li><p><strong>Detection (KubeGraf)</strong></p>
+<ul>
+<li>KubeGraf detects an incident automatically</li>
+<li>Provides evidence-backed diagnosis</li>
+<li>Suggests safe fixes with preview</li>
+</ul>
+</li>
+<li><p><strong>Investigation (Both)</strong></p>
+<ul>
+<li>KubeGraf shows the root cause and evidence</li>
+<li>Kubernetes IDE helps explore related resources</li>
+<li>Both tools provide different perspectives</li>
+</ul>
+</li>
+<li><p><strong>Remediation (KubeGraf)</strong></p>
+<ul>
+<li>KubeGraf previews the fix with dry-run</li>
+<li>Shows exactly what will change</li>
+<li>Applies fix with full transparency</li>
+</ul>
+</li>
+<li><p><strong>Verification (Kubernetes IDE)</strong></p>
+<ul>
+<li>Kubernetes IDE shows updated resource state</li>
+<li>Confirms the fix worked</li>
+<li>Helps verify cluster health</li>
+</ul>
+</li>
+</ol>
+<h3>Typical Workflow: Resource Management</h3>
+<ol>
+<li><p><strong>Planning (Kubernetes IDE)</strong></p>
+<ul>
+<li>Use Kubernetes IDE to explore cluster structure</li>
+<li>Edit manifests with full IDE features</li>
+<li>Validate YAML syntax and structure</li>
+</ul>
+</li>
+<li><p><strong>Application (KubeGraf)</strong></p>
+<ul>
+<li>Use KubeGraf to preview changes safely</li>
+<li>Validate with dry-run before applying</li>
+<li>Apply with full execution transparency</li>
+</ul>
+</li>
+<li><p><strong>Monitoring (KubeGraf)</strong></p>
+<ul>
+<li>KubeGraf detects any incidents from the change</li>
+<li>Provides diagnosis if something goes wrong</li>
+<li>Suggests fixes if needed</li>
+</ul>
+</li>
+</ol>
+<h3>Typical Workflow: Learning and Improvement</h3>
+<ol>
+<li><p><strong>Incident Analysis (KubeGraf)</strong></p>
+<ul>
+<li>KubeGraf detects and diagnoses incidents</li>
+<li>Learns from resolutions</li>
+<li>Builds knowledge base</li>
+</ul>
+</li>
+<li><p><strong>Pattern Recognition (KubeGraf)</strong></p>
+<ul>
+<li>Identifies recurring issues</li>
+<li>Suggests preventive measures</li>
+<li>Improves recommendations over time</li>
+</ul>
+</li>
+<li><p><strong>Resource Optimization (Kubernetes IDE)</strong></p>
+<ul>
+<li>Use Kubernetes IDE to implement improvements</li>
+<li>Edit configurations based on learnings</li>
+<li>Apply changes through familiar interface</li>
+</ul>
+</li>
+</ol>
+<h2>Key Differences in Approach</h2>
+<h3>Resource Management vs. Incident Intelligence</h3>
+<p><strong>Kubernetes IDEs</strong> approach Kubernetes from a resource management perspective:</p>
+<ul>
+<li>&quot;What resources exist?&quot;</li>
+<li>&quot;How do I edit this manifest?&quot;</li>
+<li>&quot;What&#39;s the current state of my cluster?&quot;</li>
+</ul>
+<p><strong>KubeGraf</strong> approaches Kubernetes from an incident intelligence perspective:</p>
+<ul>
+<li>&quot;Why did this fail?&quot;</li>
+<li>&quot;What evidence supports this diagnosis?&quot;</li>
+<li>&quot;How do I fix this safely?&quot;</li>
+</ul>
+<h3>Manual Investigation vs. Automatic Diagnosis</h3>
+<p><strong>Kubernetes IDEs</strong> require manual investigation:</p>
+<ul>
+<li>You browse resources to find issues</li>
+<li>You read logs and events to understand problems</li>
+<li>You determine fixes through experience and knowledge</li>
+</ul>
+<p><strong>KubeGraf</strong> provides automatic diagnosis:</p>
+<ul>
+<li>Incidents are detected automatically</li>
+<li>Root causes are identified with evidence</li>
+<li>Fixes are suggested based on deterministic rules</li>
+</ul>
+<h3>General-Purpose vs. Specialized</h3>
+<p><strong>Kubernetes IDEs</strong> are general-purpose tools:</p>
+<ul>
+<li>Handle all aspects of cluster management</li>
+<li>Provide broad functionality</li>
+<li>Suitable for many different workflows</li>
+</ul>
+<p><strong>KubeGraf</strong> is specialized for incidents:</p>
+<ul>
+<li>Focused on failure detection and diagnosis</li>
+<li>Optimized for incident response workflows</li>
+<li>Deep expertise in root cause analysis</li>
+</ul>
+<h2>Choosing the Right Tool</h2>
+<p><strong>Use a Kubernetes IDE (Lens) if:</strong></p>
+<ul>
+<li>You primarily need to manage and edit resources</li>
+<li>You want a comprehensive cluster browser</li>
+<li>You prefer manual investigation and diagnosis</li>
+<li>You need manifest editing with IDE features</li>
+<li>You work with multiple clusters frequently</li>
+</ul>
+<p><strong>Use KubeGraf if:</strong></p>
+<ul>
+<li>You need automatic incident detection</li>
+<li>You want evidence-backed root cause analysis</li>
+<li>You prefer safe, previewed fixes</li>
+<li>You want to learn from past incidents</li>
+<li>You need local-first, offline operation</li>
+</ul>
+<p><strong>Use both if:</strong></p>
+<ul>
+<li>You want comprehensive cluster management (IDE) and incident intelligence (KubeGraf)</li>
+<li>You need different tools for different workflows</li>
+<li>You want the best of both approaches</li>
+</ul>
+<h2>Conclusion</h2>
+<p>KubeGraf and Kubernetes IDEs like Lens serve different purposes and excel at different workflows. Kubernetes IDEs are excellent for resource management and cluster navigation. KubeGraf is purpose-built for incident detection, diagnosis, and safe remediation.</p>
+<p>Many teams find value in using both tools: a Kubernetes IDE for day-to-day operations and KubeGraf when incidents occur. They complement each other rather than compete, each bringing unique strengths to Kubernetes operations.</p>
+<p>The choice isn&#39;t &quot;which tool is better&quot; but &quot;which tool fits this workflow.&quot; For resource management, choose a Kubernetes IDE. For incident intelligence, choose KubeGraf. For comprehensive coverage, use both.</p>
+<hr>
+<p><strong>Next Steps:</strong></p>
+<ul>
+<li><a href="../quickstart.html">Get started with KubeGraf</a></li>
+<li><a href="../core-concepts/incident-intelligence.html">Learn about Incident Intelligence</a></li>
+<li><a href="../workflows/crashloopbackoff.html">Explore KubeGraf workflows</a></li>
+</ul>
+</main>
+        </div>
+
+        <footer class="docs-footer">
+            <div class="docs-footer-content">
+                <div class="docs-footer-links">
+                    <a href="https://github.com/kubegraf/kubegraf/issues/new?template=bug_report.yml" target="_blank" rel="noopener noreferrer">Report a bug</a>
+                    <a href="https://github.com/kubegraf/kubegraf/issues/new?template=feature_request.yml" target="_blank" rel="noopener noreferrer">Request a feature</a>
+                    <a href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+                    <a href="/license" target="_blank" rel="noopener noreferrer">License (Apache 2.0)</a>
+                    <a href="mailto:contact@kubegraf.io">Contact</a>
+                    <div class="theme-selector">
+                        <button id="theme-light-btn" onclick="setTheme('light')" aria-label="Light theme" title="Light">
+                            ☀️
+                        </button>
+                        <button id="theme-dark-btn" onclick="setTheme('dark')" aria-label="Dark theme" title="Dark">
+                            🌙
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        // Wait for DOM to be ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('mobile-sidebar-overlay');
+            
+            function toggleMobileMenu() {
+                if (sidebar && overlay) {
+                    sidebar.classList.toggle('mobile-open');
+                    overlay.classList.toggle('active');
+                }
+            }
+            
+            function closeMobileMenu() {
+                if (sidebar && overlay) {
+                    sidebar.classList.remove('mobile-open');
+                    overlay.classList.remove('active');
+                }
+            }
+            
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            }
+            
+            if (overlay) {
+                overlay.addEventListener('click', closeMobileMenu);
+            }
+            
+            // Close menu when clicking on a sidebar link (mobile only)
+            if (sidebar) {
+                const sidebarLinks = sidebar.querySelectorAll('a');
+                sidebarLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        // Only close on mobile
+                        if (window.innerWidth <= 900) {
+                            setTimeout(closeMobileMenu, 100);
+                        }
+                    });
+                });
+            }
+            
+            // Close menu on escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && sidebar && sidebar.classList.contains('mobile-open')) {
+                    closeMobileMenu();
+                }
+            });
+        });
+    </script>
+    <script src="/docs/theme-switcher.js"></script>
+</body>
+</html>

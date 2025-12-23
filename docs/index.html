@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documentation - KubeGraf</title>
+    <title>KubeGraf Documentation - KubeGraf Documentation</title>
     <meta name="description" content="KubeGraf documentation - Learn how to install, configure, and use KubeGraf for Kubernetes visualization.">
     <link rel="canonical" href="https://kubegraf.io/docs/" />
 
@@ -274,11 +274,25 @@
         }
 
         /* Main Content */
-        .docs-content {
+        .docs-content,
+        main.content {
             flex: 1;
             margin-left: 280px;
             padding: 3rem 4rem;
             max-width: 1400px;
+            
+            box-sizing: border-box;
+        }
+        
+        /* Ensure content doesn't overlap sidebar */
+        main.content.docs-content {
+            
+        }
+        
+        /* Ensure docs-main-wrapper also has proper spacing */
+        .docs-main-wrapper {
+            margin-left: 280px;
+            
         }
 
         .docs-content h1 {
@@ -497,6 +511,9 @@
 
       
       
+      
+      
+      
       <div class="sidebar-section">
         <ul>
           <li><a href="/">🏠 Home</a></li>
@@ -521,12 +538,26 @@
       </div>
 
       <div class="sidebar-section">
+        <h3>Core Concepts</h3>
+        <ul>
+          <li><a href="/docs/core-concepts/incident-intelligence.html">Incident Intelligence</a></li>
+          <li><a href="/docs/core-concepts/deterministic-diagnosis.html">Deterministic Diagnosis</a></li>
+          <li><a href="/docs/core-concepts/evidence-and-confidence.html">Evidence & Confidence</a></li>
+          <li><a href="/docs/core-concepts/safety-model.html">Safety Model</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
         <h3>User Guide</h3>
         <ul>
           <li><a href="/docs/terminal-ui.html">Terminal UI</a></li>
           <li><a href="/docs/web-dashboard.html">Web Dashboard</a></li>
           <li><a href="/docs/commands.html">Commands</a></li>
           <li><a href="/docs/configuration.html">Configuration</a></li>
+          <li><a href="/docs/user-guide/incidents-overview.html">Incidents Overview</a></li>
+          <li><a href="/docs/user-guide/incident-detail-view.html">Incident Detail View</a></li>
+          <li><a href="/docs/user-guide/fix-preview-and-apply.html">Fix Preview and Apply</a></li>
+          <li><a href="/docs/user-guide/knowledge-bank.html">Knowledge Bank</a></li>
         </ul>
       </div>
 
@@ -557,6 +588,35 @@
       </div>
 
       <div class="sidebar-section">
+        <h3>Compare</h3>
+        <ul>
+          <li><a href="/docs/compare/kubegraf-vs-lens.html">KubeGraf vs Kubernetes IDEs</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Reference</h3>
+        <ul>
+          <li><a href="/docs/reference/cli.html">CLI</a></li>
+          <li><a href="/docs/reference/config.html">Config</a></li>
+          <li><a href="/docs/reference/plugins.html">Plugins</a></li>
+          <li><a href="/docs/reference/api.html">API schema</a></li>
+          <li><a href="/docs/reference/faq.html">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Architecture & Internals</h3>
+        <ul>
+          <li><a href="/docs/architecture/system-overview.html">System Overview</a></li>
+          <li><a href="/docs/architecture/intelligence-pipeline.html">Intelligence Pipeline</a></li>
+          <li><a href="/docs/architecture/snapshot-architecture.html">Snapshot Architecture</a></li>
+          <li><a href="/docs/architecture/runbooks-and-remediation.html">Runbooks & Remediation</a></li>
+          <li><a href="/docs/architecture/learning-engine.html">Learning Engine</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
         <h3>Resources</h3>
         <ul>
           <li><a href="https://github.com/kubegraf/kubegraf" target="_blank" rel="noopener noreferrer">GitHub</a></li>
@@ -575,156 +635,83 @@
         </div>
 
         <!-- Main Content -->
-        <main class="docs-content">
-            <div class="docs-hero">
-                <div class="grid-pattern"></div>
-                <h1><span>KubeGraf</span> Documentation</h1>
-                <p class="intro">
-                    Local-first Kubernetes tool for detecting incidents, understanding root causes with evidence,
-                    and safely responding to failures—without SaaS lock-in.
-                </p>
-            </div>
-
-            <div class="docs-grid">
-                <a href="/docs/installation.html" class="docs-card">
-                    <div class="icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                    </div>
-                    <h3>Installation</h3>
-                    <p>Install KubeGraf on macOS, Linux, or Windows in seconds.</p>
-                </a>
-
-                <a href="/docs/quickstart.html" class="docs-card">
-                    <div class="icon" style="background: rgba(0, 212, 170, 0.15);">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                    </div>
-                    <h3>Quick Start</h3>
-                    <p>Get up and running with your first cluster in under a minute.</p>
-                </a>
-
-                <a href="/docs/terminal-ui.html" class="docs-card">
-                    <div class="icon" style="background: rgba(139, 92, 246, 0.15);">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M7 8l3 3-3 3"/></svg>
-                    </div>
-                    <h3>Terminal UI</h3>
-                    <p>Master the keyboard-driven terminal interface.</p>
-                </a>
-
-                <a href="/docs/web-dashboard.html" class="docs-card">
-                    <div class="icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                    </div>
-                    <h3>Web Dashboard</h3>
-                    <p>Explore the browser-based UI with real-time updates.</p>
-                </a>
-
-                <a href="/docs/commands.html" class="docs-card">
-                    <div class="icon" style="background: rgba(0, 212, 170, 0.15);">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2"><path d="M4 17l6-6-6-6M12 19h8"/></svg>
-                    </div>
-                    <h3>Commands</h3>
-                    <p>Complete reference for all CLI commands and flags.</p>
-                </a>
-
-                <a href="/docs/configuration.html" class="docs-card">
-                    <div class="icon" style="background: rgba(139, 92, 246, 0.15);">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-                    </div>
-                    <h3>Configuration</h3>
-                    <p>Customize KubeGraf with themes, keybindings, and more.</p>
-                </a>
-            </div>
-
-            <h2>What KubeGraf Does</h2>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0;">
-                <div style="background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;">
-                    <h3 style="margin-top: 0; color: var(--primary);">Incident Detection</h3>
-                    <p>Automatically monitors for common Kubernetes failures:</p>
-                    <ul style="margin: 0.5rem 0; padding-left: 1.2rem; color: var(--text-muted);">
-                        <li>CrashLoopBackOff - Containers repeatedly failing to start</li>
-                        <li>OOMKilled - Pods killed due to memory limits</li>
-                        <li>ImagePullBackOff - Failed image pulls</li>
-                        <li>Probe failures - Liveness and readiness check failures</li>
-                        <li>Restart storms - Excessive pod restarts</li>
-                    </ul>
-                </div>
-
-                <div style="background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;">
-                    <h3 style="margin-top: 0; color: var(--primary);">Evidence-Based Diagnosis</h3>
-                    <p>Correlates multiple data sources to explain failures:</p>
-                    <ul style="margin: 0.5rem 0; padding-left: 1.2rem; color: var(--text-muted);">
-                        <li>Event timeline showing when failures occurred</li>
-                        <li>Recent changes (deployments, configs, secrets)</li>
-                        <li>Container logs with error extraction</li>
-                        <li>Resource usage patterns</li>
-                        <li>Related failures across the cluster</li>
-                    </ul>
-                </div>
-
-                <div style="background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;">
-                    <h3 style="margin-top: 0; color: var(--primary);">Safe Fix Previews</h3>
-                    <p>Preview changes before applying them:</p>
-                    <ul style="margin: 0.5rem 0; padding-left: 1.2rem; color: var(--text-muted);">
-                        <li>Dry-run validation before any changes</li>
-                        <li>Diff view showing exactly what will change</li>
-                        <li>Rollback suggestions for failed deployments</li>
-                        <li>Read-only mode by default</li>
-                        <li>All actions require explicit confirmation</li>
-                    </ul>
-                </div>
-
-                <div style="background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;">
-                    <h3 style="margin-top: 0; color: var(--primary);">Knowledge Bank</h3>
-                    <p>Local incident storage for learning and reporting:</p>
-                    <ul style="margin: 0.5rem 0; padding-left: 1.2rem; color: var(--text-muted);">
-                        <li>SQLite database stores all incident history</li>
-                        <li>Search by pod, namespace, error type, or fix</li>
-                        <li>Export reports for postmortems</li>
-                        <li>Track recurring patterns across time</li>
-                        <li>No data leaves your machine</li>
-                    </ul>
-                </div>
-            </div>
-
-            <h2>Three Ways to Use KubeGraf</h2>
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin: 2rem 0;">
-                <div style="background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; text-align: center;">
-                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">⌨️</div>
-                    <h3 style="margin: 0.5rem 0; color: var(--text);">Terminal UI</h3>
-                    <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0.5rem 0;">
-                        Keyboard-driven interface for SSH sessions and power users. Works over slow connections.
-                    </p>
-                </div>
-                <div style="background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; text-align: center;">
-                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🌐</div>
-                    <h3 style="margin: 0.5rem 0; color: var(--text);">Web Dashboard</h3>
-                    <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0.5rem 0;">
-                        Browser-based UI with resource map visualization and real-time updates. Run locally with kubegraf web.
-                    </p>
-                </div>
-                <div style="background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; text-align: center;">
-                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🚀</div>
-                    <h3 style="margin: 0.5rem 0; color: var(--text);">Modern SPA</h3>
-                    <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0.5rem 0;">
-                        Single-page app interface for teams. All three interfaces work with the same local backend.
-                    </p>
-                </div>
-            </div>
-
-            <h2>Requirements</h2>
-            <ul>
-                <li>A working <code>kubectl</code> configuration</li>
-                <li>Access to a Kubernetes cluster (local or remote)</li>
-                <li>macOS, Linux, or Windows</li>
-            </ul>
-
-            <h2>Quick Install</h2>
-            <pre><code>curl -sSL https://kubegraf.io/install.sh | bash</code></pre>
-            <p>
-                See the <a href="/docs/installation.html">Installation Guide</a> for more options including
-                Homebrew, Scoop, and manual installation.
-            </p>
-        </main>
+        <main class="content docs-content"><h1>KubeGraf Documentation</h1>
+<p>KubeGraf is a local-first tool that helps SREs and platform engineers detect, diagnose, and respond to Kubernetes incidents with confidence.</p>
+<h2>What Problem Does KubeGraf Solve?</h2>
+<p>When something breaks in Kubernetes, you need answers fast. Traditional tools show you resources and metrics, but they don&#39;t explain <em>why</em> pods are crashing, <em>what</em> caused a service outage, or <em>how</em> to fix it safely.</p>
+<p>KubeGraf bridges that gap by:</p>
+<ul>
+<li><strong>Detecting incidents automatically</strong> — Identifies crash loops, restart storms, resource exhaustion, and security misconfigurations</li>
+<li><strong>Providing evidence-backed root cause analysis</strong> — Correlates pod states, events, logs, and metrics to explain what happened</li>
+<li><strong>Recommending safe fixes</strong> — Suggests remediation steps with dry-run previews before execution</li>
+</ul>
+<h2>When to Use KubeGraf</h2>
+<p><strong>During an incident:</strong></p>
+<ul>
+<li>A deployment starts failing after a recent change. KubeGraf shows the correlation between the rollout, pod restarts, and error events.</li>
+<li>Pods are crashing but logs are unclear. KubeGraf identifies patterns like OOMKilled, ImagePullBackOff, or readiness probe failures.</li>
+<li>A service shows 5xx errors. KubeGraf traces the issue to missing endpoints, upstream timeouts, or node pressure.</li>
+</ul>
+<p><strong>For proactive monitoring:</strong></p>
+<ul>
+<li>Scheduled security posture scans detect misconfigurations before they become vulnerabilities.</li>
+<li>Health scoring surfaces risky patterns across namespaces.</li>
+<li>Incident Intelligence tracks reliability and security incidents over time.</li>
+</ul>
+<p><strong>For safe operations:</strong></p>
+<ul>
+<li>Preview YAML changes with diffs before applying.</li>
+<li>Execute kubectl-equivalent commands with dry-run validation.</li>
+<li>Review evidence and recommendations before taking action.</li>
+</ul>
+<h2>How KubeGraf Differs from Kubernetes IDEs</h2>
+<p>Kubernetes IDEs excel at resource management, editing manifests, and navigating cluster topology. KubeGraf focuses on a different problem: understanding <em>why</em> things fail and <em>how</em> to fix them.</p>
+<p><strong>KubeGraf is purpose-built for:</strong></p>
+<ul>
+<li>Incident diagnosis with deterministic, evidence-backed root cause analysis</li>
+<li>Security posture assessment with actionable recommendations</li>
+<li>Safe remediation workflows with preview and validation</li>
+<li>Local-first operation that works offline with your kubeconfig</li>
+</ul>
+<p>Think of it as a diagnostic assistant that complements your existing tools rather than replacing them.</p>
+<h2>Core Trust Principles</h2>
+<p><strong>Deterministic analysis:</strong>
+Every root cause diagnosis is backed by concrete evidence: pod conditions, events, resource states, and metrics. No guessing, no black boxes.</p>
+<p><strong>Evidence-backed recommendations:</strong>
+Each fix suggestion includes a proof block showing the signals that led to the diagnosis. You can verify the reasoning before acting.</p>
+<p><strong>Local-first architecture:</strong>
+KubeGraf runs entirely on your machine. It connects directly to your cluster via kubeconfig. No cloud dependencies, no data leaving your environment.</p>
+<p><strong>Safe execution:</strong>
+All remediation actions support dry-run mode. Preview changes, validate server-side, and review output before applying.</p>
+<h2>Getting Started</h2>
+<ul>
+<li><strong><a href="quickstart.html">Quick Start</a></strong> — Connect to your cluster in under a minute</li>
+<li><strong><a href="installation.html">Installation</a></strong> — Install KubeGraf on macOS, Linux, or Windows</li>
+<li><strong><a href="web-dashboard.html">Web Dashboard</a></strong> — Learn the modern SolidJS interface</li>
+<li><strong><a href="terminal-ui.html">Terminal UI</a></strong> — Master the keyboard-driven TUI</li>
+</ul>
+<h2>Core Concepts</h2>
+<ul>
+<li><strong><a href="introduction/what-is-kubegraf.html">What is KubeGraf?</a></strong> — Product overview and philosophy</li>
+<li><strong><a href="resource-map.html">Resource Map</a></strong> — Understanding cluster topology</li>
+<li><strong><a href="security.html">Security &amp; Diagnostics</a></strong> — Posture scanning and health scoring</li>
+<li><strong><a href="../workflows/crashloopbackoff.html">Incident Intelligence</a></strong> — Detection, diagnosis, and remediation workflows</li>
+</ul>
+<h2>Reference</h2>
+<ul>
+<li><strong><a href="commands.html">Commands</a></strong> — CLI reference</li>
+<li><strong><a href="configuration.html">Configuration</a></strong> — Settings and customization</li>
+<li><strong><a href="plugins.html">Plugins</a></strong> — Extending KubeGraf</li>
+</ul>
+<h2>Workflows</h2>
+<ul>
+<li><strong><a href="../workflows/crashloopbackoff.html">Debugging CrashLoopBackOff</a></strong> — Step-by-step diagnosis</li>
+<li><strong><a href="../workflows/high-cpu-memory.html">High CPU/Memory Issues</a></strong> — Resource exhaustion troubleshooting</li>
+<li><strong><a href="../workflows/rollout-stuck.html">Rollout Stuck</a></strong> — Deployment failure analysis</li>
+</ul>
+<hr>
+<p><strong>Ready to get started?</strong> Begin with the <a href="quickstart.html">Quick Start guide</a> or explore <a href="../workflows/crashloopbackoff.html">workflows</a> for common scenarios.</p>
+</main>
         </div>
 
         <footer class="docs-footer">

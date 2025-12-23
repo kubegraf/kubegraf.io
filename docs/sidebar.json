@@ -23,11 +23,22 @@
       "id": "core-concepts",
       "label": "Core Concepts",
       "items": [
-        { "id": "clusters-contexts", "label": "Clusters & contexts", "href": "/docs/core-concepts/clusters-and-contexts" },
-        { "id": "topology-graph", "label": "Topology graph", "href": "/docs/core-concepts/topology-graph" },
-        { "id": "event-timeline", "label": "Event timeline", "href": "/docs/core-concepts/event-timeline" },
-        { "id": "incident-mode", "label": "Incident mode", "href": "/docs/core-concepts/incident-mode" },
-        { "id": "local-first", "label": "Local-first architecture", "href": "/docs/core-concepts/local-first-architecture" }
+        { "id": "incident-intelligence", "label": "Incident Intelligence", "href": "/docs/core-concepts/incident-intelligence" },
+        { "id": "deterministic-diagnosis", "label": "Deterministic Diagnosis", "href": "/docs/core-concepts/deterministic-diagnosis" },
+        { "id": "evidence-and-confidence", "label": "Evidence & Confidence", "href": "/docs/core-concepts/evidence-and-confidence" },
+        { "id": "safety-model", "label": "Safety Model", "href": "/docs/core-concepts/safety-model" }
+      ]
+    },
+    {
+      "id": "user-guide",
+      "label": "User Guide",
+      "items": [
+        { "id": "terminal-ui", "label": "Terminal UI", "href": "/docs/user-guide/terminal-ui" },
+        { "id": "web-dashboard", "label": "Web Dashboard", "href": "/docs/user-guide/web-dashboard" },
+        { "id": "incidents-overview", "label": "Incidents Overview", "href": "/docs/user-guide/incidents-overview" },
+        { "id": "incident-detail-view", "label": "Incident Detail View", "href": "/docs/user-guide/incident-detail-view" },
+        { "id": "fix-preview-and-apply", "label": "Fix Preview and Apply", "href": "/docs/user-guide/fix-preview-and-apply" },
+        { "id": "knowledge-bank", "label": "Knowledge Bank", "href": "/docs/user-guide/knowledge-bank" }
       ]
     },
     {
@@ -65,6 +76,13 @@
       ]
     },
     {
+      "id": "compare",
+      "label": "Compare",
+      "items": [
+        { "id": "kubegraf-vs-lens", "label": "KubeGraf vs Kubernetes IDEs", "href": "/docs/compare/kubegraf-vs-lens" }
+      ]
+    },
+    {
       "id": "reference",
       "label": "Reference",
       "items": [
@@ -73,6 +91,17 @@
         { "id": "plugins", "label": "Plugins", "href": "/docs/reference/plugins" },
         { "id": "api", "label": "API schema", "href": "/docs/reference/api" },
         { "id": "faq", "label": "FAQ", "href": "/docs/reference/faq" }
+      ]
+    },
+    {
+      "id": "architecture",
+      "label": "Architecture & Internals",
+      "items": [
+        { "id": "system-overview", "label": "System Overview", "href": "/docs/architecture/system-overview" },
+        { "id": "intelligence-pipeline", "label": "Intelligence Pipeline", "href": "/docs/architecture/intelligence-pipeline" },
+        { "id": "snapshot-architecture", "label": "Snapshot Architecture", "href": "/docs/architecture/snapshot-architecture" },
+        { "id": "runbooks-and-remediation", "label": "Runbooks & Remediation", "href": "/docs/architecture/runbooks-and-remediation" },
+        { "id": "learning-engine", "label": "Learning Engine", "href": "/docs/architecture/learning-engine" }
       ]
     }
   ]

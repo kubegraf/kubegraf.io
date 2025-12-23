@@ -9,7 +9,10 @@
     "build": "tsx script/build.ts",
     "start": "NODE_ENV=production node dist/index.cjs",
     "check": "tsc",
-    "db:push": "drizzle-kit push"
+    "db:push": "drizzle-kit push",
+    "docs:serve": "npx serve docs -p 3000 --no-clipboard",
+    "docs:serve-simple": "tsx script/serve-docs-simple.ts",
+    "docs:dev": "tsx script/serve-docs.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -96,6 +99,7 @@
     "autoprefixer": "^10.4.21",
     "drizzle-kit": "^0.31.4",
     "esbuild": "^0.25.0",
+    "marked": "^17.0.1",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.14",
     "tsx": "^4.20.5",
