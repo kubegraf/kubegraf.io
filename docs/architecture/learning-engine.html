@@ -464,6 +464,25 @@
 
         /* Responsive */
         @media (max-width: 900px) {
+                        .docs-main-wrapper {
+                margin-left: 0;
+                width: 100%;
+            }
+            
+            .docs-content {
+                margin-left: 0;
+                padding: 2rem 1.5rem;
+                padding-top: 5rem;
+                max-width: 100%;
+            }
+            
+            main.content.docs-content {
+                margin-left: 0;
+                margin-right: 0;
+                width: 100%;
+                max-width: 100%;
+            }
+            
             .mobile-menu-btn {
                 display: block;
             }
@@ -1055,5 +1074,6 @@ POST /api/v2/incidents/{id}/feedback
         });
     </script>
     <script src="/docs/theme-switcher.js"></script>
+    <script src="/docs/mobile-menu.js"></script>
 </body>
 </html>
