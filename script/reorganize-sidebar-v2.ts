@@ -89,9 +89,9 @@ const NEW_SIDEBAR = `
       <div class="sidebar-section">
         <h3>Reference</h3>
         <ul>
-          <li><a href="/docs/reference/cli.html">CLI</a></li>
-          <li><a href="/docs/reference/config.html">Config</a></li>
-          <li><a href="/docs/reference/plugins.html">Plugins</a></li>
+          <li><a href="/docs/commands.html">CLI</a></li>
+          <li><a href="/docs/configuration.html">Config</a></li>
+          <li><a href="/docs/plugins.html">Plugins</a></li>
           <li><a href="/docs/reference/api.html">API schema</a></li>
           <li><a href="/docs/reference/faq.html">FAQ</a></li>
         </ul>
