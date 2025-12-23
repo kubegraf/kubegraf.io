@@ -86,9 +86,9 @@
       "id": "reference",
       "label": "Reference",
       "items": [
-        { "id": "cli", "label": "CLI", "href": "/docs/reference/cli" },
-        { "id": "config", "label": "Config", "href": "/docs/reference/config" },
-        { "id": "plugins", "label": "Plugins", "href": "/docs/reference/plugins" },
+        { "id": "cli", "label": "CLI", "href": "/docs/commands" },
+        { "id": "config", "label": "Config", "href": "/docs/configuration" },
+        { "id": "plugins", "label": "Plugins", "href": "/docs/plugins" },
         { "id": "api", "label": "API schema", "href": "/docs/reference/api" },
         { "id": "faq", "label": "FAQ", "href": "/docs/reference/faq" }
       ]
