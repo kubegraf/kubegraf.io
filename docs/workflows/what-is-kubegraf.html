@@ -22,13 +22,11 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
   <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
   <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <!-- Theme Switcher -->
   <link rel="stylesheet" href="/docs/theme-styles.css">
-  <script src="/docs/theme-switcher.js"></script>
   <style>
     :root {
       --primary: #06b6d4;
@@ -83,7 +81,9 @@
     .callout { border-radius: 0.75rem; border: 1px solid rgba(148, 163, 184, 0.35); padding: 0.9rem 1rem; background: rgba(15, 23, 42, 0.9); margin: 1.25rem 0; }
     .callout strong { color: var(--text); }
     /* Mobile Menu Button */
-    .mobile-menu-btn {
+    /* Mobile Menu Buttons */
+        .mobile-menu-btn,
+        .mobile-home-btn.mobile-menu-btn {
         display: none;
         position: fixed;
         top: 1rem;
@@ -102,7 +102,20 @@
         min-height: 48px;
     }
 
+        .mobile-menu-btn {
+            left: 1rem;
+        }
+
+        .mobile-home-btn$MOBILE_HOME_BTN_CSS
+
     .mobile-menu-btn:hover,
+    .mobile-menu-btn:active {
+        background: var(--bg-tertiary);
+        transform: scale(1.05);
+    }
+
+        .mobile-home-btn:hover,
+        .mobile-home-btn:active.mobile-menu-btn:hover,
     .mobile-menu-btn:active {
         background: var(--bg-tertiary);
         transform: scale(1.05);
@@ -128,6 +141,9 @@
         .mobile-menu-btn {
             display: block;
         }
+            .mobile-home-btn {
+                display: block;
+            }
         
         .sidebar {
             position: fixed !important;
@@ -163,13 +179,15 @@
     <aside class="sidebar" id="sidebar">
       <a href="/" class="sidebar-logo">
         <img src="/assets/logo/kubegraf_color_icon.png" alt="KubeGraf logo" class="sidebar-logo-icon">
-        KubeGraf
+        KubēGraf
       </a>
 
+      
+      
+      
       <div class="sidebar-section">
-        <h3>Introduction</h3>
         <ul>
-          <li><a href="/docs/introduction/what-is-kubegraf.html" class="active">What is KubeGraf</a></li>
+          <li><a href="/">🏠 Home</a></li>
         </ul>
       </div>
 
@@ -177,9 +195,16 @@
         <h3>Getting Started</h3>
         <ul>
           <li><a href="/docs/">Overview</a></li>
-          <li><a href="/docs/installation.html">Installation</a></li>
           <li><a href="/docs/quickstart.html">Quick Start</a></li>
+          <li><a href="/docs/installation.html">Installation</a></li>
           <li><a href="/docs/getting-started/first-cluster.html">First cluster</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Introduction</h3>
+        <ul>
+          <li><a href="/docs/introduction/what-is-kubegraf.html" class="active">What is KubeGraf</a></li>
         </ul>
       </div>
 
@@ -190,6 +215,15 @@
           <li><a href="/docs/web-dashboard.html">Web Dashboard</a></li>
           <li><a href="/docs/commands.html">Commands</a></li>
           <li><a href="/docs/configuration.html">Configuration</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Features</h3>
+        <ul>
+          <li><a href="/docs/resource-map.html">Resource Map</a></li>
+          <li><a href="/docs/security.html">Security Analysis</a></li>
+          <li><a href="/docs/plugins.html">Plugins</a></li>
         </ul>
       </div>
 
@@ -211,20 +245,11 @@
       </div>
 
       <div class="sidebar-section">
-        <h3>Features</h3>
-        <ul>
-          <li><a href="/docs/resource-map.html">Resource Map</a></li>
-          <li><a href="/docs/security.html">Security Analysis</a></li>
-          <li><a href="/docs/plugins.html">Plugins</a></li>
-        </ul>
-      </div>
-
-      <div class="sidebar-section">
         <h3>Resources</h3>
         <ul>
-          <li><a href="https://github.com/kubegraf/kubegraf">GitHub</a></li>
-          <li><a href="https://github.com/kubegraf/kubegraf/releases">Releases</a></li>
-          <li><a href="https://github.com/kubegraf/kubegraf/issues">Report Issue</a></li>
+          <li><a href="https://github.com/kubegraf/kubegraf" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://github.com/kubegraf/kubegraf/releases" target="_blank" rel="noopener noreferrer">Releases</a></li>
+          <li><a href="https://github.com/kubegraf/kubegraf/issues" target="_blank" rel="noopener noreferrer">Report Issue</a></li>
         </ul>
       </div>
     </aside>
@@ -324,5 +349,6 @@ redis-payments-0                       1/1     Running            0          10m
   </div>
   
   <script src="/docs/mobile-menu.js"></script>
+    <script src="/docs/theme-switcher.js"></script>
 </body>
 </html>

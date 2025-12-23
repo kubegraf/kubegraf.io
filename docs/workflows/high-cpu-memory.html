@@ -3,26 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kubernetes Deployment Rollout Stuck / ProgressDeadlineExceeded - KubeGraf Documentation</title>
-  <meta name="description" content="Troubleshoot Kubernetes Deployment rollouts that are stuck or hitting ProgressDeadlineExceeded using KubeGraf.">
-  <link rel="canonical" href="https://kubegraf.io/docs/troubleshooting/rollout-stuck.html" />
+  <title>Kubernetes Sudden CPU or Memory Spike Troubleshooting - KubeGraf Documentation</title>
+  <meta name="description" content="Use KubeGraf to investigate and mitigate sudden CPU or memory spikes in Kubernetes workloads.">
+  <link rel="canonical" href="https://kubegraf.io/docs/troubleshooting/high-cpu-memory.html" />
 
-  <meta property="og:title" content="Kubernetes Deployment Rollout Stuck / ProgressDeadlineExceeded - KubeGraf" />
-  <meta property="og:description" content="Use KubeGraf to debug Kubernetes Deployment rollouts that never become Ready or hit ProgressDeadlineExceeded." />
+  <meta property="og:title" content="Kubernetes Sudden CPU or Memory Spike Troubleshooting - KubeGraf" />
+  <meta property="og:description" content="Find noisy Kubernetes workloads and nodes with KubeGraf and troubleshoot CPU or memory spikes." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://kubegraf.io/docs/troubleshooting/rollout-stuck.html" />
+  <meta property="og:url" content="https://kubegraf.io/docs/troubleshooting/high-cpu-memory.html" />
   <meta property="og:site_name" content="KubeGraf" />
   <meta property="og:image" content="https://kubegraf.io/opengraph.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@kubegraf" />
-  <meta name="twitter:title" content="Kubernetes Deployment Rollout Stuck / ProgressDeadlineExceeded - KubeGraf" />
-  <meta name="twitter:description" content="Use KubeGraf to debug Kubernetes Deployment rollouts that never become Ready or hit ProgressDeadlineExceeded." />
+  <meta name="twitter:title" content="Kubernetes Sudden CPU or Memory Spike Troubleshooting - KubeGraf" />
+  <meta name="twitter:description" content="Find noisy Kubernetes workloads and nodes with KubeGraf and troubleshoot CPU or memory spikes." />
   <meta name="twitter:image" content="https://kubegraf.io/opengraph.jpg" />
 
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
   <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
   <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -321,8 +320,8 @@
         <h3>Troubleshooting</h3>
         <ul>
           <li><a href="/docs/troubleshooting/crashloopbackoff.html">CrashLoopBackOff</a></li>
-          <li><a href="/docs/troubleshooting/rollout-stuck.html" class="active">Rollout stuck</a></li>
-          <li><a href="/docs/troubleshooting/high-cpu-memory.html">High CPU / memory</a></li>
+          <li><a href="/docs/troubleshooting/rollout-stuck.html">Rollout stuck</a></li>
+          <li><a href="/docs/troubleshooting/high-cpu-memory.html" class="active">High CPU / memory</a></li>
           <li><a href="/docs/troubleshooting/restarts-after-config-change.html">Restarts after config change</a></li>
         </ul>
       </div>
@@ -352,136 +351,120 @@
     </div>
 
     <main class="docs-content">
-      <h1>Kubernetes Deployment Rollout Stuck / ProgressDeadlineExceeded</h1>
+      <h1>Kubernetes Sudden CPU or Memory Spike Troubleshooting</h1>
 
       <h2>Why this matters</h2>
       <p>
-        A stuck rollout means a new version of your application never becomes healthy.
-        If you don&apos;t catch it quickly, traffic may be served by a half-updated fleet, or the rollout might silently stall
-        during an incident.
+        Unexpected CPU or memory spikes can degrade latency, trigger throttling, or cause OOM kills.
+        On shared clusters, a single noisy workload can starve other services and cause cascading failures.
       </p>
 
       <div class="callout">
-        <p><strong>Warning:</strong> Do not delete pods manually to unblock a rollout; fix the Deployment spec or roll back instead.</p>
+        <p><strong>Pro tip:</strong> Capture a short window of detailed metrics around the spike so you can tune requests/limits later.</p>
       </div>
 
       <h2>Symptoms</h2>
       <ul>
-        <li><code>kubectl rollout status deployment/&lt;name&gt;</code> hangs or reports <code>progress deadline exceeded</code>.</li>
-        <li>Some pods for the Deployment are <code>Pending</code>, <code>CrashLoopBackOff</code>, or failing probes.</li>
-        <li>New pods are never marked <code>Ready</code>, or the number of <code>Ready</code> replicas never reaches the desired count.</li>
-        <li>HPA or traffic routing still points partially at old replicas.</li>
+        <li>Monitoring shows a sharp increase in CPU or memory usage for a workload, namespace, or node.</li>
+        <li>Pods are being <code>OOMKilled</code> in container status.</li>
+        <li>Requests are being throttled (CPU throttling, higher latency).</li>
+        <li>HPA scales pods up aggressively or cannot scale further due to node limits.</li>
       </ul>
 
       <h2>Common root causes</h2>
       <ul>
-        <li>Broken image (application fails to start, missing dependency).</li>
-        <li>Liveness/readiness probes misconfigured for the new version.</li>
-        <li>Resource requests too high for available nodes, leaving pods unschedulable.</li>
-        <li>PodDisruptionBudget, affinity/anti-affinity, or node selectors preventing enough replicas from running.</li>
-        <li>Networking/DNS issues preventing the app from reaching required backends.</li>
+        <li>Recent code change introducing heavier computation or inefficient queries.</li>
+        <li>Increased traffic or new background jobs enabled.</li>
+        <li>Resource requests/limits set too low or too high relative to real usage.</li>
+        <li>Memory leaks or unbounded caches in the application.</li>
+        <li>Noisy neighbor effect from another workload on the same node.</li>
       </ul>
 
       <h2>How KubeGraf helps</h2>
       <ul>
-        <li>Shows rollout status visually: desired vs updated vs available replicas.</li>
-        <li>Highlights pods that are blocking progress (probe failures, CrashLoopBackOff, Pending with scheduling errors).</li>
-        <li>Exposes Events attached to pods and the Deployment in one place.</li>
-        <li>Lets you inspect the spec diff between the previous ReplicaSet and the new one.</li>
+        <li>Surfaces per-workload and per-node resource usage in one place.</li>
+        <li>Topology/resource views help you see which namespaces and workloads are generating load.</li>
+        <li>Links pods to their nodes so you can spot noisy neighbors.</li>
+        <li>Incident timeline can show correlation between deploys, config changes, and resource spikes.</li>
       </ul>
 
       <h2>Step-by-step using KubeGraf UI</h2>
 
-      <h3>1. Confirm the rollout is stuck</h3>
-      <pre><code>kubectl rollout status deployment/&lt;name&gt; -n &lt;namespace&gt;</code></pre>
-      <p>Note any message like <code>progress deadline exceeded</code>. Then:</p>
+      <h3>1. Identify the scope of the spike</h3>
       <ul>
-        <li>Open KubeGraf and select the correct cluster and namespace.</li>
-        <li>Verify the Deployment name matches what you checked with <code>kubectl</code>.</li>
+        <li>Start from your external monitoring alert (service, namespace, or node).</li>
+        <li>Open KubeGraf and select the relevant cluster.</li>
+        <li>Use the <strong>Topology</strong> or <strong>Resource Map</strong> view to find the namespace and workload with elevated CPU/memory.</li>
       </ul>
 
-      <h3>2. Open the Deployment view</h3>
+      <h3>2. Inspect workload-level metrics</h3>
       <ul>
-        <li>In KubeGraf, go to <strong>Deployments</strong> and select the affected Deployment.</li>
-        <li>Check the summary: desired, updated, and available/Ready replicas.</li>
+        <li>Select the suspect Deployment/StatefulSet.</li>
+        <li>Check resource usage panels (if available): requests vs actual usage, memory vs OOM events.</li>
+        <li>Note whether HPA is scaling as expected.</li>
       </ul>
 
-      <h3>3. Identify blocking pods</h3>
+      <h3>3. Drill into pods and nodes</h3>
       <ul>
-        <li>From the Deployment details, open the linked ReplicaSets and Pods.</li>
-        <li>Look for pods in <code>Pending</code>, <code>CrashLoopBackOff</code>, or with failing readiness probes.</li>
-        <li>Use filters to narrow the list to non-Ready pods.</li>
+        <li>From the workload, list pods and their nodes.</li>
+        <li>Look for pods with <code>Reason=OOMKilled</code> or high CPU utilization.</li>
+        <li>If a single node is hot, inspect other workloads on that node for noisy neighbors.</li>
       </ul>
 
-      <h3>4. Inspect Events for scheduling or probe issues</h3>
+      <h3>4. Correlate with recent changes</h3>
       <ul>
-        <li>On a problematic pod, open <strong>Events</strong>.</li>
-        <li>Look for messages such as:</li>
-      </ul>
-      <pre><code>0/3 nodes are available: 3 Insufficient cpu/memory
-Readiness probe failed: HTTP 500
-FailedScheduling: 0/3 nodes available due to taints</code></pre>
-
-      <h3>5. Compare new vs previous ReplicaSet spec</h3>
-      <ul>
-        <li>In the Deployment view, open the history / ReplicaSets panel.</li>
-        <li>Compare the new ReplicaSet to the previous one:</li>
-      </ul>
-      <ul>
-        <li>Image tag.</li>
-        <li>Resource requests/limits.</li>
-        <li>Probes (paths, ports, thresholds).</li>
-        <li>Env vars and config references.</li>
+        <li>Open the Incident Timeline for the workload/namespace.</li>
+        <li>Look for events near the start of the spike: new Deployment rollout, config changes, HPA/limit updates.</li>
       </ul>
 
-      <h3>6. Decide: roll back vs fix forward</h3>
+      <h3>5. Decide on immediate mitigation</h3>
       <ul>
-        <li>If the change is clearly broken and you need fast recovery:</li>
+        <li>Short-term actions might include:</li>
       </ul>
-      <pre><code>kubectl rollout undo deployment/&lt;name&gt; -n &lt;namespace&gt;
-kubectl rollout status deployment/&lt;name&gt; -n &lt;namespace&gt;</code></pre>
       <ul>
-        <li>Watch in KubeGraf as pods for the previous ReplicaSet return to <code>Ready</code>.</li>
-        <li>If you can fix forward (e.g. adjust probe or config), update the spec via code and apply through CI/GitOps.</li>
+        <li>Temporarily scaling replicas horizontally if capacity exists.</li>
+        <li>Raising memory limits slightly to stop OOM churn (only if you have node headroom).</li>
+        <li>Reducing concurrency or disabling heavy background jobs via config.</li>
       </ul>
 
-      <h3>7. Verify impact at the service level</h3>
+      <h3>6. Plan and apply a proper fix</h3>
       <ul>
-        <li>In KubeGraf, move to the <strong>Topology</strong> or <strong>Services</strong> view.</li>
-        <li>Confirm Service endpoints are all <code>Ready</code> and no backend endpoints are <code>NotReady</code>.</li>
+        <li>If usage jump aligns with a new release, work with devs to profile and fix the regression.</li>
+        <li>If limits are unrealistic, adjust requests/limits based on observed usage.</li>
+        <li>If a noisy neighbor is the issue, consider rebalancing workloads or adjusting node pools.</li>
       </ul>
 
       <h2>What to check next</h2>
       <ul>
-        <li>Are other Deployments rolling out at the same time on the same nodes (resource contention)?</li>
-        <li>Is there a cluster-wide issue (node pressure, CNI problems) reflected in Events?</li>
-        <li>Are there PDBs or policies that restrict how many pods can be unavailable during rollout?</li>
+        <li>Are any other workloads on the same node under pressure?</li>
+        <li>Is the cluster close to overall capacity (node CPU/memory pressure)?</li>
+        <li>Are HPA policies and target metrics configured sanely for this workload?</li>
       </ul>
 
       <h2>Common mistakes</h2>
       <ul>
-        <li>Focusing only on the Deployment object and ignoring pod-level Events.</li>
-        <li>Forgetting to check node-level constraints when pods are Pending.</li>
-        <li>Rolling back image but leaving an incompatible probe or config in place.</li>
-        <li>Manually deleting pods to "unstick" a rollout instead of fixing the spec.</li>
+        <li>Only raising limits without understanding the root cause (masking a memory leak).</li>
+        <li>Ignoring node-level saturation and focusing only on one Deployment.</li>
+        <li>Changing limits directly in the cluster rather than updating the declarative spec.</li>
+        <li>Treating a one-off spike as normal and not checking if it repeats.</li>
       </ul>
 
       <h2>Related issues</h2>
       <ul>
+        <li><a href="/docs/troubleshooting/rollout-stuck.html">Deployment rollout stuck / ProgressDeadlineExceeded</a></li>
         <li><a href="/docs/troubleshooting/crashloopbackoff.html">CrashLoopBackOff Kubernetes debugging</a></li>
-        <li><a href="/docs/troubleshooting/restarts-after-config-change.html">Pods restarting after ConfigMap or Secret change</a></li>
-        <li><a href="/docs/troubleshooting/high-cpu-memory.html">Sudden CPU or memory spikes</a></li>
+        <li><a href="/docs/troubleshooting/was-working-yesterday.html">"It was working yesterday" incidents</a></li>
       </ul>
 
       <h2>Expected outcome</h2>
       <p>After following this playbook you should:</p>
       <ul>
-        <li>Understand why the rollout is stalled (scheduling, crash, probes, or config).</li>
-        <li>Either roll back safely or apply a corrected spec that converges to the desired <code>Ready</code> replicas.</li>
-        <li>Be able to monitor future rollouts of this Deployment in KubeGraf with clear visibility into progress.</li>
+        <li>Identify which workload(s) are responsible for the spike and on which nodes.</li>
+        <li>Have an immediate mitigation (scaling or config change) and a plan for a longer-term fix.</li>
+        <li>See resource usage return to a stable baseline that matches limits and capacity.</li>
       </ul>
 
-      <pre><code>[ TODO: screenshot showing KubeGraf Deployment view with rollout status and blocking pods highlighted. ]</code></pre>
+      <pre><code>[ TODO: screenshot showing KubeGraf resource map with a hot workload/node highlighted. ]</code></pre>
     </main>
         </div>
 
