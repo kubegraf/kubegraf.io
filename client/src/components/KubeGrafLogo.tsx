@@ -4,7 +4,6 @@ type KubeGrafLogoProps = {
   /** Pixel size for a square logo (width/height). */
   size?: number;
   className?: string;
-  title?: string;
 };
 
 /**
@@ -17,17 +16,16 @@ type KubeGrafLogoProps = {
 export function KubeGrafLogo({
   size = 40,
   className,
-  title = "KubeGraf",
 }: KubeGrafLogoProps) {
   const uid = React.useId();
-  const titleId = `kg-title-${uid}`;
   const gradId = `kg-grad-${uid}`;
   const glowId = `kg-glow-${uid}`;
+  const ringId = `kg-ring-${uid}`;
 
   return (
     <svg
-      role="img"
-      aria-labelledby={titleId}
+      role="presentation"
+      aria-hidden="true"
       width={size}
       height={size}
       viewBox="0 0 64 64"
@@ -35,12 +33,14 @@ export function KubeGrafLogo({
       className={className}
       xmlns="http://www.w3.org/2000/svg"
     >
-      <title id={titleId}>{title}</title>
-
       <defs>
-        <linearGradient id={gradId} x1="14" y1="16" x2="52" y2="48" gradientUnits="userSpaceOnUse">
+        <linearGradient id={gradId} x1="14" y1="14" x2="50" y2="50" gradientUnits="userSpaceOnUse">
           <stop offset="0" stopColor="var(--kg-logo-accent-1)" />
           <stop offset="1" stopColor="var(--kg-logo-accent-2)" />
+        </linearGradient>
+        <linearGradient id={ringId} x1="10" y1="32" x2="54" y2="32" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="var(--kg-logo-accent-2)" />
+          <stop offset="1" stopColor="var(--kg-logo-accent-1)" />
         </linearGradient>
         <radialGradient
           id={glowId}
@@ -56,42 +56,37 @@ export function KubeGrafLogo({
         </radialGradient>
       </defs>
 
-      {/* Soft glow to feel "devtools / futuristic" without being loud */}
+      {/* Minimal, modern "signal graph" mark (no letters / monogram) */}
       <circle cx="32" cy="32" r="28" fill={`url(#${glowId})`} />
 
-      {/* Outer hex frame (graph boundary / cluster boundary) */}
-      <path
-        d="M32 7.5L52.5 19.5V44.5L32 56.5L11.5 44.5V19.5L32 7.5Z"
-        stroke="var(--kg-logo-muted)"
-        strokeWidth="2.5"
-        strokeLinejoin="round"
+      {/* Gradient ring */}
+      <circle
+        cx="32"
+        cy="32"
+        r="20"
+        stroke={`url(#${ringId})`}
+        strokeWidth="4.5"
+        strokeLinecap="round"
       />
+      {/* Quiet inner ring to add depth */}
+      <circle cx="32" cy="32" r="13.5" stroke="var(--kg-logo-muted)" strokeWidth="2" />
 
-      {/* Inner "evidence graph" connections */}
+      {/* Central hub + three satellites (cluster -> evidence graph) */}
       <path
-        d="M22 27.5L32 22L42 27.5L40.5 39.5L32 44.5L23.5 39.5L22 27.5Z"
-        stroke={`url(#${gradId})`}
-        strokeWidth="2.5"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M32 22V44.5"
+        d="M32 32L23.5 22.5M32 32L40.5 22.5M32 32L32 45"
         stroke="var(--kg-logo-stroke)"
-        strokeOpacity="0.55"
+        strokeOpacity="0.5"
         strokeWidth="2"
         strokeLinecap="round"
       />
 
-      {/* Nodes */}
-      <circle cx="32" cy="22" r="3.2" fill="var(--kg-logo-surface)" stroke={`url(#${gradId})`} strokeWidth="2" />
-      <circle cx="22" cy="27.5" r="3.0" fill="var(--kg-logo-surface)" stroke={`url(#${gradId})`} strokeWidth="2" />
-      <circle cx="42" cy="27.5" r="3.0" fill="var(--kg-logo-surface)" stroke={`url(#${gradId})`} strokeWidth="2" />
-      <circle cx="23.5" cy="39.5" r="3.0" fill="var(--kg-logo-surface)" stroke={`url(#${gradId})`} strokeWidth="2" />
-      <circle cx="40.5" cy="39.5" r="3.0" fill="var(--kg-logo-surface)" stroke={`url(#${gradId})`} strokeWidth="2" />
-      <circle cx="32" cy="44.5" r="3.2" fill="var(--kg-logo-surface)" stroke={`url(#${gradId})`} strokeWidth="2" />
+      <circle cx="32" cy="32" r="3.4" fill="var(--kg-logo-surface)" stroke={`url(#${gradId})`} strokeWidth="2" />
+      <circle cx="23.5" cy="22.5" r="3.0" fill="var(--kg-logo-surface)" stroke={`url(#${gradId})`} strokeWidth="2" />
+      <circle cx="40.5" cy="22.5" r="3.0" fill="var(--kg-logo-surface)" stroke={`url(#${gradId})`} strokeWidth="2" />
+      <circle cx="32" cy="45" r="3.0" fill="var(--kg-logo-surface)" stroke={`url(#${gradId})`} strokeWidth="2" />
 
-      {/* Tiny "signal" dot (diagnosis / insight) */}
-      <circle cx="48.5" cy="18.5" r="1.8" fill="var(--kg-logo-accent-1)" />
+      {/* Small "signal" bead on the ring */}
+      <circle cx="49.2" cy="28.8" r="2.0" fill="var(--kg-logo-accent-1)" />
     </svg>
   );
 }

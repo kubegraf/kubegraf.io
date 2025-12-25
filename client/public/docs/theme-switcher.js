@@ -4,20 +4,23 @@
   // Inline, theme-adaptive logo mark (replaces old PNG icons).
   // Keeping this here means every docs page gets the same switchable logo
   // without maintaining separate dark/light image assets.
-  const createInlineLogoSvg = (label, existingClassName) => {
+  const createInlineLogoSvg = (_label, existingClassName) => {
     const uid = `kg-${Math.random().toString(36).slice(2, 10)}`;
-    const titleId = `${uid}-title`;
     const gradId = `${uid}-grad`;
+    const ringId = `${uid}-ring`;
     const glowId = `${uid}-glow`;
     const cls = `${existingClassName || ""} kg-logo-mark`.trim();
 
     return `
-<svg role="img" aria-labelledby="${titleId}" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" class="${cls}">
-  <title id="${titleId}">${label || "KubeGraf"}</title>
+<svg role="presentation" aria-hidden="true" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" class="${cls}">
   <defs>
-    <linearGradient id="${gradId}" x1="14" y1="16" x2="52" y2="48" gradientUnits="userSpaceOnUse">
+    <linearGradient id="${gradId}" x1="14" y1="14" x2="50" y2="50" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="var(--kg-logo-accent-1)" />
       <stop offset="1" stop-color="var(--kg-logo-accent-2)" />
+    </linearGradient>
+    <linearGradient id="${ringId}" x1="10" y1="32" x2="54" y2="32" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="var(--kg-logo-accent-2)" />
+      <stop offset="1" stop-color="var(--kg-logo-accent-1)" />
     </linearGradient>
     <radialGradient id="${glowId}" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(32 32) rotate(90) scale(28)">
       <stop offset="0" stop-color="var(--kg-logo-accent-2)" stop-opacity="0.22" />
@@ -26,16 +29,14 @@
     </radialGradient>
   </defs>
   <circle cx="32" cy="32" r="28" fill="url(#${glowId})" />
-  <path d="M32 7.5L52.5 19.5V44.5L32 56.5L11.5 44.5V19.5L32 7.5Z" stroke="var(--kg-logo-muted)" stroke-width="2.5" stroke-linejoin="round" />
-  <path d="M22 27.5L32 22L42 27.5L40.5 39.5L32 44.5L23.5 39.5L22 27.5Z" stroke="url(#${gradId})" stroke-width="2.5" stroke-linejoin="round" />
-  <path d="M32 22V44.5" stroke="var(--kg-logo-stroke)" stroke-opacity="0.55" stroke-width="2" stroke-linecap="round" />
-  <circle cx="32" cy="22" r="3.2" fill="var(--kg-logo-surface)" stroke="url(#${gradId})" stroke-width="2" />
-  <circle cx="22" cy="27.5" r="3.0" fill="var(--kg-logo-surface)" stroke="url(#${gradId})" stroke-width="2" />
-  <circle cx="42" cy="27.5" r="3.0" fill="var(--kg-logo-surface)" stroke="url(#${gradId})" stroke-width="2" />
-  <circle cx="23.5" cy="39.5" r="3.0" fill="var(--kg-logo-surface)" stroke="url(#${gradId})" stroke-width="2" />
-  <circle cx="40.5" cy="39.5" r="3.0" fill="var(--kg-logo-surface)" stroke="url(#${gradId})" stroke-width="2" />
-  <circle cx="32" cy="44.5" r="3.2" fill="var(--kg-logo-surface)" stroke="url(#${gradId})" stroke-width="2" />
-  <circle cx="48.5" cy="18.5" r="1.8" fill="var(--kg-logo-accent-1)" />
+  <circle cx="32" cy="32" r="20" stroke="url(#${ringId})" stroke-width="4.5" stroke-linecap="round" />
+  <circle cx="32" cy="32" r="13.5" stroke="var(--kg-logo-muted)" stroke-width="2" />
+  <path d="M32 32L23.5 22.5M32 32L40.5 22.5M32 32L32 45" stroke="var(--kg-logo-stroke)" stroke-opacity="0.5" stroke-width="2" stroke-linecap="round" />
+  <circle cx="32" cy="32" r="3.4" fill="var(--kg-logo-surface)" stroke="url(#${gradId})" stroke-width="2" />
+  <circle cx="23.5" cy="22.5" r="3.0" fill="var(--kg-logo-surface)" stroke="url(#${gradId})" stroke-width="2" />
+  <circle cx="40.5" cy="22.5" r="3.0" fill="var(--kg-logo-surface)" stroke="url(#${gradId})" stroke-width="2" />
+  <circle cx="32" cy="45" r="3.0" fill="var(--kg-logo-surface)" stroke="url(#${gradId})" stroke-width="2" />
+  <circle cx="49.2" cy="28.8" r="2.0" fill="var(--kg-logo-accent-1)" />
 </svg>
     `.trim();
   };
