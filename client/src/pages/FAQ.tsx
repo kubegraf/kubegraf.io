@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { Link } from "wouter";
 import Footer from "@/components/layout/Footer";
+import { KubeGrafLogo } from "@/components/KubeGrafLogo";
 
 type FAQItemProps = {
   question: string;
@@ -156,7 +157,7 @@ export default function FAQ() {
       <header className="border-b border-white/5 py-4 px-6">
         <div className="max-w-4xl mx-auto flex justify-between items-center">
           <a href="/" className="flex items-center gap-2 font-display font-bold text-xl">
-            <img src="/assets/logo/kubegraf_color_icon.png" alt="KubeGraf" className="object-contain" style={{ width: 96, height: 96 }} />
+            <KubeGrafLogo size={40} className="shrink-0" />
             KubēGraf
           </a>
           <nav className="hidden md:flex gap-6 text-sm text-muted-foreground">
