@@ -67,6 +67,13 @@
   --ring: 190 100% 50%;
 
   --radius: 0.75rem;
+
+  /* Brand mark (inline SVG) - auto adapts via theme tokens */
+  --kg-logo-stroke: hsl(var(--foreground) / 0.92);
+  --kg-logo-muted: hsl(var(--foreground) / 0.22);
+  --kg-logo-surface: hsl(var(--background));
+  --kg-logo-accent-1: hsl(var(--primary));
+  --kg-logo-accent-2: hsl(var(--accent));
 }
 
 /* Light Theme (Polar) - System preference */

@@ -16,6 +16,13 @@
   --border-hover: rgba(56, 189, 248, 0.55);
   --code-bg: #111827;
   --code-text: #8b5cf6;
+
+  /* Brand mark (inline SVG) */
+  --kg-logo-stroke: rgba(249, 250, 251, 0.92);
+  --kg-logo-muted: rgba(249, 250, 251, 0.22);
+  --kg-logo-surface: var(--bg);
+  --kg-logo-accent-1: var(--primary);
+  --kg-logo-accent-2: var(--accent);
 }
 
 /* Light Theme (Polar) */
@@ -33,6 +40,13 @@
   --border-hover: rgba(8, 145, 178, 0.3);
   --code-bg: #f1f5f9;
   --code-text: #7c3aed;
+
+  /* Brand mark (inline SVG) */
+  --kg-logo-stroke: rgba(15, 23, 42, 0.92);
+  --kg-logo-muted: rgba(15, 23, 42, 0.22);
+  --kg-logo-surface: var(--bg);
+  --kg-logo-accent-1: var(--primary);
+  --kg-logo-accent-2: var(--accent);
 }
 
 /* Smooth transitions for theme changes */

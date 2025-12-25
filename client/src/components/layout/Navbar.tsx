@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Terminal, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
+import { KubeGrafLogo } from "@/components/KubeGrafLogo";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -28,12 +29,7 @@ export default function Navbar() {
       >
         <div className="glass rounded-full px-2 py-0.5 flex items-center gap-2 shadow-2xl shadow-primary/10">
           <a href="/" className="flex items-center gap-1 font-display font-bold text-2xl tracking-tight">
-            <img
-              src="/assets/logo/kubegraf_color_icon.png?v=3"
-              alt="KubeGraf"
-              className="object-contain"
-              style={{ width: 64, height: 64 }}
-            />
+            <KubeGrafLogo size={44} className="shrink-0" />
             <span className="leading-none">KubēGraf</span>
           </a>
 
