@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Search, Microscope, CheckCircle } from "lucide-react";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const steps = [
   {
@@ -23,14 +24,19 @@ const steps = [
 ];
 
 export default function HowItWorks() {
+  const isMobile = useIsMobile();
+
+  // Motion props - disabled on mobile for performance
+  const fadeInView = isMobile
+    ? {}
+    : { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-50px" } };
+
   return (
     <section className="relative py-16 md:py-20 lg:py-24 border-t border-border/50 bg-muted/20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5 }}
+          {...fadeInView}
+          transition={isMobile ? undefined : { duration: 0.5 }}
           className="text-center mb-12 md:mb-16"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-4">
@@ -50,10 +56,8 @@ export default function HowItWorks() {
           {steps.map((step, index) => (
             <motion.div
               key={step.number}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
+              {...fadeInView}
+              transition={isMobile ? undefined : { duration: 0.5, delay: index * 0.2 }}
               className="relative"
             >
               {/* Step Content */}
@@ -83,10 +87,8 @@ export default function HowItWorks() {
 
         {/* Bottom CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5, delay: 0.6 }}
+          {...fadeInView}
+          transition={isMobile ? undefined : { duration: 0.5, delay: 0.6 }}
           className="text-center mt-12"
         >
           <a

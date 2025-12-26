@@ -1,8 +1,16 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Terminal, BookOpen } from "lucide-react";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 export default function CTASection() {
+  const isMobile = useIsMobile();
+
+  // Motion props - disabled on mobile for performance
+  const fadeInView = isMobile
+    ? {}
+    : { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-50px" } };
+
   return (
     <section className="relative py-20 md:py-24 lg:py-28 border-t border-border/50 overflow-hidden">
       {/* Background */}
@@ -13,10 +21,8 @@ export default function CTASection() {
 
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5 }}
+          {...fadeInView}
+          transition={isMobile ? undefined : { duration: 0.5 }}
           className="text-center"
         >
           {/* Heading */}

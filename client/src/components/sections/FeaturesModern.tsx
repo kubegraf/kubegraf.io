@@ -10,6 +10,7 @@ import {
   Zap,
   GitBranch
 } from "lucide-react";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const whyFeatures = [
   {
@@ -69,16 +70,21 @@ const keyFeatures = [
 ];
 
 export default function FeaturesModern() {
+  const isMobile = useIsMobile();
+
+  // Motion props - disabled on mobile for performance
+  const fadeInView = isMobile
+    ? {}
+    : { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-50px" } };
+
   return (
     <>
       {/* Why KubēGraf Section */}
       <section id="features" className="relative py-16 md:py-20 lg:py-24 border-t border-border/50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.5 }}
+            {...fadeInView}
+            transition={isMobile ? undefined : { duration: 0.5 }}
             className="text-center mb-12 md:mb-16"
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-4">
@@ -93,10 +99,8 @@ export default function FeaturesModern() {
             {whyFeatures.map((feature, index) => (
               <motion.div
                 key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                {...fadeInView}
+                transition={isMobile ? undefined : { duration: 0.5, delay: index * 0.1 }}
                 className="group relative"
               >
                 <div className="h-full p-6 rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm hover:border-primary/30 hover:bg-card/80 transition-all duration-300">
@@ -128,10 +132,8 @@ export default function FeaturesModern() {
       <section className="relative py-16 md:py-20 lg:py-24 border-t border-border/50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.5 }}
+            {...fadeInView}
+            transition={isMobile ? undefined : { duration: 0.5 }}
             className="text-center mb-12 md:mb-16"
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-4">
@@ -146,10 +148,8 @@ export default function FeaturesModern() {
             {keyFeatures.map((feature, index) => (
               <motion.div
                 key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: index * 0.05 }}
+                {...fadeInView}
+                transition={isMobile ? undefined : { duration: 0.5, delay: index * 0.05 }}
                 className="group relative"
               >
                 <div className="h-full p-6 rounded-xl border border-border/50 bg-card/30 hover:border-primary/30 hover:bg-card/50 transition-all duration-300">

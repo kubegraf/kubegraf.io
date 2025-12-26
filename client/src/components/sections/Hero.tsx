@@ -2,8 +2,52 @@ import { motion } from "framer-motion";
 import { Mail, User, Building2, Briefcase } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
-// Animated terminal component - larger and more prominent
+// Static terminal for mobile - no animations, no intervals
+function StaticTerminal() {
+  const terminalLines = [
+    { type: 'command', text: '$ kubegraf analyze --ns prod' },
+    { type: 'info', text: '⚡ Scanning 24 pods...' },
+    { type: 'warning', text: '⚠  CrashLoopBackOff detected' },
+    { type: 'detail', text: '   └─ OOMKilled (512Mi)' },
+    { type: 'success', text: '✓  Fix: Increase to 1Gi' },
+  ];
+
+  return (
+    <div className="relative w-full max-w-4xl mx-auto">
+      <div className="relative bg-card/95 rounded-xl border border-border shadow-lg overflow-hidden">
+        <div className="flex items-center gap-2 px-4 py-3 bg-muted/80 border-b border-border">
+          <div className="flex gap-1.5">
+            <div className="w-3 h-3 rounded-full bg-red-500" />
+            <div className="w-3 h-3 rounded-full bg-yellow-500" />
+            <div className="w-3 h-3 rounded-full bg-green-500" />
+          </div>
+          <span className="ml-2 text-xs text-muted-foreground font-mono">kubegraf</span>
+        </div>
+        <div className="p-4 font-mono text-xs leading-relaxed">
+          {terminalLines.map((line, i) => (
+            <div
+              key={i}
+              className={`
+                ${line.type === 'command' ? 'text-green-600 dark:text-green-400 font-semibold' : ''}
+                ${line.type === 'info' ? 'text-cyan-600 dark:text-cyan-400' : ''}
+                ${line.type === 'warning' ? 'text-yellow-600 dark:text-yellow-400' : ''}
+                ${line.type === 'success' ? 'text-emerald-600 dark:text-emerald-400' : ''}
+                ${line.type === 'detail' ? 'text-muted-foreground' : ''}
+                mb-1
+              `}
+            >
+              {line.text}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Animated terminal for desktop - with typing effect
 function AnimatedTerminal() {
   const [visibleLines, setVisibleLines] = useState(0);
 
@@ -88,6 +132,7 @@ function AnimatedTerminal() {
 }
 
 export default function Hero() {
+  const isMobile = useIsMobile();
   const [formData, setFormData] = useState({
     email: "",
     name: "",
@@ -97,6 +142,11 @@ export default function Hero() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [showFullForm, setShowFullForm] = useState(false);
+
+  // Motion props - disabled on mobile for performance
+  const fadeIn = isMobile
+    ? {}
+    : { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 } };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -146,9 +196,8 @@ export default function Hero() {
         <div className="text-center max-w-5xl mx-auto mb-12 lg:mb-16">
           {/* Brand Name */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            {...fadeIn}
+            transition={isMobile ? undefined : { duration: 0.6 }}
             className="mb-6"
           >
             <span className="text-3xl sm:text-4xl font-display font-bold tracking-tight text-primary">
@@ -158,9 +207,8 @@ export default function Hero() {
 
           {/* Hero Heading - MUCH BIGGER */}
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            {...fadeIn}
+            transition={isMobile ? undefined : { duration: 0.6, delay: 0.1 }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold tracking-tight mb-8 leading-[1.05]"
           >
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-cyan-400 to-cyan-500">
@@ -172,9 +220,8 @@ export default function Hero() {
 
           {/* Subheading */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            {...fadeIn}
+            transition={isMobile ? undefined : { duration: 0.6, delay: 0.2 }}
             className="text-lg sm:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto mb-10 leading-relaxed"
           >
             A local-first Kubernetes tool that detects incidents, explains why they happen with evidence, and previews safe fixes—without SaaS lock-in.
@@ -182,9 +229,8 @@ export default function Hero() {
 
           {/* Waitlist Form - Centered */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            {...fadeIn}
+            transition={isMobile ? undefined : { duration: 0.6, delay: 0.3 }}
             className="max-w-lg mx-auto"
           >
             {submitted ? (
@@ -225,7 +271,7 @@ export default function Hero() {
                     height: showFullForm ? 'auto' : 0,
                     opacity: showFullForm ? 1 : 0
                   }}
-                  transition={{ duration: 0.3 }}
+                  transition={isMobile ? { duration: 0.1 } : { duration: 0.3 }}
                   className="overflow-hidden space-y-3"
                 >
                   {/* Name field */}
@@ -283,7 +329,8 @@ export default function Hero() {
         </div>
 
         {/* Terminal showcase - below the fold but prominent */}
-        <AnimatedTerminal />
+        {/* Use static terminal on mobile for better performance */}
+        {isMobile ? <StaticTerminal /> : <AnimatedTerminal />}
       </div>
     </section>
   );
