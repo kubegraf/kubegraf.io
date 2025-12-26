@@ -21,9 +21,6 @@ const NotFound = lazy(() => import("@/pages/not-found"));
 // Lazy load heavy visual components - only on desktop
 const CursorGlow = lazy(() => import("@/components/CursorGlow"));
 
-// Check if device is desktop (no touch)
-const isDesktop = typeof window !== 'undefined' && !('ontouchstart' in window);
-
 // Minimal loading fallback - just background color, no spinner
 function PageLoader() {
   return (
@@ -51,6 +48,13 @@ function Routes() {
 }
 
 function App() {
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    // Check if device is desktop (no touch) - must be in useEffect for SSR safety
+    setIsDesktop(!('ontouchstart' in window) && window.matchMedia('(pointer: fine)').matches);
+  }, []);
+
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>

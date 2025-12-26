@@ -14,11 +14,15 @@ export default function Home() {
 
   useEffect(() => {
     // Defer heavy visual effects until after first meaningful paint
-    const timer = requestIdleCallback?.(() => setShowEffects(true))
-      || setTimeout(() => setShowEffects(true), 100);
-    return () => {
-      if (typeof timer === 'number') clearTimeout(timer);
-    };
+    // Use requestIdleCallback if available, otherwise use setTimeout
+    let handle: number;
+    if (typeof requestIdleCallback !== 'undefined') {
+      handle = requestIdleCallback(() => setShowEffects(true));
+      return () => cancelIdleCallback(handle);
+    } else {
+      handle = window.setTimeout(() => setShowEffects(true), 100);
+      return () => clearTimeout(handle);
+    }
   }, []);
 
   return (
