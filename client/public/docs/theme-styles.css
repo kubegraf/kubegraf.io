@@ -211,20 +211,108 @@ body,
   }
 }
 
+/* Dark theme logo - match main page sizes */
+.docs-navbar-logo-icon {
+  width: 48px !important;
+  height: 48px !important;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  filter: drop-shadow(0 2px 8px rgba(34, 211, 238, 0.2));
+}
+
+.docs-navbar-logo-icon:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 4px 16px rgba(6, 182, 212, 0.5));
+}
+
+.sidebar-logo-icon {
+  width: 48px !important;
+  height: 48px !important;
+}
+
+@media (min-width: 640px) {
+  .docs-navbar-logo-icon {
+    width: 64px !important;
+    height: 64px !important;
+  }
+  .sidebar-logo-icon {
+    width: 64px !important;
+    height: 64px !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .docs-navbar-logo-icon {
+    width: 80px !important;
+    height: 80px !important;
+  }
+  .sidebar-logo-icon {
+    width: 80px !important;
+    height: 80px !important;
+  }
+}
+
 /* Light theme logo - scale down to match dark theme visual size */
 :root[data-theme="light"] .docs-navbar-logo-icon {
-  width: 56px !important;
-  height: 56px !important;
+  width: 36px !important;
+  height: 36px !important;
 }
 
 :root[data-theme="light"] .sidebar-logo-icon {
-  width: 56px !important;
-  height: 56px !important;
+  width: 36px !important;
+  height: 36px !important;
 }
 
-@media (max-width: 900px) {
+@media (min-width: 640px) {
   :root[data-theme="light"] .docs-navbar-logo-icon {
-    width: 36px !important;
-    height: 36px !important;
+    width: 48px !important;
+    height: 48px !important;
+  }
+  :root[data-theme="light"] .sidebar-logo-icon {
+    width: 48px !important;
+    height: 48px !important;
+  }
+}
+
+@media (min-width: 768px) {
+  :root[data-theme="light"] .docs-navbar-logo-icon {
+    width: 56px !important;
+    height: 56px !important;
+  }
+  :root[data-theme="light"] .sidebar-logo-icon {
+    width: 56px !important;
+    height: 56px !important;
+  }
+}
+
+/* Footer logo - match main page sizes */
+.docs-footer-logo img {
+  width: 48px !important;
+  height: 48px !important;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  filter: drop-shadow(0 2px 8px rgba(34, 211, 238, 0.2));
+}
+
+.docs-footer-logo img:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 4px 16px rgba(6, 182, 212, 0.5));
+}
+
+@media (min-width: 768px) {
+  .docs-footer-logo img {
+    width: 64px !important;
+    height: 64px !important;
+  }
+}
+
+/* Light theme footer logo */
+:root[data-theme="light"] .docs-footer-logo img {
+  width: 36px !important;
+  height: 36px !important;
+}
+
+@media (min-width: 768px) {
+  :root[data-theme="light"] .docs-footer-logo img {
+    width: 48px !important;
+    height: 48px !important;
   }
 }
