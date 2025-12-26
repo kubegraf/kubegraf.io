@@ -4,8 +4,10 @@ import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { useIsMobile } from "@/hooks/useIsMobile";
 
-// Static terminal for mobile - no animations, no intervals
-function StaticTerminal() {
+// Lightweight animated terminal for mobile - typing effect without framer-motion
+function MobileTerminal() {
+  const [visibleLines, setVisibleLines] = useState(0);
+
   const terminalLines = [
     { type: 'command', text: '$ kubegraf analyze --ns prod' },
     { type: 'info', text: '⚡ Scanning 24 pods...' },
@@ -13,6 +15,19 @@ function StaticTerminal() {
     { type: 'detail', text: '   └─ OOMKilled (512Mi)' },
     { type: 'success', text: '✓  Fix: Increase to 1Gi' },
   ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setVisibleLines(prev => {
+        if (prev >= terminalLines.length) {
+          setTimeout(() => setVisibleLines(0), 2000);
+          return prev;
+        }
+        return prev + 1;
+      });
+    }, 500);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <div className="relative w-full max-w-4xl mx-auto">
@@ -25,8 +40,8 @@ function StaticTerminal() {
           </div>
           <span className="ml-2 text-xs text-muted-foreground font-mono">kubegraf</span>
         </div>
-        <div className="p-4 font-mono text-xs leading-relaxed">
-          {terminalLines.map((line, i) => (
+        <div className="p-4 font-mono text-xs leading-relaxed min-h-[120px]">
+          {terminalLines.slice(0, visibleLines).map((line, i) => (
             <div
               key={i}
               className={`
@@ -41,6 +56,9 @@ function StaticTerminal() {
               {line.text}
             </div>
           ))}
+          {visibleLines < terminalLines.length && (
+            <span className="inline-block w-2 h-4 bg-primary animate-pulse" />
+          )}
         </div>
       </div>
     </div>
@@ -307,7 +325,7 @@ export default function Hero() {
 
         {/* Terminal showcase - below the fold but prominent */}
         {/* Use static terminal on mobile for better performance */}
-        {isMobile ? <StaticTerminal /> : <AnimatedTerminal />}
+        {isMobile ? <MobileTerminal /> : <AnimatedTerminal />}
       </div>
     </section>
   );
