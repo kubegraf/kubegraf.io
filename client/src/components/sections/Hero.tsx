@@ -207,15 +207,21 @@ export default function Hero() {
 
         {/* Centered headline section */}
         <div className="text-center max-w-5xl mx-auto mb-12 lg:mb-16">
-          {/* Brand Name */}
-          <div className="mb-6">
+          {/* Brand Name - fade in */}
+          <div
+            className="mb-6 animate-fade-in-up"
+            style={{ animationDelay: '0ms' }}
+          >
             <span className="text-3xl sm:text-4xl font-display font-bold tracking-tight text-primary">
               KubēGraf
             </span>
           </div>
 
-          {/* Hero Heading */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold tracking-tight mb-8 leading-[1.05]">
+          {/* Hero Heading - fade in with delay */}
+          <h1
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold tracking-tight mb-8 leading-[1.05] animate-fade-in-up"
+            style={{ animationDelay: '150ms' }}
+          >
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-cyan-400 to-cyan-500">
               Intelligent Insight
             </span>
@@ -223,8 +229,11 @@ export default function Hero() {
             <span className="text-foreground">for Kubernetes Incidents</span>
           </h1>
 
-          {/* Subheading */}
-          <p className="text-lg sm:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto mb-10 leading-relaxed">
+          {/* Subheading - fade in with more delay */}
+          <p
+            className="text-lg sm:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto mb-10 leading-relaxed animate-fade-in-up"
+            style={{ animationDelay: '300ms' }}
+          >
             A local-first Kubernetes tool that detects incidents, explains why they happen with evidence, and previews safe fixes—without SaaS lock-in.
           </p>
 
