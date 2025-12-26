@@ -83,10 +83,11 @@ export default function FeaturesModern() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {whyFeatures.map((feature) => (
+            {whyFeatures.map((feature, index) => (
               <div
                 key={feature.title}
-                className="group relative"
+                className="group relative animate-fade-in-up"
+                style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="h-full p-6 rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm hover:border-primary/30 hover:bg-card/80 transition-all duration-300">
                   {/* Badge */}
@@ -126,10 +127,11 @@ export default function FeaturesModern() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {keyFeatures.map((feature) => (
+            {keyFeatures.map((feature, index) => (
               <div
                 key={feature.title}
-                className="group relative"
+                className="group relative animate-fade-in-up"
+                style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="h-full p-6 rounded-xl border border-border/50 bg-card/30 hover:border-primary/30 hover:bg-card/50 transition-all duration-300">
                   {/* Icon */}
