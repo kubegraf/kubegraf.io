@@ -38,7 +38,7 @@ jobs:
         run: |
           mkdir -p _site
           # Copy build output
-          cp -r new/public/* _site/
+          cp -r dist/* _site/
           # Copy root level files
           cp CNAME _site/ 2>/dev/null || true
           cp install.sh _site/ 2>/dev/null || true
