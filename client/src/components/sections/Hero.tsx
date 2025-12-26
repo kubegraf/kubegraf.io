@@ -1,7 +1,91 @@
 import { motion } from "framer-motion";
 import { Mail, User, Building2, Briefcase } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+// Animated terminal component - larger and more prominent
+function AnimatedTerminal() {
+  const [visibleLines, setVisibleLines] = useState(0);
+
+  const terminalLines = [
+    { type: 'command', text: '$ kubegraf analyze --ns prod' },
+    { type: 'output', text: '' },
+    { type: 'info', text: '⚡ Scanning 24 pods, 8 deployments...' },
+    { type: 'output', text: '' },
+    { type: 'warning', text: '⚠  CrashLoopBackOff: api-gateway-7d4f9' },
+    { type: 'detail', text: '   └─ OOMKilled (limit: 512Mi)' },
+    { type: 'detail', text: '   └─ 3 restarts in 10 min' },
+    { type: 'output', text: '' },
+    { type: 'success', text: '✓  Fix: Increase memory to 1Gi' },
+    { type: 'detail', text: '   └─ 94% success rate' },
+    { type: 'output', text: '' },
+    { type: 'prompt', text: '? Preview fix before applying? (Y/n)' },
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setVisibleLines(prev => {
+        if (prev >= terminalLines.length) {
+          setTimeout(() => setVisibleLines(0), 2000);
+          return prev;
+        }
+        return prev + 1;
+      });
+    }, 400);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 60 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1, delay: 0.6 }}
+      className="relative w-full max-w-4xl mx-auto"
+    >
+      {/* Glow effect behind terminal */}
+      <div className="absolute -inset-8 bg-gradient-to-r from-cyan-500/30 via-primary/20 to-purple-500/30 rounded-3xl blur-3xl opacity-50" />
+
+      {/* Terminal window */}
+      <div className="relative bg-gray-950/95 backdrop-blur-sm rounded-2xl border border-gray-700/50 shadow-2xl overflow-hidden">
+        {/* Terminal header */}
+        <div className="flex items-center gap-2 px-5 py-4 bg-gray-900/80 border-b border-gray-800/50">
+          <div className="flex gap-2">
+            <div className="w-3.5 h-3.5 rounded-full bg-red-500" />
+            <div className="w-3.5 h-3.5 rounded-full bg-yellow-500" />
+            <div className="w-3.5 h-3.5 rounded-full bg-green-500" />
+          </div>
+          <span className="ml-3 text-sm text-gray-400 font-mono">kubegraf — zsh</span>
+        </div>
+
+        {/* Terminal content */}
+        <div className="p-4 sm:p-6 font-mono text-xs sm:text-sm md:text-base leading-relaxed min-h-[220px] sm:min-h-[260px] overflow-x-auto">
+          {terminalLines.slice(0, visibleLines).map((line, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              className={`
+                ${line.type === 'command' ? 'text-green-400 font-semibold' : ''}
+                ${line.type === 'info' ? 'text-cyan-400' : ''}
+                ${line.type === 'warning' ? 'text-yellow-400' : ''}
+                ${line.type === 'success' ? 'text-emerald-400' : ''}
+                ${line.type === 'detail' ? 'text-gray-400' : ''}
+                ${line.type === 'prompt' ? 'text-purple-400' : ''}
+                ${line.type === 'output' ? 'h-3' : ''}
+                mb-1
+              `}
+            >
+              {line.text}
+            </motion.div>
+          ))}
+          {visibleLines < terminalLines.length && (
+            <span className="inline-block w-2.5 h-5 bg-cyan-400 animate-pulse" />
+          )}
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
 export default function Hero() {
   const [formData, setFormData] = useState({
@@ -12,13 +96,13 @@ export default function Hero() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [showFullForm, setShowFullForm] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.email || !formData.name) return;
 
     setIsSubmitting(true);
-    // Simulate API call - replace with actual waitlist API
     await new Promise(resolve => setTimeout(resolve, 1000));
     setIsSubmitting(false);
     setSubmitted(true);
@@ -31,144 +115,165 @@ export default function Hero() {
     }));
   };
 
+  const handleEmailFocus = () => {
+    setShowFullForm(true);
+  };
+
   return (
-    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden pt-24 pb-16 md:pt-32 md:pb-20">
-      {/* Minimal background */}
+    <section className="relative min-h-screen overflow-hidden">
+      {/* Background effects */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-background" />
+        {/* Gradient orbs - more prominent */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[600px] bg-gradient-to-b from-cyan-500/15 via-primary/10 to-transparent rounded-full blur-[100px]" />
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-purple-500/10 rounded-full blur-[120px] -translate-x-1/3" />
+        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[100px] translate-x-1/3" />
+        {/* Subtle grid */}
         <div
           className="absolute inset-0 opacity-[0.015]"
           style={{
-            backgroundImage: `linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-                             linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)`,
-            backgroundSize: '40px 40px'
+            backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+                             linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+            backgroundSize: '80px 80px'
           }}
         />
-        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-primary/2 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-cyan-500/2 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
       </div>
 
-      {/* Main Content */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
-        <div className="text-center">
+      {/* Main Content - Centered layout */}
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-32 lg:pt-40 pb-16">
+
+        {/* Centered headline section */}
+        <div className="text-center max-w-5xl mx-auto mb-12 lg:mb-16">
           {/* Brand Name */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.05 }}
-            className="mb-4"
+            transition={{ duration: 0.6 }}
+            className="mb-6"
           >
-            <span className="text-2xl sm:text-3xl font-display font-bold tracking-tight text-primary">
+            <span className="text-3xl sm:text-4xl font-display font-bold tracking-tight text-primary">
               KubēGraf
             </span>
           </motion.div>
 
-          {/* Hero Heading */}
+          {/* Hero Heading - MUCH BIGGER */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl sm:text-5xl md:text-6xl font-display font-bold tracking-tight mb-6 leading-[1.1]"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold tracking-tight mb-8 leading-[1.05]"
           >
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-cyan-500 to-primary">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-cyan-400 to-cyan-500">
               Intelligent Insight
             </span>
             <br />
-            for Kubernetes Incidents
+            <span className="text-foreground">for Kubernetes Incidents</span>
           </motion.h1>
 
-          {/* Subheading - Clear value prop */}
+          {/* Subheading */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
+            className="text-lg sm:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto mb-10 leading-relaxed"
           >
             A local-first Kubernetes tool that detects incidents, explains why they happen with evidence, and previews safe fixes—without SaaS lock-in.
           </motion.p>
 
-          {/* Waitlist Form */}
+          {/* Waitlist Form - Centered */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="max-w-md mx-auto"
+            className="max-w-lg mx-auto"
           >
             {submitted ? (
               <div className="p-6 bg-primary/10 border border-primary/20 rounded-xl text-center">
-                <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-primary/20 flex items-center justify-center">
-                  <Mail className="w-6 h-6 text-primary" />
+                <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-primary/20 flex items-center justify-center">
+                  <Mail className="w-7 h-7 text-primary" />
                 </div>
-                <h3 className="text-lg font-semibold mb-2">You're on the list!</h3>
-                <p className="text-sm text-muted-foreground">
+                <h3 className="text-xl font-semibold mb-2">You're on the list!</h3>
+                <p className="text-muted-foreground">
                   We'll notify you when KubēGraf is ready for early access.
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <p className="text-sm text-muted-foreground mb-4">
+              <form onSubmit={handleSubmit} className="space-y-3">
+                <p className="text-sm text-muted-foreground mb-5">
                   Enter your email to get early access
                 </p>
 
-                {/* Email field */}
+                {/* Email field - always visible */}
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                   <input
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
+                    onFocus={handleEmailFocus}
                     placeholder="Email address *"
                     required
-                    className="w-full pl-10 pr-4 py-3 bg-muted/50 border border-border/50 rounded-lg text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all"
+                    className="w-full pl-12 pr-4 py-4 bg-muted/50 border border-border/50 rounded-xl text-base placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all"
                   />
                 </div>
 
-                {/* Name field */}
-                <div className="relative">
-                  <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Your name *"
-                    required
-                    className="w-full pl-10 pr-4 py-3 bg-muted/50 border border-border/50 rounded-lg text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all"
-                  />
-                </div>
+                {/* Additional fields - shown after email focus */}
+                <motion.div
+                  initial={false}
+                  animate={{
+                    height: showFullForm ? 'auto' : 0,
+                    opacity: showFullForm ? 1 : 0
+                  }}
+                  transition={{ duration: 0.3 }}
+                  className="overflow-hidden space-y-3"
+                >
+                  {/* Name field */}
+                  <div className="relative">
+                    <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="Your name *"
+                      required
+                      className="w-full pl-12 pr-4 py-4 bg-muted/50 border border-border/50 rounded-xl text-base placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all"
+                    />
+                  </div>
 
-                {/* Company field */}
-                <div className="relative">
-                  <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                  <input
-                    type="text"
-                    name="company"
-                    value={formData.company}
-                    onChange={handleChange}
-                    placeholder="Company / organization (optional)"
-                    className="w-full pl-10 pr-4 py-3 bg-muted/50 border border-border/50 rounded-lg text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all"
-                  />
-                </div>
+                  {/* Company field */}
+                  <div className="relative">
+                    <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                    <input
+                      type="text"
+                      name="company"
+                      value={formData.company}
+                      onChange={handleChange}
+                      placeholder="Company (optional)"
+                      className="w-full pl-12 pr-4 py-4 bg-muted/50 border border-border/50 rounded-xl text-base placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all"
+                    />
+                  </div>
 
-                {/* Role field */}
-                <div className="relative">
-                  <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                  <input
-                    type="text"
-                    name="role"
-                    value={formData.role}
-                    onChange={handleChange}
-                    placeholder="Role / how you plan to use KubēGraf (optional)"
-                    className="w-full pl-10 pr-4 py-3 bg-muted/50 border border-border/50 rounded-lg text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all"
-                  />
-                </div>
+                  {/* Role field */}
+                  <div className="relative">
+                    <Briefcase className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                    <input
+                      type="text"
+                      name="role"
+                      value={formData.role}
+                      onChange={handleChange}
+                      placeholder="Role (optional)"
+                      className="w-full pl-12 pr-4 py-4 bg-muted/50 border border-border/50 rounded-xl text-base placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all"
+                    />
+                  </div>
+                </motion.div>
 
                 <Button
                   type="submit"
                   size="lg"
-                  disabled={isSubmitting || !formData.email || !formData.name}
-                  className="w-full text-base py-6 h-auto shadow-lg shadow-primary/20 hover:shadow-primary/30 disabled:opacity-50"
+                  disabled={isSubmitting || !formData.email || (showFullForm && !formData.name)}
+                  className="w-full text-lg py-6 h-auto shadow-lg shadow-primary/25 hover:shadow-primary/40 disabled:opacity-50 rounded-xl"
                 >
                   {isSubmitting ? "Joining..." : "Join Waitlist"}
                 </Button>
@@ -176,6 +281,9 @@ export default function Hero() {
             )}
           </motion.div>
         </div>
+
+        {/* Terminal showcase - below the fold but prominent */}
+        <AnimatedTerminal />
       </div>
     </section>
   );

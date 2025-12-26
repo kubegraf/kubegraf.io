@@ -1,3 +1,8 @@
+/* ========================================
+   MOBILE-FIRST DOCUMENTATION STYLES
+   Industry standard touch targets & UX
+   ======================================== */
+
 /* Mobile Menu Button */
 .mobile-menu-btn {
     display: none;
@@ -16,6 +21,7 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     min-width: 48px;
     min-height: 48px;
+    -webkit-tap-highlight-color: rgba(6, 182, 212, 0.2);
 }
 
 .mobile-menu-btn:hover,
@@ -45,7 +51,7 @@
     .mobile-menu-btn {
         display: block;
     }
-    
+
     .sidebar {
         position: fixed !important;
         left: -280px !important;
@@ -54,13 +60,144 @@
         transition: left 0.3s ease;
         box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
     }
-    
+
     .sidebar.mobile-open {
         left: 0 !important;
     }
-    
+
     .docs-content {
         padding-top: 5rem !important;
     }
+}
+
+/* ========================================
+   ENHANCED MOBILE STYLES
+   ======================================== */
+
+/* Prevent horizontal scroll */
+html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+}
+
+/* Safe area handling for notched devices */
+@supports (padding: env(safe-area-inset-left)) {
+    .docs-content {
+        padding-left: max(1rem, env(safe-area-inset-left));
+        padding-right: max(1rem, env(safe-area-inset-right));
+    }
+
+    .docs-footer {
+        padding-bottom: max(1rem, env(safe-area-inset-bottom));
+    }
+}
+
+/* Touch-friendly links and buttons */
+@media (pointer: coarse) {
+    .sidebar-section a {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1rem;
+    }
+
+    .docs-footer a {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        padding: 0.5rem 0.75rem;
+    }
+
+    a, button {
+        -webkit-tap-highlight-color: rgba(6, 182, 212, 0.2);
+    }
+}
+
+/* Mobile Typography */
+@media (max-width: 640px) {
+    .docs-content h1 {
+        font-size: 1.75rem !important;
+        line-height: 1.2 !important;
+    }
+
+    .docs-content h2 {
+        font-size: 1.35rem !important;
+        line-height: 1.25 !important;
+    }
+
+    .docs-content h3 {
+        font-size: 1.1rem !important;
+    }
+
+    .docs-content p,
+    .docs-content li {
+        font-size: 0.95rem;
+        line-height: 1.7;
+    }
+
+    /* Prevent iOS zoom on form focus */
+    input, textarea, select {
+        font-size: 16px !important;
+    }
+
+    /* Better code blocks on mobile */
+    .docs-content pre {
+        font-size: 0.8rem;
+        padding: 0.75rem 1rem;
+        border-radius: 6px;
+    }
+
+    .docs-content code {
+        font-size: 0.8rem;
+        word-break: break-word;
+    }
+
+    /* Full-width cards on mobile */
+    .feature-card,
+    .install-method {
+        padding: 1rem;
+    }
+
+    /* Single column grids */
+    .two-col,
+    .platform-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+}
+
+/* Tablet adjustments */
+@media (min-width: 641px) and (max-width: 900px) {
+    .docs-content {
+        padding: 2rem 2rem;
+        padding-top: 5rem;
+    }
+
+    .two-col {
+        gap: 1.5rem;
+    }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .sidebar,
+    .mobile-menu-btn,
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+/* Better scrolling on mobile */
+.sidebar {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+}
+
+/* Text balance for headings */
+.docs-content h1,
+.docs-content h2,
+.docs-content h3 {
+    text-wrap: balance;
 }
 
