@@ -19,10 +19,10 @@
   <meta name="twitter:description" content="Learn how to debug CrashLoopBackOff incidents in Kubernetes using KubeGraf." />
   <meta name="twitter:image" content="https://kubegraf.io/opengraph.jpg" />
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
-  <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -31,8 +31,9 @@
   <style>
     :root {
       --primary: #06b6d4;
-      --secondary: #4c1d95;
-      --accent: #8b5cf6;
+      --primary-light: #22d3ee;
+      --secondary: #0e7490;
+      --accent: #22d3ee;
       --text: #f9fafb;
       --text-muted: #9ca3af;
       --bg: #09090b;
@@ -46,8 +47,8 @@
     .floating-orbs { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
     .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.12; animation: float 20s ease-in-out infinite; }
     .orb-1 { width: 500px; height: 500px; background: var(--primary); top: -150px; right: -100px; }
-    .orb-2 { width: 350px; height: 350px; background: var(--secondary); bottom: 30%; left: 200px; animation-delay: -5s; }
-    .orb-3 { width: 400px; height: 400px; background: var(--accent); top: 60%; right: -100px; animation-delay: -10s; }
+    .orb-2 { width: 350px; height: 350px; background: var(--primary); bottom: 30%; left: 200px; animation-delay: -5s; }
+    .orb-3 { width: 400px; height: 400px; background: var(--primary); top: 60%; right: -100px; animation-delay: -10s; }
     @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 25% { transform: translate(20px, -20px) scale(1.03); } 50% { transform: translate(-15px, 15px) scale(0.97); } 75% { transform: translate(15px, 20px) scale(1.01); } }
 
     .docs-layout { 
@@ -68,7 +69,7 @@
     .sidebar-section ul { list-style: none; }
     .sidebar-section a { display: block; padding: 0.5rem 0.75rem; color: var(--text-muted); border-radius: 6px; font-size: 0.9rem; transition: all 0.2s; text-decoration: none; }
     .sidebar-section a:hover { background: var(--bg-tertiary); color: var(--text); }
-    .sidebar-section a.active { background: rgba(50, 108, 229, 0.15); color: var(--primary); }
+    .sidebar-section a.active { background: rgba(6, 182, 212, 0.15); color: var(--primary); }
 
     .docs-content { flex: 1; margin-left: 280px; padding: 3rem 4rem 3rem 3rem; max-width: 1400px; position: relative; z-index: 1; }
     .docs-content h1 { font-size: 2.2rem; font-weight: 600; margin-bottom: 0.75rem; font-family: 'Space Grotesk', system-ui, sans-serif; letter-spacing: -0.03em;  color: var(--text); }
@@ -81,8 +82,15 @@
     .docs-content pre { background: var(--bg-tertiary); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1rem 1.25rem; overflow-x: auto; margin: 1rem 0 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
     .callout { border-radius: 0.75rem; border: 1px solid var(--border); padding: 0.9rem 1rem; background: var(--bg-secondary); margin: 1.25rem 0; }
     .callout strong { color: var(--text); }
-    
-        
+
+        /* Hero header with gradient */
+        .docs-hero { position: relative; padding: 0 0 1rem; margin-bottom: 0; overflow: hidden; }
+        .docs-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(6, 182, 212, 0.15), transparent), radial-gradient(ellipse 60% 40% at 80% 50%, rgba(6, 182, 212, 0.08), transparent); pointer-events: none; }
+        .docs-hero h1 { position: relative; z-index: 1; }
+        .docs-hero h1 span { background: linear-gradient(135deg, var(--primary), var(--primary-light), var(--primary)); background-size: 200% 200%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: gradientShift 5s ease infinite; }
+        .docs-hero h1::after { content: ''; display: block; width: 80px; height: 3px; background: linear-gradient(90deg, var(--primary), var(--primary-light)); margin-top: 1rem; border-radius: 2px; }
+        @keyframes gradientShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
         /* Mobile Menu Button */
         /* Mobile Menu Buttons */
         .mobile-menu-btn,
@@ -485,7 +493,6 @@
       
       
       
-
       <div class="sidebar-section">
         <h3>Getting Started</h3>
         <ul>
@@ -557,7 +564,9 @@
     </div>
 
     <main class="docs-content">
-      <h1>CrashLoopBackOff</h1>
+      <div class="docs-hero">
+      <h1><span>CrashLoopBackOff</span></h1>
+      </div>
 
       <h2>Why this matters</h2>
       <p>

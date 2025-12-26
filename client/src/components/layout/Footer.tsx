@@ -11,7 +11,8 @@ export default function Footer({ variant = "default" }: FooterProps) {
   const [themePreference, setThemePreference] = useState<'light' | 'dark'>('light');
 
   useEffect(() => {
-    const saved = localStorage.getItem('kubegraf-theme-preference') as 'light' | 'dark' | null;
+    // Use same key as docs pages for consistency across all pages
+    const saved = localStorage.getItem('kubegraf-theme') as 'light' | 'dark' | null;
     if (saved) {
       setThemePreference(saved);
       applyTheme(saved);
@@ -19,7 +20,7 @@ export default function Footer({ variant = "default" }: FooterProps) {
       const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
       const defaultDisplay = prefersLight ? 'light' : 'dark';
       setThemePreference(defaultDisplay);
-      applyTheme('system');
+      applyTheme(defaultDisplay);
     }
   }, []);
 
@@ -33,7 +34,7 @@ export default function Footer({ variant = "default" }: FooterProps) {
 
   const handleThemeChange = (pref: 'light' | 'dark') => {
     setThemePreference(pref);
-    localStorage.setItem('kubegraf-theme-preference', pref);
+    localStorage.setItem('kubegraf-theme', pref);
     applyTheme(pref);
   };
 
@@ -94,7 +95,7 @@ export default function Footer({ variant = "default" }: FooterProps) {
             <div className="col-span-2 md:col-span-3 lg:col-span-2">
               <Link href="/">
                 <img
-                  src="/assets/logos/binary-matrix/logo-binary-matrix-cyan.svg"
+                  src={themePreference === 'light' ? '/favicon.svg' : '/assets/logos/binary-matrix/logo-binary-matrix-cyan.svg'}
                   alt="KubeGraf"
                   className="kubegraf-logo mb-4"
                 />

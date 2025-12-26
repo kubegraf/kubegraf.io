@@ -6,6 +6,43 @@ import { useState, useEffect } from "react";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+
+  useEffect(() => {
+    // Read theme from localStorage (same key as docs pages)
+    const saved = localStorage.getItem('kubegraf-theme') as 'light' | 'dark' | null;
+    if (saved) {
+      setTheme(saved);
+    } else {
+      const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+      setTheme(prefersLight ? 'light' : 'dark');
+    }
+
+    // Listen for theme changes (from footer toggle or other pages)
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'kubegraf-theme' && e.newValue) {
+        setTheme(e.newValue as 'light' | 'dark');
+      }
+    };
+
+    // Also listen for attribute changes on documentElement
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'data-theme') {
+          const newTheme = document.documentElement.getAttribute('data-theme') as 'light' | 'dark';
+          if (newTheme) setTheme(newTheme);
+        }
+      });
+    });
+
+    observer.observe(document.documentElement, { attributes: true });
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -31,7 +68,7 @@ export default function Navbar() {
             {/* Logo */}
             <a href="/" className="flex items-center gap-2 font-display font-bold text-xl tracking-tight">
               <img
-                src="/assets/logos/binary-matrix/logo-binary-matrix-cyan.svg"
+                src={theme === 'light' ? '/favicon.svg' : '/assets/logos/binary-matrix/logo-binary-matrix-cyan.svg'}
                 alt="KubeGraf"
                 className="kubegraf-logo"
               />

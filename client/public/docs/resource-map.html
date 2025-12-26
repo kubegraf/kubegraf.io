@@ -19,10 +19,10 @@
     <meta name="twitter:description" content="Official KubeGraf documentation for detecting incidents, diagnosing root causes, and safely responding to Kubernetes failures." />
     <meta name="twitter:image" content="https://kubegraf.io/opengraph.jpg" />
     <!-- Use the same favicon as the main landing page -->
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <!-- Use the same font stack as the main landing page -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,8 +33,9 @@
         :root {
             /* Align colors with main landing page palette */
             --primary: #06b6d4;         /* Neon cyan */
-            --secondary: #4c1d95;       /* Deep purple */
-            --accent: #8b5cf6;
+            --primary-light: #22d3ee;
+            --secondary: #0e7490;       /* Dark cyan */
+            --accent: #22d3ee;
             --text: #f9fafb;
             --text-muted: #9ca3af;
             --bg: #09090b;              /* Same as main background */
@@ -49,18 +50,18 @@
         .floating-orbs { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
         .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.12; animation: float 20s ease-in-out infinite; }
         .orb-1 { width: 500px; height: 500px; background: var(--primary); top: -150px; right: -100px; }
-        .orb-2 { width: 350px; height: 350px; background: var(--secondary); bottom: 30%; left: 200px; animation-delay: -5s; }
-        .orb-3 { width: 400px; height: 400px; background: var(--accent); top: 60%; right: -100px; animation-delay: -10s; }
+        .orb-2 { width: 350px; height: 350px; background: var(--primary); bottom: 30%; left: 200px; animation-delay: -5s; }
+        .orb-3 { width: 400px; height: 400px; background: var(--primary); top: 60%; right: -100px; animation-delay: -10s; }
         @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 25% { transform: translate(20px, -20px) scale(1.03); } 50% { transform: translate(-15px, 15px) scale(0.97); } 75% { transform: translate(15px, 20px) scale(1.01); } }
 
         /* Hero header */
         .docs-hero { position: relative; padding: 3rem 0 2rem; margin-bottom: 1rem; overflow: hidden; }
-        .docs-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(50, 108, 229, 0.15), transparent), radial-gradient(ellipse 60% 40% at 80% 50%, rgba(0, 212, 170, 0.08), transparent); pointer-events: none; }
-        .docs-hero .grid-pattern { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(50, 108, 229, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(50, 108, 229, 0.03) 1px, transparent 1px); background-size: 50px 50px; mask-image: radial-gradient(ellipse 70% 70% at 50% 30%, black 0%, transparent 70%); -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 30%, black 0%, transparent 70%); }
+        .docs-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(6, 182, 212, 0.15), transparent), radial-gradient(ellipse 60% 40% at 80% 50%, rgba(0, 212, 170, 0.08), transparent); pointer-events: none; }
+        .docs-hero .grid-pattern { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(6, 182, 212, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 182, 212, 0.03) 1px, transparent 1px); background-size: 50px 50px; mask-image: radial-gradient(ellipse 70% 70% at 50% 30%, black 0%, transparent 70%); -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 30%, black 0%, transparent 70%); }
         .docs-hero h1 { position: relative; z-index: 1; animation: heroFadeIn 0.8s ease-out; }
-        .docs-hero h1 span { background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent)); background-size: 200% 200%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: gradientShift 5s ease infinite; }
+        .docs-hero h1 span { background: linear-gradient(135deg, var(--primary), var(--primary-light), var(--primary)); background-size: 200% 200%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: gradientShift 5s ease infinite; }
         .docs-hero .intro { position: relative; z-index: 1; animation: heroFadeIn 0.8s ease-out 0.2s both; }
-        .docs-hero h1::after { content: ''; display: block; width: 80px; height: 3px; background: linear-gradient(90deg, var(--primary), var(--secondary)); margin-top: 1rem; border-radius: 2px; animation: expandLine 0.8s ease-out 0.4s both; }
+        .docs-hero h1::after { content: ''; display: block; width: 80px; height: 3px; background: linear-gradient(90deg, var(--primary), var(--primary-light)); margin-top: 1rem; border-radius: 2px; animation: expandLine 0.8s ease-out 0.4s both; }
         @keyframes gradientShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
         @keyframes heroFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes expandLine { from { width: 0; opacity: 0; } to { width: 80px; opacity: 1; } }
@@ -88,7 +89,7 @@
         }
         .sidebar-section { margin-bottom: 1.5rem; } .sidebar-section h3 { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 0.75rem; }
         .sidebar-section ul { list-style: none; } .sidebar-section a { display: block; padding: 0.5rem 0.75rem; color: var(--text-muted); border-radius: 6px; font-size: 0.9rem; transition: all 0.2s; }
-        .sidebar-section a:hover { background: var(--bg-tertiary); color: var(--text); text-decoration: none; } .sidebar-section a.active { background: rgba(50, 108, 229, 0.15); color: var(--primary); }
+        .sidebar-section a:hover { background: var(--bg-tertiary); color: var(--text); text-decoration: none; } .sidebar-section a.active { background: rgba(6, 182, 212, 0.15); color: var(--primary); }
         .docs-content {
             flex: 1;
             margin-left: 280px;
@@ -445,7 +446,6 @@
       
       
       
-
       <div class="sidebar-section">
         <h3>Getting Started</h3>
         <ul>
@@ -699,7 +699,7 @@ resourceMap:
   colors:
     deployment: "#326ce5"
     service: "#00d4aa"
-    pod: "#8b5cf6"
+    pod: "#06b6d4"
     configmap: "#f59e0b"
     secret: "#ef4444"
   # Exclude from map by default

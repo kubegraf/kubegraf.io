@@ -30,10 +30,23 @@
     }
   };
 
+  // Update logo based on theme
+  const updateLogo = (theme) => {
+    const lightLogo = '/favicon.svg';
+    const darkLogo = '/assets/logos/binary-matrix/logo-binary-matrix-cyan.svg';
+    const newSrc = theme === 'light' ? lightLogo : darkLogo;
+
+    // Update all logo images (navbar and sidebar)
+    const logoImages = document.querySelectorAll('.docs-navbar-logo-icon, .sidebar-logo-icon');
+    logoImages.forEach(img => {
+      img.src = newSrc;
+    });
+  };
+
   // Apply theme
   const applyTheme = (theme) => {
     if (!document.documentElement) return; // Safety check
-    
+
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('kubegraf-theme', theme);
 
@@ -48,6 +61,9 @@
 
     // Update footer theme buttons
     updateFooterThemeButtons(theme);
+
+    // Update logo based on theme
+    updateLogo(theme);
   };
 
   // Set theme (for footer buttons) - must be on window for onclick handlers

@@ -1,33 +1,32 @@
 {
   "sections": [
     {
-      "id": "introduction",
-      "label": "Introduction",
-      "items": [
-        { "id": "what-is-kubegraf", "label": "What is KubeGraf?", "href": "/docs/introduction/what-is-kubegraf" },
-        { "id": "why-kubegraf", "label": "Why KubeGraf?", "href": "/docs/introduction/why-kubegraf" },
-        { "id": "how-it-works", "label": "How KubeGraf works", "href": "/docs/introduction/how-kubegraf-works" }
-      ]
-    },
-    {
       "id": "getting-started",
       "label": "Getting Started",
       "items": [
-        { "id": "installation", "label": "Installation", "href": "/docs/getting-started/installation" },
-        { "id": "quickstart", "label": "Quick Start", "href": "/docs/getting-started/quickstart" },
-        { "id": "first-cluster", "label": "Connect your first cluster", "href": "/docs/getting-started/first-cluster" },
-        { "id": "ui-overview", "label": "UI overview", "href": "/docs/getting-started/ui-overview" }
+        { "id": "introduction", "label": "What is KubeGraf?", "href": "/docs/introduction/what-is-kubegraf.html" },
+        { "id": "installation", "label": "Installation", "href": "/docs/installation.html" },
+        { "id": "quickstart", "label": "Quick Start", "href": "/docs/quickstart.html" },
+        { "id": "first-cluster", "label": "First Cluster", "href": "/docs/getting-started/first-cluster.html" }
       ]
     },
     {
-      "id": "core-concepts",
-      "label": "Core Concepts",
+      "id": "user-guide",
+      "label": "User Guide",
       "items": [
-        { "id": "clusters-contexts", "label": "Clusters & contexts", "href": "/docs/core-concepts/clusters-and-contexts" },
-        { "id": "topology-graph", "label": "Topology graph", "href": "/docs/core-concepts/topology-graph" },
-        { "id": "event-timeline", "label": "Event timeline", "href": "/docs/core-concepts/event-timeline" },
-        { "id": "incident-mode", "label": "Incident mode", "href": "/docs/core-concepts/incident-mode" },
-        { "id": "local-first", "label": "Local-first architecture", "href": "/docs/core-concepts/local-first-architecture" }
+        { "id": "terminal-ui", "label": "Terminal UI", "href": "/docs/terminal-ui.html" },
+        { "id": "web-dashboard", "label": "Web Dashboard", "href": "/docs/web-dashboard.html" },
+        { "id": "commands", "label": "Commands", "href": "/docs/commands.html" },
+        { "id": "configuration", "label": "Configuration", "href": "/docs/configuration.html" }
+      ]
+    },
+    {
+      "id": "features",
+      "label": "Features",
+      "items": [
+        { "id": "resource-map", "label": "Resource Map", "href": "/docs/resource-map.html" },
+        { "id": "security", "label": "Security Analysis", "href": "/docs/security.html" },
+        { "id": "plugins", "label": "Plugins", "href": "/docs/plugins.html" }
       ]
     },
     {
@@ -35,44 +34,28 @@
       "label": "Troubleshooting",
       "highlight": true,
       "items": [
-        { "id": "crashloopbackoff", "label": "CrashLoopBackOff", "href": "/docs/troubleshooting/crashloopbackoff" },
-        { "id": "rollout-stuck", "label": "Rollout stuck / ProgressDeadlineExceeded", "href": "/docs/troubleshooting/rollout-stuck" },
-        { "id": "high-cpu-memory", "label": "High CPU / memory", "href": "/docs/troubleshooting/high-cpu-memory" },
-        { "id": "restarts-after-config", "label": "Restarts after config change", "href": "/docs/troubleshooting/restarts-after-config-change" },
-        { "id": "was-working-yesterday", "label": "It was working yesterday", "href": "/docs/troubleshooting/was-working-yesterday" }
+        { "id": "crashloopbackoff", "label": "CrashLoopBackOff", "href": "/docs/troubleshooting/crashloopbackoff.html" },
+        { "id": "rollout-stuck", "label": "Rollout Stuck", "href": "/docs/troubleshooting/rollout-stuck.html" },
+        { "id": "high-cpu-memory", "label": "High CPU/Memory", "href": "/docs/troubleshooting/high-cpu-memory.html" },
+        { "id": "restarts-after-config", "label": "Restarts After Config Change", "href": "/docs/troubleshooting/restarts-after-config-change.html" }
       ]
     },
     {
       "id": "workflows",
       "label": "Workflows",
       "items": [
-        { "id": "debug-crashloop", "label": "Debug CrashLoopBackOff", "href": "/docs/workflows/debug-crashloop" },
-        { "id": "rollout-and-rollback", "label": "Rollout & rollback", "href": "/docs/workflows/rollout-and-rollback" },
-        { "id": "capacity-analysis", "label": "Capacity analysis", "href": "/docs/workflows/capacity-analysis" },
-        { "id": "security-insights", "label": "Security insights", "href": "/docs/workflows/security-insights" },
-        { "id": "incident-review", "label": "Incident review", "href": "/docs/workflows/incident-review" }
+        { "id": "debug-crashloop", "label": "Debug CrashLoopBackOff", "href": "/docs/workflows/debug-crashloop.html" },
+        { "id": "workflow-crashloopbackoff", "label": "CrashLoopBackOff Workflow", "href": "/docs/workflows/crashloopbackoff.html" },
+        { "id": "workflow-rollout-stuck", "label": "Rollout Stuck Workflow", "href": "/docs/workflows/rollout-stuck.html" },
+        { "id": "workflow-high-cpu", "label": "High CPU/Memory Workflow", "href": "/docs/workflows/high-cpu-memory.html" },
+        { "id": "workflow-restarts", "label": "Config Change Restarts", "href": "/docs/workflows/restarts-after-config-change.html" }
       ]
     },
     {
-      "id": "integrations",
-      "label": "Integrations",
+      "id": "resources",
+      "label": "Resources",
       "items": [
-        { "id": "prometheus", "label": "Prometheus", "href": "/docs/integrations/prometheus" },
-        { "id": "grafana", "label": "Grafana", "href": "/docs/integrations/grafana" },
-        { "id": "argocd", "label": "ArgoCD", "href": "/docs/integrations/argocd" },
-        { "id": "slack", "label": "Slack", "href": "/docs/integrations/slack" },
-        { "id": "ci-cd", "label": "CI/CD", "href": "/docs/integrations/ci-cd" }
-      ]
-    },
-    {
-      "id": "reference",
-      "label": "Reference",
-      "items": [
-        { "id": "cli", "label": "CLI", "href": "/docs/reference/cli" },
-        { "id": "config", "label": "Config", "href": "/docs/reference/config" },
-        { "id": "plugins", "label": "Plugins", "href": "/docs/reference/plugins" },
-        { "id": "api", "label": "API schema", "href": "/docs/reference/api" },
-        { "id": "faq", "label": "FAQ", "href": "/docs/reference/faq" }
+        { "id": "windows-smartscreen", "label": "Windows SmartScreen", "href": "/docs/windows-smartscreen.html" }
       ]
     }
   ]

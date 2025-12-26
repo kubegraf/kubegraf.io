@@ -531,6 +531,26 @@ nav .kubegraf-logo:hover {
   filter: drop-shadow(0 4px 16px rgba(6, 182, 212, 0.5));
 }
 
+/* Light theme logo - scale down to match dark theme visual size */
+[data-theme="light"] nav .kubegraf-logo {
+  width: 36px !important;
+  height: 36px !important;
+}
+
+@media (min-width: 640px) {
+  [data-theme="light"] nav .kubegraf-logo {
+    width: 48px !important;
+    height: 48px !important;
+  }
+}
+
+@media (min-width: 768px) {
+  [data-theme="light"] nav .kubegraf-logo {
+    width: 56px !important;
+    height: 56px !important;
+  }
+}
+
 /* Footer logo - responsive */
 footer .kubegraf-logo {
   width: 48px !important;
@@ -541,6 +561,19 @@ footer .kubegraf-logo {
   footer .kubegraf-logo {
     width: 64px !important;
     height: 64px !important;
+  }
+}
+
+/* Light theme footer logo */
+[data-theme="light"] footer .kubegraf-logo {
+  width: 36px !important;
+  height: 36px !important;
+}
+
+@media (min-width: 768px) {
+  [data-theme="light"] footer .kubegraf-logo {
+    width: 48px !important;
+    height: 48px !important;
   }
 }
 
