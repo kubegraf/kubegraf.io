@@ -39,6 +39,8 @@ jobs:
           mkdir -p _site
           # Copy build output
           cp -r dist/* _site/
+          # Copy static docs folder
+          cp -r docs _site/docs
           # Copy root level files
           cp CNAME _site/ 2>/dev/null || true
           cp install.sh _site/ 2>/dev/null || true
@@ -48,7 +50,7 @@ jobs:
           # Copy SEO and favicon files from root (latest versions)
           cp sitemap.xml _site/ 2>/dev/null || true
           # Copy client/public assets (logos, favicons, manifest)
-          cp -r client/public/assets/logos _site/assets/ 2>/dev/null || true
+          cp -r client/public/assets _site/assets 2>/dev/null || true
           cp client/public/favicon.ico _site/ 2>/dev/null || true
           cp client/public/favicon.svg _site/ 2>/dev/null || true
           cp client/public/favicon-96x96.png _site/ 2>/dev/null || true
