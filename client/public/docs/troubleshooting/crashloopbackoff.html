@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CrashLoopBackOff Kubernetes Debugging Playbook - KubeGraf Documentation</title>
+  <title>CrashLoopBackOff - KubeGraf Documentation</title>
   <meta name="description" content="Step-by-step CrashLoopBackOff Kubernetes debugging playbook using KubeGraf logs, events, and incident timelines.">
   <link rel="canonical" href="https://kubegraf.io/docs/troubleshooting/crashloopbackoff.html" />
 
-  <meta property="og:title" content="CrashLoopBackOff Kubernetes Debugging Playbook - KubeGraf" />
+  <meta property="og:title" content="CrashLoopBackOff - KubeGraf" />
   <meta property="og:description" content="Learn how to debug CrashLoopBackOff incidents in Kubernetes using KubeGraf." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://kubegraf.io/docs/troubleshooting/crashloopbackoff.html" />
@@ -15,7 +15,7 @@
   <meta property="og:image" content="https://kubegraf.io/opengraph.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@kubegraf" />
-  <meta name="twitter:title" content="CrashLoopBackOff Kubernetes Debugging Playbook - KubeGraf" />
+  <meta name="twitter:title" content="CrashLoopBackOff - KubeGraf" />
   <meta name="twitter:description" content="Learn how to debug CrashLoopBackOff incidents in Kubernetes using KubeGraf." />
   <meta name="twitter:image" content="https://kubegraf.io/opengraph.jpg" />
 
@@ -71,15 +71,15 @@
     .sidebar-section a.active { background: rgba(50, 108, 229, 0.15); color: var(--primary); }
 
     .docs-content { flex: 1; margin-left: 280px; padding: 3rem 4rem 3rem 3rem; max-width: 1400px; position: relative; z-index: 1; }
-    .docs-content h1 { font-size: 2.2rem; font-weight: 600; margin-bottom: 0.75rem; font-family: 'Space Grotesk', system-ui, sans-serif; letter-spacing: -0.03em; }
-    .docs-content h2 { font-size: 1.4rem; font-weight: 600; margin: 2rem 0 0.75rem; padding-bottom: 0.35rem; border-bottom: 1px solid var(--border); font-family: 'Space Grotesk', system-ui, sans-serif; }
-    .docs-content h3 { font-size: 1.1rem; font-weight: 600; margin: 1.5rem 0 0.5rem; }
+    .docs-content h1 { font-size: 2.2rem; font-weight: 600; margin-bottom: 0.75rem; font-family: 'Space Grotesk', system-ui, sans-serif; letter-spacing: -0.03em;  color: var(--text); }
+    .docs-content h2 { font-size: 1.4rem; font-weight: 600; margin: 2rem 0 0.75rem; padding-bottom: 0.35rem; border-bottom: 1px solid var(--border); font-family: 'Space Grotesk', system-ui, sans-serif;  color: var(--text); }
+    .docs-content h3 { font-size: 1.1rem; font-weight: 600; margin: 1.5rem 0 0.5rem;  color: var(--text); }
     .docs-content p { color: var(--text-muted); margin-bottom: 0.9rem; }
     .docs-content ul { color: var(--text-muted); margin: 0.75rem 0 0.9rem 1.5rem; }
     .docs-content li { margin-bottom: 0.4rem; }
     .docs-content code { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; background: var(--bg-tertiary); padding: 0.15rem 0.35rem; border-radius: 4px; color: var(--primary); }
-    .docs-content pre { background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 0.75rem; padding: 1rem 1.25rem; overflow-x: auto; margin: 1rem 0 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
-    .callout { border-radius: 0.75rem; border: 1px solid rgba(148, 163, 184, 0.35); padding: 0.9rem 1rem; background: rgba(15, 23, 42, 0.9); margin: 1.25rem 0; }
+    .docs-content pre { background: var(--bg-tertiary); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1rem 1.25rem; overflow-x: auto; margin: 1rem 0 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
+    .callout { border-radius: 0.75rem; border: 1px solid var(--border); padding: 0.9rem 1rem; background: var(--bg-secondary); margin: 1.25rem 0; }
     .callout strong { color: var(--text); }
     
         
@@ -557,7 +557,7 @@
     </div>
 
     <main class="docs-content">
-      <h1>CrashLoopBackOff Kubernetes Debugging Playbook</h1>
+      <h1>CrashLoopBackOff</h1>
 
       <h2>Why this matters</h2>
       <p>
