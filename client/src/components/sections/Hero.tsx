@@ -200,6 +200,10 @@ export default function Hero() {
             backgroundSize: '80px 80px'
           }}
         />
+        {/* Scan line effect - lightweight */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="animate-scan-line absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+        </div>
       </div>
 
       {/* Main Content - Centered layout */}

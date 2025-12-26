@@ -802,3 +802,25 @@ p {
   opacity: 0;
   animation: fade-in-up 0.6s ease-out forwards;
 }
+
+/* Scan line animation - moves top to bottom */
+@keyframes scan-line {
+  0% {
+    top: -2px;
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+.animate-scan-line {
+  animation: scan-line 8s ease-in-out infinite;
+}
