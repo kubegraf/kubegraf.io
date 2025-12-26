@@ -237,8 +237,11 @@ export default function Hero() {
             A local-first Kubernetes tool that detects incidents, explains why they happen with evidence, and previews safe fixes—without SaaS lock-in.
           </p>
 
-          {/* Waitlist Form - Centered */}
-          <div className="max-w-lg mx-auto">
+          {/* Waitlist Form - Centered with fade-in */}
+          <div
+            className="max-w-lg mx-auto animate-fade-in-up"
+            style={{ animationDelay: '450ms' }}
+          >
             {submitted ? (
               <div className="p-6 bg-primary/10 border border-primary/20 rounded-xl text-center">
                 <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-primary/20 flex items-center justify-center">
@@ -333,8 +336,12 @@ export default function Hero() {
         </div>
 
         {/* Terminal showcase - below the fold but prominent */}
-        {/* Use static terminal on mobile for better performance */}
-        {isMobile ? <MobileTerminal /> : <AnimatedTerminal />}
+        <div
+          className="animate-fade-in-up"
+          style={{ animationDelay: '600ms' }}
+        >
+          {isMobile ? <MobileTerminal /> : <AnimatedTerminal />}
+        </div>
       </div>
     </section>
   );
