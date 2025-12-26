@@ -16,6 +16,7 @@ import Support from "@/pages/Support";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import CursorGlow from "@/components/CursorGlow";
 import { logWebVitals } from "@/lib/webVitals";
 
 function PageTransition({ children }: { children: React.ReactNode }) {
@@ -82,6 +83,7 @@ function App() {
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
+          <CursorGlow />
           <Toaster />
           <Routes />
         </TooltipProvider>

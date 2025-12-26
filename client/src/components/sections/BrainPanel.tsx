@@ -23,40 +23,38 @@ const brainFeatures = [
 
 export default function BrainPanel() {
   return (
-    <section id="brain-panel" className="py-24 relative z-10 bg-gradient-to-b from-purple-950/20 to-transparent">
-      <div className="container mx-auto px-4">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <Badge className="mb-4 bg-purple-500/10 text-purple-400 border-purple-500/20">Knowledge Bank</Badge>
-          <h2 className="text-3xl md:text-5xl font-display font-bold mb-6">
-            Learn from Every Incident
+    <section id="brain-panel" className="py-24 md:py-32 relative z-10 border-t border-border/50">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+        <div className="text-center max-w-3xl mx-auto mb-20">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold mb-6 tracking-tight">
+            Learn from <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-500">Every Incident</span>
           </h2>
-          <p className="text-muted-foreground text-lg">
+          <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed">
             Local incident storage with full event history, change tracking, and searchable diagnosis records. No data leaves your machine.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
           {brainFeatures.map((feature, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              viewport={{ once: true }}
+              transition={{ delay: index * 0.08, duration: 0.5 }}
+              viewport={{ once: true, margin: "-50px" }}
+              className="group"
             >
-              <Card className="border-white/10 bg-black/40 backdrop-blur h-full hover:border-purple-500/50 transition-all duration-300">
-                <CardHeader>
-                  <div className="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center mb-4">
-                    <feature.icon className="w-6 h-6 text-purple-400" />
-                  </div>
-                  <CardTitle className="text-xl">{feature.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {feature.description}
-                  </p>
-                </CardContent>
-              </Card>
+              <div className="relative h-full p-8 rounded-xl border border-border/50 bg-card/50 hover:border-primary/30 hover:bg-card/80 transition-all duration-300">
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary/20 transition-colors">
+                  <feature.icon className="w-6 h-6" />
+                </div>
+                <h3 className="text-xl font-bold mb-3 font-display group-hover:text-primary transition-colors">
+                  {feature.title}
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  {feature.description}
+                </p>
+              </div>
             </motion.div>
           ))}
         </div>
