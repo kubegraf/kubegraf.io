@@ -330,7 +330,7 @@ export default function Hero() {
                   type="submit"
                   size="lg"
                   disabled={isSubmitting || !formData.email || (showFullForm && !formData.name)}
-                  className="w-full text-lg py-6 h-auto shadow-lg shadow-primary/25 hover:shadow-primary/40 disabled:opacity-50 rounded-xl animate-glow-pulse"
+                  className="w-full text-lg py-6 h-auto shadow-lg shadow-primary/25 hover:shadow-primary/40 disabled:opacity-50 rounded-xl"
                 >
                   {isSubmitting ? "Joining..." : "Join Waitlist"}
                 </Button>
