@@ -37,9 +37,11 @@ jobs:
       - name: Prepare site for deployment
         run: |
           mkdir -p _site
-          # Copy build output
-          cp -r dist/* _site/
-          # Copy static docs folder
+          # Copy build output (excludes docs folder, we use root docs/)
+          cp -r dist/public/* _site/
+          # Remove any docs from build (uses outdated client/public/docs)
+          rm -rf _site/docs
+          # Copy static docs folder from root (the actual updated docs)
           cp -r docs _site/docs
           # Copy root level files
           cp CNAME _site/ 2>/dev/null || true
