@@ -27,7 +27,7 @@ export default function Compare() {
       <Navbar />
 
       {/* Hero */}
-      <section className="max-w-7xl mx-auto px-6 py-16 text-center">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-24 pb-12 sm:pt-28 sm:pb-16 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -43,14 +43,17 @@ export default function Compare() {
       </section>
 
       {/* Comparison Table */}
-      <section className="max-w-7xl mx-auto px-6 pb-20">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="overflow-x-auto"
+          className="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0"
         >
-          <table className="w-full border-collapse">
+          <p className="text-sm text-muted-foreground mb-4 md:hidden">
+            Scroll horizontally to see all comparisons →
+          </p>
+          <table className="w-full border-collapse min-w-[640px]">
             <thead>
               <tr className="border-b border-white/10">
                 <th className="text-left py-4 px-4 font-semibold text-sm">Capability</th>
@@ -210,7 +213,7 @@ export default function Compare() {
         </motion.div>
       </section>
 
-      <Footer variant="minimal" />
+      <Footer />
     </div>
   );
 }

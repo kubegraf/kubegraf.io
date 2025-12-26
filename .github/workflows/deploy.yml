@@ -37,16 +37,28 @@ jobs:
       - name: Prepare site for deployment
         run: |
           mkdir -p _site
-          cp -r dist/public/* _site/
-          cp -r docs _site/ 2>/dev/null || true
+          # Copy build output
+          cp -r new/public/* _site/
+          # Copy root level files
           cp CNAME _site/ 2>/dev/null || true
           cp install.sh _site/ 2>/dev/null || true
           cp install.ps1 _site/ 2>/dev/null || true
           cp install _site/ 2>/dev/null || true
-          cp favicon.ico _site/ 2>/dev/null || true
-          cp robots.txt _site/ 2>/dev/null || true
-          cp sitemap.xml _site/ 2>/dev/null || true
           cp docs.html _site/ 2>/dev/null || true
+          # Copy SEO and favicon files from root (latest versions)
+          cp sitemap.xml _site/ 2>/dev/null || true
+          # Copy client/public assets (logos, favicons, manifest)
+          cp -r client/public/assets/logos _site/assets/ 2>/dev/null || true
+          cp client/public/favicon.ico _site/ 2>/dev/null || true
+          cp client/public/favicon.svg _site/ 2>/dev/null || true
+          cp client/public/favicon-96x96.png _site/ 2>/dev/null || true
+          cp client/public/apple-touch-icon.png _site/ 2>/dev/null || true
+          cp client/public/site.webmanifest _site/ 2>/dev/null || true
+          cp client/public/robots.txt _site/ 2>/dev/null || true
+          # Copy web app manifest icons for PWA and Google Search
+          cp client/public/web-app-manifest-192x192.png _site/ 2>/dev/null || true
+          cp client/public/web-app-manifest-512x512.png _site/ 2>/dev/null || true
+          # Create 404 page and disable Jekyll
           cp _site/index.html _site/404.html
           touch _site/.nojekyll
 

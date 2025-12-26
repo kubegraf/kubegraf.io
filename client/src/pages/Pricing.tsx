@@ -21,7 +21,7 @@ export default function Pricing() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="max-w-5xl mx-auto px-6 py-16 text-center">
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 pt-24 pb-12 sm:pt-28 sm:pb-16 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -37,7 +37,7 @@ export default function Pricing() {
       </section>
 
       {/* Pricing Cards */}
-      <section className="max-w-6xl mx-auto px-6 pb-16">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-12 sm:pb-16">
         <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {/* Free Plan */}
           <motion.div
@@ -138,7 +138,7 @@ export default function Pricing() {
       </section>
 
       {/* Trust & Transparency */}
-      <section className="max-w-4xl mx-auto px-6 pb-16">
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 pb-12 sm:pb-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -155,7 +155,7 @@ export default function Pricing() {
       </section>
 
       {/* FAQ */}
-      <section className="max-w-4xl mx-auto px-6 pb-16">
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 pb-12 sm:pb-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -192,7 +192,7 @@ export default function Pricing() {
       </section>
 
       {/* Enterprise */}
-      <section className="max-w-4xl mx-auto px-6 pb-20">
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 pb-16 sm:pb-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -212,7 +212,7 @@ export default function Pricing() {
         </motion.div>
       </section>
 
-      <Footer variant="minimal" />
+      <Footer />
     </div>
   );
 }

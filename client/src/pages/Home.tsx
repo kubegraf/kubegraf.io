@@ -1,28 +1,20 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Hero from "@/components/sections/Hero";
-import Features from "@/components/sections/Features";
-import PowerfulFeatures from "@/components/sections/PowerfulFeatures";
-import BrainPanel from "@/components/sections/BrainPanel";
-import BrainPanelDetailed from "@/components/sections/BrainPanelDetailed";
-import Workflow from "@/components/sections/Workflow";
-import Background3D from "@/components/Background3D";
+import FeaturesModern from "@/components/sections/FeaturesModern";
+import HowItWorks from "@/components/sections/HowItWorks";
+import CTASection from "@/components/sections/CTASection";
 
 export default function Home() {
   return (
-    <div className="bg-background text-foreground selection:bg-primary/30">
-      <Background3D />
+    <div className="bg-background text-foreground selection:bg-primary/30 scroll-smooth">
       <Navbar />
       <Hero />
       <div className="relative">
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
-        <Features />
-        <PowerfulFeatures />
-        <BrainPanel />
-        <BrainPanelDetailed />
-        <Workflow />
+        <FeaturesModern />
+        <HowItWorks />
+        <CTASection />
       </div>
-
       <Footer />
     </div>
   );

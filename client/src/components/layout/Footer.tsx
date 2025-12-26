@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { LINKS } from "@/config/links";
 import { useEffect, useState } from "react";
+import { Github } from "lucide-react";
 
 interface FooterProps {
   variant?: "default" | "minimal";
@@ -10,24 +11,20 @@ export default function Footer({ variant = "default" }: FooterProps) {
   const [themePreference, setThemePreference] = useState<'light' | 'dark'>('light');
 
   useEffect(() => {
-    // Load saved preference or default to system
     const saved = localStorage.getItem('kubegraf-theme-preference') as 'light' | 'dark' | null;
     if (saved) {
       setThemePreference(saved);
       applyTheme(saved);
     } else {
-      // Default to system preference - determine which icon to show based on system
       const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
       const defaultDisplay = prefersLight ? 'light' : 'dark';
       setThemePreference(defaultDisplay);
-      // Don't set data-theme, let CSS prefers-color-scheme handle it
       applyTheme('system');
     }
   }, []);
 
   const applyTheme = (pref: 'system' | 'light' | 'dark') => {
     if (pref === 'system') {
-      // Remove data-theme to use system preference
       document.documentElement.removeAttribute('data-theme');
     } else {
       document.documentElement.setAttribute('data-theme', pref);
@@ -39,6 +36,7 @@ export default function Footer({ variant = "default" }: FooterProps) {
     localStorage.setItem('kubegraf-theme-preference', pref);
     applyTheme(pref);
   };
+
   const ThemePreferenceControl = () => (
     <div className="inline-flex items-center gap-1 p-1 rounded-md bg-muted/20 border border-border/50">
       <button
@@ -70,38 +68,15 @@ export default function Footer({ variant = "default" }: FooterProps) {
 
   if (variant === "minimal") {
     return (
-      <footer className="border-t border-white/5 py-8 px-6">
+      <footer className="border-t border-border/50 py-8 px-6">
         <div className="max-w-7xl mx-auto text-center text-sm text-muted-foreground">
           <p className="mb-3">&copy; 2025 KubēGraf</p>
           <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6 text-xs">
-            <a
-              href={LINKS.BUG_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-primary transition-colors"
-            >
-              Report a bug
-            </a>
-            <a
-              href={LINKS.FEATURE_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-primary transition-colors"
-            >
-              Request a feature
-            </a>
-            <Link href={LINKS.PRIVACY} className="hover:text-primary transition-colors">
-              Privacy Policy
-            </Link>
-            <Link href={LINKS.LICENSE} className="hover:text-primary transition-colors">
-              License (Apache 2.0)
-            </Link>
-            <a
-              href={LINKS.CONTACT_MAILTO}
-              className="hover:text-primary transition-colors"
-            >
-              Contact
-            </a>
+            <a href={LINKS.BUG_URL} target="_blank" rel="noreferrer" className="hover:text-primary transition-colors">Report a bug</a>
+            <a href={LINKS.FEATURE_URL} target="_blank" rel="noreferrer" className="hover:text-primary transition-colors">Request a feature</a>
+            <Link href={LINKS.PRIVACY} className="hover:text-primary transition-colors">Privacy Policy</Link>
+            <Link href={LINKS.LICENSE} className="hover:text-primary transition-colors">License</Link>
+            <a href={LINKS.CONTACT_MAILTO} className="hover:text-primary transition-colors">Contact</a>
             <ThemePreferenceControl />
           </div>
         </div>
@@ -110,76 +85,97 @@ export default function Footer({ variant = "default" }: FooterProps) {
   }
 
   return (
-    <footer className="py-12 border-t border-white/5 bg-black/20">
-      <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto">
-          {/* Copyright */}
-          <div className="text-center mb-6">
-            <p className="text-sm text-muted-foreground mb-2">
-              © 2025 KubēGraf
-            </p>
-            <p className="text-sm text-muted-foreground">
-              <a href="https://kubegraf.io" className="hover:text-primary transition-colors">kubegraf.io</a>
-              {" · "}
-              <a href={LINKS.CONTACT_MAILTO} className="hover:text-primary transition-colors">
-                {LINKS.CONTACT_EMAIL}
-              </a>
-            </p>
-          </div>
-
-          {/* Tagline & Description */}
-          <div className="text-center mb-8 pb-8 border-b border-white/5">
-            <h3 className="text-xl font-display font-bold mb-3">
-              KubēGraf — Intelligent Insight for Kubernetes Incidents
-            </h3>
-            <p className="text-sm text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              KubeGraf is a local-first Kubernetes tool for detecting incidents, understanding root causes, and safely responding to failures.
-              It runs on your laptop or inside your environment. No mandatory SaaS. No vendor lock-in.
-            </p>
-          </div>
-
-          {/* Brand Clarity */}
-          <div className="text-center">
-            <p className="text-xs text-muted-foreground max-w-2xl mx-auto">
-              <strong>Brand clarity:</strong> KubeGraf (kubegraf.io) is an independent product and is not affiliated with Kubernetes,
-              the CNCF, Grafana Labs, or the DevOpsProdigy KubeGraf Grafana plugin.
-            </p>
-          </div>
-
-          {/* Footer Links */}
-          <div className="text-center mt-6">
-            <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6 text-xs text-muted-foreground">
-              <a
-                href={LINKS.BUG_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-primary transition-colors"
-              >
-                Report a bug
-              </a>
-              <a
-                href={LINKS.FEATURE_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-primary transition-colors"
-              >
-                Request a feature
-              </a>
-              <Link href={LINKS.PRIVACY} className="hover:text-primary transition-colors">
-                Privacy Policy
+    <footer className="border-t border-border/50 bg-muted/20">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Main Footer Content */}
+        <div className="py-12 lg:py-16">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-12">
+            {/* Brand Column */}
+            <div className="col-span-2 md:col-span-3 lg:col-span-2">
+              <Link href="/">
+                <img
+                  src="/assets/logos/binary-matrix/logo-binary-matrix-cyan.svg"
+                  alt="KubeGraf"
+                  className="kubegraf-logo mb-4"
+                />
               </Link>
-              <Link href={LINKS.LICENSE} className="hover:text-primary transition-colors">
-                License (Apache 2.0)
-              </Link>
-              <a
-                href={LINKS.CONTACT_MAILTO}
-                className="hover:text-primary transition-colors"
-              >
-                Contact
-              </a>
-              <ThemePreferenceControl />
+              <p className="text-sm text-muted-foreground mb-4 max-w-sm">
+                Local-first Kubernetes incident detection and diagnosis. No SaaS lock-in.
+              </p>
+              <div className="flex items-center gap-3">
+                <a
+                  href="https://github.com/kubegraf/kubegraf"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  <Github className="w-5 h-5" />
+                  <span>GitHub</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Product Column */}
+            <div className="col-span-1">
+              <h3 className="font-semibold text-sm mb-4">Product</h3>
+              <ul className="space-y-3 text-sm">
+                <li><a href="/#features" className="text-muted-foreground hover:text-primary transition-colors">Features</a></li>
+                <li><a href="/docs/installation.html" className="text-muted-foreground hover:text-primary transition-colors">Installation</a></li>
+                <li><Link href={LINKS.COMPARE} className="text-muted-foreground hover:text-primary transition-colors">Compare</Link></li>
+                <li><a href={LINKS.ISSUES_URL} target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-primary transition-colors">Roadmap</a></li>
+              </ul>
+            </div>
+
+            {/* Resources Column */}
+            <div className="col-span-1">
+              <h3 className="font-semibold text-sm mb-4">Resources</h3>
+              <ul className="space-y-3 text-sm">
+                <li><a href="/docs/" className="text-muted-foreground hover:text-primary transition-colors">Documentation</a></li>
+                <li><a href="/docs/quickstart.html" className="text-muted-foreground hover:text-primary transition-colors">Quickstart</a></li>
+                <li><a href="/docs/terminal-ui.html" className="text-muted-foreground hover:text-primary transition-colors">Guides</a></li>
+                <li><a href="https://github.com/kubegraf/kubegraf/discussions" target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-primary transition-colors">Community</a></li>
+              </ul>
+            </div>
+
+            {/* Developers Column */}
+            <div className="col-span-1">
+              <h3 className="font-semibold text-sm mb-4">Developers</h3>
+              <ul className="space-y-3 text-sm">
+                <li><a href="https://github.com/kubegraf/kubegraf" target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-primary transition-colors">GitHub</a></li>
+                <li><a href="/docs/commands.html" className="text-muted-foreground hover:text-primary transition-colors">CLI Reference</a></li>
+                <li><a href="/docs/configuration.html" className="text-muted-foreground hover:text-primary transition-colors">API Docs</a></li>
+                <li><a href={LINKS.BUG_URL} target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-primary transition-colors">Report Bug</a></li>
+              </ul>
+            </div>
+
+            {/* Company Column */}
+            <div className="col-span-1">
+              <h3 className="font-semibold text-sm mb-4">Company</h3>
+              <ul className="space-y-3 text-sm">
+                <li><Link href="/kubegraf" className="text-muted-foreground hover:text-primary transition-colors">About</Link></li>
+                <li><a href={LINKS.CONTACT_MAILTO} className="text-muted-foreground hover:text-primary transition-colors">Contact</a></li>
+                <li><Link href={LINKS.PRIVACY} className="text-muted-foreground hover:text-primary transition-colors">Privacy</Link></li>
+                <li><Link href={LINKS.LICENSE} className="text-muted-foreground hover:text-primary transition-colors">License</Link></li>
+              </ul>
             </div>
           </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="py-6 border-t border-border/50">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="flex flex-wrap items-center justify-center md:justify-start gap-x-6 gap-y-2 text-xs text-muted-foreground">
+              <span>&copy; 2025 KubēGraf</span>
+              <span className="hidden md:inline">•</span>
+              <span>Apache 2.0 License</span>
+              <span className="hidden md:inline">•</span>
+              <a href={LINKS.CONTACT_MAILTO} className="hover:text-primary transition-colors">{LINKS.CONTACT_EMAIL}</a>
+            </div>
+            <ThemePreferenceControl />
+          </div>
+          <p className="text-xs text-muted-foreground text-center md:text-left mt-4 max-w-3xl">
+            <strong>Brand clarity:</strong> KubeGraf (kubegraf.io) is an independent product and is not affiliated with Kubernetes, the CNCF, Grafana Labs, or the DevOpsProdigy KubeGraf Grafana plugin.
+          </p>
         </div>
       </div>
     </footer>

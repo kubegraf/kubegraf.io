@@ -10,8 +10,8 @@ export default function WhatIsKubeGraf() {
       <Navbar />
 
       {/* Hero */}
-      <section className="max-w-6xl mx-auto px-6 py-16">
-        <div className="text-center max-w-3xl mx-auto mb-16">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-24 pb-12 sm:pt-28 sm:pb-16">
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
           <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">
             About KubeGraf
           </p>
@@ -25,7 +25,7 @@ export default function WhatIsKubeGraf() {
         </div>
 
         {/* Quick Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-12 sm:mb-16">
           <div className="glass-card p-6 rounded-xl border border-white/10 text-center">
             <div className="text-3xl font-bold text-primary mb-1">100%</div>
             <div className="text-sm text-muted-foreground">Local-first</div>
@@ -45,9 +45,9 @@ export default function WhatIsKubeGraf() {
         </div>
 
         {/* How It Works */}
-        <div className="mb-16">
-          <h2 className="text-2xl font-bold mb-8 text-center">How It Works</h2>
-          <div className="grid md:grid-cols-4 gap-4">
+        <div className="mb-12 sm:mb-16">
+          <h2 className="text-2xl font-bold mb-6 sm:mb-8 text-center">How It Works</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
             <div className="glass-card p-6 rounded-xl border border-white/10">
               <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
                 <AlertCircle className="w-6 h-6 text-primary" />
@@ -88,9 +88,9 @@ export default function WhatIsKubeGraf() {
         </div>
 
         {/* Core Features */}
-        <div className="mb-16">
-          <h2 className="text-2xl font-bold mb-8">Core Capabilities</h2>
-          <div className="grid md:grid-cols-2 gap-6">
+        <div className="mb-12 sm:mb-16">
+          <h2 className="text-2xl font-bold mb-6 sm:mb-8">Core Capabilities</h2>
+          <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
             <div className="glass-card p-8 rounded-2xl border border-white/10">
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
@@ -169,9 +169,9 @@ export default function WhatIsKubeGraf() {
         </div>
 
         {/* Use Cases */}
-        <div className="mb-16">
-          <h2 className="text-2xl font-bold mb-8">Common Use Cases</h2>
-          <div className="grid md:grid-cols-3 gap-4">
+        <div className="mb-12 sm:mb-16">
+          <h2 className="text-2xl font-bold mb-6 sm:mb-8">Common Use Cases</h2>
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
             <div className="glass-card p-6 rounded-xl border border-white/10">
               <h3 className="font-bold mb-2">On-call Engineers</h3>
               <p className="text-sm text-muted-foreground">
@@ -194,7 +194,7 @@ export default function WhatIsKubeGraf() {
         </div>
 
         {/* What KubeGraf is NOT */}
-        <div className="glass-card p-8 rounded-2xl border border-white/10 mb-16 bg-black/20">
+        <div className="glass-card p-6 sm:p-8 rounded-2xl border border-white/10 mb-12 sm:mb-16 bg-black/20">
           <h2 className="text-2xl font-bold mb-6">What KubeGraf is NOT</h2>
           <div className="grid md:grid-cols-2 gap-6">
             <div>
@@ -233,7 +233,7 @@ export default function WhatIsKubeGraf() {
         </div>
 
         {/* Brand Clarity */}
-        <div className="glass-card p-8 rounded-2xl border border-primary/20 mb-16 bg-primary/5">
+        <div className="glass-card p-6 sm:p-8 rounded-2xl border border-primary/20 mb-12 sm:mb-16 bg-primary/5">
           <h2 className="text-xl font-bold mb-4">Brand Clarity</h2>
           <p className="text-muted-foreground mb-4 leading-relaxed">
             The term <strong className="text-foreground">KubeGraf</strong> on this site refers exclusively to the product distributed via{' '}
@@ -252,22 +252,22 @@ export default function WhatIsKubeGraf() {
         {/* CTA Section */}
         <div className="text-center">
           <h2 className="text-2xl font-bold mb-6">Ready to try KubeGraf?</h2>
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4">
             <a
               href="/docs/installation.html"
-              className="inline-flex items-center px-8 py-4 rounded-full border border-primary/50 bg-primary/10 hover:bg-primary/20 transition-all font-semibold"
+              className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 rounded-full border border-primary/50 bg-primary/10 hover:bg-primary/20 transition-all font-semibold text-sm sm:text-base"
             >
               Install KubeGraf
             </a>
             <a
               href="/docs/quickstart.html"
-              className="inline-flex items-center px-8 py-4 rounded-full border border-white/20 bg-black/40 hover:bg-black/60 transition-all font-semibold"
+              className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 rounded-full border border-white/20 bg-black/40 hover:bg-black/60 transition-all font-semibold text-sm sm:text-base"
             >
               Quick Start Guide
             </a>
             <a
               href="https://github.com/kubegraf/kubegraf"
-              className="inline-flex items-center px-8 py-4 rounded-full border border-white/20 bg-black/40 hover:bg-black/60 transition-all font-semibold"
+              className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 rounded-full border border-white/20 bg-black/40 hover:bg-black/60 transition-all font-semibold text-sm sm:text-base"
             >
               View on GitHub
             </a>
@@ -275,7 +275,7 @@ export default function WhatIsKubeGraf() {
         </div>
       </section>
 
-      <Footer variant="minimal" />
+      <Footer />
     </div>
   );
 }

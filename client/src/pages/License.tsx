@@ -1,28 +1,16 @@
 import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
-import { Link } from "wouter";
+import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
 export default function License() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      {/* Header */}
-      <header className="border-b border-white/5 py-4 px-6">
-        <div className="max-w-4xl mx-auto flex justify-between items-center">
-          <a href="/" className="flex items-center gap-2 font-display font-bold text-xl">
-            <img src="/assets/logo/kubegraf_color_icon.png" alt="KubeGraf" className="object-contain" style={{ width: 96, height: 96 }} />
-            KubēGraf
-          </a>
-          <nav className="hidden md:flex gap-6 text-sm text-muted-foreground">
-            <a href="/" className="hover:text-primary transition-colors">Home</a>
-            <Link href="/docs-overview" className="hover:text-primary transition-colors">Docs</Link>
-          </nav>
-        </div>
-      </header>
+      <Navbar />
 
       {/* Content */}
-      <section className="max-w-4xl mx-auto px-6 py-16">
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 pt-24 pb-16 sm:pt-28">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -78,7 +66,7 @@ export default function License() {
         </motion.div>
       </section>
 
-      <Footer variant="minimal" />
+      <Footer />
     </div>
   );
 }

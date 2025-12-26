@@ -6,6 +6,12 @@ Allow: /
 # Sitemap
 Sitemap: https://kubegraf.io/sitemap.xml
 
+# Allow crawling of important assets
+Allow: /assets/logos/
+Allow: /favicon.ico
+Allow: /apple-touch-icon.png
+Allow: /site.webmanifest
+
 # Crawl delay (optional, adjust if needed)
 Crawl-delay: 1
 

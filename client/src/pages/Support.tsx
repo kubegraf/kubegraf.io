@@ -55,7 +55,7 @@ export default function Support() {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="max-w-4xl mx-auto px-6 py-20 pt-32 text-center">
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 pt-24 pb-12 sm:pt-28 sm:pb-16 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -71,7 +71,7 @@ export default function Support() {
       </section>
 
       {/* Support Options */}
-      <section className="max-w-6xl mx-auto px-6 pb-20">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-16 sm:pb-20">
         <div className="grid md:grid-cols-2 gap-6">
           {supportItems.map((item, index) => {
             const Icon = item.icon;
@@ -110,7 +110,7 @@ export default function Support() {
       </section>
 
       {/* Additional Resources */}
-      <section className="max-w-4xl mx-auto px-6 pb-20">
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 pb-16 sm:pb-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
