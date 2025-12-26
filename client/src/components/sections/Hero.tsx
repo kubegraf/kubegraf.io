@@ -45,16 +45,16 @@ function AnimatedTerminal() {
       {/* Glow effect behind terminal */}
       <div className="absolute -inset-8 bg-gradient-to-r from-cyan-500/30 via-primary/20 to-purple-500/30 rounded-3xl blur-3xl opacity-50" />
 
-      {/* Terminal window */}
-      <div className="relative bg-gray-950/95 backdrop-blur-sm rounded-2xl border border-gray-700/50 shadow-2xl overflow-hidden">
+      {/* Terminal window - theme-aware */}
+      <div className="relative bg-card/95 backdrop-blur-sm rounded-2xl border border-border shadow-2xl overflow-hidden">
         {/* Terminal header */}
-        <div className="flex items-center gap-2 px-5 py-4 bg-gray-900/80 border-b border-gray-800/50">
+        <div className="flex items-center gap-2 px-5 py-4 bg-muted/80 border-b border-border">
           <div className="flex gap-2">
             <div className="w-3.5 h-3.5 rounded-full bg-red-500" />
             <div className="w-3.5 h-3.5 rounded-full bg-yellow-500" />
             <div className="w-3.5 h-3.5 rounded-full bg-green-500" />
           </div>
-          <span className="ml-3 text-sm text-gray-400 font-mono">kubegraf — zsh</span>
+          <span className="ml-3 text-sm text-muted-foreground font-mono">kubegraf — zsh</span>
         </div>
 
         {/* Terminal content */}
@@ -65,12 +65,12 @@ function AnimatedTerminal() {
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               className={`
-                ${line.type === 'command' ? 'text-green-400 font-semibold' : ''}
-                ${line.type === 'info' ? 'text-cyan-400' : ''}
-                ${line.type === 'warning' ? 'text-yellow-400' : ''}
-                ${line.type === 'success' ? 'text-emerald-400' : ''}
-                ${line.type === 'detail' ? 'text-gray-400' : ''}
-                ${line.type === 'prompt' ? 'text-purple-400' : ''}
+                ${line.type === 'command' ? 'text-green-600 dark:text-green-400 font-semibold' : ''}
+                ${line.type === 'info' ? 'text-cyan-600 dark:text-cyan-400' : ''}
+                ${line.type === 'warning' ? 'text-yellow-600 dark:text-yellow-400' : ''}
+                ${line.type === 'success' ? 'text-emerald-600 dark:text-emerald-400' : ''}
+                ${line.type === 'detail' ? 'text-muted-foreground' : ''}
+                ${line.type === 'prompt' ? 'text-purple-600 dark:text-purple-400' : ''}
                 ${line.type === 'output' ? 'h-3' : ''}
                 mb-1
               `}
@@ -79,7 +79,7 @@ function AnimatedTerminal() {
             </motion.div>
           ))}
           {visibleLines < terminalLines.length && (
-            <span className="inline-block w-2.5 h-5 bg-cyan-400 animate-pulse" />
+            <span className="inline-block w-2.5 h-5 bg-primary animate-pulse" />
           )}
         </div>
       </div>
