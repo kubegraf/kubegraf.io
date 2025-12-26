@@ -226,7 +226,7 @@ export default function Hero() {
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold tracking-tight mb-8 leading-[1.05] animate-fade-in-up"
             style={{ animationDelay: '150ms' }}
           >
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-cyan-400 to-cyan-500">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-cyan-400 to-cyan-500 animate-text-shimmer">
               Intelligent Insight
             </span>
             <br />
