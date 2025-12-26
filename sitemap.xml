@@ -13,42 +13,6 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://kubegraf.io/docs/DOCUMENTATION_STRUCTURE.html</loc>
-    <lastmod>2025-12-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://kubegraf.io/docs/FAVICON.html</loc>
-    <lastmod>2025-12-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://kubegraf.io/docs/INTEGRATION_COMPLETE.html</loc>
-    <lastmod>2025-12-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://kubegraf.io/docs/INTEGRATION_GUIDE.html</loc>
-    <lastmod>2025-12-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://kubegraf.io/docs/SIDEBAR_PREVIEW.html</loc>
-    <lastmod>2025-12-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://kubegraf.io/docs/TESTING_LOCALLY.html</loc>
-    <lastmod>2025-12-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://kubegraf.io/docs/commands.html</loc>
     <lastmod>2025-12-26</lastmod>
     <changefreq>monthly</changefreq>

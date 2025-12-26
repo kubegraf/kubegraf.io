@@ -1,89 +1,66 @@
-import { Switch, Route, Router, useLocation } from "wouter";
+import { Switch, Route } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import NotFound from "@/pages/not-found";
-import Home from "@/pages/Home";
-import Pricing from "@/pages/Pricing";
-import Docs from "@/pages/Docs";
-import WhatIsKubeGraf from "@/pages/WhatIsKubeGraf";
-import Compare from "@/pages/Compare";
-import Privacy from "@/pages/Privacy";
-import License from "@/pages/License";
-import FAQ from "@/pages/FAQ";
-import Support from "@/pages/Support";
-import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import ErrorBoundary from "@/components/ErrorBoundary";
-import CursorGlow from "@/components/CursorGlow";
-import { logWebVitals } from "@/lib/webVitals";
 
-function PageTransition({ children }: { children: React.ReactNode }) {
+// Lazy load all pages for code splitting
+const Home = lazy(() => import("@/pages/Home"));
+const Pricing = lazy(() => import("@/pages/Pricing"));
+const Docs = lazy(() => import("@/pages/Docs"));
+const WhatIsKubeGraf = lazy(() => import("@/pages/WhatIsKubeGraf"));
+const Compare = lazy(() => import("@/pages/Compare"));
+const Privacy = lazy(() => import("@/pages/Privacy"));
+const License = lazy(() => import("@/pages/License"));
+const FAQ = lazy(() => import("@/pages/FAQ"));
+const Support = lazy(() => import("@/pages/Support"));
+const NotFound = lazy(() => import("@/pages/not-found"));
+
+// Lazy load heavy visual components - only on desktop
+const CursorGlow = lazy(() => import("@/components/CursorGlow"));
+
+// Check if device is desktop (no touch)
+const isDesktop = typeof window !== 'undefined' && !('ontouchstart' in window);
+
+// Minimal loading fallback - just background color, no spinner
+function PageLoader() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -10 }}
-      transition={{ duration: 0.2 }}
-    >
-      {children}
-    </motion.div>
+    <div className="min-h-screen bg-background" />
   );
 }
 
 function Routes() {
-  const [location] = useLocation();
-
   return (
-    <AnimatePresence mode="wait">
-      <Switch location={location}>
-        <Route path="/">
-          <PageTransition><Home /></PageTransition>
-        </Route>
-        <Route path="/kubegraf">
-          <PageTransition><WhatIsKubeGraf /></PageTransition>
-        </Route>
-        <Route path="/pricing">
-          <PageTransition><Pricing /></PageTransition>
-        </Route>
-        <Route path="/compare">
-          <PageTransition><Compare /></PageTransition>
-        </Route>
-        <Route path="/docs-overview">
-          <PageTransition><Docs /></PageTransition>
-        </Route>
-        <Route path="/faq">
-          <PageTransition><FAQ /></PageTransition>
-        </Route>
-        <Route path="/privacy">
-          <PageTransition><Privacy /></PageTransition>
-        </Route>
-        <Route path="/license">
-          <PageTransition><License /></PageTransition>
-        </Route>
-        <Route path="/support">
-          <PageTransition><Support /></PageTransition>
-        </Route>
-        <Route>
-          <PageTransition><NotFound /></PageTransition>
-        </Route>
+    <Suspense fallback={<PageLoader />}>
+      <Switch>
+        <Route path="/" component={Home} />
+        <Route path="/kubegraf" component={WhatIsKubeGraf} />
+        <Route path="/pricing" component={Pricing} />
+        <Route path="/compare" component={Compare} />
+        <Route path="/docs-overview" component={Docs} />
+        <Route path="/faq" component={FAQ} />
+        <Route path="/privacy" component={Privacy} />
+        <Route path="/license" component={License} />
+        <Route path="/support" component={Support} />
+        <Route component={NotFound} />
       </Switch>
-    </AnimatePresence>
+    </Suspense>
   );
 }
 
 function App() {
-  useEffect(() => {
-    // Initialize Web Vitals monitoring in development
-    logWebVitals();
-  }, []);
-
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
-          <CursorGlow />
+          {/* Only load cursor glow on desktop devices */}
+          {isDesktop && (
+            <Suspense fallback={null}>
+              <CursorGlow />
+            </Suspense>
+          )}
           <Toaster />
           <Routes />
         </TooltipProvider>
