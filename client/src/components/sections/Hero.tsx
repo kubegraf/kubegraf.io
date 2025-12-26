@@ -187,10 +187,10 @@ export default function Hero() {
       {/* Background effects */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-background" />
-        {/* Gradient orbs - animated pulse */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[600px] bg-gradient-to-b from-cyan-500/15 via-primary/10 to-transparent rounded-full blur-[100px] animate-pulse-slow" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-purple-500/10 rounded-full blur-[120px] -translate-x-1/3 animate-pulse-slow-delayed" />
-        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[100px] translate-x-1/3 animate-pulse-slow" />
+        {/* Gradient orbs - more prominent */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[600px] bg-gradient-to-b from-cyan-500/15 via-primary/10 to-transparent rounded-full blur-[100px]" />
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-purple-500/10 rounded-full blur-[120px] -translate-x-1/3" />
+        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[100px] translate-x-1/3" />
         {/* Subtle grid */}
         <div
           className="absolute inset-0 opacity-[0.015]"
