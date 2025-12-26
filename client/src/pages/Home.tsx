@@ -5,29 +5,28 @@ import Hero from "@/components/sections/Hero";
 import FeaturesModern from "@/components/sections/FeaturesModern";
 import HowItWorks from "@/components/sections/HowItWorks";
 import CTASection from "@/components/sections/CTASection";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
-// Lazy load heavy visual effect - deferred to after first paint
+// Lazy load heavy visual effect - ONLY on desktop
 const CyberGrid = lazy(() => import("@/components/CyberGrid"));
 
 export default function Home() {
+  const isMobile = useIsMobile();
   const [showEffects, setShowEffects] = useState(false);
 
   useEffect(() => {
-    // Defer heavy visual effects until after first meaningful paint
-    // Use requestIdleCallback if available, otherwise use setTimeout
-    let handle: number;
-    if (typeof requestIdleCallback !== 'undefined') {
-      handle = requestIdleCallback(() => setShowEffects(true));
-      return () => cancelIdleCallback(handle);
-    } else {
-      handle = window.setTimeout(() => setShowEffects(true), 100);
-      return () => clearTimeout(handle);
-    }
-  }, []);
+    // Skip effects entirely on mobile
+    if (isMobile) return;
+
+    // Defer heavy visual effects until after first meaningful paint (desktop only)
+    const timer = setTimeout(() => setShowEffects(true), 200);
+    return () => clearTimeout(timer);
+  }, [isMobile]);
 
   return (
     <div className="bg-background text-foreground selection:bg-primary/30 scroll-smooth">
-      {showEffects && (
+      {/* CyberGrid only on desktop, after delay */}
+      {!isMobile && showEffects && (
         <Suspense fallback={null}>
           <CyberGrid />
         </Suspense>

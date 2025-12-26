@@ -1,16 +1,7 @@
-import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Terminal, BookOpen } from "lucide-react";
-import { useIsMobile } from "@/hooks/useIsMobile";
 
 export default function CTASection() {
-  const isMobile = useIsMobile();
-
-  // Motion props - disabled on mobile for performance
-  const fadeInView = isMobile
-    ? {}
-    : { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-50px" } };
-
   return (
     <section className="relative py-20 md:py-24 lg:py-28 border-t border-border/50 overflow-hidden">
       {/* Background */}
@@ -20,11 +11,7 @@ export default function CTASection() {
       </div>
 
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
-        <motion.div
-          {...fadeInView}
-          transition={isMobile ? undefined : { duration: 0.5 }}
-          className="text-center"
-        >
+        <div className="text-center">
           {/* Heading */}
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold mb-6 leading-tight">
             Ready to get started?
@@ -61,7 +48,7 @@ export default function CTASection() {
           <p className="text-sm text-muted-foreground">
             Questions? <a href="mailto:contact@kubegraf.io" className="text-primary hover:underline">Get in touch</a>
           </p>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

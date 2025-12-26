@@ -143,11 +143,6 @@ export default function Hero() {
   const [submitted, setSubmitted] = useState(false);
   const [showFullForm, setShowFullForm] = useState(false);
 
-  // Motion props - disabled on mobile for performance
-  const fadeIn = isMobile
-    ? {}
-    : { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 } };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.email || !formData.name) return;
@@ -195,44 +190,28 @@ export default function Hero() {
         {/* Centered headline section */}
         <div className="text-center max-w-5xl mx-auto mb-12 lg:mb-16">
           {/* Brand Name */}
-          <motion.div
-            {...fadeIn}
-            transition={isMobile ? undefined : { duration: 0.6 }}
-            className="mb-6"
-          >
+          <div className="mb-6">
             <span className="text-3xl sm:text-4xl font-display font-bold tracking-tight text-primary">
               KubēGraf
             </span>
-          </motion.div>
+          </div>
 
-          {/* Hero Heading - MUCH BIGGER */}
-          <motion.h1
-            {...fadeIn}
-            transition={isMobile ? undefined : { duration: 0.6, delay: 0.1 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold tracking-tight mb-8 leading-[1.05]"
-          >
+          {/* Hero Heading */}
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold tracking-tight mb-8 leading-[1.05]">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-cyan-400 to-cyan-500">
               Intelligent Insight
             </span>
             <br />
             <span className="text-foreground">for Kubernetes Incidents</span>
-          </motion.h1>
+          </h1>
 
           {/* Subheading */}
-          <motion.p
-            {...fadeIn}
-            transition={isMobile ? undefined : { duration: 0.6, delay: 0.2 }}
-            className="text-lg sm:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto mb-10 leading-relaxed"
-          >
+          <p className="text-lg sm:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto mb-10 leading-relaxed">
             A local-first Kubernetes tool that detects incidents, explains why they happen with evidence, and previews safe fixes—without SaaS lock-in.
-          </motion.p>
+          </p>
 
           {/* Waitlist Form - Centered */}
-          <motion.div
-            {...fadeIn}
-            transition={isMobile ? undefined : { duration: 0.6, delay: 0.3 }}
-            className="max-w-lg mx-auto"
-          >
+          <div className="max-w-lg mx-auto">
             {submitted ? (
               <div className="p-6 bg-primary/10 border border-primary/20 rounded-xl text-center">
                 <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-primary/20 flex items-center justify-center">
@@ -265,14 +244,12 @@ export default function Hero() {
                 </div>
 
                 {/* Additional fields - shown after email focus */}
-                <motion.div
-                  initial={false}
-                  animate={{
+                <div
+                  className="overflow-hidden space-y-3 transition-all duration-200"
+                  style={{
                     height: showFullForm ? 'auto' : 0,
                     opacity: showFullForm ? 1 : 0
                   }}
-                  transition={isMobile ? { duration: 0.1 } : { duration: 0.3 }}
-                  className="overflow-hidden space-y-3"
                 >
                   {/* Name field */}
                   <div className="relative">
@@ -313,7 +290,7 @@ export default function Hero() {
                       className="w-full pl-12 pr-4 py-4 bg-muted/50 border border-border/50 rounded-xl text-base placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all"
                     />
                   </div>
-                </motion.div>
+                </div>
 
                 <Button
                   type="submit"
@@ -325,7 +302,7 @@ export default function Hero() {
                 </Button>
               </form>
             )}
-          </motion.div>
+          </div>
         </div>
 
         {/* Terminal showcase - below the fold but prominent */}

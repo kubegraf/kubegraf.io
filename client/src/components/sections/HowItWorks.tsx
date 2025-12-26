@@ -1,6 +1,4 @@
-import { motion } from "framer-motion";
 import { Search, Microscope, CheckCircle } from "lucide-react";
-import { useIsMobile } from "@/hooks/useIsMobile";
 
 const steps = [
   {
@@ -24,28 +22,17 @@ const steps = [
 ];
 
 export default function HowItWorks() {
-  const isMobile = useIsMobile();
-
-  // Motion props - disabled on mobile for performance
-  const fadeInView = isMobile
-    ? {}
-    : { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-50px" } };
-
   return (
     <section className="relative py-16 md:py-20 lg:py-24 border-t border-border/50 bg-muted/20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-        <motion.div
-          {...fadeInView}
-          transition={isMobile ? undefined : { duration: 0.5 }}
-          className="text-center mb-12 md:mb-16"
-        >
+        <div className="text-center mb-12 md:mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-4">
             How It Works
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Three simple steps from incident to resolution
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 relative">
           {/* Connection lines - hidden on mobile */}
@@ -53,13 +40,8 @@ export default function HowItWorks() {
             <div className="h-full bg-gradient-to-r from-transparent via-border to-transparent" />
           </div>
 
-          {steps.map((step, index) => (
-            <motion.div
-              key={step.number}
-              {...fadeInView}
-              transition={isMobile ? undefined : { duration: 0.5, delay: index * 0.2 }}
-              className="relative"
-            >
+          {steps.map((step) => (
+            <div key={step.number} className="relative">
               {/* Step Content */}
               <div className="text-center">
                 {/* Icon Circle */}
@@ -81,16 +63,12 @@ export default function HowItWorks() {
                   {step.description}
                 </p>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* Bottom CTA */}
-        <motion.div
-          {...fadeInView}
-          transition={isMobile ? undefined : { duration: 0.5, delay: 0.6 }}
-          className="text-center mt-12"
-        >
+        <div className="text-center mt-12">
           <a
             href="/docs/quickstart.html"
             className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-medium transition-colors"
@@ -98,7 +76,7 @@ export default function HowItWorks() {
             See it in action
             <span className="text-xl">→</span>
           </a>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

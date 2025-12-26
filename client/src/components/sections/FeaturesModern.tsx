@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import {
   Shield,
   Brain,
@@ -10,7 +9,6 @@ import {
   Zap,
   GitBranch
 } from "lucide-react";
-import { useIsMobile } from "@/hooks/useIsMobile";
 
 const whyFeatures = [
   {
@@ -70,37 +68,24 @@ const keyFeatures = [
 ];
 
 export default function FeaturesModern() {
-  const isMobile = useIsMobile();
-
-  // Motion props - disabled on mobile for performance
-  const fadeInView = isMobile
-    ? {}
-    : { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-50px" } };
-
   return (
     <>
       {/* Why KubēGraf Section */}
       <section id="features" className="relative py-16 md:py-20 lg:py-24 border-t border-border/50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-          <motion.div
-            {...fadeInView}
-            transition={isMobile ? undefined : { duration: 0.5 }}
-            className="text-center mb-12 md:mb-16"
-          >
+          <div className="text-center mb-12 md:mb-16">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-4">
               Why KubēGraf?
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Built for teams who value security, intelligence, and control over their infrastructure
             </p>
-          </motion.div>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {whyFeatures.map((feature, index) => (
-              <motion.div
+            {whyFeatures.map((feature) => (
+              <div
                 key={feature.title}
-                {...fadeInView}
-                transition={isMobile ? undefined : { duration: 0.5, delay: index * 0.1 }}
                 className="group relative"
               >
                 <div className="h-full p-6 rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm hover:border-primary/30 hover:bg-card/80 transition-all duration-300">
@@ -122,7 +107,7 @@ export default function FeaturesModern() {
                     {feature.description}
                   </p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -131,25 +116,19 @@ export default function FeaturesModern() {
       {/* Key Features Section */}
       <section className="relative py-16 md:py-20 lg:py-24 border-t border-border/50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-          <motion.div
-            {...fadeInView}
-            transition={isMobile ? undefined : { duration: 0.5 }}
-            className="text-center mb-12 md:mb-16"
-          >
+          <div className="text-center mb-12 md:mb-16">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-4">
               Everything you need
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Powerful features designed for modern Kubernetes incident response
             </p>
-          </motion.div>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {keyFeatures.map((feature, index) => (
-              <motion.div
+            {keyFeatures.map((feature) => (
+              <div
                 key={feature.title}
-                {...fadeInView}
-                transition={isMobile ? undefined : { duration: 0.5, delay: index * 0.05 }}
                 className="group relative"
               >
                 <div className="h-full p-6 rounded-xl border border-border/50 bg-card/30 hover:border-primary/30 hover:bg-card/50 transition-all duration-300">
@@ -166,7 +145,7 @@ export default function FeaturesModern() {
                     {feature.description}
                   </p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

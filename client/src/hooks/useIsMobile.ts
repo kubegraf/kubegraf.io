@@ -1,10 +1,16 @@
 import { useState, useEffect } from 'react';
 
+// Check mobile on initial load (SSR-safe)
+function getInitialMobile(): boolean {
+  if (typeof window === 'undefined') return true; // Assume mobile for SSR
+  return window.innerWidth < 768 || 'ontouchstart' in window;
+}
+
 export function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(false);
+  // Initialize with actual value to prevent flash
+  const [isMobile, setIsMobile] = useState(getInitialMobile);
 
   useEffect(() => {
-    // Check for mobile device or reduced motion preference
     const checkMobile = () => {
       const isMobileDevice = window.innerWidth < 768 || 'ontouchstart' in window;
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
