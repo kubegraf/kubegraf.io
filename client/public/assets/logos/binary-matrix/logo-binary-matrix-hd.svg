@@ -1,0 +1,26 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Binary Matrix - High Definition Version -->
+
+  <!-- Main rounded square border -->
+  <rect x="140" y="140" width="232" height="232" rx="28" stroke="#06b6d4" stroke-width="20" fill="none"/>
+
+  <!-- Four circles (binary matrix pattern) -->
+  <!-- Top-left: solid -->
+  <circle cx="200" cy="200" r="28" fill="#06b6d4"/>
+  <!-- Top-right: semi-transparent -->
+  <circle cx="312" cy="200" r="28" fill="#06b6d4" opacity="0.5"/>
+  <!-- Bottom-left: semi-transparent -->
+  <circle cx="200" cy="312" r="28" fill="#06b6d4" opacity="0.5"/>
+  <!-- Bottom-right: solid -->
+  <circle cx="312" cy="312" r="28" fill="#06b6d4"/>
+
+  <!-- Dashed lines extending outward (data flow indicators) -->
+  <!-- Top -->
+  <line x1="256" y1="40" x2="256" y2="120" stroke="#06b6d4" stroke-width="16" stroke-linecap="round" stroke-dasharray="24 24"/>
+  <!-- Bottom -->
+  <line x1="256" y1="392" x2="256" y2="472" stroke="#06b6d4" stroke-width="16" stroke-linecap="round" stroke-dasharray="24 24"/>
+  <!-- Left -->
+  <line x1="40" y1="256" x2="120" y2="256" stroke="#06b6d4" stroke-width="16" stroke-linecap="round" stroke-dasharray="24 24"/>
+  <!-- Right -->
+  <line x1="392" y1="256" x2="472" y2="256" stroke="#06b6d4" stroke-width="16" stroke-linecap="round" stroke-dasharray="24 24"/>
+</svg>
