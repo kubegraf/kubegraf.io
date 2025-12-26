@@ -1,420 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kubernetes Sudden CPU or Memory Spike Troubleshooting - KubeGraf Documentation</title>
-    <meta name="description" content="KubeGraf documentation - Learn how to install, configure, and use KubeGraf for Kubernetes visualization.">
-    <link rel="canonical" href="https://kubegraf.io/docs/" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kubernetes Sudden CPU or Memory Spike Troubleshooting - KubeGraf Documentation</title>
+  <meta name="description" content="Use KubeGraf to investigate and mitigate sudden CPU or memory spikes in Kubernetes workloads.">
+  <link rel="canonical" href="https://kubegraf.io/docs/troubleshooting/high-cpu-memory.html" />
 
-    <meta property="og:title" content="KubeGraf Documentation – Intelligent Insight for Kubernetes Incidents" />
-    <meta property="og:description" content="Official KubeGraf documentation for detecting incidents, diagnosing root causes, and safely responding to Kubernetes failures." />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://kubegraf.io/docs/" />
-    <meta property="og:site_name" content="KubeGraf" />
-    <meta property="og:image" content="https://kubegraf.io/opengraph.jpg" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@kubegraf" />
-    <meta name="twitter:title" content="KubeGraf Documentation – Intelligent Insight for Kubernetes Incidents" />
-    <meta name="twitter:description" content="Official KubeGraf documentation for detecting incidents, diagnosing root causes, and safely responding to Kubernetes failures." />
-    <meta name="twitter:image" content="https://kubegraf.io/opengraph.jpg" />
-    <!-- Use the same favicon as the main landing page -->
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
-    <link rel="shortcut icon" href="/favicon.ico">
+  <meta property="og:title" content="Kubernetes Sudden CPU or Memory Spike Troubleshooting - KubeGraf" />
+  <meta property="og:description" content="Find noisy Kubernetes workloads and nodes with KubeGraf and troubleshoot CPU or memory spikes." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://kubegraf.io/docs/troubleshooting/high-cpu-memory.html" />
+  <meta property="og:site_name" content="KubeGraf" />
+  <meta property="og:image" content="https://kubegraf.io/opengraph.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@kubegraf" />
+  <meta name="twitter:title" content="Kubernetes Sudden CPU or Memory Spike Troubleshooting - KubeGraf" />
+  <meta name="twitter:description" content="Find noisy Kubernetes workloads and nodes with KubeGraf and troubleshoot CPU or memory spikes." />
+  <meta name="twitter:image" content="https://kubegraf.io/opengraph.jpg" />
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.ico">
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
-    <!-- Use the same font stack as the main landing page -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <!-- Theme Switcher -->
-    <link rel="stylesheet" href="/docs/theme-styles.css">
-    <style>
-        :root {
-            /* Align colors with main landing page palette */
-            --primary: #06b6d4;         /* Neon cyan */
-            --primary-dark: #0f172a;
-            --secondary: #4c1d95;       /* Deep purple */
-            --accent: #8b5cf6;
-            --text: #f9fafb;
-            --text-muted: #9ca3af;
-            --bg: #09090b;              /* Same as main background */
-            --bg-secondary: #020617;
-            --bg-tertiary: #111827;
-            --border: rgba(148, 163, 184, 0.25);
-            --border-hover: rgba(56, 189, 248, 0.55);
-        }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Theme Switcher -->
+  <link rel="stylesheet" href="/docs/theme-styles.css">
+  <style>
+    :root {
+      --primary: #06b6d4;
+      --secondary: #4c1d95;
+      --accent: #8b5cf6;
+      --text: #f9fafb;
+      --text-muted: #9ca3af;
+      --bg: #09090b;
+      --bg-secondary: #020617;
+      --bg-tertiary: #111827;
+      --border: rgba(148, 163, 184, 0.25);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Outfit', -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+    .floating-orbs { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.12; animation: float 20s ease-in-out infinite; }
+    .orb-1 { width: 500px; height: 500px; background: var(--primary); top: -150px; right: -100px; }
+    .orb-2 { width: 350px; height: 350px; background: var(--secondary); bottom: 30%; left: 200px; animation-delay: -5s; }
+    .orb-3 { width: 400px; height: 400px; background: var(--accent); top: 60%; right: -100px; animation-delay: -10s; }
+    @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 25% { transform: translate(20px, -20px) scale(1.03); } 50% { transform: translate(-15px, 15px) scale(0.97); } 75% { transform: translate(15px, 20px) scale(1.01); } }
 
-        body {
-            font-family: 'Outfit', -apple-system, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.7;
-        }
-
-        /* Floating orbs background */
-        .floating-orbs {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-        }
-
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.12;
-            animation: float 20s ease-in-out infinite;
-        }
-
-        .orb-1 {
-            width: 500px;
-            height: 500px;
-            background: var(--primary);
-            top: -150px;
-            right: -100px;
-            animation-delay: 0s;
-        }
-
-        .orb-2 {
-            width: 350px;
-            height: 350px;
-            background: var(--secondary);
-            bottom: 30%;
-            left: 200px;
-            animation-delay: -5s;
-        }
-
-        .orb-3 {
-            width: 400px;
-            height: 400px;
-            background: var(--accent);
-            top: 60%;
-            right: -100px;
-            animation-delay: -10s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            25% { transform: translate(20px, -20px) scale(1.03); }
-            50% { transform: translate(-15px, 15px) scale(0.97); }
-            75% { transform: translate(15px, 20px) scale(1.01); }
-        }
-
-        /* Hero header section */
-        .docs-hero {
-            position: relative;
-            padding: 3rem 0 2rem;
-            margin-bottom: 1rem;
-            overflow: hidden;
-        }
-
-        .docs-hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background:
-                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(50, 108, 229, 0.15), transparent),
-                radial-gradient(ellipse 60% 40% at 80% 50%, rgba(0, 212, 170, 0.08), transparent);
-            pointer-events: none;
-        }
-
-        .docs-hero .grid-pattern {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image:
-                linear-gradient(rgba(50, 108, 229, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(50, 108, 229, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            mask-image: radial-gradient(ellipse 70% 70% at 50% 30%, black 0%, transparent 70%);
-            -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 30%, black 0%, transparent 70%);
-        }
-
-        .docs-hero h1 {
-            position: relative;
-            z-index: 1;
-            animation: heroFadeIn 0.8s ease-out;
-        }
-
-        .docs-hero h1 span {
-            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradientShift 5s ease infinite;
-        }
-
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        @keyframes heroFadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .docs-hero .intro {
-            position: relative;
-            z-index: 1;
-            animation: heroFadeIn 0.8s ease-out 0.2s both;
-        }
-
-        /* Animated underline for h1 */
-        .docs-hero h1::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            margin-top: 1rem;
-            border-radius: 2px;
-            animation: expandLine 0.8s ease-out 0.4s both;
-        }
-
-        @keyframes expandLine {
-            from { width: 0; opacity: 0; }
-            to { width: 80px; opacity: 1; }
-        }
-
-        a { color: var(--primary); text-decoration: none; }
-        a:hover { text-decoration: underline; }
-
-        /* Layout */
-        .docs-layout {
-            display: flex;
+    .docs-layout { 
+            display: flex; 
             flex-direction: column;
-            min-height: 100vh;
+            min-height: 100vh; 
         }
         
         .docs-main-wrapper {
+            display: flex;
             flex: 1;
         }
+    .sidebar { width: 280px; background: var(--bg-secondary); border-right: 1px solid var(--border); padding: 1.5rem; position: fixed; height: 100vh; overflow-y: auto; }
+    .sidebar-logo { display: flex; align-items: center; gap: 0.5rem; font-size: 1.25rem; font-weight: 700; color: var(--text); text-decoration: none; margin-bottom: 2rem; }
+    .sidebar-logo-icon { width: 44px; height: 44px; border-radius: 8px; object-fit: contain; }
+    .sidebar-section { margin-bottom: 1.5rem; }
+    .sidebar-section h3 { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 0.75rem; }
+    .sidebar-section ul { list-style: none; }
+    .sidebar-section a { display: block; padding: 0.5rem 0.75rem; color: var(--text-muted); border-radius: 6px; font-size: 0.9rem; transition: all 0.2s; text-decoration: none; }
+    .sidebar-section a:hover { background: var(--bg-tertiary); color: var(--text); }
+    .sidebar-section a.active { background: rgba(50, 108, 229, 0.15); color: var(--primary); }
 
-        /* Sidebar */
-        .sidebar {
-            width: 280px;
-            background: var(--bg-secondary);
-            border-right: 1px solid var(--border);
-            padding: 1.5rem;
-            position: fixed;
-            height: 100vh;
-            overflow-y: auto;
-        }
-
-        .sidebar-logo {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--text);
-            text-decoration: none;
-            margin-bottom: 2rem;
-        }
-
-        .sidebar-logo svg { width: 28px; height: 28px; }
-
-        .sidebar-logo-icon {
-            width: 96px;
-            height: 96px;
-            border-radius: 8px;
-            object-fit: contain;
-        }
-
-        .sidebar-section {
-            margin-bottom: 1.5rem;
-        }
-
-        .sidebar-section h3 {
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-muted);
-            margin-bottom: 0.75rem;
-        }
-
-        .sidebar-section ul {
-            list-style: none;
-        }
-
-        .sidebar-section a {
-            display: block;
-            padding: 0.5rem 0.75rem;
-            color: var(--text-muted);
-            border-radius: 6px;
-            font-size: 0.9rem;
-            transition: all 0.2s;
-        }
-
-        .sidebar-section a:hover {
-            background: var(--bg-tertiary);
-            color: var(--text);
-            text-decoration: none;
-        }
-
-        .sidebar-section a.active {
-            background: rgba(50, 108, 229, 0.15);
-            color: var(--primary);
-        }
-
-        /* Main Content */
-        .docs-content,
-        main.content {
-            flex: 1;
-            margin-left: 280px;
-            padding: 3rem 4rem;
-            max-width: 1400px;
-            
-            box-sizing: border-box;
-        }
+    .docs-content { flex: 1; margin-left: 280px; padding: 3rem 4rem 3rem 3rem; max-width: 1400px; position: relative; z-index: 1; }
+    .docs-content h1 { font-size: 2.2rem; font-weight: 600; margin-bottom: 0.75rem; font-family: 'Space Grotesk', system-ui, sans-serif; letter-spacing: -0.03em; }
+    .docs-content h2 { font-size: 1.4rem; font-weight: 600; margin: 2rem 0 0.75rem; padding-bottom: 0.35rem; border-bottom: 1px solid var(--border); font-family: 'Space Grotesk', system-ui, sans-serif; }
+    .docs-content h3 { font-size: 1.1rem; font-weight: 600; margin: 1.5rem 0 0.5rem; }
+    .docs-content p { color: var(--text-muted); margin-bottom: 0.9rem; }
+    .docs-content ul { color: var(--text-muted); margin: 0.75rem 0 0.9rem 1.5rem; }
+    .docs-content li { margin-bottom: 0.4rem; }
+    .docs-content code { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; background: var(--bg-tertiary); padding: 0.15rem 0.35rem; border-radius: 4px; color: var(--accent); }
+    .docs-content pre { background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 0.75rem; padding: 1rem 1.25rem; overflow-x: auto; margin: 1rem 0 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
+    .callout { border-radius: 0.75rem; border: 1px solid rgba(148, 163, 184, 0.35); padding: 0.9rem 1rem; background: rgba(15, 23, 42, 0.9); margin: 1.25rem 0; }
+    .callout strong { color: var(--text); }
+    
         
-        /* Ensure content doesn't overlap sidebar */
-        main.content.docs-content {
-            
-        }
-        
-        /* Ensure docs-main-wrapper also has proper spacing */
-        .docs-main-wrapper {
-            margin-left: 280px;
-            
-        }
-
-        .docs-content h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            font-family: 'Space Grotesk', system-ui, sans-serif;
-            letter-spacing: -0.03em;
-        }
-
-        .docs-content h2 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin: 2.5rem 0 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid var(--border);
-            font-family: 'Space Grotesk', system-ui, sans-serif;
-        }
-
-        .docs-content h3 {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin: 2rem 0 0.75rem;
-        }
-
-        .docs-content p {
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-        }
-
-        .docs-content ul, .docs-content ol {
-            color: var(--text-muted);
-            margin: 1rem 0 1rem 1.5rem;
-        }
-
-        .docs-content li {
-            margin-bottom: 0.5rem;
-        }
-
-        /* Code blocks */
-        .docs-content code {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.875rem;
-            background: var(--bg-tertiary);
-            padding: 0.2rem 0.4rem;
-            border-radius: 4px;
-            color: var(--secondary);
-        }
-
-        .docs-content pre {
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 1rem 1.25rem;
-            overflow-x: auto;
-            margin: 1rem 0;
-        }
-
-        .docs-content pre code {
-            background: none;
-            padding: 0;
-            color: #e2e8f0;
-        }
-
-        /* Cards Grid */
-        .docs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-
-        .docs-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            transition: all 0.3s;
-        }
-
-        .docs-card:hover {
-            border-color: var(--border-hover);
-            transform: translateY(-2px);
-            text-decoration: none;
-        }
-
-        .docs-card h3 {
-            color: var(--text);
-            font-size: 1.1rem;
-            margin: 0 0 0.5rem 0;
-        }
-
-        .docs-card p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin: 0;
-        }
-
-        .docs-card .icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            background: rgba(50, 108, 229, 0.15);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1rem;
-        }
-
-        /* Intro text */
-        .intro {
-            font-size: 1.15rem;
-            color: var(--text);
-            margin-bottom: 2rem;
-        }
-
+        /* Mobile Menu Button */
         /* Mobile Menu Buttons */
         .mobile-menu-btn,
-        .mobile-home-btn {
+        .mobile-home-btn.mobile-menu-btn {
             display: none;
             position: fixed;
             top: 1rem;
+            left: 1rem;
             z-index: 1001;
             background: var(--bg-secondary);
             border: 1px solid var(--border);
@@ -427,21 +103,23 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
             min-width: 48px;
             min-height: 48px;
-            text-decoration: none;
         }
 
         .mobile-menu-btn {
             left: 1rem;
         }
 
-        .mobile-home-btn {
-            left: 4.5rem;
-        }
+        .mobile-home-btn$MOBILE_HOME_BTN_CSS
 
         .mobile-menu-btn:hover,
-        .mobile-menu-btn:active,
+        .mobile-menu-btn:active {
+            background: var(--bg-tertiary);
+            transform: scale(1.05);
+        }
+
         .mobile-home-btn:hover,
-        .mobile-home-btn:active {
+        .mobile-home-btn:active.mobile-menu-btn:hover,
+        .mobile-menu-btn:active {
             background: var(--bg-tertiary);
             transform: scale(1.05);
         }
@@ -461,35 +139,17 @@
         .mobile-sidebar-overlay.active {
             display: block;
         }
-
-        /* Responsive */
-        @media (max-width: 900px) {
-                        .docs-main-wrapper {
-                margin-left: 0;
-                width: 100%;
-            }
-            
-            .docs-content {
-                margin-left: 0;
-                padding: 2rem 1.5rem;
-                padding-top: 5rem;
-                max-width: 100%;
-            }
-            
-            main.content.docs-content {
-                margin-left: 0;
-                margin-right: 0;
-                width: 100%;
-                max-width: 100%;
-            }
-            
+@media (max-width: 900px) {
             .mobile-menu-btn {
+                display: block;
+            }
+            .mobile-home-btn {
                 display: block;
             }
             
             .sidebar {
-                position: fixed;
-                left: -280px;
+                position: fixed !important;
+                left: -280px !important;
                 top: 0;
                 z-index: 1000;
                 transition: left 0.3s ease;
@@ -497,41 +157,121 @@
             }
             
             .sidebar.mobile-open {
-                left: 0;
+                left: 0 !important;
             }
             
-            .docs-content {
-                margin-left: 0;
-                padding: 2rem 1.5rem;
-                padding-top: 5rem;
-            }
-        }
-    </style>
+            .docs-content { 
+                margin-left: 0; 
+                padding: 2rem 1.5rem; 
+                padding-top: 5rem !important;
+            } .docs-content { margin-left: 0; padding: 2rem 1.5rem; } }
+  
+    .docs-footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 4rem;
+      margin-top: auto;
+      background: var(--bg-secondary);
+      margin-left: 280px;
+      width: calc(100% - 280px);
+      flex-shrink: 0;
+    }
+
+    .docs-footer-content {
+      max-width: 900px;
+      text-align: center;
+    }
+
+    .docs-footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem 1.5rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .docs-footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .docs-footer-links a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    .docs-footer-links .theme-selector {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.25rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      vertical-align: middle;
+      margin-left: 0;
+    }
+
+    .docs-footer-links .theme-selector button {
+      padding: 0.25rem 0.5rem;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 0.875rem;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 2rem;
+      opacity: 0.4;
+    }
+
+    .docs-footer-links .theme-selector button:hover {
+      opacity: 0.6;
+      background: var(--bg-secondary);
+    }
+
+    .docs-footer-links .theme-selector button.active {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+
+    .docs-footer-links .theme-selector button:not(.active):hover {
+      opacity: 0.8;
+    }
+
+    @media (max-width: 900px) {
+      .docs-footer {
+        margin-left: 0;
+        padding: 2rem 1.5rem;
+      }
+
+      .docs-footer-links {
+        gap: 0.75rem 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="docs-layout">
-        <!-- Mobile Menu Buttons -->
+  <div class="docs-layout">
+        
+        <!-- Mobile Menu Button -->
         <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle navigation menu">
             ☰
         </button>
-        <a href="/" class="mobile-home-btn" aria-label="Go to home page">
-            🏠
-        </a>
         
         <!-- Mobile Sidebar Overlay -->
         <div class="mobile-sidebar-overlay" id="mobile-sidebar-overlay"></div>
         
-        <!-- Sidebar -->
-        <aside class="sidebar" id="sidebar">
+<aside class="sidebar" id="sidebar">
       <a href="/" class="sidebar-logo">
         <img src="/assets/logo/kubegraf_color_icon.png" alt="KubeGraf logo" class="sidebar-logo-icon">
         KubēGraf
       </a>
 
-      
-      
-      
-      
       
       
       
@@ -559,26 +299,12 @@
       </div>
 
       <div class="sidebar-section">
-        <h3>Core Concepts</h3>
-        <ul>
-          <li><a href="/docs/core-concepts/incident-intelligence.html">Incident Intelligence</a></li>
-          <li><a href="/docs/core-concepts/deterministic-diagnosis.html">Deterministic Diagnosis</a></li>
-          <li><a href="/docs/core-concepts/evidence-and-confidence.html">Evidence & Confidence</a></li>
-          <li><a href="/docs/core-concepts/safety-model.html">Safety Model</a></li>
-        </ul>
-      </div>
-
-      <div class="sidebar-section">
         <h3>User Guide</h3>
         <ul>
           <li><a href="/docs/terminal-ui.html">Terminal UI</a></li>
           <li><a href="/docs/web-dashboard.html">Web Dashboard</a></li>
           <li><a href="/docs/commands.html">Commands</a></li>
           <li><a href="/docs/configuration.html">Configuration</a></li>
-          <li><a href="/docs/user-guide/incidents-overview.html">Incidents Overview</a></li>
-          <li><a href="/docs/user-guide/incident-detail-view.html">Incident Detail View</a></li>
-          <li><a href="/docs/user-guide/fix-preview-and-apply.html">Fix Preview and Apply</a></li>
-          <li><a href="/docs/user-guide/knowledge-bank.html">Knowledge Bank</a></li>
         </ul>
       </div>
 
@@ -609,32 +335,6 @@
       </div>
 
       <div class="sidebar-section">
-        <h3>Compare</h3>
-        <ul>
-          <li><a href="/docs/compare/kubegraf-vs-lens.html">KubeGraf vs Kubernetes IDEs</a></li>
-        </ul>
-      </div>
-
-      <div class="sidebar-section">
-        <h3>Reference</h3>
-        <ul>
-          <li><a href="/docs/reference/api.html">API schema</a></li>
-          <li><a href="/docs/reference/faq.html">FAQ</a></li>
-        </ul>
-      </div>
-
-      <div class="sidebar-section">
-        <h3>Architecture & Internals</h3>
-        <ul>
-          <li><a href="/docs/architecture/system-overview.html">System Overview</a></li>
-          <li><a href="/docs/architecture/intelligence-pipeline.html">Intelligence Pipeline</a></li>
-          <li><a href="/docs/architecture/snapshot-architecture.html">Snapshot Architecture</a></li>
-          <li><a href="/docs/architecture/runbooks-and-remediation.html">Runbooks & Remediation</a></li>
-          <li><a href="/docs/architecture/learning-engine.html">Learning Engine</a></li>
-        </ul>
-      </div>
-
-      <div class="sidebar-section">
         <h3>Resources</h3>
         <ul>
           <li><a href="https://github.com/kubegraf/kubegraf" target="_blank" rel="noopener noreferrer">GitHub</a></li>
@@ -645,216 +345,151 @@
     </aside>
         <div class="docs-main-wrapper">
 
-        <!-- Floating Orbs Background -->
-        <div class="floating-orbs">
-            <div class="orb orb-1"></div>
-            <div class="orb orb-2"></div>
-            <div class="orb orb-3"></div>
-        </div>
-
-        <!-- Main Content -->
-        <main class="content docs-content"><h1>Kubernetes Sudden CPU or Memory Spike Troubleshooting</h1>
-<h2>Why this matters</h2>
-<p>Unexpected CPU or memory spikes can degrade latency, trigger throttling, or cause OOM kills.
-If left unchecked, noisy workloads can starve other services on shared nodes and cause cascading failures.</p>
-<blockquote>
-<p><strong>Pro tip:</strong> Capture a short window of detailed metrics around the spike so you can tune requests/limits later.</p>
-</blockquote>
-<h2>Symptoms</h2>
-<ul>
-<li>Monitoring shows a sharp increase in CPU or memory usage for a workload, namespace, or node.</li>
-<li>Pods are being OOMKilled (<code>Reason=OOMKilled</code> in container status).</li>
-<li>Requests are being throttled (<code>cpu</code> throttling observed, higher latency).</li>
-<li>HPA scales pods up aggressively, or can’t scale because of node limits.</li>
-</ul>
-<h2>Common root causes</h2>
-<ul>
-<li>Recent code change introducing heavier computation or inefficient queries.</li>
-<li>Increased traffic or new background jobs enabled.</li>
-<li>Resource requests/limits set too low or too high relative to real usage.</li>
-<li>Memory leaks or unbounded caches in the application.</li>
-<li>Noisy neighbor effect from another workload on the same node.</li>
-</ul>
-<h2>How KubeGraf helps</h2>
-<ul>
-<li>Surfaces per-workload and per-node resource usage in one place.</li>
-<li>Topology/resource views help you see which namespaces/workloads are generating load.</li>
-<li>Links pods to their nodes so you can spot noisy neighbors.</li>
-<li>Incident timeline can show correlation between deploys, config changes, and resource spikes.</li>
-</ul>
-<h2>Step-by-step using KubeGraf UI</h2>
-<ol>
-<li><p><strong>Identify the scope of the spike</strong></p>
-<ul>
-<li>Start from your external monitoring alert (service, namespace, or node).</li>
-<li>Open KubeGraf and select the relevant cluster.</li>
-<li>Use the <strong>Topology</strong> or <strong>Resource Map</strong> view to:<ul>
-<li>Find the namespace and workload with elevated CPU/memory.</li>
-<li>Confirm whether it’s isolated to one service or widespread.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><strong>Inspect workload-level metrics</strong></p>
-<ul>
-<li>Select the suspect Deployment/StatefulSet.</li>
-<li>Check resource usage panels (if available):<ul>
-<li>CPU requests vs actual usage.</li>
-<li>Memory requests vs actual usage and OOM events.</li>
-</ul>
-</li>
-<li>Note whether HPA is scaling as expected.</li>
-</ul>
-</li>
-<li><p><strong>Drill into pods and nodes</strong></p>
-<ul>
-<li>From the workload, list pods and their nodes.</li>
-<li>Look for:<ul>
-<li>Pods with <code>Reason=OOMKilled</code> in container status.</li>
-<li>Pods on the same node showing elevated usage.</li>
-</ul>
-</li>
-<li>If a single node is hot, inspect other workloads on that node.</li>
-</ul>
-</li>
-<li><p><strong>Correlate with recent changes</strong></p>
-<ul>
-<li>Open the Incident Timeline for the workload/namespace.</li>
-<li>Look for events near the start of the spike:<ul>
-<li>New Deployment rollout.</li>
-<li>Config changes (feature flags, batch job schedule).</li>
-<li>HPA or resource limit updates.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><strong>Decide on immediate mitigation</strong></p>
-<ul>
-<li>Short-term actions might include:<ul>
-<li>Temporarily scaling replicas horizontally if capacity exists.</li>
-<li>Raising memory limits slightly to stop OOM churn (only if you have node headroom).</li>
-<li>Reducing concurrency or disabling heavy background jobs via config.</li>
-</ul>
-</li>
-<li>Apply changes via your standard deployment process.</li>
-</ul>
-</li>
-<li><p><strong>Plan and apply a proper fix</strong></p>
-<ul>
-<li>Based on what you see:<ul>
-<li>If usage jump aligns with a new release, work with devs to profile and fix the regression.</li>
-<li>If limits are unrealistic, adjust requests/limits based on observed usage.</li>
-<li>If a noisy neighbor is the issue, consider rebalancing workloads or adjusting node pools.</li>
-</ul>
-</li>
-<li>Use KubeGraf to watch resource graphs normalize after the change.</li>
-</ul>
-</li>
-</ol>
-<h2>What to check next</h2>
-<ul>
-<li>Are any other workloads on the same node under pressure?</li>
-<li>Is the cluster close to overall capacity (node CPU/memory pressure)?</li>
-<li>Are HPA policies and target metrics configured sanely for this workload?</li>
-</ul>
-<h2>Common mistakes</h2>
-<ul>
-<li>Only raising limits without understanding the root cause (masking a memory leak).</li>
-<li>Ignoring node-level saturation, focusing only on one Deployment.</li>
-<li>Changing limits directly in the cluster rather than updating the declarative spec.</li>
-<li>Treating a one-off spike as normal and not checking if it repeats.</li>
-</ul>
-<h2>Related issues</h2>
-<ul>
-<li><a href="/docs/troubleshooting/rollout-stuck">Deployment rollout stuck / ProgressDeadlineExceeded</a></li>
-<li><a href="/docs/troubleshooting/crashloopbackoff">CrashLoopBackOff Kubernetes debugging</a></li>
-<li><a href="/docs/troubleshooting/was-working-yesterday">&quot;It was working yesterday&quot; incidents</a></li>
-</ul>
-<h2>Expected outcome</h2>
-<ul>
-<li>You identify which workload(s) are responsible for the spike and on which nodes.</li>
-<li>You have an immediate mitigation (scaling or config change) and a plan for a longer-term fix.</li>
-<li>Resource usage returns to a stable baseline that matches limits and capacity.</li>
-</ul>
-<!-- TODO: screenshot showing KubeGraf resource map with a hot workload/node highlighted. -->
-
-
-</main>
-        </div>
-
-        <footer class="docs-footer">
-            <div class="docs-footer-content">
-                <div class="docs-footer-links">
-                    <a href="https://github.com/kubegraf/kubegraf/issues/new?template=bug_report.yml" target="_blank" rel="noopener noreferrer">Report a bug</a>
-                    <a href="https://github.com/kubegraf/kubegraf/issues/new?template=feature_request.yml" target="_blank" rel="noopener noreferrer">Request a feature</a>
-                    <a href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
-                    <a href="/license" target="_blank" rel="noopener noreferrer">License (Apache 2.0)</a>
-                    <a href="mailto:contact@kubegraf.io">Contact</a>
-                    <div class="theme-selector">
-                        <button id="theme-light-btn" onclick="setTheme('light')" aria-label="Light theme" title="Light">
-                            ☀️
-                        </button>
-                        <button id="theme-dark-btn" onclick="setTheme('dark')" aria-label="Dark theme" title="Dark">
-                            🌙
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </footer>
+    <div class="floating-orbs">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
     </div>
-    
-    <script>
-        // Wait for DOM to be ready
-        document.addEventListener('DOMContentLoaded', function() {
-            // Mobile menu toggle
-            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('mobile-sidebar-overlay');
-            
-            function toggleMobileMenu() {
-                if (sidebar && overlay) {
-                    sidebar.classList.toggle('mobile-open');
-                    overlay.classList.toggle('active');
-                }
-            }
-            
-            function closeMobileMenu() {
-                if (sidebar && overlay) {
-                    sidebar.classList.remove('mobile-open');
-                    overlay.classList.remove('active');
-                }
-            }
-            
-            if (mobileMenuBtn) {
-                mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-            }
-            
-            if (overlay) {
-                overlay.addEventListener('click', closeMobileMenu);
-            }
-            
-            // Close menu when clicking on a sidebar link (mobile only)
-            if (sidebar) {
-                const sidebarLinks = sidebar.querySelectorAll('a');
-                sidebarLinks.forEach(link => {
-                    link.addEventListener('click', function() {
-                        // Only close on mobile
-                        if (window.innerWidth <= 900) {
-                            setTimeout(closeMobileMenu, 100);
-                        }
-                    });
-                });
-            }
-            
-            // Close menu on escape key
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && sidebar && sidebar.classList.contains('mobile-open')) {
-                    closeMobileMenu();
-                }
-            });
-        });
-    </script>
-    <script src="/docs/theme-switcher.js"></script>
+
+    <main class="docs-content">
+      <h1>Kubernetes Sudden CPU or Memory Spike Troubleshooting</h1>
+
+      <h2>Why this matters</h2>
+      <p>
+        Unexpected CPU or memory spikes can degrade latency, trigger throttling, or cause OOM kills.
+        On shared clusters, a single noisy workload can starve other services and cause cascading failures.
+      </p>
+
+      <div class="callout">
+        <p><strong>Pro tip:</strong> Capture a short window of detailed metrics around the spike so you can tune requests/limits later.</p>
+      </div>
+
+      <h2>Symptoms</h2>
+      <ul>
+        <li>Monitoring shows a sharp increase in CPU or memory usage for a workload, namespace, or node.</li>
+        <li>Pods are being <code>OOMKilled</code> in container status.</li>
+        <li>Requests are being throttled (CPU throttling, higher latency).</li>
+        <li>HPA scales pods up aggressively or cannot scale further due to node limits.</li>
+      </ul>
+
+      <h2>Common root causes</h2>
+      <ul>
+        <li>Recent code change introducing heavier computation or inefficient queries.</li>
+        <li>Increased traffic or new background jobs enabled.</li>
+        <li>Resource requests/limits set too low or too high relative to real usage.</li>
+        <li>Memory leaks or unbounded caches in the application.</li>
+        <li>Noisy neighbor effect from another workload on the same node.</li>
+      </ul>
+
+      <h2>How KubeGraf helps</h2>
+      <ul>
+        <li>Surfaces per-workload and per-node resource usage in one place.</li>
+        <li>Topology/resource views help you see which namespaces and workloads are generating load.</li>
+        <li>Links pods to their nodes so you can spot noisy neighbors.</li>
+        <li>Incident timeline can show correlation between deploys, config changes, and resource spikes.</li>
+      </ul>
+
+      <h2>Step-by-step using KubeGraf UI</h2>
+
+      <h3>1. Identify the scope of the spike</h3>
+      <ul>
+        <li>Start from your external monitoring alert (service, namespace, or node).</li>
+        <li>Open KubeGraf and select the relevant cluster.</li>
+        <li>Use the <strong>Topology</strong> or <strong>Resource Map</strong> view to find the namespace and workload with elevated CPU/memory.</li>
+      </ul>
+
+      <h3>2. Inspect workload-level metrics</h3>
+      <ul>
+        <li>Select the suspect Deployment/StatefulSet.</li>
+        <li>Check resource usage panels (if available): requests vs actual usage, memory vs OOM events.</li>
+        <li>Note whether HPA is scaling as expected.</li>
+      </ul>
+
+      <h3>3. Drill into pods and nodes</h3>
+      <ul>
+        <li>From the workload, list pods and their nodes.</li>
+        <li>Look for pods with <code>Reason=OOMKilled</code> or high CPU utilization.</li>
+        <li>If a single node is hot, inspect other workloads on that node for noisy neighbors.</li>
+      </ul>
+
+      <h3>4. Correlate with recent changes</h3>
+      <ul>
+        <li>Open the Incident Timeline for the workload/namespace.</li>
+        <li>Look for events near the start of the spike: new Deployment rollout, config changes, HPA/limit updates.</li>
+      </ul>
+
+      <h3>5. Decide on immediate mitigation</h3>
+      <ul>
+        <li>Short-term actions might include:</li>
+      </ul>
+      <ul>
+        <li>Temporarily scaling replicas horizontally if capacity exists.</li>
+        <li>Raising memory limits slightly to stop OOM churn (only if you have node headroom).</li>
+        <li>Reducing concurrency or disabling heavy background jobs via config.</li>
+      </ul>
+
+      <h3>6. Plan and apply a proper fix</h3>
+      <ul>
+        <li>If usage jump aligns with a new release, work with devs to profile and fix the regression.</li>
+        <li>If limits are unrealistic, adjust requests/limits based on observed usage.</li>
+        <li>If a noisy neighbor is the issue, consider rebalancing workloads or adjusting node pools.</li>
+      </ul>
+
+      <h2>What to check next</h2>
+      <ul>
+        <li>Are any other workloads on the same node under pressure?</li>
+        <li>Is the cluster close to overall capacity (node CPU/memory pressure)?</li>
+        <li>Are HPA policies and target metrics configured sanely for this workload?</li>
+      </ul>
+
+      <h2>Common mistakes</h2>
+      <ul>
+        <li>Only raising limits without understanding the root cause (masking a memory leak).</li>
+        <li>Ignoring node-level saturation and focusing only on one Deployment.</li>
+        <li>Changing limits directly in the cluster rather than updating the declarative spec.</li>
+        <li>Treating a one-off spike as normal and not checking if it repeats.</li>
+      </ul>
+
+      <h2>Related issues</h2>
+      <ul>
+        <li><a href="/docs/troubleshooting/rollout-stuck.html">Deployment rollout stuck / ProgressDeadlineExceeded</a></li>
+        <li><a href="/docs/troubleshooting/crashloopbackoff.html">CrashLoopBackOff Kubernetes debugging</a></li>
+        <li><a href="/docs/troubleshooting/was-working-yesterday.html">"It was working yesterday" incidents</a></li>
+      </ul>
+
+      <h2>Expected outcome</h2>
+      <p>After following this playbook you should:</p>
+      <ul>
+        <li>Identify which workload(s) are responsible for the spike and on which nodes.</li>
+        <li>Have an immediate mitigation (scaling or config change) and a plan for a longer-term fix.</li>
+        <li>See resource usage return to a stable baseline that matches limits and capacity.</li>
+      </ul>
+
+      <pre><code>[ TODO: screenshot showing KubeGraf resource map with a hot workload/node highlighted. ]</code></pre>
+    </main>
+        </div>
+
+    <footer class="docs-footer">
+      <div class="docs-footer-content">
+        <div class="docs-footer-links">
+          <a href="https://github.com/kubegraf/kubegraf/issues/new?template=bug_report.yml" target="_blank" rel="noopener noreferrer">Report a bug</a>
+          <a href="https://github.com/kubegraf/kubegraf/issues/new?template=feature_request.yml" target="_blank" rel="noopener noreferrer">Request a feature</a>
+          <a href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+          <a href="/license" target="_blank" rel="noopener noreferrer">License (Apache 2.0)</a>
+          <a href="mailto:contact@kubegraf.io">Contact</a>
+          <div class="theme-selector">
+            <button id="theme-light-btn" onclick="setTheme('light')" aria-label="Light theme" title="Light">
+              ☀️
+            </button>
+            <button id="theme-dark-btn" onclick="setTheme('dark')" aria-label="Dark theme" title="Dark">
+              🌙
+            </button>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
     <script src="/docs/mobile-menu.js"></script>
+    <script src="/docs/theme-switcher.js"></script>
 </body>
 </html>

@@ -2,11 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5, viewport-fit=cover">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Installation - KubeGraf Documentation</title>
     <meta name="description" content="Install KubeGraf on macOS, Linux, or Windows. Multiple installation methods available.">
     <link rel="canonical" href="https://kubegraf.io/docs/installation.html" />
@@ -22,19 +18,18 @@
     <meta name="twitter:title" content="KubeGraf Documentation – Intelligent Insight for Kubernetes Incidents" />
     <meta name="twitter:description" content="Official KubeGraf documentation for detecting incidents, diagnosing root causes, and safely responding to Kubernetes failures." />
     <meta name="twitter:image" content="https://kubegraf.io/opengraph.jpg" />
-    <!-- Favicons for browsers & Google Search site icon -->
-    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="icon" href="/favicon.ico" sizes="48x48">
-    <link rel="icon" type="image/png" sizes="192x192" href="/web-app-manifest-192x192.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <!-- Use the same favicon as the main landing page -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
     <!-- Use the same font stack as the main landing page -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <!-- Theme Switcher & Mobile Styles -->
+  <!-- Theme Switcher -->
   <link rel="stylesheet" href="/docs/theme-styles.css">
-  <link rel="stylesheet" href="/docs/mobile-menu.css">
+    <link rel="stylesheet" href="/docs/styles.css">
     <style>
         :root {
             /* Align colors with main landing page palette */
@@ -157,26 +152,11 @@
             color: var(--primary);
         }
 
-        /* Main Content */
-        .docs-content,
-        main.content {
+        .docs-content {
             flex: 1;
             margin-left: 280px;
             padding: 3rem 4rem;
-            max-width: 1400px;
-            
-            box-sizing: border-box;
-        }
-        
-        /* Ensure content doesn't overlap sidebar */
-        main.content.docs-content {
-            
-        }
-        
-        /* Ensure docs-main-wrapper also has proper spacing */
-        .docs-main-wrapper {
-            margin-left: 280px;
-            
+            max-width: 900px;
         }
 
         .docs-content h1 {
@@ -412,7 +392,7 @@
             left: 1rem;
         }
 
-        .mobile-home-btn
+        .mobile-home-btn$MOBILE_HOME_BTN_CSS
 
         .mobile-menu-btn:hover,
         .mobile-menu-btn:active {
@@ -444,25 +424,6 @@
         }
 
         @media (max-width: 900px) {
-                        .docs-main-wrapper {
-                margin-left: 0;
-                width: 100%;
-            }
-            
-            .docs-content {
-                margin-left: 0;
-                padding: 2rem 1.5rem;
-                padding-top: 5rem;
-                max-width: 100%;
-            }
-            
-            main.content.docs-content {
-                margin-left: 0;
-                margin-right: 0;
-                width: 100%;
-                max-width: 100%;
-            }
-            
             .mobile-menu-btn {
                 display: block;
             }
@@ -471,8 +432,8 @@
             }
             
             .sidebar {
-                position: fixed;
-                left: -280px;
+                position: fixed !important;
+                left: -280px !important;
                 top: 0;
                 z-index: 1000;
                 transition: left 0.3s ease;
@@ -480,13 +441,13 @@
             }
             
             .sidebar.mobile-open {
-                left: 0;
+                left: 0 !important;
             }
             
-            .docs-content {
-                margin-left: 0;
-                padding: 2rem 1.5rem;
-                padding-top: 5rem;
+            .docs-content { 
+                margin-left: 0; 
+                padding: 2rem 1.5rem; 
+                padding-top: 5rem !important;
             }
             .two-col { grid-template-columns: 1fr; gap: 1rem; }
             .platform-grid { grid-template-columns: 1fr; }
@@ -510,11 +471,6 @@
         KubēGraf
       </a>
 
-      
-      
-      
-      
-      
       
       
       
@@ -542,26 +498,12 @@
       </div>
 
       <div class="sidebar-section">
-        <h3>Core Concepts</h3>
-        <ul>
-          <li><a href="/docs/core-concepts/incident-intelligence.html">Incident Intelligence</a></li>
-          <li><a href="/docs/core-concepts/deterministic-diagnosis.html">Deterministic Diagnosis</a></li>
-          <li><a href="/docs/core-concepts/evidence-and-confidence.html">Evidence & Confidence</a></li>
-          <li><a href="/docs/core-concepts/safety-model.html">Safety Model</a></li>
-        </ul>
-      </div>
-
-      <div class="sidebar-section">
         <h3>User Guide</h3>
         <ul>
           <li><a href="/docs/terminal-ui.html">Terminal UI</a></li>
           <li><a href="/docs/web-dashboard.html">Web Dashboard</a></li>
           <li><a href="/docs/commands.html">Commands</a></li>
           <li><a href="/docs/configuration.html">Configuration</a></li>
-          <li><a href="/docs/user-guide/incidents-overview.html">Incidents Overview</a></li>
-          <li><a href="/docs/user-guide/incident-detail-view.html">Incident Detail View</a></li>
-          <li><a href="/docs/user-guide/fix-preview-and-apply.html">Fix Preview and Apply</a></li>
-          <li><a href="/docs/user-guide/knowledge-bank.html">Knowledge Bank</a></li>
         </ul>
       </div>
 
@@ -592,32 +534,6 @@
       </div>
 
       <div class="sidebar-section">
-        <h3>Compare</h3>
-        <ul>
-          <li><a href="/docs/compare/kubegraf-vs-lens.html">KubeGraf vs Kubernetes IDEs</a></li>
-        </ul>
-      </div>
-
-      <div class="sidebar-section">
-        <h3>Reference</h3>
-        <ul>
-          <li><a href="/docs/reference/api.html">API schema</a></li>
-          <li><a href="/docs/reference/faq.html">FAQ</a></li>
-        </ul>
-      </div>
-
-      <div class="sidebar-section">
-        <h3>Architecture & Internals</h3>
-        <ul>
-          <li><a href="/docs/architecture/system-overview.html">System Overview</a></li>
-          <li><a href="/docs/architecture/intelligence-pipeline.html">Intelligence Pipeline</a></li>
-          <li><a href="/docs/architecture/snapshot-architecture.html">Snapshot Architecture</a></li>
-          <li><a href="/docs/architecture/runbooks-and-remediation.html">Runbooks & Remediation</a></li>
-          <li><a href="/docs/architecture/learning-engine.html">Learning Engine</a></li>
-        </ul>
-      </div>
-
-      <div class="sidebar-section">
         <h3>Resources</h3>
         <ul>
           <li><a href="https://github.com/kubegraf/kubegraf" target="_blank" rel="noopener noreferrer">GitHub</a></li>
@@ -634,7 +550,7 @@
             <div class="orb orb-3"></div>
         </div>
 
-        <main class="content docs-content">
+        <main class="docs-content">
             <div class="docs-hero">
                 <div class="grid-pattern"></div>
                 <h1><span>Installation</span></h1>
