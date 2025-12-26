@@ -204,6 +204,13 @@ export default function Hero() {
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="animate-scan-line absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
         </div>
+        {/* Data flow lines - KubeGraf signature: represents cluster monitoring */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
+          {/* Horizontal data streams at different heights */}
+          <div className="absolute top-[20%] left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-transparent to-transparent animate-data-flow" />
+          <div className="absolute top-[45%] left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-transparent to-transparent animate-data-flow" style={{ animationDelay: '2s' }} />
+          <div className="absolute top-[70%] left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-transparent to-transparent animate-data-flow" style={{ animationDelay: '4s' }} />
+        </div>
       </div>
 
       {/* Main Content - Centered layout */}
