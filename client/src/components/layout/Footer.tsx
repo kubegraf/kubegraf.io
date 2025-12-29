@@ -94,11 +94,14 @@ export default function Footer({ variant = "default" }: FooterProps) {
             {/* Brand Column */}
             <div className="col-span-2 md:col-span-3 lg:col-span-2">
               <Link href="/">
-                <img
-                  src={themePreference === 'light' ? '/favicon.svg' : '/assets/logos/binary-matrix/logo-binary-matrix-cyan.svg'}
-                  alt="KubeGraf"
-                  className="kubegraf-logo mb-4"
-                />
+                <div className="flex items-center gap-3 mb-4">
+                  <img
+                    src={themePreference === 'light' ? '/favicon.svg' : '/assets/logos/binary-matrix/logo-binary-matrix-cyan.svg'}
+                    alt="KubeGraf"
+                    className="kubegraf-logo"
+                  />
+                  <span className="text-xl font-bold text-foreground">KubēGraf</span>
+                </div>
               </Link>
               <p className="text-sm text-muted-foreground mb-4 max-w-sm">
                 Local-first Kubernetes incident detection and diagnosis. No SaaS lock-in.
@@ -166,7 +169,7 @@ export default function Footer({ variant = "default" }: FooterProps) {
         <div className="py-6 border-t border-border/50">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-x-6 gap-y-2 text-xs text-muted-foreground">
-              <span>&copy; 2025 KubēGraf</span>
+              <span>&copy; 2025 KubēGraf. All rights reserved.</span>
               <span className="hidden md:inline">•</span>
               <span>Apache 2.0 License</span>
               <span className="hidden md:inline">•</span>
