@@ -102,8 +102,7 @@
             top: 0;
         }
 
-        .sidebar-logo {
-            display: flex;
+        .sidebar-logo { display: none !important;
             align-items: center;
             gap: 0.5rem;
             font-size: 1.25rem;
@@ -1016,6 +1015,18 @@ brew install kubegraf</code></pre>
             <p>Now that KubeGraf is installed, check out the <a href="/docs/quickstart.html">Quick Start Guide</a> to connect to your first cluster.</p>
 
         <!-- Page Navigation -->
+        
+            </a>
+            <a href="/docs/commands.html" class="docs-nav-btn docs-nav-next" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; text-decoration: none; color: var(--text); transition: all 0.2s; font-size: 0.875rem;">
+                <div style="text-align: right;">
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">Next</div>
+                    <div style="font-weight: 600;">Commands</div>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </a>
+        </div>
+
+        <!-- Page Navigation -->
         <div class="docs-page-nav" style="display: flex; justify-content: space-between; align-items: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);">
             <a href="/docs/quickstart.html" class="docs-nav-btn docs-nav-prev" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; text-decoration: none; color: var(--text); transition: all 0.2s; font-size: 0.875rem;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
@@ -1024,10 +1035,10 @@ brew install kubegraf</code></pre>
                     <div style="font-weight: 600;">Quick Start</div>
                 </div>
             </a>
-            <a href="/docs/commands.html" class="docs-nav-btn docs-nav-next" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; text-decoration: none; color: var(--text); transition: all 0.2s; font-size: 0.875rem;">
+            <a href="/docs/getting-started/first-cluster.html" class="docs-nav-btn docs-nav-next" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; text-decoration: none; color: var(--text); transition: all 0.2s; font-size: 0.875rem;">
                 <div style="text-align: right;">
                     <div style="font-size: 0.75rem; color: var(--text-muted);">Next</div>
-                    <div style="font-weight: 600;">Commands</div>
+                    <div style="font-weight: 600;">First Cluster</div>
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </a>
