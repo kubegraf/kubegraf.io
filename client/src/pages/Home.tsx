@@ -2,13 +2,14 @@ import { lazy, Suspense, useEffect, useState } from "react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Hero from "@/components/sections/Hero";
-import FeaturesModern from "@/components/sections/FeaturesModern";
-import HowItWorks from "@/components/sections/HowItWorks";
+import IncidentLifecycle from "@/components/sections/IncidentLifecycle";
+import EvidencePipeline from "@/components/sections/EvidencePipeline";
+import TrustAnchors from "@/components/sections/TrustAnchors";
 import CTASection from "@/components/sections/CTASection";
 import { useIsMobile } from "@/hooks/useIsMobile";
 
-// Lazy load heavy visual effect - ONLY on desktop
-const CyberGrid = lazy(() => import("@/components/CyberGrid"));
+// Lazy load forensic grid - ONLY on desktop
+const ForensicGrid = lazy(() => import("@/components/ForensicGrid"));
 
 export default function Home() {
   const isMobile = useIsMobile();
@@ -25,17 +26,18 @@ export default function Home() {
 
   return (
     <div className="bg-background text-foreground selection:bg-primary/30 scroll-smooth">
-      {/* CyberGrid only on desktop, after delay */}
+      {/* ForensicGrid only on desktop, after delay */}
       {!isMobile && showEffects && (
         <Suspense fallback={null}>
-          <CyberGrid />
+          <ForensicGrid />
         </Suspense>
       )}
       <Navbar />
       <Hero />
       <div className="relative">
-        <FeaturesModern />
-        <HowItWorks />
+        <IncidentLifecycle />
+        <EvidencePipeline />
+        <TrustAnchors />
         <CTASection />
       </div>
       <Footer />

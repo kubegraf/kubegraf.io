@@ -7,11 +7,13 @@ function MobileTerminal() {
   const [visibleLines, setVisibleLines] = useState(0);
 
   const terminalLines = [
-    { type: 'command', text: '$ kubegraf analyze --ns prod' },
-    { type: 'info', text: '⚡ Scanning 24 pods...' },
-    { type: 'warning', text: '⚠  CrashLoopBackOff detected' },
-    { type: 'detail', text: '   └─ OOMKilled (512Mi)' },
-    { type: 'success', text: '✓  Fix: Increase to 1Gi' },
+    { type: 'command', text: '$ kubegraf analyze crash-pod-7x9a' },
+    { type: 'info', text: '⚡ Collecting evidence...' },
+    { type: 'detail', text: '  ├─ Logs (3 sources)' },
+    { type: 'detail', text: '  ├─ Events (cluster)' },
+    { type: 'detail', text: '  └─ Metrics (memory)' },
+    { type: 'success', text: '✓ Root cause: OOMKilled' },
+    { type: 'warning', text: '  confidence: 94%' },
   ];
 
   useEffect(() => {
@@ -68,18 +70,23 @@ function AnimatedTerminal() {
   const [visibleLines, setVisibleLines] = useState(0);
 
   const terminalLines = [
-    { type: 'command', text: '$ kubegraf analyze --ns prod' },
+    { type: 'command', text: '$ kubegraf analyze crash-pod-7x9a' },
     { type: 'output', text: '' },
-    { type: 'info', text: '⚡ Scanning 24 pods, 8 deployments...' },
+    { type: 'info', text: '⚡ Collecting evidence...' },
+    { type: 'detail', text: '  ├─ Pod logs (3 sources)' },
+    { type: 'detail', text: '  ├─ Events (12 cluster events)' },
+    { type: 'detail', text: '  ├─ Resource metrics (memory spike detected)' },
+    { type: 'detail', text: '  └─ Recent changes (deployment @ 14:23 UTC)' },
     { type: 'output', text: '' },
-    { type: 'warning', text: '⚠  CrashLoopBackOff: api-gateway-7d4f9' },
-    { type: 'detail', text: '   └─ OOMKilled (limit: 512Mi)' },
-    { type: 'detail', text: '   └─ 3 restarts in 10 min' },
+    { type: 'success', text: '✓ Root cause identified:' },
+    { type: 'detail', text: '  OOMKilled - memory limit 512Mi exceeded' },
+    { type: 'detail', text: '  Evidence: 3 restarts, 94% correlation' },
     { type: 'output', text: '' },
-    { type: 'success', text: '✓  Fix: Increase memory to 1Gi' },
-    { type: 'detail', text: '   └─ 94% success rate' },
+    { type: 'warning', text: '✓ Safe fix available:' },
+    { type: 'detail', text: '  memory: 512Mi → 1Gi' },
+    { type: 'detail', text: '  confidence: 94% | risk: low' },
     { type: 'output', text: '' },
-    { type: 'prompt', text: '? Preview fix before applying? (Y/n)' },
+    { type: 'prompt', text: '? Preview before applying? (Y/n)' },
   ];
 
   useEffect(() => {
@@ -152,33 +159,11 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen overflow-hidden">
-      {/* Background effects */}
+      {/* Background - minimal, forensic */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-background" />
-        {/* Gradient orbs - more prominent */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[600px] bg-gradient-to-b from-cyan-500/15 via-primary/10 to-transparent rounded-full blur-[100px]" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-purple-500/10 rounded-full blur-[120px] -translate-x-1/3" />
-        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[100px] translate-x-1/3" />
-        {/* Subtle grid */}
-        <div
-          className="absolute inset-0 opacity-[0.015]"
-          style={{
-            backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-                             linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-            backgroundSize: '80px 80px'
-          }}
-        />
-        {/* Scan line effect - lightweight */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="animate-scan-line absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
-        </div>
-        {/* Data flow lines - KubeGraf signature: represents cluster monitoring */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
-          {/* Horizontal data streams at different heights */}
-          <div className="absolute top-[20%] left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-transparent to-transparent animate-data-flow" />
-          <div className="absolute top-[45%] left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-transparent to-transparent animate-data-flow" style={{ animationDelay: '2s' }} />
-          <div className="absolute top-[70%] left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-transparent to-transparent animate-data-flow" style={{ animationDelay: '4s' }} />
-        </div>
+        {/* Single subtle gradient - graphite tones */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-b from-cyan-500/5 to-transparent rounded-full blur-[120px]" />
       </div>
 
       {/* Main Content - Centered layout */}
@@ -201,7 +186,7 @@ export default function Hero() {
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold tracking-tight mb-8 leading-[1.05] animate-fade-in-up"
             style={{ animationDelay: '150ms' }}
           >
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-cyan-400 to-cyan-500 animate-text-shimmer">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-cyan-400 to-cyan-500">
               Intelligent Insight
             </span>
             <br />
@@ -213,7 +198,7 @@ export default function Hero() {
             className="text-lg sm:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto mb-10 leading-relaxed animate-fade-in-up"
             style={{ animationDelay: '300ms' }}
           >
-            A local-first Kubernetes tool that detects incidents, explains why they happen with evidence, and previews safe fixes—without SaaS lock-in.
+            Local-first incident intelligence. Evidence-backed diagnosis. Safe fix previews. No SaaS lock-in.
           </p>
         </div>
 

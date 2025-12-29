@@ -35,36 +35,37 @@
 
 /* System-based theming using prefers-color-scheme */
 :root {
-  /* Dark Mode by Default (Futuristic) */
-  --background: 240 10% 4%; /* #09090b */
-  --foreground: 0 0% 98%;
+  /* Dark Mode by Default (Forensic) */
+  --background: 240 10% 4%; /* #09090b - near-black graphite */
+  --foreground: 0 0% 88%; /* Softer white, less harsh */
 
   --card: 240 10% 6%;
-  --card-foreground: 0 0% 98%;
+  --card-foreground: 0 0% 88%;
 
   --popover: 240 10% 6%;
-  --popover-foreground: 0 0% 98%;
+  --popover-foreground: 0 0% 88%;
 
-  /* Neon Cyan/Blue Primary */
-  --primary: 190 100% 50%; /* Cyan */
+  /* Cyan Primary - Signal/Evidence markers */
+  --primary: 190 80% 48%; /* Cyan - slightly desaturated for forensic feel */
   --primary-foreground: 240 10% 4%;
 
-  /* Deep Purple Secondary */
-  --secondary: 260 50% 15%;
-  --secondary-foreground: 260 100% 80%;
+  /* Neutral Secondary - Slate for utility */
+  --secondary: 215 20% 45%; /* Slate */
+  --secondary-foreground: 0 0% 88%;
 
   --muted: 240 10% 12%;
-  --muted-foreground: 240 5% 65%;
+  --muted-foreground: 215 15% 55%; /* Slightly warmer, less washed out */
 
-  --accent: 260 100% 60%;
-  --accent-foreground: 0 0% 98%;
+  /* Amber Accent - Warning/Preview states */
+  --accent: 38 92% 50%; /* Amber */
+  --accent-foreground: 0 0% 10%;
 
   --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 0 0% 98%;
+  --destructive-foreground: 0 0% 88%;
 
   --border: 240 10% 15%;
   --input: 240 10% 15%;
-  --ring: 190 100% 50%;
+  --ring: 190 80% 48%;
 
   --radius: 0.75rem;
 }
@@ -81,19 +82,20 @@
     --popover: 0 0% 98%;
     --popover-foreground: 222 47% 11%;
 
-    /* Professional blue primary for light mode */
+    /* Professional cyan primary for light mode */
     --primary: 188 91% 37%; /* #0891b2 */
     --primary-foreground: 0 0% 100%;
 
-    /* Purple secondary */
-    --secondary: 261 51% 51%;
+    /* Neutral slate secondary */
+    --secondary: 215 25% 27%;
     --secondary-foreground: 0 0% 100%;
 
     --muted: 210 40% 96%;
     --muted-foreground: 215 16% 47%;
 
-    --accent: 252 83% 75%;
-    --accent-foreground: 222 47% 11%;
+    /* Amber accent for light mode */
+    --accent: 38 92% 50%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
@@ -114,12 +116,12 @@
   --popover-foreground: 222 47% 11%;
   --primary: 188 91% 37%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 261 51% 51%;
+  --secondary: 215 25% 27%;
   --secondary-foreground: 0 0% 100%;
   --muted: 210 40% 96%;
   --muted-foreground: 215 16% 47%;
-  --accent: 252 83% 75%;
-  --accent-foreground: 222 47% 11%;
+  --accent: 38 92% 50%;
+  --accent-foreground: 0 0% 100%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
   --border: 214 32% 91%;
@@ -129,24 +131,24 @@
 
 :root[data-theme="dark"] {
   --background: 240 10% 4%;
-  --foreground: 0 0% 98%;
+  --foreground: 0 0% 88%;
   --card: 240 10% 6%;
-  --card-foreground: 0 0% 98%;
+  --card-foreground: 0 0% 88%;
   --popover: 240 10% 6%;
-  --popover-foreground: 0 0% 98%;
-  --primary: 190 100% 50%;
+  --popover-foreground: 0 0% 88%;
+  --primary: 190 80% 48%;
   --primary-foreground: 240 10% 4%;
-  --secondary: 260 50% 15%;
-  --secondary-foreground: 260 100% 80%;
+  --secondary: 215 20% 45%;
+  --secondary-foreground: 0 0% 88%;
   --muted: 240 10% 12%;
-  --muted-foreground: 240 5% 65%;
-  --accent: 260 100% 60%;
-  --accent-foreground: 0 0% 98%;
+  --muted-foreground: 215 15% 55%;
+  --accent: 38 92% 50%;
+  --accent-foreground: 0 0% 10%;
   --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 0 0% 98%;
+  --destructive-foreground: 0 0% 88%;
   --border: 240 10% 15%;
   --input: 240 10% 15%;
-  --ring: 190 100% 50%;
+  --ring: 190 80% 48%;
 }
 
 /* Smooth transitions for theme changes */
@@ -346,7 +348,7 @@ body {
 
 /* Fix gradient text visibility in light theme */
 :root[data-theme="light"] .bg-gradient-to-r.from-primary {
-  background: linear-gradient(to right, hsl(var(--primary)), hsl(261 51% 51%), hsl(var(--accent))) !important;
+  background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--foreground)), hsl(var(--secondary))) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
 }
@@ -358,7 +360,7 @@ body {
 /* Fix gradient text for What is KubeGraf heading in light theme */
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) h1.bg-gradient-to-r {
-    background: linear-gradient(to right, hsl(var(--foreground)), hsl(var(--primary)), hsl(261 51% 51%)) !important;
+    background: linear-gradient(to right, hsl(var(--foreground)), hsl(var(--primary)), hsl(var(--secondary))) !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
@@ -366,7 +368,7 @@ body {
 }
 
 :root[data-theme="light"] h1.bg-gradient-to-r {
-  background: linear-gradient(to right, hsl(var(--foreground)), hsl(var(--primary)), hsl(261 51% 51%)) !important;
+  background: linear-gradient(to right, hsl(var(--foreground)), hsl(var(--primary)), hsl(var(--secondary))) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
@@ -836,129 +838,18 @@ p {
   animation: fade-in-up 0.6s ease-out forwards;
 }
 
-/* Scan line animation - moves top to bottom */
-@keyframes scan-line {
-  0% {
-    top: -2px;
+/* Radial reveal animation - ONLY for Preview Fix stage */
+@keyframes radial-reveal {
+  from {
+    clip-path: circle(0% at center);
     opacity: 0;
   }
-  5% {
+  to {
+    clip-path: circle(100% at center);
     opacity: 1;
   }
-  95% {
-    opacity: 1;
-  }
-  100% {
-    top: 100%;
-    opacity: 0;
-  }
 }
 
-.animate-scan-line {
-  animation: scan-line 8s ease-in-out infinite;
-}
-
-/* Text shimmer effect - light sweeps across gradient text */
-@keyframes text-shimmer {
-  0% {
-    background-position: -200% center;
-  }
-  100% {
-    background-position: 200% center;
-  }
-}
-
-.animate-text-shimmer {
-  background-size: 200% auto;
-  background-image: linear-gradient(
-    90deg,
-    hsl(var(--primary)) 0%,
-    hsl(190 100% 70%) 25%,
-    hsl(0 0% 100%) 50%,
-    hsl(190 100% 70%) 75%,
-    hsl(var(--primary)) 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  animation: text-shimmer 4s linear infinite;
-}
-
-/* Glowing pulse effect for CTA button */
-@keyframes glow-pulse {
-  0%, 100% {
-    box-shadow: 0 0 20px hsl(var(--primary) / 0.4),
-                0 0 40px hsl(var(--primary) / 0.2),
-                0 0 60px hsl(var(--primary) / 0.1);
-  }
-  50% {
-    box-shadow: 0 0 30px hsl(var(--primary) / 0.6),
-                0 0 60px hsl(var(--primary) / 0.4),
-                0 0 90px hsl(var(--primary) / 0.2);
-  }
-}
-
-.animate-glow-pulse {
-  animation: glow-pulse 3s ease-in-out infinite;
-}
-
-/* Neural network node pulse - KubeGraf signature animation */
-@keyframes node-pulse {
-  0%, 100% {
-    opacity: 0.2;
-    transform: scale(1);
-    box-shadow: 0 0 0 0 hsl(var(--primary) / 0);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.5);
-    box-shadow: 0 0 20px 5px hsl(var(--primary) / 0.5);
-  }
-}
-
-.animate-node-pulse {
-  animation: node-pulse 4s ease-in-out infinite;
-}
-
-/* Data flow animation - KubeGraf signature: data packet traveling across */
-@keyframes data-flow {
-  0% {
-    background: linear-gradient(90deg,
-      transparent 0%,
-      transparent 100%);
-  }
-  10% {
-    background: linear-gradient(90deg,
-      transparent 0%,
-      hsl(var(--primary)) 5%,
-      hsl(var(--primary) / 0.5) 10%,
-      transparent 15%,
-      transparent 100%);
-  }
-  50% {
-    background: linear-gradient(90deg,
-      transparent 0%,
-      transparent 45%,
-      hsl(var(--primary) / 0.5) 47%,
-      hsl(var(--primary)) 50%,
-      hsl(var(--primary) / 0.5) 53%,
-      transparent 55%,
-      transparent 100%);
-  }
-  90% {
-    background: linear-gradient(90deg,
-      transparent 0%,
-      transparent 85%,
-      hsl(var(--primary) / 0.5) 90%,
-      hsl(var(--primary)) 95%,
-      transparent 100%);
-  }
-  100% {
-    background: linear-gradient(90deg,
-      transparent 0%,
-      transparent 100%);
-  }
-}
-
-.animate-data-flow {
-  animation: data-flow 6s ease-in-out infinite;
+.animate-radial-reveal {
+  animation: radial-reveal 800ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
