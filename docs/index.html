@@ -939,8 +939,9 @@
             <div class="docs-footer-content">
                 <div class="docs-footer-top">
                     <div class="docs-footer-brand">
-                        <a href="/" class="docs-footer-logo">
+                        <a href="/" class="docs-footer-logo" style="display: flex; align-items: center; gap: 0.75rem; text-decoration: none;">
                             <img src="/assets/logos/binary-matrix/logo-binary-matrix-cyan.svg" alt="KubeGraf">
+                            <span style="font-family: 'Space Grotesk', system-ui, sans-serif; font-size: 1.25rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em;">KubēGraf</span>
                         </a>
                         <p>Local-first Kubernetes incident detection and diagnosis. No SaaS lock-in.</p>
                         <div style="margin-top: 1rem; padding: 0.75rem; background: var(--bg-tertiary); border: 1px solid var(--border); border-radius: 8px; font-size: 0.75rem; color: var(--text-muted); line-height: 1.5;">
@@ -969,6 +970,13 @@
                             <a href="https://github.com/kubegraf/kubegraf/discussions" target="_blank" rel="noopener noreferrer">Community</a>
                         </div>
                         <div class="docs-footer-column">
+                            <h4>Developers</h4>
+                            <a href="https://github.com/kubegraf/kubegraf" target="_blank" rel="noopener noreferrer">GitHub</a>
+                            <a href="/docs/commands.html">CLI Reference</a>
+                            <a href="/docs/configuration.html">API Docs</a>
+                            <a href="https://github.com/kubegraf/kubegraf/issues/new" target="_blank" rel="noopener noreferrer">Report Bug</a>
+                        </div>
+                        <div class="docs-footer-column">
                             <h4>Company</h4>
                             <a href="/kubegraf">About</a>
                             <a href="mailto:contact@kubegraf.io">Contact</a>
@@ -979,9 +987,11 @@
                 </div>
                 <div class="docs-footer-bottom">
                     <div class="docs-footer-copyright">
-                        <span>&copy; 2025 KubēGraf</span>
+                        <span>&copy; 2025 KubēGraf. All rights reserved.</span>
                         <span>•</span>
                         <span>Apache 2.0 License</span>
+                        <span>•</span>
+                        <span><a href="mailto:contact@kubegraf.io" style="color: var(--text-muted); text-decoration: none;">contact@kubegraf.io</a></span>
                     </div>
                     <div class="theme-selector">
                         <button id="theme-light-btn" onclick="setTheme('light')" aria-label="Light theme" title="Light">☀️</button>
