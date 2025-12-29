@@ -1,8 +1,10 @@
-# KubeGraf Website
+# KubeGraf
+
+KubeGraf is a local-first Kubernetes incident intelligence tool.
 
 <div align="center">
 
-**Official website for KubeGraf - The Intelligent Kubernetes Control Center**
+Detects incidents, explains root causes with evidence, and previews safe fixes—all locally, no SaaS lock-in.
 
 [![Release](https://img.shields.io/badge/version-0.2.0--alpha-blue.svg)](https://github.com/kubegraf/kubegraf.io/releases)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
@@ -15,11 +17,21 @@
 
 ## 📖 About
 
-This repository contains the deployment configuration and static assets for the KubeGraf website. The actual source code is maintained in a separate source repository.
+This repository contains the official website for KubeGraf—a local-first Kubernetes incident detection and analysis tool. The main KubeGraf application source code is maintained in the [kubegraf/kubegraf](https://github.com/kubegraf/kubegraf) repository, while this repo focuses on the marketing website, documentation, and deployment configuration.
 
-## 🚀 Features
+## 🚀 KubeGraf Features
 
-### Modern, Animated Landing Page
+KubeGraf itself provides:
+
+- **Incident Detection** - Automatically identifies problems in your Kubernetes environment
+- **Root Cause Analysis** - Explains why incidents occur with supporting evidence
+- **Safe Remediation Preview** - Shows what fixes would do before you apply them
+- **Local-First Architecture** - Runs on your laptop or inside your environment
+- **No SaaS Lock-in** - Full control, no mandatory cloud dependencies
+
+## 🎨 Website Features
+
+This repository's website includes modern design elements:
 
 - **Animated Marquee Banner** - Wallarm-inspired scrolling announcement banner
 - **Connection Lines Background** - Dynamic network visualization with pulsing nodes
