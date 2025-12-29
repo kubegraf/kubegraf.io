@@ -3,26 +3,26 @@ import { Terminal, BookOpen, Github } from "lucide-react";
 
 export default function CTASection() {
   return (
-    <section className="relative py-20 md:py-24 lg:py-28 border-t border-border/50">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+    <section className="relative py-16 md:py-20 lg:py-28 border-t border-border/50">
+      <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 max-w-4xl">
         <div className="text-center">
           {/* Heading */}
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold mb-6 leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-4 md:mb-6 leading-tight px-2">
             Start Investigating
           </h2>
 
           {/* Subheading */}
-          <p className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-6 md:mb-8 max-w-2xl mx-auto px-2">
             KubēGraf is available now.
           </p>
 
           {/* Install command */}
-          <div className="mb-10 max-w-2xl mx-auto">
-            <div className="bg-card/50 border border-border/50 rounded-lg p-6 font-mono text-left">
-              <div className="text-sm text-muted-foreground mb-2"># Install</div>
-              <div className="text-base text-primary mb-4">$ brew install kubegraf</div>
-              <div className="text-sm text-muted-foreground mb-2"># Analyze</div>
-              <div className="text-base text-primary">$ kubegraf analyze --cluster prod</div>
+          <div className="mb-8 md:mb-10 max-w-2xl mx-auto">
+            <div className="bg-card/50 border border-border/50 rounded-lg p-3 sm:p-4 md:p-6 font-mono text-left overflow-x-auto">
+              <div className="text-xs sm:text-sm text-muted-foreground mb-2"># Install</div>
+              <div className="text-sm sm:text-base text-primary mb-3 md:mb-4 whitespace-nowrap">$ brew install kubegraf</div>
+              <div className="text-xs sm:text-sm text-muted-foreground mb-2"># Analyze</div>
+              <div className="text-sm sm:text-base text-primary whitespace-nowrap">$ kubegraf analyze --cluster prod</div>
             </div>
           </div>
 

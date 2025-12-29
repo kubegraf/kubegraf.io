@@ -9,35 +9,35 @@
 
 export default function DemoExecution() {
   return (
-    <section className="relative py-16 md:py-20 lg:py-24 border-t border-border/50">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-display font-bold mb-2">
+    <section className="relative py-12 md:py-16 lg:py-24 border-t border-border/50">
+      <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 max-w-6xl">
+        <div className="text-center mb-8 md:mb-12 px-2">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold mb-2">
             See It In Action
           </h2>
-          <p className="text-muted-foreground mb-2">
+          <p className="text-sm md:text-base text-muted-foreground mb-2">
             Real output from a CrashLoopBackOff investigation.
             No edits. No marketing. Just evidence.
           </p>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-xs md:text-sm text-muted-foreground">
             Same investigation, two interfaces
           </p>
         </div>
 
-        {/* Two-column layout: TUI and Web UI side by side */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Single column on mobile, two columns on desktop */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
           {/* Terminal UI */}
           <div>
-            <div className="mb-4 text-center">
-              <h3 className="text-lg font-display font-semibold mb-1">Terminal UI</h3>
+            <div className="mb-3 md:mb-4 text-center px-2">
+              <h3 className="text-base md:text-lg font-display font-semibold mb-1">Terminal UI</h3>
               <p className="text-xs text-muted-foreground">
                 For SSH sessions and remote debugging
               </p>
             </div>
 
             <div className="bg-card border border-border rounded-lg overflow-hidden shadow-lg">
-              <div className="p-6 font-mono text-sm leading-relaxed max-h-[600px] overflow-y-auto" role="log" aria-label="Demo execution output">
-            <pre className="text-foreground/80 whitespace-pre-wrap">
+              <div className="p-3 sm:p-4 md:p-6 font-mono text-xs sm:text-sm leading-relaxed max-h-[400px] sm:max-h-[500px] md:max-h-[600px] overflow-y-auto overflow-x-auto" role="log" aria-label="Demo execution output" tabIndex={0}>
+            <pre className="text-foreground/80 whitespace-pre min-w-max">
 {`$ kubegraf watch --cluster prod-eu-1
 
 [14:23:18 UTC] `}<span className="text-amber-500">⚠️  Incident detected</span>{`
@@ -141,81 +141,81 @@ Dry-run: no changes applied yet
 
           {/* Web UI */}
           <div>
-            <div className="mb-4 text-center">
-              <h3 className="text-lg font-display font-semibold mb-1">Web Dashboard</h3>
+            <div className="mb-3 md:mb-4 text-center px-2">
+              <h3 className="text-base md:text-lg font-display font-semibold mb-1">Web Dashboard</h3>
               <p className="text-xs text-muted-foreground">
                 Visual timeline, metrics graphs, evidence browser
               </p>
             </div>
 
             <div className="bg-card border border-border rounded-lg overflow-hidden shadow-lg">
-            <div className="p-6">
+            <div className="p-3 sm:p-4 md:p-6">
               {/* Mock browser chrome */}
-              <div className="bg-muted/20 rounded-t-lg px-4 py-2 flex items-center gap-2 border-b border-border">
-                <div className="flex gap-1.5">
-                  <div className="w-3 h-3 rounded-full bg-red-500/50" />
-                  <div className="w-3 h-3 rounded-full bg-yellow-500/50" />
-                  <div className="w-3 h-3 rounded-full bg-green-500/50" />
+              <div className="bg-muted/20 rounded-t-lg px-2 sm:px-3 md:px-4 py-2 flex items-center gap-2 border-b border-border">
+                <div className="flex gap-1 sm:gap-1.5">
+                  <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-red-500/50" />
+                  <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-yellow-500/50" />
+                  <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-green-500/50" />
                 </div>
-                <div className="flex-1 text-center">
-                  <span className="text-xs text-muted-foreground font-mono">localhost:8080 - KubeGraf</span>
+                <div className="flex-1 text-center overflow-hidden">
+                  <span className="text-[10px] sm:text-xs text-muted-foreground font-mono truncate block">localhost:8080 - KubeGraf</span>
                 </div>
               </div>
 
               {/* Web UI content */}
-              <div className="bg-card/30 p-6 rounded-b-lg space-y-6">
+              <div className="bg-card/30 p-3 sm:p-4 md:p-6 rounded-b-lg space-y-4 sm:space-y-5 md:space-y-6 overflow-x-auto">
                 {/* Incident header */}
-                <div className="flex items-start justify-between">
-                  <div>
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="text-amber-500 text-2xl">⚠️</span>
-                      <h4 className="text-lg font-semibold">CrashLoopBackOff</h4>
+                      <span className="text-amber-500 text-xl sm:text-2xl">⚠️</span>
+                      <h4 className="text-base sm:text-lg font-semibold truncate">CrashLoopBackOff</h4>
                     </div>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-xs sm:text-sm text-muted-foreground truncate">
                       checkout-api-7d9f4 · production · 14:23:18 UTC
                     </p>
                   </div>
-                  <div className="text-right">
-                    <div className="text-xs text-muted-foreground mb-1">Confidence</div>
-                    <div className="text-2xl font-bold text-primary">94%</div>
+                  <div className="text-right flex-shrink-0">
+                    <div className="text-[10px] sm:text-xs text-muted-foreground mb-1">Confidence</div>
+                    <div className="text-xl sm:text-2xl font-bold text-primary">94%</div>
                   </div>
                 </div>
 
                 {/* Timeline visualization */}
-                <div className="border-l-2 border-primary/30 pl-4 space-y-4">
+                <div className="border-l-2 border-primary/30 pl-3 sm:pl-4 space-y-3 sm:space-y-4">
                   <div>
-                    <div className="text-xs text-muted-foreground mb-1">Evidence Collected</div>
-                    <div className="flex flex-wrap gap-2">
-                      <span className="px-2 py-1 bg-green-500/10 border border-green-500/20 rounded text-xs text-green-500">
-                        Logs (3 sources)
+                    <div className="text-[10px] sm:text-xs text-muted-foreground mb-1">Evidence Collected</div>
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                      <span className="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-green-500/10 border border-green-500/20 rounded text-[10px] sm:text-xs text-green-500 whitespace-nowrap">
+                        Logs (3)
                       </span>
-                      <span className="px-2 py-1 bg-green-500/10 border border-green-500/20 rounded text-xs text-green-500">
+                      <span className="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-green-500/10 border border-green-500/20 rounded text-[10px] sm:text-xs text-green-500 whitespace-nowrap">
                         Events (12)
                       </span>
-                      <span className="px-2 py-1 bg-green-500/10 border border-green-500/20 rounded text-xs text-green-500">
+                      <span className="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-green-500/10 border border-green-500/20 rounded text-[10px] sm:text-xs text-green-500 whitespace-nowrap">
                         Metrics
                       </span>
-                      <span className="px-2 py-1 bg-green-500/10 border border-green-500/20 rounded text-xs text-green-500">
-                        Recent changes
+                      <span className="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-green-500/10 border border-green-500/20 rounded text-[10px] sm:text-xs text-green-500 whitespace-nowrap">
+                        Changes
                       </span>
                     </div>
                   </div>
 
                   <div>
-                    <div className="text-xs text-muted-foreground mb-1">Root Cause</div>
-                    <div className="text-sm">
+                    <div className="text-[10px] sm:text-xs text-muted-foreground mb-1">Root Cause</div>
+                    <div className="text-xs sm:text-sm break-words">
                       <span className="text-red-400">OOMKilled</span> - memory limit exceeded (498Mi/512Mi = 97%)
                     </div>
                   </div>
 
                   <div>
-                    <div className="text-xs text-muted-foreground mb-1">Proposed Fix</div>
-                    <div className="bg-muted/20 border border-border/50 rounded p-3 font-mono text-xs">
-                      <div className="flex items-start gap-2">
+                    <div className="text-[10px] sm:text-xs text-muted-foreground mb-1">Proposed Fix</div>
+                    <div className="bg-muted/20 border border-border/50 rounded p-2 sm:p-3 font-mono text-[10px] sm:text-xs overflow-x-auto">
+                      <div className="flex items-start gap-2 min-w-max">
                         <span className="text-red-400">-</span>
                         <span className="text-red-400">memory: "512Mi"</span>
                       </div>
-                      <div className="flex items-start gap-2">
+                      <div className="flex items-start gap-2 min-w-max">
                         <span className="text-green-500">+</span>
                         <span className="text-green-500">memory: "1Gi"</span>
                       </div>
@@ -223,18 +223,18 @@ Dry-run: no changes applied yet
                   </div>
 
                   <div>
-                    <div className="text-xs text-muted-foreground mb-2">Impact</div>
-                    <div className="grid grid-cols-3 gap-2 text-xs">
-                      <div className="bg-muted/20 rounded p-2">
-                        <div className="text-muted-foreground">Pods</div>
+                    <div className="text-[10px] sm:text-xs text-muted-foreground mb-2">Impact</div>
+                    <div className="grid grid-cols-3 gap-1.5 sm:gap-2 text-[10px] sm:text-xs">
+                      <div className="bg-muted/20 rounded p-1.5 sm:p-2">
+                        <div className="text-muted-foreground truncate">Pods</div>
                         <div className="font-semibold">3</div>
                       </div>
-                      <div className="bg-muted/20 rounded p-2">
-                        <div className="text-muted-foreground">Downtime</div>
+                      <div className="bg-muted/20 rounded p-1.5 sm:p-2">
+                        <div className="text-muted-foreground truncate">Downtime</div>
                         <div className="font-semibold">~30s</div>
                       </div>
-                      <div className="bg-muted/20 rounded p-2">
-                        <div className="text-muted-foreground">Risk</div>
+                      <div className="bg-muted/20 rounded p-1.5 sm:p-2">
+                        <div className="text-muted-foreground truncate">Risk</div>
                         <div className="font-semibold text-green-500">LOW</div>
                       </div>
                     </div>
@@ -242,14 +242,14 @@ Dry-run: no changes applied yet
                 </div>
 
                 {/* Action buttons */}
-                <div className="flex items-center gap-3 pt-4 border-t border-border/50">
-                  <button className="px-4 py-2 bg-primary text-primary-foreground rounded font-medium text-sm hover:bg-primary/90 transition-colors">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3 pt-3 sm:pt-4 border-t border-border/50">
+                  <button className="px-3 sm:px-4 py-2 bg-primary text-primary-foreground rounded font-medium text-xs sm:text-sm hover:bg-primary/90 transition-colors">
                     Preview Fix
                   </button>
-                  <button className="px-4 py-2 border border-border/50 rounded text-sm hover:bg-muted/20 transition-colors">
+                  <button className="px-3 sm:px-4 py-2 border border-border/50 rounded text-xs sm:text-sm hover:bg-muted/20 transition-colors">
                     Save Report
                   </button>
-                  <button className="px-4 py-2 border border-border/50 rounded text-sm hover:bg-muted/20 transition-colors">
+                  <button className="px-3 sm:px-4 py-2 border border-border/50 rounded text-xs sm:text-sm hover:bg-muted/20 transition-colors">
                     Re-analyze
                   </button>
                 </div>
@@ -260,8 +260,8 @@ Dry-run: no changes applied yet
         </div>
 
         {/* Bottom note */}
-        <div className="text-center mt-12 pt-8 border-t border-border/50">
-          <p className="text-sm text-muted-foreground">
+        <div className="text-center mt-8 md:mt-12 pt-6 md:pt-8 border-t border-border/50 px-3">
+          <p className="text-xs sm:text-sm text-muted-foreground max-w-2xl mx-auto">
             Every diagnosis is backed by collected evidence. Every fix requires human approval.
           </p>
         </div>
