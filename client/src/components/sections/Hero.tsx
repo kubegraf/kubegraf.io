@@ -1,6 +1,4 @@
 import { motion } from "framer-motion";
-import { Mail, User, Building2, Briefcase } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { useIsMobile } from "@/hooks/useIsMobile";
 
@@ -151,36 +149,6 @@ function AnimatedTerminal() {
 
 export default function Hero() {
   const isMobile = useIsMobile();
-  const [formData, setFormData] = useState({
-    email: "",
-    name: "",
-    company: "",
-    role: ""
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [showFullForm, setShowFullForm] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.email || !formData.name) return;
-
-    setIsSubmitting(true);
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    setIsSubmitting(false);
-    setSubmitted(true);
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
-  };
-
-  const handleEmailFocus = () => {
-    setShowFullForm(true);
-  };
 
   return (
     <section className="relative min-h-screen overflow-hidden">
@@ -247,103 +215,6 @@ export default function Hero() {
           >
             A local-first Kubernetes tool that detects incidents, explains why they happen with evidence, and previews safe fixes—without SaaS lock-in.
           </p>
-
-          {/* Waitlist Form - Centered with fade-in */}
-          <div
-            className="max-w-lg mx-auto animate-fade-in-up"
-            style={{ animationDelay: '450ms' }}
-          >
-            {submitted ? (
-              <div className="p-6 bg-primary/10 border border-primary/20 rounded-xl text-center">
-                <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-primary/20 flex items-center justify-center">
-                  <Mail className="w-7 h-7 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">You're on the list!</h3>
-                <p className="text-muted-foreground">
-                  We'll notify you when KubēGraf is ready for early access.
-                </p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-3">
-                <p className="text-sm text-muted-foreground mb-5">
-                  Enter your email to get early access
-                </p>
-
-                {/* Email field - always visible */}
-                <div className="relative">
-                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    onFocus={handleEmailFocus}
-                    placeholder="Email address *"
-                    required
-                    className="w-full pl-12 pr-4 py-4 bg-muted/50 border border-border/50 rounded-xl text-base placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all"
-                  />
-                </div>
-
-                {/* Additional fields - shown after email focus */}
-                <div
-                  className="overflow-hidden space-y-3 transition-all duration-200"
-                  style={{
-                    height: showFullForm ? 'auto' : 0,
-                    opacity: showFullForm ? 1 : 0
-                  }}
-                >
-                  {/* Name field */}
-                  <div className="relative">
-                    <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      placeholder="Your name *"
-                      required
-                      className="w-full pl-12 pr-4 py-4 bg-muted/50 border border-border/50 rounded-xl text-base placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all"
-                    />
-                  </div>
-
-                  {/* Company field */}
-                  <div className="relative">
-                    <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                    <input
-                      type="text"
-                      name="company"
-                      value={formData.company}
-                      onChange={handleChange}
-                      placeholder="Company (optional)"
-                      className="w-full pl-12 pr-4 py-4 bg-muted/50 border border-border/50 rounded-xl text-base placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all"
-                    />
-                  </div>
-
-                  {/* Role field */}
-                  <div className="relative">
-                    <Briefcase className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                    <input
-                      type="text"
-                      name="role"
-                      value={formData.role}
-                      onChange={handleChange}
-                      placeholder="Role (optional)"
-                      className="w-full pl-12 pr-4 py-4 bg-muted/50 border border-border/50 rounded-xl text-base placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all"
-                    />
-                  </div>
-                </div>
-
-                <Button
-                  type="submit"
-                  size="lg"
-                  disabled={isSubmitting || !formData.email || (showFullForm && !formData.name)}
-                  className="w-full text-lg py-6 h-auto shadow-lg shadow-primary/25 hover:shadow-primary/40 disabled:opacity-50 rounded-xl"
-                >
-                  {isSubmitting ? "Joining..." : "Join Waitlist"}
-                </Button>
-              </form>
-            )}
-          </div>
         </div>
 
         {/* Terminal showcase - below the fold but prominent */}
