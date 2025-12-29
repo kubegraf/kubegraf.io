@@ -8,12 +8,18 @@ function MobileTerminal() {
 
   const terminalLines = [
     { type: 'command', text: '$ kubegraf analyze crash-pod-7x9a' },
+    { type: 'output', text: '' },
     { type: 'info', text: '⚡ Collecting evidence...' },
-    { type: 'detail', text: '  ├─ Logs (3 sources)' },
-    { type: 'detail', text: '  ├─ Events (cluster)' },
-    { type: 'detail', text: '  └─ Metrics (memory)' },
-    { type: 'success', text: '✓ Root cause: OOMKilled' },
-    { type: 'warning', text: '  confidence: 94%' },
+    { type: 'detail', text: '  ├─ Pod logs (3 sources)' },
+    { type: 'detail', text: '  ├─ Events (12 cluster events)' },
+    { type: 'detail', text: '  ├─ Resource metrics (memory spike detected)' },
+    { type: 'detail', text: '  └─ Recent changes (deployment @ 14:23 UTC)' },
+    { type: 'output', text: '' },
+    { type: 'success', text: '✓ Root cause identified:' },
+    { type: 'detail', text: '  OOMKilled - memory limit 512Mi exceeded' },
+    { type: 'detail', text: '  Evidence: 3 restarts, 94% correlation' },
+    { type: 'output', text: '' },
+    { type: 'success', text: '✓ Safe fix available:' },
   ];
 
   useEffect(() => {
@@ -40,7 +46,7 @@ function MobileTerminal() {
           </div>
           <span className="ml-2 text-xs text-muted-foreground font-mono">kubegraf</span>
         </div>
-        <div className="p-4 font-mono text-xs leading-relaxed min-h-[120px]">
+        <div className="p-4 font-mono text-xs leading-relaxed min-h-[220px] sm:min-h-[260px]">
           {terminalLines.slice(0, visibleLines).map((line, i) => (
             <div
               key={i}
@@ -50,10 +56,11 @@ function MobileTerminal() {
                 ${line.type === 'warning' ? 'text-yellow-600 dark:text-yellow-400' : ''}
                 ${line.type === 'success' ? 'text-emerald-600 dark:text-emerald-400' : ''}
                 ${line.type === 'detail' ? 'text-muted-foreground' : ''}
+                ${line.type === 'output' ? 'text-muted-foreground' : ''}
                 mb-1
               `}
             >
-              {line.text}
+              {line.text || '\u00A0'}
             </div>
           ))}
           {visibleLines < terminalLines.length && (
