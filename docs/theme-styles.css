@@ -316,3 +316,16 @@ body,
     height: 48px !important;
   }
 }
+
+/* Hide sidebar logo - industry best practice (logo in navbar only) */
+.sidebar-logo {
+  display: none !important;
+}
+
+.sidebar {
+  padding-top: 74px !important; /* Navbar (64px) + small gap (10px) */
+}
+
+.sidebar-section:first-of-type {
+  margin-top: 0 !important;
+}
