@@ -185,7 +185,7 @@
         
         .docs-footer-columns {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 2rem;
         }
         
@@ -273,6 +273,15 @@
                 text-align: center;
             }
         }
+        /* GitHub link hover */
+        .docs-footer-brand a[href*="github"]:hover {
+            color: var(--primary);
+        }
+
+        .docs-footer-brand a[href*="github"]:hover svg {
+            color: var(--primary);
+        }
+
   </style>
 </head>
 <body>
