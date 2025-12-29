@@ -1,10 +1,10 @@
 # KubeGraf
 
-KubeGraf is a local-first Kubernetes incident intelligence tool.
+**Intelligent Insight for Kubernetes Incidents**
+
+KubeGraf is a local-first Kubernetes incident intelligence tool that detects incidents, explains why they happen using evidence, and safely previews fixes — without SaaS lock-in.
 
 <div align="center">
-
-Detects incidents, explains root causes with evidence, and previews safe fixes—all locally, no SaaS lock-in.
 
 [![Release](https://img.shields.io/badge/version-0.2.0--alpha-blue.svg)](https://github.com/kubegraf/kubegraf.io/releases)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
