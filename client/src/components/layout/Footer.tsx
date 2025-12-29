@@ -106,6 +106,11 @@ export default function Footer({ variant = "default" }: FooterProps) {
               <p className="text-sm text-muted-foreground mb-4 max-w-sm">
                 Local-first Kubernetes incident detection and diagnosis. No SaaS lock-in.
               </p>
+              <div className="mb-4 p-3 bg-muted/30 border border-border/50 rounded-lg max-w-sm">
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  <strong className="text-foreground">Brand clarity:</strong> KubeGraf (kubegraf.io) is an independent product and is not affiliated with Kubernetes, the CNCF, Grafana Labs, or the DevOpsProdigy KubeGraf Grafana plugin.
+                </p>
+              </div>
               <div className="flex items-center gap-3">
                 <a
                   href="https://github.com/kubegraf/kubegraf"
@@ -177,9 +182,6 @@ export default function Footer({ variant = "default" }: FooterProps) {
             </div>
             <ThemePreferenceControl />
           </div>
-          <p className="text-xs text-muted-foreground text-center md:text-left mt-4 max-w-3xl">
-            <strong>Brand clarity:</strong> KubeGraf (kubegraf.io) is an independent product and is not affiliated with Kubernetes, the CNCF, Grafana Labs, or the DevOpsProdigy KubeGraf Grafana plugin.
-          </p>
         </div>
       </div>
     </footer>

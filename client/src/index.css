@@ -797,6 +797,49 @@ h1, h2, h3, h4, h5, h6 {
   text-wrap: balance;
 }
 
+/* Heading color hierarchy - forensic aesthetic */
+/* Theme-aware heading colors for both dark and light modes */
+h1 {
+  color: hsl(0 0% 92%) !important;
+}
+
+h2 {
+  color: hsl(0 0% 90%) !important; /* Section titles - slightly muted */
+}
+
+h3, h4 {
+  color: hsl(190 80% 55%) !important; /* Subsection titles - subtle cyan tint */
+}
+
+h5, h6 {
+  color: hsl(var(--muted-foreground)) !important;
+}
+
+/* Light theme heading overrides */
+.light h1,
+:root[data-theme="light"] h1 {
+  color: hsl(222 47% 11%) !important; /* Match foreground for maximum contrast */
+}
+
+.light h2,
+:root[data-theme="light"] h2 {
+  color: hsl(222 47% 15%) !important; /* Slightly lighter than H1 */
+}
+
+.light h3,
+.light h4,
+:root[data-theme="light"] h3,
+:root[data-theme="light"] h4 {
+  color: hsl(188 91% 30%) !important; /* Darker cyan for better readability */
+}
+
+.light h5,
+.light h6,
+:root[data-theme="light"] h5,
+:root[data-theme="light"] h6 {
+  color: hsl(var(--muted-foreground)) !important;
+}
+
 p {
   text-wrap: pretty;
 }

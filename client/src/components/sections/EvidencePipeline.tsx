@@ -62,7 +62,7 @@ export default function EvidencePipeline() {
           {steps.map((step, idx) => (
             <div key={step.title} className="flex items-center">
               <div className="flex flex-col items-center">
-                <div className="w-16 h-16 rounded-xl bg-card border-2 border-border/50 flex items-center justify-center">
+                <div className="w-16 h-16 rounded-xl bg-primary/10 border-2 border-primary/20 flex items-center justify-center">
                   <step.icon className="w-7 h-7 text-primary" />
                 </div>
                 <span className="text-sm text-muted-foreground mt-3 font-semibold max-w-[120px] text-center">
@@ -110,7 +110,7 @@ export default function EvidencePipeline() {
 
         {/* Key principle */}
         <div className="mt-12 text-center">
-          <p className="text-sm text-secondary-foreground/70 font-mono max-w-2xl mx-auto">
+          <p className="text-sm text-muted-foreground font-mono max-w-2xl mx-auto">
             Deterministic, reproducible, evidence-backed. Every step can be inspected.
           </p>
         </div>

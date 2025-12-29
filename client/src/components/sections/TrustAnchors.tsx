@@ -59,7 +59,7 @@ export default function TrustAnchors() {
 
         {/* Principle statement */}
         <div className="mt-16 text-center">
-          <p className="text-sm text-secondary-foreground/70 font-mono max-w-3xl mx-auto border-t border-border/50 pt-8">
+          <p className="text-sm text-muted-foreground font-mono max-w-3xl mx-auto border-t border-border/50 pt-8">
             No blind automation. No telemetry. No vendor lock-in. Just evidence-driven incident intelligence.
           </p>
         </div>

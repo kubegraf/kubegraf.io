@@ -4,6 +4,7 @@ import Footer from "@/components/layout/Footer";
 import Hero from "@/components/sections/Hero";
 import IncidentLifecycle from "@/components/sections/IncidentLifecycle";
 import EvidencePipeline from "@/components/sections/EvidencePipeline";
+import DemoExecution from "@/components/sections/DemoExecution";
 import TrustAnchors from "@/components/sections/TrustAnchors";
 import CTASection from "@/components/sections/CTASection";
 import { useIsMobile } from "@/hooks/useIsMobile";
@@ -37,6 +38,7 @@ export default function Home() {
       <div className="relative">
         <IncidentLifecycle />
         <EvidencePipeline />
+        <DemoExecution />
         <TrustAnchors />
         <CTASection />
       </div>

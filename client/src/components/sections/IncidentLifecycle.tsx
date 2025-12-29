@@ -86,8 +86,14 @@ export default function IncidentLifecycle() {
           {stages.map((stage, idx) => (
             <div key={stage.id} className="flex items-center">
               <div className="flex flex-col items-center">
-                <div className="w-12 h-12 rounded-lg bg-card border border-border/50 flex items-center justify-center">
-                  <stage.icon className="w-5 h-5 text-muted-foreground" />
+                <div className={`w-12 h-12 rounded-lg border flex items-center justify-center ${
+                  stage.special
+                    ? 'bg-accent/10 border-accent/20'
+                    : 'bg-primary/10 border-primary/20'
+                }`}>
+                  <stage.icon className={`w-5 h-5 ${
+                    stage.special ? 'text-accent' : 'text-primary'
+                  }`} />
                 </div>
                 <span className="text-xs text-muted-foreground mt-2 font-mono">{stage.title}</span>
               </div>
