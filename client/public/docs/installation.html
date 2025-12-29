@@ -362,6 +362,25 @@
             gap: 1.5rem;
             margin: 2rem 0;
         }
+        .platform-card {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            scroll-margin-top: 100px;
+        }
+
+        .platform-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary) !important;
+            box-shadow: 0 8px 24px rgba(6, 182, 212, 0.2);
+        }
+
+        .platform-card:active {
+            transform: translateY(-2px);
+        }
+
 
         /* Mobile Menu Button */
         /* Mobile Menu Buttons */
@@ -448,6 +467,25 @@
             }
             .two-col { grid-template-columns: 1fr; gap: 1rem; }
             .platform-grid { grid-template-columns: 1fr; }
+        .platform-card {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            scroll-margin-top: 100px;
+        }
+
+        .platform-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary) !important;
+            box-shadow: 0 8px 24px rgba(6, 182, 212, 0.2);
+        }
+
+        .platform-card:active {
+            transform: translateY(-2px);
+        }
+
             .feature-card .two-col { grid-template-columns: 1fr; }
         }
 
@@ -773,7 +811,7 @@
 
             <h2>Installation Methods at a Glance</h2>
             <div class="platform-grid">
-                <div class="feature-card">
+                <a href="#macos" class="platform-card feature-card">
                     <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
                         <div style="width: 48px; height: 48px; background: rgba(255, 255, 255, 0.05); border-radius: 10px; display: flex; align-items: center; justify-content: center; padding: 8px;">
                             <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" style="color: var(--text);">
@@ -788,7 +826,7 @@
                         <li>Quick install script</li>
                     </ul>
                 </div>
-                <div class="feature-card">
+                <a href="#linux" class="platform-card feature-card">
                     <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
                         <div style="width: 48px; height: 48px; background: rgba(255, 255, 255, 0.05); border-radius: 10px; display: flex; align-items: center; justify-content: center; padding: 8px;">
                             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--text);">
@@ -805,29 +843,27 @@
                         <li>Works on all distros</li>
                     </ul>
                 </div>
-                <div class="feature-card">
+                <a href="#windows" class="platform-card feature-card">
                     <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
                         <div style="width: 48px; height: 48px; background: rgba(255, 255, 255, 0.05); border-radius: 10px; display: flex; align-items: center; justify-content: center; padding: 8px;">
                             <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" style="color: var(--text);">
                                 <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/>
                             </svg>
-                        </div>
+                        </a>
                         <h3 style="margin: 0; font-size: 1.25rem;">Windows</h3>
-                    </div>
-                    <ul style="color: var(--text-muted); font-size: 0.9rem; margin: 0; padding-left: 1.2rem;">
+                    </</a>                   <ul style="color: var(--text-muted); font-size: 0.9rem; margin: 0; padding-left: 1.2rem;">
                         <li>GUI installer (recommended)</li>
                         <li>Scoop package manager</li>
                         <li>Manual ZIP download</li>
                     </ul>
-                </div>
-            </div>
+                </di</a>         </div>
 
             <h2>Quick Install</h2>
             <p>The fastest way to install KubeGraf on macOS or Linux:</p>
             <pre><code>curl -sSL https://kubegraf.io/install.sh | bash</code></pre>
             <p>This script automatically detects your OS and architecture, downloads the appropriate binary, and installs it to <code>/usr/local/bin</code>.</p>
 
-            <h2>macOS</h2>
+            <h2 id="macos">macOS</h2>
 
             <div class="install-method">
                 <h3>
@@ -858,7 +894,7 @@ sudo mv kubegraf /usr/local/bin/</code></pre>
                 </div>
             </div>
 
-            <h2>Linux</h2>
+            <h2 id="linux">Linux</h2>
 
             <div class="two-col">
                 <div class="feature-card">
@@ -878,7 +914,7 @@ sudo mv kubegraf /usr/local/bin/</code></pre>
                 </div>
             </div>
 
-            <h2>Windows</h2>
+            <h2 id="windows">Windows</h2>
 
             <div class="install-method">
                 <h3>
