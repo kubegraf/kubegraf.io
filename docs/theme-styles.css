@@ -360,3 +360,40 @@ body,
 .sidebar-section:first-of-type {
   margin-top: 0 !important;
 }
+
+/* Collapsible Sidebar Sections */
+.sidebar-section h3 {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  transition: color 0.2s;
+}
+
+.sidebar-section h3:hover {
+  color: var(--primary);
+}
+
+.sidebar-section h3::after {
+  content: '▼';
+  font-size: 0.6rem;
+  transition: transform 0.3s ease;
+  opacity: 0.6;
+}
+
+.sidebar-section.collapsed h3::after {
+  transform: rotate(-90deg);
+}
+
+.sidebar-section ul {
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  max-height: 500px;
+  opacity: 1;
+}
+
+.sidebar-section.collapsed ul {
+  max-height: 0;
+  opacity: 0;
+}

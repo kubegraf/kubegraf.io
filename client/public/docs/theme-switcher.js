@@ -111,11 +111,49 @@
     applyTheme(next);
   };
 
+  // Collapsible Sidebar Sections
+  const initCollapsibleSidebar = () => {
+    const sections = document.querySelectorAll('.sidebar-section');
+
+    // Load saved collapsed states
+    const savedStates = JSON.parse(localStorage.getItem('kubegraf-sidebar-collapsed') || '{}');
+
+    sections.forEach((section, index) => {
+      const h3 = section.querySelector('h3');
+      if (!h3) return;
+
+      const sectionKey = h3.textContent.trim();
+
+      // Restore saved state
+      if (savedStates[sectionKey]) {
+        section.classList.add('collapsed');
+      }
+
+      // Add click handler
+      h3.addEventListener('click', () => {
+        section.classList.toggle('collapsed');
+
+        // Save state
+        const states = JSON.parse(localStorage.getItem('kubegraf-sidebar-collapsed') || '{}');
+        if (section.classList.contains('collapsed')) {
+          states[sectionKey] = true;
+        } else {
+          delete states[sectionKey];
+        }
+        localStorage.setItem('kubegraf-sidebar-collapsed', JSON.stringify(states));
+      });
+    });
+  };
+
   // Initialize on DOM ready
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initTheme);
+    document.addEventListener('DOMContentLoaded', () => {
+      initTheme();
+      initCollapsibleSidebar();
+    });
   } else {
     // DOM already loaded, run immediately
     initTheme();
+    initCollapsibleSidebar();
   }
 })();
