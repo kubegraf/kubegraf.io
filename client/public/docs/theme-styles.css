@@ -95,8 +95,38 @@ body,
   border-right: 1px solid var(--border);
 }
 
+:root[data-theme="light"] .sidebar-section {
+  margin-bottom: 1.5rem;
+}
+
+:root[data-theme="light"] .sidebar-section h3 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text);
+  margin-bottom: 0.75rem;
+}
+
+:root[data-theme="light"] .sidebar-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+:root[data-theme="light"] .sidebar-section li {
+  margin: 0;
+  padding: 0;
+}
+
 :root[data-theme="light"] .sidebar-section a {
+  display: block;
+  padding: 0.5rem 0.75rem;
   color: var(--text-muted);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.2s;
 }
 
 :root[data-theme="light"] .sidebar-section a:hover {
