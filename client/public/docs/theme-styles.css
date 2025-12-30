@@ -284,7 +284,7 @@ body,
   }
 }
 
-/* Footer logo - consistent size across themes */
+/* Footer logo - match main page sizes */
 .docs-footer-logo img {
   width: 48px !important;
   height: 48px !important;
@@ -299,22 +299,15 @@ body,
 
 @media (min-width: 768px) {
   .docs-footer-logo img {
-    width: 56px !important;
-    height: 56px !important;
+    width: 64px !important;
+    height: 64px !important;
   }
 }
 
-/* Light theme footer logo - same size as dark theme */
+/* Light theme footer logo */
 :root[data-theme="light"] .docs-footer-logo img {
-  width: 48px !important;
-  height: 48px !important;
-}
-
-@media (min-width: 768px) {
-  :root[data-theme="light"] .docs-footer-logo img {
-    width: 56px !important;
-    height: 56px !important;
-  }
+  width: 36px !important;
+  height: 36px !important;
 }
 
 @media (min-width: 768px) {
@@ -324,103 +317,16 @@ body,
   }
 }
 
-/* Hide sidebar logo and reduce top spacing for better navigation visibility */
+/* Hide sidebar logo - industry best practice (logo in navbar only) */
 .sidebar-logo {
   display: none !important;
 }
 
 .sidebar {
   padding-top: 74px !important; /* Navbar (64px) + small gap (10px) */
+  padding-bottom: 2rem !important; /* Space for last items to be visible */
 }
 
-.sidebar .sidebar-section:first-child {
+.sidebar-section:first-of-type {
   margin-top: 0 !important;
-}
-
-.sidebar .sidebar-section:first-child h3 {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-/* Add KubēGraf text next to footer logo */
-.docs-footer-logo {
-  display: flex !important;
-  align-items: center !important;
-  gap: 0.75rem !important;
-  text-decoration: none !important;
-}
-
-.docs-footer-logo::after {
-  content: "KubēGraf" !important;
-  font-family: 'Space Grotesk', system-ui, sans-serif !important;
-  font-size: 1.25rem !important;
-  font-weight: 700 !important;
-  color: var(--text) !important;
-  letter-spacing: -0.02em !important;
-}
-
-.docs-footer-logo:hover::after {
-  color: var(--primary) !important;
-}
-
-/* Enhanced footer - 4 column layout for better organization */
-.docs-footer-columns {
-  grid-template-columns: repeat(4, 1fr) !important;
-}
-
-/* Responsive: 2 columns on tablet */
-@media (max-width: 900px) {
-  .docs-footer-columns {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
-}
-
-/* Responsive: 1 column on mobile */
-@media (max-width: 600px) {
-  .docs-footer-columns {
-    grid-template-columns: 1fr !important;
-  }
-}
-
-/* Improve theme toggle button visibility in light theme */
-:root[data-theme="light"] .theme-selector button {
-  background: var(--bg-secondary) !important;
-  border: 1px solid var(--border) !important;
-  padding: 0.5rem !important;
-  border-radius: 6px !important;
-  cursor: pointer !important;
-  transition: all 0.2s ease !important;
-  font-size: 1.2rem !important;
-}
-
-:root[data-theme="light"] .theme-selector button:hover {
-  background: var(--bg-tertiary) !important;
-  border-color: var(--primary) !important;
-  transform: scale(1.1) !important;
-}
-
-/* Make moon icon more visible in light theme */
-:root[data-theme="light"] #theme-dark-btn {
-  filter: grayscale(0.3) brightness(0.7) !important;
-}
-
-:root[data-theme="light"] #theme-dark-btn:hover {
-  filter: grayscale(0) brightness(1) !important;
-}
-
-/* Ensure buttons are visible in dark theme too */
-.theme-selector button {
-  background: transparent !important;
-  border: 1px solid transparent !important;
-  padding: 0.5rem !important;
-  border-radius: 6px !important;
-  cursor: pointer !important;
-  transition: all 0.2s ease !important;
-  font-size: 1.2rem !important;
-}
-
-.theme-selector button:hover {
-  background: var(--bg-secondary) !important;
-  border-color: var(--border) !important;
-  transform: scale(1.1) !important;
 }

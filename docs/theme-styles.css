@@ -324,6 +324,7 @@ body,
 
 .sidebar {
   padding-top: 74px !important; /* Navbar (64px) + small gap (10px) */
+  padding-bottom: 2rem !important; /* Space for last items to be visible */
 }
 
 .sidebar-section:first-of-type {
