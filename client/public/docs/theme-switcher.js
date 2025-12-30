@@ -115,17 +115,20 @@
   const initCollapsibleSidebar = () => {
     const sections = document.querySelectorAll('.sidebar-section');
 
-    // Load saved collapsed states
-    const savedStates = JSON.parse(localStorage.getItem('kubegraf-sidebar-collapsed') || '{}');
+    // Load saved expanded states (default is collapsed)
+    const savedStates = JSON.parse(localStorage.getItem('kubegraf-sidebar-expanded') || '{}');
 
     sections.forEach((section, index) => {
       const h3 = section.querySelector('h3');
       if (!h3) return;
 
       const sectionKey = h3.textContent.trim();
+      const hasActiveLink = section.querySelector('a.active');
 
-      // Restore saved state
-      if (savedStates[sectionKey]) {
+      // Default to collapsed, unless:
+      // 1. User has explicitly expanded it (saved in localStorage)
+      // 2. Section contains the active page link
+      if (!savedStates[sectionKey] && !hasActiveLink) {
         section.classList.add('collapsed');
       }
 
@@ -133,14 +136,14 @@
       h3.addEventListener('click', () => {
         section.classList.toggle('collapsed');
 
-        // Save state
-        const states = JSON.parse(localStorage.getItem('kubegraf-sidebar-collapsed') || '{}');
-        if (section.classList.contains('collapsed')) {
+        // Save expanded state (inverted - we track what's expanded)
+        const states = JSON.parse(localStorage.getItem('kubegraf-sidebar-expanded') || '{}');
+        if (!section.classList.contains('collapsed')) {
           states[sectionKey] = true;
         } else {
           delete states[sectionKey];
         }
-        localStorage.setItem('kubegraf-sidebar-collapsed', JSON.stringify(states));
+        localStorage.setItem('kubegraf-sidebar-expanded', JSON.stringify(states));
       });
     });
   };
