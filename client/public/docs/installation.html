@@ -366,6 +366,7 @@
             gap: 1.5rem;
             margin: 2rem 0;
         }
+
         .platform-card {
             display: block;
             text-decoration: none;
@@ -384,7 +385,6 @@
         .platform-card:active {
             transform: translateY(-2px);
         }
-
 
         /* Mobile Menu Button */
         /* Mobile Menu Buttons */
@@ -462,25 +462,6 @@
             }
             .two-col { grid-template-columns: 1fr; gap: 1rem; }
             .platform-grid { grid-template-columns: 1fr; }
-        .platform-card {
-            display: block;
-            text-decoration: none;
-            color: inherit;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            scroll-margin-top: 100px;
-        }
-
-        .platform-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--primary) !important;
-            box-shadow: 0 8px 24px rgba(6, 182, 212, 0.2);
-        }
-
-        .platform-card:active {
-            transform: translateY(-2px);
-        }
-
             .feature-card .two-col { grid-template-columns: 1fr; }
         }
 
@@ -838,7 +819,7 @@
                         <li>Manual download (Apple Silicon or Intel)</li>
                         <li>Quick install script</li>
                     </ul>
-                </div>
+                </a>
                 <a href="#linux" class="platform-card feature-card">
                     <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
                         <div style="width: 48px; height: 48px; background: rgba(255, 255, 255, 0.05); border-radius: 10px; display: flex; align-items: center; justify-content: center; padding: 8px;">
@@ -855,21 +836,23 @@
                         <li>Quick install script</li>
                         <li>Works on all distros</li>
                     </ul>
-                </div>
+                </a>
                 <a href="#windows" class="platform-card feature-card">
                     <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
                         <div style="width: 48px; height: 48px; background: rgba(255, 255, 255, 0.05); border-radius: 10px; display: flex; align-items: center; justify-content: center; padding: 8px;">
                             <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" style="color: var(--text);">
                                 <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/>
                             </svg>
-                        </a>
+                        </div>
                         <h3 style="margin: 0; font-size: 1.25rem;">Windows</h3>
-                    </</a>                   <ul style="color: var(--text-muted); font-size: 0.9rem; margin: 0; padding-left: 1.2rem;">
+                    </div>
+                    <ul style="color: var(--text-muted); font-size: 0.9rem; margin: 0; padding-left: 1.2rem;">
                         <li>GUI installer (recommended)</li>
                         <li>Scoop package manager</li>
                         <li>Manual ZIP download</li>
                     </ul>
-                </di</a>         </div>
+                </a>
+            </div>
 
             <h2>Quick Install</h2>
             <p>The fastest way to install KubeGraf on macOS or Linux:</p>
@@ -1089,8 +1072,9 @@ brew install kubegraf</code></pre>
             <div class="docs-footer-content">
                 <div class="docs-footer-top">
                     <div class="docs-footer-brand">
-                        <a href="/" class="docs-footer-logo">
+                        <a href="/" class="docs-footer-logo" style="display: flex; align-items: center; gap: 0.75rem; text-decoration: none;">
                             <img src="/assets/logos/binary-matrix/logo-binary-matrix-cyan.svg" alt="KubeGraf">
+                            <span style="font-family: 'Space Grotesk', system-ui, sans-serif; font-size: 1.25rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em;">KubēGraf</span>
                         </a>
                         <p>Local-first Kubernetes incident detection and diagnosis. No SaaS lock-in.</p>
                         <div style="margin-top: 1rem; padding: 0.75rem; background: var(--bg-tertiary); border: 1px solid var(--border); border-radius: 8px; font-size: 0.75rem; color: var(--text-muted); line-height: 1.5;">
