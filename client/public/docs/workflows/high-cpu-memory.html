@@ -281,6 +281,24 @@
         .docs-footer-brand a[href*="github"]:hover svg {
             color: var(--primary);
         }
+        /* Page Navigation Styles */
+        .docs-nav-btn:hover {
+            background: var(--bg-tertiary) !important;
+            border-color: var(--primary) !important;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 640px) {
+            .docs-page-nav {
+                flex-direction: column !important;
+                gap: 1rem;
+            }
+            .docs-nav-btn {
+                width: 100%;
+                justify-content: center !important;
+            }
+        }
+
 
   </style>
 </head>
@@ -496,6 +514,15 @@
 
       <pre><code>[ TODO: screenshot showing KubeGraf resource map with a hot workload/node highlighted. ]</code></pre>
     
+        
+            </a>
+            <a href="/docs/workflows/restarts-after-config-change.html" class="docs-nav-btn docs-nav-next" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; text-decoration: none; color: var(--text); transition: all 0.2s; font-size: 0.875rem;">
+                <div style="text-align: right;">
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">Next</div>
+                    <div style="font-weight: 600;">Restarts After Config Workflow</div>
+                </div></a>
+        </div>
+
         <!-- Page Navigation -->
         <div class="docs-page-nav" style="display: flex; justify-content: space-between; align-items: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);">
             <a href="/docs/workflows/rollout-stuck.html" class="docs-nav-btn docs-nav-prev" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; text-decoration: none; color: var(--text); transition: all 0.2s; font-size: 0.875rem;">
@@ -513,7 +540,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </a>
         </div>
-</main>
+        </main>
   </div>
   <!-- Theme Toggle Button -->
   <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">

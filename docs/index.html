@@ -668,6 +668,24 @@
         .docs-footer-brand a[href*="github"]:hover svg {
             color: var(--primary);
         }
+        /* Page Navigation Styles */
+        .docs-nav-btn:hover {
+            background: var(--bg-tertiary) !important;
+            border-color: var(--primary) !important;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 640px) {
+            .docs-page-nav {
+                flex-direction: column !important;
+                gap: 1rem;
+            }
+            .docs-nav-btn {
+                width: 100%;
+                justify-content: center !important;
+            }
+        }
+
 
     </style>
 </head>
@@ -930,12 +948,7 @@
             <p>
                 See the <a href="/docs/installation.html">Installation Guide</a> for more options including
                 Homebrew, Scoop, and manual installation.
-            </p>
-
-        <!-- Page Navigation -->
-        
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </a>
+            </p></a>
         </div>
 
         <!-- Page Navigation -->
