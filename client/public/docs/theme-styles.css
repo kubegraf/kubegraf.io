@@ -637,8 +637,8 @@ body,
 /* Footer Container - matches Tailwind: border-t border-border/50 bg-muted/20 */
 /* Footer is full-width like landing page, NOT offset by sidebar */
 .docs-footer {
-  border-top: 1px solid rgba(var(--border-rgb), 0.5);
-  background: rgba(var(--muted-rgb), 0.2);
+  border-top: 1px solid #e5e5e5;
+  background: #f5f1e8; /* oat color - warm beige */
   margin-left: 0;
   width: 100%;
 }

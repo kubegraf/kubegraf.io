@@ -86,7 +86,7 @@ export default function Footer({ variant = "default" }: FooterProps) {
   }
 
   return (
-    <footer className="border-t border-border/50 bg-muted/20">
+    <footer className="border-t border-neutral-200" style={{ backgroundColor: '#f5f1e8' }}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Footer Content */}
         <div className="py-12 lg:py-16">
