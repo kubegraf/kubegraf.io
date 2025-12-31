@@ -174,20 +174,34 @@ export default function Navbar() {
         transition={{ duration: 0.5 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? 'bg-background/80 backdrop-blur-xl border-b border-border/50 shadow-lg'
-            : 'bg-transparent'
+            ? 'bg-background/80 backdrop-blur-xl border-b border-border shadow-lg'
+            : 'bg-background/60 backdrop-blur-md'
         }`}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
             {/* Logo */}
-            <a href="/" className="flex items-center gap-1 font-display font-bold text-base sm:text-lg lg:text-xl tracking-tight group">
-              <img
-                src={theme === 'light' ? '/assets/logos/binary-matrix/logo-transparent-light.svg' : '/assets/logos/binary-matrix/logo-transparent-dark.svg'}
+            <a href="/" className="flex items-center gap-2 sm:gap-3 md:gap-3 group">
+              <motion.img
+                key={theme}
+                src={theme === 'dark' ? '/kubegraf-dark-new-bg.svg' : '/kubegraf.svg'}
                 alt="KubeGraf"
-                className="kubegraf-logo transition-transform group-hover:scale-110"
+                className="h-10 sm:h-12 md:h-14 lg:h-16 w-auto flex-shrink-0"
+                initial={{ rotateY: 0 }}
+                animate={{ rotateY: 360 }}
+                transition={{
+                  duration: 1.2,
+                  ease: "easeInOut",
+                  times: [0, 0.5, 1]
+                }}
+                whileHover={{ scale: 1.05 }}
+                style={{ transformStyle: "preserve-3d" }}
               />
-              <span className="transition-colors duration-300 group-hover:text-amber-500">KubēGraf</span>
+              <span className={`font-display font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl whitespace-nowrap transition-colors duration-300 ${
+                theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+              } group-hover:text-orange-500`}>
+                KubēGraf
+              </span>
             </a>
 
             {/* Desktop Navigation - Portainer style with dropdowns */}

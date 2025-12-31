@@ -26,9 +26,9 @@
 
   // Update logo based on theme - matches landing page Navbar.tsx and Footer.tsx
   const updateLogo = (theme) => {
-    // Same logos as landing page (transparent versions)
-    const lightLogo = '/assets/logos/binary-matrix/logo-transparent-light.svg';
-    const darkLogo = '/assets/logos/binary-matrix/logo-transparent-dark.svg';
+    // Same logos as landing page
+    const lightLogo = '/kubegraf.svg';
+    const darkLogo = '/kubegraf-dark-new-bg.svg';
 
     // Update navbar logo (same as landing page Navbar.tsx)
     const navLogoImages = document.querySelectorAll('.docs-navbar-logo-icon, .sidebar-logo-icon');

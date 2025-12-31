@@ -1,14 +1,16 @@
 <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Orange background -->
+  <!-- Orange/Amber background -->
   <rect x="0" y="0" width="64" height="64" rx="8" fill="#f59e0b"/>
-  <!-- Binary Matrix - Faded Black -->
-  <rect x="20" y="20" width="24" height="24" rx="3" stroke="#4b5563" stroke-width="2.5" fill="none"/>
-  <circle cx="27" cy="27" r="2.5" fill="#4b5563"/>
-  <circle cx="37" cy="27" r="2.5" fill="#4b5563" opacity="0.5"/>
-  <circle cx="27" cy="37" r="2.5" fill="#4b5563" opacity="0.5"/>
-  <circle cx="37" cy="37" r="2.5" fill="#4b5563"/>
-  <line x1="32" y1="8" x2="32" y2="18" stroke="#4b5563" stroke-width="2" stroke-dasharray="3 3"/>
-  <line x1="32" y1="46" x2="32" y2="56" stroke="#4b5563" stroke-width="2" stroke-dasharray="3 3"/>
-  <line x1="8" y1="32" x2="18" y2="32" stroke="#4b5563" stroke-width="2" stroke-dasharray="3 3"/>
-  <line x1="46" y1="32" x2="56" y2="32" stroke="#4b5563" stroke-width="2" stroke-dasharray="3 3"/>
+  <!-- Binary Matrix - Heavy Dark Gray for visibility -->
+  <rect x="16" y="16" width="32" height="32" rx="4" stroke="#1f2937" stroke-width="4" fill="none"/>
+  <!-- Binary dots - larger and bolder -->
+  <circle cx="26" cy="26" r="4" fill="#1f2937"/>
+  <circle cx="38" cy="26" r="4" fill="#1f2937" opacity="0.7"/>
+  <circle cx="26" cy="38" r="4" fill="#1f2937" opacity="0.7"/>
+  <circle cx="38" cy="38" r="4" fill="#1f2937"/>
+  <!-- Connection lines - thicker and solid -->
+  <line x1="32" y1="4" x2="32" y2="14" stroke="#1f2937" stroke-width="3" stroke-linecap="round"/>
+  <line x1="32" y1="50" x2="32" y2="60" stroke="#1f2937" stroke-width="3" stroke-linecap="round"/>
+  <line x1="4" y1="32" x2="14" y2="32" stroke="#1f2937" stroke-width="3" stroke-linecap="round"/>
+  <line x1="50" y1="32" x2="60" y2="32" stroke="#1f2937" stroke-width="3" stroke-linecap="round"/>
 </svg>

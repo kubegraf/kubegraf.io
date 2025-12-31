@@ -108,13 +108,15 @@ export default function Footer({ variant = "default" }: FooterProps) {
             {/* Brand Column */}
             <div className="col-span-2 md:col-span-3 lg:col-span-2">
               <Link href="/">
-                <div className="flex items-center gap-1 mb-4 group">
+                <div className="flex items-center gap-2 mb-4 group">
                   <img
-                    src={themePreference === 'light' ? '/assets/logos/binary-matrix/logo-transparent-light.svg' : '/assets/logos/binary-matrix/logo-transparent-dark.svg'}
+                    src={themePreference === 'dark' ? '/kubegraf-dark-new-bg.svg' : '/kubegraf.svg'}
                     alt="KubeGraf"
-                    className="kubegraf-logo"
+                    className="h-10 sm:h-12 md:h-14 w-auto transition-transform group-hover:scale-105"
                   />
-                  <span className="text-base sm:text-lg md:text-xl font-bold text-foreground transition-colors duration-300 group-hover:text-amber-500">KubēGraf</span>
+                  <span className={`font-display font-bold text-base sm:text-lg md:text-xl transition-colors duration-300 ${
+                    themePreference === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                  } group-hover:text-orange-500`}>KubēGraf</span>
                 </div>
               </Link>
               <p className="text-sm text-muted-foreground mb-4 max-w-sm">

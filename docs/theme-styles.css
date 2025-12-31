@@ -281,9 +281,9 @@ body {
    NAVBAR LOGO - EXACTLY MATCHING LANDING PAGE
    ======================================== */
 
-/* Navbar logo - matches landing page nav .kubegraf-logo */
+/* Navbar logo - matches landing page Navbar.tsx exactly */
 .docs-navbar-logo-icon {
-  width: 40px !important;
+  width: auto !important;
   height: 40px !important;
   transition: transform 0.5s ease;
   transform-style: preserve-3d;
@@ -291,22 +291,19 @@ body {
 
 @media (min-width: 640px) {
   .docs-navbar-logo-icon {
-    width: 48px !important;
     height: 48px !important;
   }
 }
 
 @media (min-width: 768px) {
   .docs-navbar-logo-icon {
-    width: 68px !important;
-    height: 68px !important;
+    height: 56px !important;
   }
 }
 
 @media (min-width: 1024px) {
   .docs-navbar-logo-icon {
-    width: 92px !important;
-    height: 92px !important;
+    height: 64px !important;
   }
 }
 
@@ -316,45 +313,45 @@ body {
   filter: drop-shadow(0 4px 12px rgba(6, 182, 212, 0.4));
 }
 
-/* Navbar text amber hover - matches landing page group-hover:text-amber-500 */
-.docs-navbar-logo:hover span {
-  color: #f59e0b !important; /* amber-500 */
-}
-
+/* Navbar text styling - matches landing page exactly (gap-2 sm:gap-3 md:gap-3) */
 .docs-navbar-logo span {
   transition: color 0.3s ease;
-  margin-left: -0.5rem; /* Pull text closer to logo - matches landing page */
+  /* Dark theme: text-gray-400 */
+  color: #9ca3af;
+  font-weight: 700;
 }
 
-/* Light theme - pull text even closer to compensate for SVG whitespace */
+/* Light theme text color - matches landing page text-gray-600 */
 :root[data-theme="light"] .docs-navbar-logo span {
-  margin-left: -0.7rem;
+  color: #4b5563;
 }
 
-/* Light theme logo - same sizes as dark theme on landing page */
+/* Navbar text hover - matches landing page group-hover:text-orange-500 */
+.docs-navbar-logo:hover span {
+  color: #f97316 !important; /* orange-500 */
+}
+
+/* Light theme logo - same sizes as dark theme */
 :root[data-theme="light"] .docs-navbar-logo-icon {
-  width: 40px !important;
+  width: auto !important;
   height: 40px !important;
 }
 
 @media (min-width: 640px) {
   :root[data-theme="light"] .docs-navbar-logo-icon {
-    width: 48px !important;
     height: 48px !important;
   }
 }
 
 @media (min-width: 768px) {
   :root[data-theme="light"] .docs-navbar-logo-icon {
-    width: 68px !important;
-    height: 68px !important;
+    height: 56px !important;
   }
 }
 
 @media (min-width: 1024px) {
   :root[data-theme="light"] .docs-navbar-logo-icon {
-    width: 92px !important;
-    height: 92px !important;
+    height: 64px !important;
   }
 }
 
@@ -364,36 +361,46 @@ body {
   height: 48px !important;
 }
 
-/* Footer logo - match main page sizes */
+/* Footer logo - match main page sizes exactly (h-10 sm:h-12 md:h-14) */
 .docs-footer-logo img {
-  width: 48px !important;
-  height: 48px !important;
+  width: auto !important;
+  height: 40px !important;
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   filter: drop-shadow(0 2px 8px rgba(34, 211, 238, 0.2));
 }
 
 .docs-footer-logo img:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
   filter: drop-shadow(0 4px 16px rgba(6, 182, 212, 0.5));
+}
+
+@media (min-width: 640px) {
+  .docs-footer-logo img {
+    height: 48px !important;
+  }
 }
 
 @media (min-width: 768px) {
   .docs-footer-logo img {
-    width: 64px !important;
-    height: 64px !important;
+    height: 56px !important;
   }
 }
 
-/* Light theme footer logo */
+/* Light theme footer logo - same sizes as dark theme */
 :root[data-theme="light"] .docs-footer-logo img {
-  width: 36px !important;
-  height: 36px !important;
+  width: auto !important;
+  height: 40px !important;
+}
+
+@media (min-width: 640px) {
+  :root[data-theme="light"] .docs-footer-logo img {
+    height: 48px !important;
+  }
 }
 
 @media (min-width: 768px) {
   :root[data-theme="light"] .docs-footer-logo img {
-    width: 48px !important;
-    height: 48px !important;
+    height: 56px !important;
   }
 }
 
@@ -755,23 +762,23 @@ body {
   }
 }
 
-/* Logo Link - matches: flex items-center gap-1 mb-4 group */
+/* Logo Link - matches landing page Footer.tsx: flex items-center gap-2 mb-4 group */
 .docs-footer-logo-link {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.5rem;
   margin-bottom: 1rem;
   text-decoration: none;
 }
 
-/* Logo Text - matches: text-base sm:text-lg md:text-xl font-bold text-foreground group-hover:text-amber-500 */
+/* Logo Text - matches landing page Footer.tsx: text-base sm:text-lg md:text-xl font-bold */
 .docs-footer-logo-text {
   font-size: 1rem;
   font-weight: 700;
-  color: var(--text);
   font-family: 'Space Grotesk', sans-serif;
   transition: color 0.3s;
-  margin-left: -0.3rem;
+  /* Dark theme: text-gray-400 */
+  color: #9ca3af;
 }
 
 @media (min-width: 640px) {
@@ -786,8 +793,14 @@ body {
   }
 }
 
+/* Light theme text color - matches landing page text-gray-600 */
+:root[data-theme="light"] .docs-footer-logo-text {
+  color: #4b5563;
+}
+
+/* Footer text hover - matches landing page group-hover:text-orange-500 */
 .docs-footer-logo-link:hover .docs-footer-logo-text {
-  color: #f59e0b; /* amber-500 */
+  color: #f97316 !important; /* orange-500 */
 }
 
 /* Description - matches: text-sm text-muted-foreground mb-4 max-w-sm */
@@ -997,18 +1010,23 @@ body {
   background: rgba(64, 60, 48, 0.1);
 }
 
-/* Footer Logo Sizing - Matches landing page index.css */
+/* Footer Logo Sizing - Matches landing page Footer.tsx (h-10 sm:h-12 md:h-14) */
 footer .kubegraf-logo {
-  width: 48px !important;
-  height: 48px !important;
+  width: auto !important;
+  height: 40px !important;
   transition: transform 0.5s ease;
   transform-style: preserve-3d;
 }
 
+@media (min-width: 640px) {
+  footer .kubegraf-logo {
+    height: 48px !important;
+  }
+}
+
 @media (min-width: 768px) {
   footer .kubegraf-logo {
-    width: 52px !important;
-    height: 52px !important;
+    height: 56px !important;
   }
 }
 
@@ -1018,16 +1036,21 @@ footer .kubegraf-logo:hover {
   filter: drop-shadow(0 4px 12px rgba(6, 182, 212, 0.4));
 }
 
-/* Light theme footer logo - same size as dark theme */
+/* Light theme footer logo - same sizes as dark theme */
 [data-theme="light"] footer .kubegraf-logo {
-  width: 48px !important;
-  height: 48px !important;
+  width: auto !important;
+  height: 40px !important;
+}
+
+@media (min-width: 640px) {
+  [data-theme="light"] footer .kubegraf-logo {
+    height: 48px !important;
+  }
 }
 
 @media (min-width: 768px) {
   [data-theme="light"] footer .kubegraf-logo {
-    width: 52px !important;
-    height: 52px !important;
+    height: 56px !important;
   }
 }
 

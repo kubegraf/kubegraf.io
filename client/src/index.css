@@ -36,7 +36,7 @@
 /* System-based theming - Light Mode by Default (Anthropic-inspired Rich Cream) */
 :root {
   /* Light Mode Default - Enhanced Rich Cream */
-  --background: 45 65% 95%; /* Richer, warmer cream */
+  --background: 45 65% 95%; /* Richer, warmer cream #faf6e9 */
   --foreground: 240 7% 8%; /* #131314 - Anthropic near-black */
 
   --card: 0 0% 100%; /* #FFFFFF - pure white cards for contrast */
@@ -53,8 +53,8 @@
   --secondary: 14 58% 60%; /* #D97757 - Anthropic terracotta */
   --secondary-foreground: 0 0% 100%;
 
-  --muted: 45 60% 93%; /* Richer warm cream tint */
-  --muted-foreground: 0 0% 40%; /* Darker gray for better contrast */
+  --muted: 40 30% 90%; /* Warm beige for chips/badges - harmonious with cream bg */
+  --muted-foreground: 30 10% 35%; /* Warm brown text for better contrast */
 
   /* Warm amber accent */
   --accent: 38 92% 50%;
@@ -63,7 +63,7 @@
   --destructive: 0 72% 51%;
   --destructive-foreground: 0 0% 100%;
 
-  --border: 40 20% 88%; /* #E8E6DD - warm border */
+  --border: 40 20% 85%; /* #DDD9CC - slightly darker warm border for chips */
   --input: 40 20% 88%;
   --ring: 14 100% 50%; /* Match primary orange */
 
@@ -107,7 +107,7 @@ pre[aria-label] {
 /* Light Theme (Anthropic-inspired Rich Cream) - System preference */
 @media (prefers-color-scheme: light) {
   :root {
-    --background: 45 65% 95%; /* Richer, warmer cream */
+    --background: 45 65% 95%; /* Richer, warmer cream #faf6e9 */
     --foreground: 240 7% 8%; /* #131314 - Anthropic near-black */
 
     --card: 0 0% 100%; /* #FFFFFF - pure white cards */
@@ -124,8 +124,8 @@ pre[aria-label] {
     --secondary: 14 58% 60%; /* #D97757 - Anthropic terracotta */
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 45 60% 93%; /* Richer warm cream tint */
-    --muted-foreground: 0 0% 40%;
+    --muted: 40 30% 90%; /* Warm beige for chips/badges - harmonious with cream bg */
+    --muted-foreground: 30 10% 35%; /* Warm brown text for better contrast */
 
     --accent: 38 92% 50%;
     --accent-foreground: 0 0% 100%;
@@ -133,7 +133,7 @@ pre[aria-label] {
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 40 20% 88%; /* #E8E6DD - warm border */
+    --border: 40 20% 85%; /* #DDD9CC - slightly darker warm border for chips */
     --input: 40 20% 88%;
     --ring: 14 100% 50%;
   }
@@ -141,9 +141,9 @@ pre[aria-label] {
 
 /* Manual theme overrides (for footer preference control) */
 :root[data-theme="light"] {
-  --background: 45 65% 95%; /* Richer, warmer cream */
+  --background: 45 65% 95%; /* Richer, warmer cream #faf6e9 */
   --foreground: 240 7% 8%; /* #131314 - Anthropic near-black */
-  --card: 0 0% 100%; /* #FFFFFF */
+  --card: 0 0% 100%; /* #FFFFFF - pure white cards */
   --card-foreground: 240 7% 8%;
   --popover: 0 0% 100%;
   --popover-foreground: 240 7% 8%;
@@ -151,13 +151,13 @@ pre[aria-label] {
   --primary-foreground: 0 0% 100%;
   --secondary: 14 58% 60%; /* #D97757 - Anthropic terracotta */
   --secondary-foreground: 0 0% 100%;
-  --muted: 45 60% 93%; /* Richer warm cream tint */
-  --muted-foreground: 0 0% 40%;
+  --muted: 40 30% 90%; /* Warm beige for chips/badges - harmonious with cream bg */
+  --muted-foreground: 30 10% 35%; /* Warm brown text for better contrast */
   --accent: 38 92% 50%;
   --accent-foreground: 0 0% 100%;
   --destructive: 0 72% 51%;
   --destructive-foreground: 0 0% 100%;
-  --border: 40 20% 88%; /* #E8E6DD - warm border */
+  --border: 40 20% 85%; /* #DDD9CC - slightly darker warm border for chips */
   --input: 40 20% 88%;
   --ring: 14 100% 50%;
 }
