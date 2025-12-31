@@ -30,20 +30,19 @@
     }
   };
 
-  // Update logo based on theme
+  // Update logo based on theme - matches landing page Navbar.tsx and Footer.tsx
   const updateLogo = (theme) => {
+    // Same logos as landing page (transparent versions)
     const lightLogo = '/assets/logos/binary-matrix/logo-transparent-light.svg';
     const darkLogo = '/assets/logos/binary-matrix/logo-transparent-dark.svg';
-    const navLightLogo = '/favicon.svg';
-    const navDarkLogo = '/assets/logos/binary-matrix/logo-binary-matrix-cyan.svg';
 
-    // Update navbar and sidebar logos
+    // Update navbar logo (same as landing page Navbar.tsx)
     const navLogoImages = document.querySelectorAll('.docs-navbar-logo-icon, .sidebar-logo-icon');
     navLogoImages.forEach(img => {
-      img.src = theme === 'light' ? navLightLogo : navDarkLogo;
+      img.src = theme === 'light' ? lightLogo : darkLogo;
     });
 
-    // Update footer logo (matches landing page Footer.tsx)
+    // Update footer logo (same as landing page Footer.tsx)
     const footerLogo = document.getElementById('footer-logo-img');
     if (footerLogo) {
       footerLogo.src = theme === 'light' ? lightLogo : darkLogo;
