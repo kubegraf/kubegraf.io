@@ -38,33 +38,41 @@ export default function Footer({ variant = "default" }: FooterProps) {
     applyTheme(pref);
   };
 
+  const toggleTheme = () => {
+    const newTheme = themePreference === 'light' ? 'dark' : 'light';
+    handleThemeChange(newTheme);
+  };
+
   const ThemePreferenceControl = () => (
-    <div className="inline-flex items-center gap-1 p-1 rounded-md bg-muted/20 border border-border/50">
-      <button
-        onClick={() => handleThemeChange('light')}
-        className={`px-2 py-1 rounded transition-all duration-200 ${
-          themePreference === 'light'
-            ? 'opacity-100 scale-110'
-            : 'opacity-40 hover:opacity-60'
-        }`}
-        aria-label="Light theme"
-        title="Light"
+    <button
+      onClick={toggleTheme}
+      className="px-3 py-2 rounded-md bg-muted/20 border border-border/50 transition-all duration-200 hover:scale-110 hover:bg-muted/30"
+      aria-label={`Switch to ${themePreference === 'light' ? 'dark' : 'light'} theme`}
+      title={`Switch to ${themePreference === 'light' ? 'dark' : 'light'} theme`}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="transition-all"
       >
-        <span className="text-sm">☀️</span>
-      </button>
-      <button
-        onClick={() => handleThemeChange('dark')}
-        className={`px-2 py-1 rounded transition-all duration-200 ${
-          themePreference === 'dark'
-            ? 'opacity-100 scale-110'
-            : 'opacity-40 hover:opacity-60'
-        }`}
-        aria-label="Dark theme"
-        title="Dark"
-      >
-        <span className="text-sm">🌙</span>
-      </button>
-    </div>
+        <circle cx="12" cy="12" r="4"></circle>
+        <path d="M12 2v2"></path>
+        <path d="M12 20v2"></path>
+        <path d="m4.93 4.93 1.41 1.41"></path>
+        <path d="m17.66 17.66 1.41 1.41"></path>
+        <path d="M2 12h2"></path>
+        <path d="M20 12h2"></path>
+        <path d="m6.34 17.66-1.41 1.41"></path>
+        <path d="m19.07 4.93-1.41 1.41"></path>
+      </svg>
+    </button>
   );
 
   if (variant === "minimal") {

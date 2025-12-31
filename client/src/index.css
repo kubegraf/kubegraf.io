@@ -1058,18 +1058,5 @@ h3 {
   animation: radial-reveal 800ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-/* Theme toggle emoji colors matching cream theme - warm earthy tones */
-:root[data-theme="light"] footer button[aria-label*="theme"] span {
-  filter: sepia(0.4) saturate(1.5) brightness(0.85) hue-rotate(-10deg);
-  display: inline-block;
-}
-
-:root[data-theme="light"] footer button[aria-label*="theme"]:hover span {
-  filter: sepia(0.5) saturate(1.8) brightness(0.75) hue-rotate(-10deg);
-}
-
-:root[data-theme="light"] footer button[aria-label*="theme"].opacity-100 span {
-  filter: sepia(0.6) saturate(2) brightness(0.7) hue-rotate(-5deg);
-  text-shadow: 0 0 8px rgba(245, 158, 11, 0.3);
-}
+/* Theme toggle SVG sun icon - uses currentColor from parent */
 }
