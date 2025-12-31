@@ -295,6 +295,12 @@ body,
 
 .docs-navbar-logo span {
   transition: color 0.3s ease;
+  margin-left: -0.5rem; /* Pull text closer to logo - matches landing page */
+}
+
+/* Light theme - pull text even closer to compensate for SVG whitespace */
+:root[data-theme="light"] .docs-navbar-logo span {
+  margin-left: -0.7rem;
 }
 
 /* Light theme logo - same sizes as dark theme on landing page */
