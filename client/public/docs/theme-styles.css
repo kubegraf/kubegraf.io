@@ -28,7 +28,7 @@
   --primary-dark: #0e7490;
   --text: #131314;            /* Anthropic near-black */
   --text-muted: #666666;      /* Darker gray for better contrast on cream */
-  --bg: #f7f3e7;              /* Rich warm cream - HSL(45, 65%, 95%) */
+  --bg: #faf6e9;              /* Rich warm cream - HSL(45, 65%, 95%) - EXACT match to landing page */
   --bg-secondary: #ffffff;    /* Pure white cards for contrast */
   --bg-tertiary: #f3efe3;     /* Warm cream tint - HSL(45, 60%, 93%) */
   --border: rgba(64, 60, 48, 0.15);  /* Warm border */
@@ -42,7 +42,13 @@
 }
 
 /* Smooth transitions for theme changes */
-body,
+/* Body background - matches landing page exactly */
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 .sidebar,
 .docs-content,
 .glass-card,
