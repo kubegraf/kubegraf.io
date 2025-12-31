@@ -856,21 +856,51 @@ sudo mv kubegraf /usr/local/bin/</code></pre>
 
             <h2 id="linux">Linux</h2>
 
-            <div class="two-col">
-                <div class="feature-card">
-                    <h3>x86_64 / AMD64 <span class="badge-small">Most Common</span></h3>
-                    <p>For standard Intel/AMD 64-bit Linux systems</p>
-                    <pre><code>curl -LO https://github.com/kubegraf/kubegraf/releases/latest/download/kubegraf-linux-amd64.tar.gz
-tar xzf kubegraf-linux-amd64.tar.gz
-sudo mv kubegraf /usr/local/bin/</code></pre>
+            <!-- Linux Tab Navigation -->
+            <div class="tabs-container">
+                <div class="tabs-header">
+                    <button class="tab-button active" data-tab="linux-amd64">
+                        x86_64 / AMD64
+                        <span class="badge" style="margin-left: 0.5rem;">Most Common</span>
+                    </button>
+                    <button class="tab-button" data-tab="linux-arm64">
+                        ARM64
+                    </button>
                 </div>
 
-                <div class="feature-card">
-                    <h3>ARM64</h3>
-                    <p>For ARM-based systems (Raspberry Pi, AWS Graviton)</p>
-                    <pre><code>curl -LO https://github.com/kubegraf/kubegraf/releases/latest/download/kubegraf-linux-arm64.tar.gz
+                <!-- x86_64 / AMD64 Tab -->
+                <div class="tab-content active" id="tab-linux-amd64">
+            <div class="install-method">
+                <h3>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/></svg>
+                    x86_64 / AMD64
+                    <span class="badge">Most Common</span>
+                </h3>
+                <p>For standard Intel/AMD 64-bit Linux systems:</p>
+                <pre><code>curl -LO https://github.com/kubegraf/kubegraf/releases/latest/download/kubegraf-linux-amd64.tar.gz
+tar xzf kubegraf-linux-amd64.tar.gz
+sudo mv kubegraf /usr/local/bin/</code></pre>
+                <div class="note">
+                    <p><strong>Check your architecture:</strong> Run <code>uname -m</code>. If it shows <code>x86_64</code>, use this version.</p>
+                </div>
+            </div>
+                </div>
+
+                <!-- ARM64 Tab -->
+                <div class="tab-content" id="tab-linux-arm64">
+            <div class="install-method">
+                <h3>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/></svg>
+                    ARM64
+                </h3>
+                <p>For ARM-based 64-bit systems (Raspberry Pi 4/5, AWS Graviton, Oracle Ampere):</p>
+                <pre><code>curl -LO https://github.com/kubegraf/kubegraf/releases/latest/download/kubegraf-linux-arm64.tar.gz
 tar xzf kubegraf-linux-arm64.tar.gz
 sudo mv kubegraf /usr/local/bin/</code></pre>
+                <div class="note">
+                    <p><strong>Check your architecture:</strong> Run <code>uname -m</code>. If it shows <code>aarch64</code> or <code>arm64</code>, use this version.</p>
+                </div>
+            </div>
                 </div>
             </div>
 
