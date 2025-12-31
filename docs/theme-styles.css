@@ -15,6 +15,10 @@
   --border-hover: rgba(6, 182, 212, 0.55);
   --code-bg: #111827;
   --code-text: #06b6d4;
+
+  /* RGB versions for rgba() usage */
+  --border-rgb: 148, 163, 184;
+  --muted-rgb: 17, 24, 39;
 }
 
 /* Light Theme (Polar) */
@@ -31,6 +35,10 @@
   --border-hover: rgba(8, 145, 178, 0.3);
   --code-bg: #f1f5f9;
   --code-text: #0e7490;
+
+  /* RGB versions for rgba() usage */
+  --border-rgb: 15, 23, 42;
+  --muted-rgb: 241, 245, 249;
 }
 
 /* Smooth transitions for theme changes */
@@ -613,15 +621,19 @@ body,
    ======================================== */
 
 /* Footer Container - matches Tailwind: border-t border-border/50 bg-muted/20 */
+/* Footer is full-width like landing page, NOT offset by sidebar */
 .docs-footer {
   border-top: 1px solid rgba(var(--border-rgb), 0.5);
   background: rgba(var(--muted-rgb), 0.2);
-  margin-left: 280px;
+  margin-left: 0;
+  width: 100%;
 }
 
+/* Container - exactly matches landing page: container mx-auto px-4 sm:px-6 lg:px-8 */
 .docs-footer-content {
-  max-width: 1280px; /* container mx-auto */
-  margin: 0 auto;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
   padding-left: 1rem;
   padding-right: 1rem;
 }
@@ -896,9 +908,38 @@ body,
   transform: scale(1.1);
 }
 
-/* Mobile Responsiveness */
-@media (max-width: 900px) {
-  .docs-footer {
-    margin-left: 0;
+/* Footer Logo Sizing - Matches landing page index.css */
+footer .kubegraf-logo {
+  width: 48px !important;
+  height: 48px !important;
+  transition: transform 0.5s ease;
+  transform-style: preserve-3d;
+}
+
+@media (min-width: 768px) {
+  footer .kubegraf-logo {
+    width: 52px !important;
+    height: 52px !important;
   }
 }
+
+/* Simple rotate on hover for footer logo */
+footer .kubegraf-logo:hover {
+  transform: rotate(360deg);
+  filter: drop-shadow(0 4px 12px rgba(6, 182, 212, 0.4));
+}
+
+/* Light theme footer logo - same size as dark theme */
+[data-theme="light"] footer .kubegraf-logo {
+  width: 48px !important;
+  height: 48px !important;
+}
+
+@media (min-width: 768px) {
+  [data-theme="light"] footer .kubegraf-logo {
+    width: 52px !important;
+    height: 52px !important;
+  }
+}
+
+/* Mobile Responsiveness - footer is already full-width */
