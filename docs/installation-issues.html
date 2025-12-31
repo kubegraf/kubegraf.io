@@ -409,14 +409,14 @@
             <div class="feature-card" style="margin-bottom: 2rem;">
                 <h4 style="margin-top: 0; margin-left: 1rem; color: var(--primary);">"kubegraf is not recognized" - PATH Configuration</h4>
                 <p style="margin-left: 1rem;">If you see this error after manual installation:</p>
-                <pre><code>kubegraf : The term 'kubegraf' is not recognized as the name of a cmdlet, function, script file, or operable program.</code></pre>
+                <pre style="margin-left: 1rem;"><code>kubegraf : The term 'kubegraf' is not recognized as the name of a cmdlet, function, script file, or operable program.</code></pre>
 
-                <p><strong>The issue:</strong> The directory containing kubegraf.exe is not in your system PATH environment variable.</p>
+                <p style="margin-left: 1rem;"><strong>The issue:</strong> The directory containing kubegraf.exe is not in your system PATH environment variable.</p>
 
-                <h4 style="margin-top: 1.5rem; margin-bottom: 0.5rem;">Step-by-Step: Add Folder to PATH Permanently</h4>
+                <h4 style="margin-top: 1.5rem; margin-bottom: 0.5rem; margin-left: 1rem;">Step-by-Step: Add Folder to PATH Permanently</h4>
 
-                <p><strong>Method 1: Using PowerShell (Recommended)</strong></p>
-                <ol style="margin-bottom: 1.5rem;">
+                <p style="margin-left: 1rem;"><strong>Method 1: Using PowerShell (Recommended)</strong></p>
+                <ol style="margin-bottom: 1.5rem; margin-left: 2rem;">
                     <li>Open PowerShell as Administrator (right-click PowerShell → Run as Administrator)</li>
                     <li>Find where you extracted kubegraf.exe (e.g., <code>C:\kubegraf</code>)</li>
                     <li>Run this command, replacing <code>C:\kubegraf</code> with your actual path:
@@ -427,8 +427,8 @@
                     <li>Test: <code>kubegraf --version</code></li>
                 </ol>
 
-                <p><strong>Method 2: Using Windows System Settings (GUI)</strong></p>
-                <ol style="margin-bottom: 1.5rem;">
+                <p style="margin-left: 1rem;"><strong>Method 2: Using Windows System Settings (GUI)</strong></p>
+                <ol style="margin-bottom: 1.5rem; margin-left: 2rem;">
                     <li>Press <kbd>Win + X</kbd> → Select "System"</li>
                     <li>Click "Advanced system settings" on the right</li>
                     <li>Click "Environment Variables" button at the bottom</li>
@@ -439,11 +439,11 @@
                     <li>Test: <code>kubegraf --version</code></li>
                 </ol>
 
-                <div class="note" style="background: rgba(251, 191, 36, 0.1); border-left-color: #fbbf24;">
+                <div class="note" style="background: rgba(251, 191, 36, 0.1); border-left-color: #fbbf24; margin-left: 1rem;">
                     <p><strong>⚠️ Important:</strong> PATH changes only affect NEW terminal sessions. Already-open terminals will NOT see the updated PATH. You must close and reopen your terminals for the changes to take effect.</p>
                 </div>
 
-                <div class="two-col" style="gap: 1rem; margin-top: 1rem;">
+                <div class="two-col" style="gap: 1rem; margin-top: 1rem; margin-left: 1rem;">
                     <div style="min-width: 0;">
                         <p><strong>Quick Test (Temporary)</strong></p>
                         <pre style="margin: 0.5rem 0;"><code># Only works in current PowerShell session
@@ -461,11 +461,11 @@ $env:Path -split ';' | Select-String 'kubegraf'</code></pre>
             </div>
 
             <div class="feature-card" style="margin-bottom: 2rem;">
-                <h4 style="margin-top: 0; color: var(--primary);">"Running scripts is disabled"</h4>
-                <p>If you get this error when running PowerShell scripts:</p>
-                <pre><code>.\install.ps1 : File C:\Users\...\install.ps1 cannot be loaded because running scripts is disabled on this system.</code></pre>
+                <h4 style="margin-top: 0; margin-left: 1rem; color: var(--primary);">"Running scripts is disabled"</h4>
+                <p style="margin-left: 1rem;">If you get this error when running PowerShell scripts:</p>
+                <pre style="margin-left: 1rem;"><code>.\install.ps1 : File C:\Users\...\install.ps1 cannot be loaded because running scripts is disabled on this system.</code></pre>
 
-                <div class="two-col" style="gap: 1rem; margin-top: 1rem;">
+                <div class="two-col" style="gap: 1rem; margin-top: 1rem; margin-left: 1rem;">
                     <div style="min-width: 0;">
                         <p><strong>✅ Solution 1: Bypass (Recommended)</strong></p>
                         <pre style="margin: 0.5rem 0;"><code>Invoke-WebRequest -Uri https://kubegraf.io/install.ps1 -OutFile install.ps1
@@ -484,12 +484,12 @@ powershell -ExecutionPolicy Bypass -File install.ps1</code></pre>
 
             <div class="two-col">
                 <div class="feature-card">
-                    <h4 style="margin-top: 0; color: var(--primary);">macOS: Homebrew permission errors</h4>
-                    <p>If you see "directories are not writable" error:</p>
-                    <pre style="margin: 0.5rem 0;"><code>Error: The following directories are not writable by your user:
+                    <h4 style="margin-top: 0; margin-left: 1rem; color: var(--primary);">macOS: Homebrew permission errors</h4>
+                    <p style="margin-left: 1rem;">If you see "directories are not writable" error:</p>
+                    <pre style="margin: 0.5rem 0 0.5rem 1rem;"><code>Error: The following directories are not writable by your user:
 /usr/local/share/man/man8</code></pre>
-                    <p><strong>Solution:</strong> Fix permissions with:</p>
-                    <pre style="margin: 0.5rem 0;"><code>sudo chown -R $(whoami) /usr/local/share/man/man8
+                    <p style="margin-left: 1rem;"><strong>Solution:</strong> Fix permissions with:</p>
+                    <pre style="margin: 0.5rem 0 0.5rem 1rem;"><code>sudo chown -R $(whoami) /usr/local/share/man/man8
 chmod u+w /usr/local/share/man/man8
 
 brew tap kubegraf/tap
@@ -497,18 +497,18 @@ brew install kubegraf</code></pre>
                 </div>
 
                 <div class="feature-card">
-                    <h4 style="margin-top: 0; color: var(--primary);">macOS: "kubegraf cannot be opened"</h4>
-                    <p>If you see a security warning on macOS:</p>
-                    <pre style="margin: 0.5rem 0;"><code>sudo xattr -rd com.apple.quarantine /usr/local/bin/kubegraf</code></pre>
-                    <p style="font-size: 0.85rem; margin-top: 0.5rem;">This removes the quarantine attribute that prevents unsigned binaries from running.</p>
+                    <h4 style="margin-top: 0; margin-left: 1rem; color: var(--primary);">macOS: "kubegraf cannot be opened"</h4>
+                    <p style="margin-left: 1rem;">If you see a security warning on macOS:</p>
+                    <pre style="margin: 0.5rem 0 0.5rem 1rem;"><code>sudo xattr -rd com.apple.quarantine /usr/local/bin/kubegraf</code></pre>
+                    <p style="font-size: 0.85rem; margin-top: 0.5rem; margin-left: 1rem;">This removes the quarantine attribute that prevents unsigned binaries from running.</p>
                 </div>
             </div>
 
             <div class="feature-card" style="margin-top: 1rem;">
-                <h4 style="margin-top: 0; color: var(--primary);">Linux: Permission denied</h4>
-                <p>If you get permission errors when running kubegraf:</p>
-                <pre style="margin: 0.5rem 0;"><code>sudo chmod +x /usr/local/bin/kubegraf</code></pre>
-                <p style="font-size: 0.85rem; margin-top: 0.5rem;">This makes the binary executable for all users.</p>
+                <h4 style="margin-top: 0; margin-left: 1rem; color: var(--primary);">Linux: Permission denied</h4>
+                <p style="margin-left: 1rem;">If you get permission errors when running kubegraf:</p>
+                <pre style="margin: 0.5rem 0 0.5rem 1rem;"><code>sudo chmod +x /usr/local/bin/kubegraf</code></pre>
+                <p style="font-size: 0.85rem; margin-top: 0.5rem; margin-left: 1rem;">This makes the binary executable for all users.</p>
             </div>
         </main>
         </div>
