@@ -14,19 +14,13 @@
     return 'dark';
   };
 
-  // Update footer theme buttons
-  const updateFooterThemeButtons = (theme) => {
-    const lightBtn = document.getElementById('theme-light-btn');
-    const darkBtn = document.getElementById('theme-dark-btn');
-    
-    if (lightBtn && darkBtn) {
-      if (theme === 'light') {
-        lightBtn.classList.add('active');
-        darkBtn.classList.remove('active');
-      } else {
-        darkBtn.classList.add('active');
-        lightBtn.classList.remove('active');
-      }
+  // Update footer theme button title
+  const updateFooterThemeButton = (theme) => {
+    const themeBtn = document.getElementById('theme-toggle-btn');
+    if (themeBtn) {
+      const nextTheme = theme === 'light' ? 'dark' : 'light';
+      themeBtn.setAttribute('aria-label', `Switch to ${nextTheme} theme`);
+      themeBtn.setAttribute('title', `Switch to ${nextTheme} theme`);
     }
   };
 
@@ -65,57 +59,41 @@
       }
     }
 
-    // Update footer theme buttons
-    updateFooterThemeButtons(theme);
+    // Update footer theme button
+    updateFooterThemeButton(theme);
 
     // Update logo based on theme
     updateLogo(theme);
   };
 
-  // Set theme (for footer buttons) - must be on window for onclick handlers
-  // Define this immediately so it's available when buttons are clicked
-  window.setTheme = function(theme) {
-    applyTheme(theme);
+  // Toggle theme (for footer button) - must be on window for onclick handler
+  // Define this immediately so it's available when button is clicked
+  window.toggleTheme = function() {
+    const current = document.documentElement.getAttribute('data-theme') || 'dark';
+    const next = current === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
   };
 
   // Initialize theme on page load
   const initTheme = () => {
     const theme = getTheme();
     applyTheme(theme);
-    
-    // Also attach event listeners to buttons as fallback (in addition to onclick)
-    const lightBtn = document.getElementById('theme-light-btn');
-    const darkBtn = document.getElementById('theme-dark-btn');
-    
-    if (lightBtn) {
+
+    // Also attach event listener to button as fallback (in addition to onclick)
+    const themeBtn = document.getElementById('theme-toggle-btn');
+
+    if (themeBtn) {
       // Remove existing listeners to avoid duplicates
-      const newLightBtn = lightBtn.cloneNode(true);
-      lightBtn.parentNode.replaceChild(newLightBtn, lightBtn);
-      newLightBtn.addEventListener('click', (e) => {
+      const newThemeBtn = themeBtn.cloneNode(true);
+      themeBtn.parentNode.replaceChild(newThemeBtn, themeBtn);
+      newThemeBtn.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
-        window.setTheme('light');
-      });
-    }
-    
-    if (darkBtn) {
-      // Remove existing listeners to avoid duplicates
-      const newDarkBtn = darkBtn.cloneNode(true);
-      darkBtn.parentNode.replaceChild(newDarkBtn, darkBtn);
-      newDarkBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        window.setTheme('dark');
+        window.toggleTheme();
       });
     }
   };
 
-  // Toggle theme
-  window.toggleTheme = function() {
-    const current = document.documentElement.getAttribute('data-theme') || 'dark';
-    const next = current === 'dark' ? 'light' : 'dark';
-    applyTheme(next);
-  };
 
   // Collapsible Sidebar Sections
   const initCollapsibleSidebar = () => {
