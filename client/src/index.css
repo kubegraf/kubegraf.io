@@ -543,73 +543,133 @@ body {
 
 /* Navbar logo - responsive */
 nav .kubegraf-logo {
-  width: 80px !important;
-  height: 80px !important;
+  width: 28px !important;
+  height: 28px !important;
+  transition: transform 0.5s ease;
+  animation: logoFlip 1.2s ease-in-out;
+  transform-style: preserve-3d;
 }
 
 @media (min-width: 640px) {
   nav .kubegraf-logo {
-    width: 104px !important;
-    height: 104px !important;
+    width: 48px !important;
+    height: 48px !important;
   }
 }
 
 @media (min-width: 768px) {
   nav .kubegraf-logo {
-    width: 120px !important;
-    height: 120px !important;
+    width: 68px !important;
+    height: 68px !important;
   }
 }
 
+@media (min-width: 1024px) {
+  nav .kubegraf-logo {
+    width: 92px !important;
+    height: 92px !important;
+  }
+}
+
+/* Simple rotate on hover */
 nav .kubegraf-logo:hover {
-  transform: translateZ(0) scale(1.1);
-  filter: drop-shadow(0 4px 16px rgba(245, 158, 11, 0.5));
+  transform: rotate(360deg);
+  filter: drop-shadow(0 4px 12px rgba(6, 182, 212, 0.4));
 }
 
-/* Light theme logo - scale down to match dark theme visual size */
+/* Page load flip animation */
+@keyframes logoFlip {
+  0% {
+    transform: perspective(1000px) rotateY(-90deg);
+    opacity: 0;
+  }
+  50% {
+    transform: perspective(1000px) rotateY(90deg);
+    opacity: 1;
+  }
+  100% {
+    transform: perspective(1000px) rotateY(0deg);
+    opacity: 1;
+  }
+}
+
+/* Light theme logo - same size as dark theme */
 [data-theme="light"] nav .kubegraf-logo {
-  width: 64px !important;
-  height: 64px !important;
+  width: 28px !important;
+  height: 28px !important;
 }
 
 @media (min-width: 640px) {
   [data-theme="light"] nav .kubegraf-logo {
-    width: 88px !important;
-    height: 88px !important;
+    width: 48px !important;
+    height: 48px !important;
   }
 }
 
 @media (min-width: 768px) {
   [data-theme="light"] nav .kubegraf-logo {
-    width: 104px !important;
-    height: 104px !important;
+    width: 68px !important;
+    height: 68px !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  [data-theme="light"] nav .kubegraf-logo {
+    width: 92px !important;
+    height: 92px !important;
   }
 }
 
 /* Footer logo - responsive */
 footer .kubegraf-logo {
-  width: 56px !important;
-  height: 56px !important;
+  width: 36px !important;
+  height: 36px !important;
+  transition: transform 0.5s ease;
+  transform-style: preserve-3d;
 }
 
 @media (min-width: 768px) {
   footer .kubegraf-logo {
-    width: 72px !important;
-    height: 72px !important;
+    width: 52px !important;
+    height: 52px !important;
   }
 }
 
-/* Light theme footer logo */
+/* Simple rotate on hover for footer logo */
+footer .kubegraf-logo:hover {
+  transform: rotate(360deg);
+  filter: drop-shadow(0 4px 12px rgba(6, 182, 212, 0.4));
+}
+
+/* Light theme footer logo - same size as dark theme */
 [data-theme="light"] footer .kubegraf-logo {
-  width: 48px !important;
-  height: 48px !important;
+  width: 36px !important;
+  height: 36px !important;
 }
 
 @media (min-width: 768px) {
   [data-theme="light"] footer .kubegraf-logo {
-    width: 64px !important;
-    height: 64px !important;
+    width: 52px !important;
+    height: 52px !important;
   }
+}
+
+/* Pull text closer to logo for both themes */
+nav a[href="/"] span {
+  margin-left: -0.5rem; /* Pull text closer in dark theme */
+}
+
+footer a[href="/"] > div span {
+  margin-left: -0.3rem; /* Pull footer text closer in dark theme */
+}
+
+/* Additional adjustment for light theme to compensate for SVG whitespace */
+[data-theme="light"] nav a[href="/"] span {
+  margin-left: -0.7rem; /* Pull text closer in light theme */
+}
+
+[data-theme="light"] footer a[href="/"] > div span {
+  margin-left: -0.45rem; /* Pull footer text closer in light theme */
 }
 
 /* Mobile-friendly buttons */
@@ -717,6 +777,34 @@ footer {
   p, li {
     line-height: 1.6;
   }
+
+  /* Ensure proper spacing on mobile */
+  section {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+/* Extra small mobile devices (iPhone SE, etc.) */
+@media (max-width: 375px) {
+  h1 {
+    font-size: 1.75rem !important;
+  }
+
+  h2 {
+    font-size: 1.375rem !important;
+  }
+
+  /* Reduce logo size further on very small screens */
+  nav .kubegraf-logo {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  [data-theme="light"] nav .kubegraf-logo {
+    width: 36px !important;
+    height: 36px !important;
+  }
 }
 
 /* Tablet breakpoint adjustments */
@@ -806,6 +894,13 @@ html, body {
   }
 
   /* Add padding to body for fixed nav */
+  main, .main-content {
+    padding-top: 56px;
+  }
+}
+
+/* Tablet navigation */
+@media (min-width: 640px) and (max-width: 768px) {
   main, .main-content {
     padding-top: 64px;
   }

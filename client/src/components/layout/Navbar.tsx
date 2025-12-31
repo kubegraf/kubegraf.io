@@ -179,15 +179,15 @@ export default function Navbar() {
         }`}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 lg:h-20">
+          <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
             {/* Logo */}
-            <a href="/" className="flex items-center gap-2.5 font-display font-bold text-xl tracking-tight group">
+            <a href="/" className="flex items-center gap-1 font-display font-bold text-xl tracking-tight group">
               <img
                 src={theme === 'light' ? '/assets/logos/binary-matrix/logo-transparent-light.svg' : '/assets/logos/binary-matrix/logo-transparent-dark.svg'}
                 alt="KubeGraf"
                 className="kubegraf-logo transition-transform group-hover:scale-110"
               />
-              <span className="hidden sm:inline">KubēGraf</span>
+              <span className="transition-colors duration-300 group-hover:text-amber-500">KubēGraf</span>
             </a>
 
             {/* Desktop Navigation - Portainer style with dropdowns */}

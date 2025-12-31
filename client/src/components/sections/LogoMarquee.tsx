@@ -2,22 +2,22 @@ import { motion } from "framer-motion";
 
 // Platform compatibility - any Kubernetes cluster
 const platforms = [
-  { name: "AWS EKS", logo: "https://cdn.simpleicons.org/amazonwebservices/FF9900", color: "#FF9900" },
-  { name: "Google GKE", logo: "https://cdn.simpleicons.org/googlecloud/4285F4", color: "#4285F4" },
-  { name: "Azure AKS", logo: "https://cdn.simpleicons.org/microsoftazure/0078D4", color: "#0078D4" },
-  { name: "Rancher", logo: "https://cdn.simpleicons.org/rancher/0075A8", color: "#0075A8" },
-  { name: "OpenShift", logo: "https://cdn.simpleicons.org/redhatopenshift/EE0000", color: "#EE0000" },
-  { name: "K3s", logo: "https://cdn.simpleicons.org/k3s/FFC61C", color: "#FFC61C" },
+  { name: "AWS EKS", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/amazonwebservices.svg", color: "#FF9900" },
+  { name: "Google GKE", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/googlecloud.svg", color: "#4285F4" },
+  { name: "Azure AKS", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/microsoftazure.svg", color: "#0078D4" },
+  { name: "Rancher", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/rancher.svg", color: "#0075A8" },
+  { name: "OpenShift", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/redhatopenshift.svg", color: "#EE0000" },
+  { name: "K3s", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/k3s.svg", color: "#FFC61C" },
 ];
 
 // Built-in plugins - officially supported integrations
 const plugins = [
-  { name: "Helm", logo: "https://cdn.simpleicons.org/helm/0F1689", color: "#0F1689" },
-  { name: "ArgoCD", logo: "https://cdn.simpleicons.org/argo/EF7B4D", color: "#EF7B4D" },
-  { name: "Flux", logo: "https://cdn.simpleicons.org/flux/5468FF", color: "#5468FF" },
-  { name: "Istio", logo: "https://cdn.simpleicons.org/istio/466BB0", color: "#466BB0" },
-  { name: "Cilium", logo: "https://cdn.simpleicons.org/cilium/F8C517", color: "#F8C517" },
-  { name: "Nginx", logo: "https://cdn.simpleicons.org/nginx/009639", color: "#009639" },
+  { name: "Helm", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/helm.svg", color: "#0F1689" },
+  { name: "ArgoCD", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/argo.svg", color: "#EF7B4D" },
+  { name: "Flux", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/flux.svg", color: "#5468FF" },
+  { name: "Istio", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/istio.svg", color: "#466BB0" },
+  { name: "Cilium", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/cilium.svg", color: "#F8C517" },
+  { name: "Nginx", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/nginx.svg", color: "#009639" },
 ];
 
 function LogoItem({ name, logo, color, badge }: { name: string; logo: string; color: string; badge?: string }) {
@@ -29,6 +29,20 @@ function LogoItem({ name, logo, color, badge }: { name: string; logo: string; co
           alt={`${name} logo`}
           className="w-full h-full object-contain"
           loading="lazy"
+          onError={(e) => {
+            // Fallback: show colored circle with first letter if image fails
+            const target = e.target as HTMLImageElement;
+            target.style.display = 'none';
+            const parent = target.parentElement;
+            if (parent && !parent.querySelector('.fallback-icon')) {
+              const fallback = document.createElement('div');
+              fallback.className = 'fallback-icon w-full h-full rounded-md flex items-center justify-center text-xs font-bold';
+              fallback.style.backgroundColor = color;
+              fallback.style.color = '#ffffff';
+              fallback.textContent = name.charAt(0);
+              parent.appendChild(fallback);
+            }
+          }}
         />
       </div>
       <span className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors whitespace-nowrap">

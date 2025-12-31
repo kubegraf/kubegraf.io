@@ -1,13 +1,13 @@
-<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 48 48" preserveAspectRatio="xMidYMid meet">
   <!-- Binary Matrix - Transparent background for light theme -->
   <!-- Dark gray elements for light backgrounds -->
-  <rect x="20" y="20" width="24" height="24" rx="3" stroke="#1f2937" stroke-width="2.5" fill="none"/>
-  <circle cx="27" cy="27" r="2.5" fill="#1f2937"/>
-  <circle cx="37" cy="27" r="2.5" fill="#1f2937" opacity="0.5"/>
-  <circle cx="27" cy="37" r="2.5" fill="#1f2937" opacity="0.5"/>
-  <circle cx="37" cy="37" r="2.5" fill="#1f2937"/>
-  <line x1="32" y1="8" x2="32" y2="18" stroke="#1f2937" stroke-width="2" stroke-dasharray="3 3"/>
-  <line x1="32" y1="46" x2="32" y2="56" stroke="#1f2937" stroke-width="2" stroke-dasharray="3 3"/>
-  <line x1="8" y1="32" x2="18" y2="32" stroke="#1f2937" stroke-width="2" stroke-dasharray="3 3"/>
-  <line x1="46" y1="32" x2="56" y2="32" stroke="#1f2937" stroke-width="2" stroke-dasharray="3 3"/>
+  <rect x="14.7" y="14.7" width="17.64" height="17.64" rx="2.2" stroke="#1f2937" stroke-width="1.84" fill="none"/>
+  <circle cx="19.85" cy="19.85" r="1.84" fill="#1f2937"/>
+  <circle cx="27.15" cy="19.85" r="1.84" fill="#1f2937" opacity="0.5"/>
+  <circle cx="19.85" cy="27.15" r="1.84" fill="#1f2937" opacity="0.5"/>
+  <circle cx="27.15" cy="27.15" r="1.84" fill="#1f2937"/>
+  <line x1="23.5" y1="5.88" x2="23.5" y2="12.49" stroke="#1f2937" stroke-width="1.47" stroke-dasharray="2.2 2.2"/>
+  <line x1="23.5" y1="33.8" x2="23.5" y2="40.41" stroke="#1f2937" stroke-width="1.47" stroke-dasharray="2.2 2.2"/>
+  <line x1="5.88" y1="23.5" x2="12.49" y2="23.5" stroke="#1f2937" stroke-width="1.47" stroke-dasharray="2.2 2.2"/>
+  <line x1="33.8" y1="23.5" x2="40.41" y2="23.5" stroke="#1f2937" stroke-width="1.47" stroke-dasharray="2.2 2.2"/>
 </svg>
