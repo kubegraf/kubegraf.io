@@ -21,24 +21,24 @@
   --muted-rgb: 17, 24, 39;
 }
 
-/* Light Theme (Polar) */
+/* Light Theme - Matches landing page Anthropic-inspired Rich Cream */
 :root[data-theme="light"] {
   --primary: #0891b2;         /* Darker cyan for light mode */
   --primary-light: #06b6d4;
   --primary-dark: #0e7490;
-  --text: #0f172a;
-  --text-muted: #475569;
-  --bg: #ffffff;
-  --bg-secondary: #f8fafc;
-  --bg-tertiary: #f1f5f9;
-  --border: rgba(15, 23, 42, 0.1);
+  --text: #131314;            /* Anthropic near-black */
+  --text-muted: #666666;      /* Darker gray for better contrast on cream */
+  --bg: #f7f3e7;              /* Rich warm cream - HSL(45, 65%, 95%) */
+  --bg-secondary: #ffffff;    /* Pure white cards for contrast */
+  --bg-tertiary: #f3efe3;     /* Warm cream tint - HSL(45, 60%, 93%) */
+  --border: rgba(64, 60, 48, 0.15);  /* Warm border */
   --border-hover: rgba(8, 145, 178, 0.3);
-  --code-bg: #f1f5f9;
+  --code-bg: #f3efe3;         /* Warm cream for code blocks */
   --code-text: #0e7490;
 
   /* RGB versions for rgba() usage */
-  --border-rgb: 15, 23, 42;
-  --muted-rgb: 241, 245, 249;
+  --border-rgb: 64, 60, 48;
+  --muted-rgb: 243, 239, 227;  /* Warm cream tint RGB */
 }
 
 /* Smooth transitions for theme changes */
