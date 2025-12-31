@@ -116,8 +116,8 @@ export default function Navbar() {
     if (saved) {
       setTheme(saved);
     } else {
-      const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
-      setTheme(prefersLight ? 'light' : 'dark');
+      // Default to light theme
+      setTheme('light');
     }
 
     // Listen for theme changes (from footer toggle or other pages)

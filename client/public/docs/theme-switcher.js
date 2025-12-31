@@ -1,17 +1,13 @@
 // Theme Switcher for KubeGraf Documentation
 // Define setTheme on window immediately so onclick handlers can use it
 (function() {
-  // Check for saved theme preference or default to dark
+  // Check for saved theme preference or default to light
   const getTheme = () => {
     const saved = localStorage.getItem('kubegraf-theme');
     if (saved) return saved;
 
-    // Check system preference
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-      return 'light';
-    }
-
-    return 'dark';
+    // Default to light theme
+    return 'light';
   };
 
   // Update footer theme button title

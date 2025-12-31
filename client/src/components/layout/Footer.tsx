@@ -17,10 +17,9 @@ export default function Footer({ variant = "default" }: FooterProps) {
       setThemePreference(saved);
       applyTheme(saved);
     } else {
-      const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
-      const defaultDisplay = prefersLight ? 'light' : 'dark';
-      setThemePreference(defaultDisplay);
-      applyTheme(defaultDisplay);
+      // Default to light theme
+      setThemePreference('light');
+      applyTheme('light');
     }
   }, []);
 
