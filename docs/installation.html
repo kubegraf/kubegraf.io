@@ -789,32 +789,68 @@
 
             <h2 id="macos">macOS</h2>
 
+            <!-- macOS Tab Navigation -->
+            <div class="tabs-container">
+                <div class="tabs-header">
+                    <button class="tab-button active" data-tab="macos-homebrew">
+                        Homebrew
+                        <span class="badge" style="margin-left: 0.5rem;">Recommended</span>
+                    </button>
+                    <button class="tab-button" data-tab="macos-m-chip">
+                        Apple Silicon (M chip)
+                    </button>
+                    <button class="tab-button" data-tab="macos-intel">
+                        Intel Processor
+                    </button>
+                </div>
+
+                <!-- Homebrew Tab -->
+                <div class="tab-content active" id="tab-macos-homebrew">
             <div class="install-method">
                 <h3>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/></svg>
                     Homebrew
                     <span class="badge">Recommended</span>
                 </h3>
+                <p>The easiest way to install KubeGraf on macOS:</p>
                 <pre><code>brew tap kubegraf/tap
 brew install kubegraf</code></pre>
-                <p>To upgrade: <code>brew upgrade kubegraf</code></p>
+                <p><strong>To upgrade:</strong> <code>brew upgrade kubegraf</code></p>
             </div>
-
-            <div class="two-col">
-                <div class="feature-card">
-                    <h3>Apple Silicon (M1/M2/M3)</h3>
-                    <p>For Macs with Apple silicon processors (2020+)</p>
-                    <pre><code>curl -LO https://github.com/kubegraf/kubegraf/releases/latest/download/kubegraf-darwin-arm64.tar.gz
-tar xzf kubegraf-darwin-arm64.tar.gz
-sudo mv kubegraf /usr/local/bin/</code></pre>
                 </div>
 
-                <div class="feature-card">
-                    <h3>Intel Processor</h3>
-                    <p>For Macs with Intel processors (pre-2020)</p>
-                    <pre><code>curl -LO https://github.com/kubegraf/kubegraf/releases/latest/download/kubegraf-darwin-amd64.tar.gz
+                <!-- Apple Silicon Tab -->
+                <div class="tab-content" id="tab-macos-m-chip">
+            <div class="install-method">
+                <h3>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/></svg>
+                    Apple Silicon (M1/M2/M3/M4)
+                </h3>
+                <p>For Macs with Apple silicon processors (2020+):</p>
+                <pre><code>curl -LO https://github.com/kubegraf/kubegraf/releases/latest/download/kubegraf-darwin-arm64.tar.gz
+tar xzf kubegraf-darwin-arm64.tar.gz
+sudo mv kubegraf /usr/local/bin/</code></pre>
+                <div class="note">
+                    <p><strong>Note:</strong> You can verify your chip type by clicking the Apple menu () → About This Mac. If it says "Chip: Apple M1/M2/M3/M4", you have Apple Silicon.</p>
+                </div>
+            </div>
+                </div>
+
+                <!-- Intel Processor Tab -->
+                <div class="tab-content" id="tab-macos-intel">
+            <div class="install-method">
+                <h3>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/></svg>
+                    Intel Processor
+                </h3>
+                <p>For Macs with Intel processors (typically pre-2020):</p>
+                <pre><code>curl -LO https://github.com/kubegraf/kubegraf/releases/latest/download/kubegraf-darwin-amd64.tar.gz
 tar xzf kubegraf-darwin-amd64.tar.gz
 sudo mv kubegraf /usr/local/bin/</code></pre>
+                <div class="note">
+                    <p><strong>Note:</strong> You can verify your chip type by clicking the Apple menu () → About This Mac. If it says "Processor: Intel", you have an Intel-based Mac.</p>
+                </div>
+            </div>
                 </div>
             </div>
 
