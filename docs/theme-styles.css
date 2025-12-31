@@ -176,9 +176,9 @@ body {
   padding: 1rem;
   overflow-x: auto;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  white-space: pre-wrap;
-  overflow-wrap: break-word;
+  white-space: pre;
   max-width: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 
 :root[data-theme="light"] pre code {
@@ -186,9 +186,9 @@ body {
   color: var(--text);
   border: none;
   padding: 0;
-  white-space: pre-wrap;
-  overflow-wrap: break-word;
-  display: block;
+  white-space: pre;
+  display: inline-block;
+  min-width: 100%;
 }
 
 :root[data-theme="light"] .docs-hero::before {
