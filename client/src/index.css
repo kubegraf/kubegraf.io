@@ -33,39 +33,39 @@
   --radius-lg: 1rem;
 }
 
-/* System-based theming using prefers-color-scheme */
+/* System-based theming - Light Mode by Default (Anthropic-inspired Rich Cream) */
 :root {
-  /* Dark Mode by Default (Forensic) */
-  --background: 240 10% 4%; /* #09090b - near-black graphite */
-  --foreground: 0 0% 88%; /* Softer white, less harsh */
+  /* Light Mode Default - Enhanced Rich Cream */
+  --background: 45 65% 95%; /* Richer, warmer cream */
+  --foreground: 240 7% 8%; /* #131314 - Anthropic near-black */
 
-  --card: 240 10% 6%;
-  --card-foreground: 0 0% 88%;
+  --card: 0 0% 100%; /* #FFFFFF - pure white cards for contrast */
+  --card-foreground: 240 7% 8%;
 
-  --popover: 240 10% 6%;
-  --popover-foreground: 0 0% 88%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 7% 8%;
 
-  /* Cyan Primary - Signal/Evidence markers */
-  --primary: 190 80% 48%; /* Cyan - slightly desaturated for forensic feel */
-  --primary-foreground: 240 10% 4%;
+  /* Portworx Orange Primary (vibrant) */
+  --primary: 14 100% 50%; /* #FE5000 - Portworx Pure Orange */
+  --primary-foreground: 0 0% 100%;
 
-  /* Neutral Secondary - Slate for utility */
-  --secondary: 215 20% 45%; /* Slate */
-  --secondary-foreground: 0 0% 88%;
+  /* Anthropic Terracotta Secondary (softer alternative) */
+  --secondary: 14 58% 60%; /* #D97757 - Anthropic terracotta */
+  --secondary-foreground: 0 0% 100%;
 
-  --muted: 240 10% 12%;
-  --muted-foreground: 215 15% 55%; /* Slightly warmer, less washed out */
+  --muted: 45 60% 93%; /* Richer warm cream tint */
+  --muted-foreground: 0 0% 40%; /* Darker gray for better contrast */
 
-  /* Amber Accent - Warning/Preview states */
-  --accent: 38 92% 50%; /* Amber */
-  --accent-foreground: 0 0% 10%;
+  /* Warm amber accent */
+  --accent: 38 92% 50%;
+  --accent-foreground: 0 0% 100%;
 
-  --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 0 0% 88%;
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 100%;
 
-  --border: 240 10% 15%;
-  --input: 240 10% 15%;
-  --ring: 190 80% 48%;
+  --border: 40 20% 88%; /* #E8E6DD - warm border */
+  --input: 40 20% 88%;
+  --ring: 14 100% 50%; /* Match primary orange */
 
   --radius: 0.75rem;
 }
@@ -104,63 +104,62 @@ pre[aria-label] {
   }
 }
 
-/* Light Theme (Polar) - System preference */
+/* Light Theme (Anthropic-inspired Rich Cream) - System preference */
 @media (prefers-color-scheme: light) {
   :root {
-    --background: 0 0% 100%; /* #ffffff */
-    --foreground: 222 47% 11%; /* #0f172a */
+    --background: 45 65% 95%; /* Richer, warmer cream */
+    --foreground: 240 7% 8%; /* #131314 - Anthropic near-black */
 
-    --card: 0 0% 98%;
-    --card-foreground: 222 47% 11%;
+    --card: 0 0% 100%; /* #FFFFFF - pure white cards */
+    --card-foreground: 240 7% 8%;
 
-    --popover: 0 0% 98%;
-    --popover-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 7% 8%;
 
-    /* Professional cyan primary for light mode */
-    --primary: 188 91% 37%; /* #0891b2 */
+    /* Portworx Orange Primary */
+    --primary: 14 100% 50%; /* #FE5000 - Portworx Pure Orange */
     --primary-foreground: 0 0% 100%;
 
-    /* Neutral slate secondary */
-    --secondary: 215 25% 27%;
+    /* Anthropic Terracotta Secondary */
+    --secondary: 14 58% 60%; /* #D97757 - Anthropic terracotta */
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
+    --muted: 45 60% 93%; /* Richer warm cream tint */
+    --muted-foreground: 0 0% 40%;
 
-    /* Amber accent for light mode */
     --accent: 38 92% 50%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84% 60%;
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 188 91% 37%;
+    --border: 40 20% 88%; /* #E8E6DD - warm border */
+    --input: 40 20% 88%;
+    --ring: 14 100% 50%;
   }
 }
 
 /* Manual theme overrides (for footer preference control) */
 :root[data-theme="light"] {
-  --background: 0 0% 100%;
-  --foreground: 222 47% 11%;
-  --card: 0 0% 98%;
-  --card-foreground: 222 47% 11%;
-  --popover: 0 0% 98%;
-  --popover-foreground: 222 47% 11%;
-  --primary: 188 91% 37%;
+  --background: 45 65% 95%; /* Richer, warmer cream */
+  --foreground: 240 7% 8%; /* #131314 - Anthropic near-black */
+  --card: 0 0% 100%; /* #FFFFFF */
+  --card-foreground: 240 7% 8%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 7% 8%;
+  --primary: 14 100% 50%; /* #FE5000 - Portworx orange */
   --primary-foreground: 0 0% 100%;
-  --secondary: 215 25% 27%;
+  --secondary: 14 58% 60%; /* #D97757 - Anthropic terracotta */
   --secondary-foreground: 0 0% 100%;
-  --muted: 210 40% 96%;
-  --muted-foreground: 215 16% 47%;
+  --muted: 45 60% 93%; /* Richer warm cream tint */
+  --muted-foreground: 0 0% 40%;
   --accent: 38 92% 50%;
   --accent-foreground: 0 0% 100%;
-  --destructive: 0 84% 60%;
+  --destructive: 0 72% 51%;
   --destructive-foreground: 0 0% 100%;
-  --border: 214 32% 91%;
-  --input: 214 32% 91%;
-  --ring: 188 91% 37%;
+  --border: 40 20% 88%; /* #E8E6DD - warm border */
+  --input: 40 20% 88%;
+  --ring: 14 100% 50%;
 }
 
 :root[data-theme="dark"] {
@@ -534,82 +533,82 @@ body {
   transform: translateZ(0);
   backface-visibility: hidden;
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-  filter: drop-shadow(0 2px 8px rgba(34, 211, 238, 0.2));
+  filter: drop-shadow(0 2px 8px rgba(245, 158, 11, 0.2));
 }
 
 .kubegraf-logo:hover {
   transform: translateZ(0) scale(1.1);
-  filter: drop-shadow(0 4px 20px rgba(34, 211, 238, 0.4));
+  filter: drop-shadow(0 4px 20px rgba(245, 158, 11, 0.4));
 }
 
 /* Navbar logo - responsive */
 nav .kubegraf-logo {
-  width: 48px !important;
-  height: 48px !important;
+  width: 80px !important;
+  height: 80px !important;
 }
 
 @media (min-width: 640px) {
   nav .kubegraf-logo {
-    width: 64px !important;
-    height: 64px !important;
+    width: 104px !important;
+    height: 104px !important;
   }
 }
 
 @media (min-width: 768px) {
   nav .kubegraf-logo {
-    width: 80px !important;
-    height: 80px !important;
+    width: 120px !important;
+    height: 120px !important;
   }
 }
 
 nav .kubegraf-logo:hover {
   transform: translateZ(0) scale(1.1);
-  filter: drop-shadow(0 4px 16px rgba(6, 182, 212, 0.5));
+  filter: drop-shadow(0 4px 16px rgba(245, 158, 11, 0.5));
 }
 
 /* Light theme logo - scale down to match dark theme visual size */
 [data-theme="light"] nav .kubegraf-logo {
-  width: 36px !important;
-  height: 36px !important;
+  width: 64px !important;
+  height: 64px !important;
 }
 
 @media (min-width: 640px) {
   [data-theme="light"] nav .kubegraf-logo {
-    width: 48px !important;
-    height: 48px !important;
+    width: 88px !important;
+    height: 88px !important;
   }
 }
 
 @media (min-width: 768px) {
   [data-theme="light"] nav .kubegraf-logo {
-    width: 56px !important;
-    height: 56px !important;
+    width: 104px !important;
+    height: 104px !important;
   }
 }
 
 /* Footer logo - responsive */
 footer .kubegraf-logo {
-  width: 48px !important;
-  height: 48px !important;
+  width: 56px !important;
+  height: 56px !important;
 }
 
 @media (min-width: 768px) {
   footer .kubegraf-logo {
-    width: 64px !important;
-    height: 64px !important;
+    width: 72px !important;
+    height: 72px !important;
   }
 }
 
 /* Light theme footer logo */
 [data-theme="light"] footer .kubegraf-logo {
-  width: 36px !important;
-  height: 36px !important;
+  width: 48px !important;
+  height: 48px !important;
 }
 
 @media (min-width: 768px) {
   [data-theme="light"] footer .kubegraf-logo {
-    width: 48px !important;
-    height: 48px !important;
+    width: 64px !important;
+    height: 64px !important;
   }
 }
 
@@ -876,6 +875,39 @@ h5, h6 {
 
 p {
   text-wrap: pretty;
+  font-size: 1.125rem; /* 18px - Professional standard */
+  line-height: 1.7; /* More generous */
+  margin-bottom: 1rem;
+}
+
+/* Tight spacing with professional text sizes */
+section {
+  padding-top: clamp(2rem, 3vw, 3rem) !important; /* 32-48px */
+  padding-bottom: clamp(2rem, 3vw, 3rem) !important;
+}
+
+/* Professional text sizes matching Anthropic/Portworx */
+h1 {
+  font-size: clamp(2.5rem, 5vw, 3.5rem) !important; /* 40-56px */
+  line-height: 1.15 !important;
+  margin-bottom: 1rem !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+}
+
+h2 {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem) !important; /* 28-40px */
+  line-height: 1.25 !important;
+  margin-bottom: 0.75rem !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.01em !important;
+}
+
+h3 {
+  font-size: clamp(1.25rem, 2vw, 1.75rem) !important; /* 20-28px */
+  line-height: 1.35 !important;
+  margin-bottom: 0.625rem !important;
+  font-weight: 600 !important;
 }
 
 /* Responsive container padding */

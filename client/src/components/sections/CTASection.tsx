@@ -3,16 +3,21 @@ import { Terminal, BookOpen, Github } from "lucide-react";
 
 export default function CTASection() {
   return (
-    <section className="relative py-16 md:py-20 lg:py-28 border-t border-border/50">
+    <section className="relative py-12 sm:py-16 lg:py-20 border-t border-border/50">
       <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 max-w-4xl">
         <div className="text-center">
           {/* Heading */}
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-4 md:mb-6 leading-tight px-2">
-            Start Investigating
+          <h2
+            style={{ fontSize: 'clamp(2rem, 1.6rem + 2vw, 3.5rem)' }}
+            className="font-mono font-bold mb-5 leading-tight px-2"
+          >
+            <span className="text-primary">Start</span>
+            <span className="text-foreground/90"> </span>
+            <span className="text-amber-500">Investigating</span>
           </h2>
 
           {/* Subheading */}
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-6 md:mb-8 max-w-2xl mx-auto px-2">
+          <p className="text-lg sm:text-xl text-foreground/85 mb-7 md:mb-8 max-w-2xl mx-auto px-2 leading-relaxed">
             KubēGraf is available now.
           </p>
 

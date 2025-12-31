@@ -1,6 +1,11 @@
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { useIsMobile } from "@/hooks/useIsMobile";
+import { Button } from "@/components/ui/button";
+import { Terminal, Download, ArrowRight, Play } from "lucide-react";
+
+// Lazy load the interactive dot grid for performance
+const InteractiveDotGrid = lazy(() => import("@/components/InteractiveDotGrid"));
 
 // Lightweight animated terminal for mobile - typing effect without framer-motion
 function MobileTerminal() {
@@ -46,7 +51,7 @@ function MobileTerminal() {
           </div>
           <span className="ml-2 text-xs text-muted-foreground font-mono">kubegraf</span>
         </div>
-        <div className="p-4 font-mono text-xs leading-relaxed min-h-[220px] sm:min-h-[260px]">
+        <div className="p-4 font-mono text-xs leading-relaxed h-[220px] sm:h-[260px]">
           {terminalLines.slice(0, visibleLines).map((line, i) => (
             <div
               key={i}
@@ -117,7 +122,7 @@ function AnimatedTerminal() {
       className="relative w-full max-w-4xl mx-auto"
     >
       {/* Glow effect behind terminal */}
-      <div className="absolute -inset-8 bg-gradient-to-r from-cyan-500/30 via-primary/20 to-purple-500/30 rounded-3xl blur-3xl opacity-50" />
+      <div className="absolute -inset-8 bg-gradient-to-r from-cyan-500/30 via-primary/20 to-teal-500/30 rounded-3xl blur-3xl opacity-50" />
 
       {/* Terminal window - theme-aware */}
       <div className="relative bg-card/95 backdrop-blur-sm rounded-2xl border border-border shadow-2xl overflow-hidden">
@@ -132,7 +137,7 @@ function AnimatedTerminal() {
         </div>
 
         {/* Terminal content */}
-        <div className="p-4 sm:p-6 font-mono text-xs sm:text-sm md:text-base leading-relaxed min-h-[220px] sm:min-h-[260px] overflow-x-auto">
+        <div className="p-4 sm:p-6 font-mono text-xs sm:text-sm md:text-base leading-relaxed h-[280px] sm:h-[320px] overflow-x-auto overflow-y-hidden">
           {terminalLines.slice(0, visibleLines).map((line, i) => (
             <motion.div
               key={i}
@@ -163,60 +168,151 @@ function AnimatedTerminal() {
 
 export default function Hero() {
   const isMobile = useIsMobile();
+  const [showGrid, setShowGrid] = useState(false);
+
+  useEffect(() => {
+    // Delay loading the interactive grid
+    if (!isMobile) {
+      const timer = setTimeout(() => setShowGrid(true), 500);
+      return () => clearTimeout(timer);
+    }
+  }, [isMobile]);
 
   return (
-    <section className="relative min-h-screen overflow-hidden">
-      {/* Background - minimal, forensic */}
+    <section className="relative py-12 sm:py-16 lg:py-20 overflow-hidden">
+      {/* Background layers */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-background" />
-        {/* Single subtle gradient - graphite tones */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-b from-cyan-500/5 to-transparent rounded-full blur-[120px]" />
+        {/* Base gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-background" />
+
+        {/* Dithered gradient overlay - Very subtle */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(6,182,212,0.08),transparent)]" />
+
+        {/* Interactive dot grid - Portainer's signature element */}
+        {!isMobile && showGrid && (
+          <Suspense fallback={null}>
+            <InteractiveDotGrid />
+          </Suspense>
+        )}
       </div>
 
-      {/* Main Content - Centered layout */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-32 lg:pt-40 pb-16">
+      {/* Main Content - VERY tight like Anthropic */}
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20 pb-8">
+        <div className="grid lg:grid-cols-2 gap-6 lg:gap-10 items-center">
+          {/* Left column - Text content */}
+          <div className="text-center lg:text-left">
+            {/* Badge - Anthropic style */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-8"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+              </span>
+              <span className="text-[0.6875rem] font-medium text-primary uppercase tracking-[0.08em]">Local-first</span>
+            </motion.div>
 
-        {/* Centered headline section */}
-        <div className="text-center max-w-5xl mx-auto mb-12 lg:mb-16">
-          {/* Brand Name - fade in */}
-          <div
-            className="mb-6 animate-fade-in-up"
-            style={{ animationDelay: '0ms' }}
-          >
-            <span className="text-3xl sm:text-4xl font-display font-bold tracking-tight text-primary">
-              KubēGraf
-            </span>
+            {/* Hero Heading - Terminal style with monospace and color - WCAG AA compliant */}
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              style={{ fontSize: 'clamp(3.5rem, 2.89rem + 3.06vw, 6rem)' }}
+              className="font-mono font-bold mb-8 leading-[1.2] tracking-[-0.01em]"
+            >
+              <span className="text-foreground/90">Intelligent </span>
+              <span className="text-primary">Kubernetes</span>
+              <br className="hidden sm:block" />
+              <span className="text-foreground/90"> Incident </span>
+              <span className="text-amber-500">Response</span>
+            </motion.h1>
+
+            {/* Subheading - Larger description text - WCAG AA compliant */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              style={{ fontSize: 'clamp(1.25rem, 1.17rem + 0.41vw, 1.5rem)' }}
+              className="leading-[1.7] text-foreground/85 max-w-2xl mx-auto lg:mx-0 mb-10 font-normal"
+            >
+              Detect incidents, understand root causes with evidence analysis,
+              and safely preview fixes—all running locally on your machine.
+            </motion.p>
+
+            {/* CTAs - Anthropic style buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12"
+            >
+              <Button
+                size="lg"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20 text-[1rem] px-8 h-[3.25rem] font-medium transition-all duration-200"
+                onClick={() => window.location.href = '/docs/quickstart.html'}
+              >
+                Get Started
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="text-[1rem] px-8 h-[3.25rem] font-medium border-border/50 hover:bg-muted/50 transition-all duration-200"
+                onClick={() => window.location.href = '/docs/installation.html'}
+              >
+                <Download className="w-4 h-4 mr-2" />
+                Download
+              </Button>
+            </motion.div>
+
+            {/* Social proof - Anthropic style minimalist */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="pt-8 border-t border-border/20"
+            >
+              <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start text-[0.875rem] text-muted-foreground/75">
+                <div className="flex items-center gap-2">
+                  <Terminal className="w-4 h-4 text-primary/70" />
+                  <span className="font-medium text-foreground/60">TUI + Web Dashboard</span>
+                </div>
+                <div className="hidden sm:block w-1 h-1 rounded-full bg-muted-foreground/30" />
+                <span className="font-normal text-muted-foreground/70">macOS • Linux • Windows</span>
+                <div className="hidden sm:block w-1 h-1 rounded-full bg-muted-foreground/30" />
+                <span className="font-medium text-primary/80">Apache 2.0</span>
+              </div>
+            </motion.div>
           </div>
 
-          {/* Hero Heading - fade in with delay */}
-          <h1
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold tracking-tight mb-8 leading-[1.05] animate-fade-in-up"
-            style={{ animationDelay: '150ms' }}
-          >
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-cyan-400 to-cyan-500">
-              Intelligent Insight
-            </span>
-            <br />
-            <span className="text-foreground">for Kubernetes Incidents</span>
-          </h1>
-
-          {/* Subheading - fade in with more delay */}
-          <p
-            className="text-lg sm:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto mb-10 leading-relaxed animate-fade-in-up"
-            style={{ animationDelay: '300ms' }}
-          >
-            Local-first incident intelligence. Evidence-backed diagnosis. Safe fix previews. No SaaS lock-in.
-          </p>
-        </div>
-
-        {/* Terminal showcase - below the fold but prominent */}
-        <div
-          className="animate-fade-in-up"
-          style={{ animationDelay: '600ms' }}
-        >
-          {isMobile ? <MobileTerminal /> : <AnimatedTerminal />}
+          {/* Right column - Terminal demo */}
+          <div className="relative">
+            {isMobile ? <MobileTerminal /> : <AnimatedTerminal />}
+          </div>
         </div>
       </div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5 }}
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 hidden lg:block"
+      >
+        <div className="flex flex-col items-center gap-2 text-muted-foreground">
+          <span className="text-xs uppercase tracking-widest">Scroll to explore</span>
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ repeat: Infinity, duration: 1.5 }}
+            className="w-6 h-10 rounded-full border-2 border-muted-foreground/30 flex items-start justify-center p-2"
+          >
+            <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+          </motion.div>
+        </div>
+      </motion.div>
     </section>
   );
 }

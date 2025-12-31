@@ -96,7 +96,7 @@ export default function Footer({ variant = "default" }: FooterProps) {
               <Link href="/">
                 <div className="flex items-center gap-3 mb-4">
                   <img
-                    src={themePreference === 'light' ? '/favicon.svg' : '/assets/logos/binary-matrix/logo-binary-matrix-cyan.svg'}
+                    src={themePreference === 'light' ? '/assets/logos/binary-matrix/logo-transparent-light.svg' : '/assets/logos/binary-matrix/logo-transparent-dark.svg'}
                     alt="KubeGraf"
                     className="kubegraf-logo"
                   />
