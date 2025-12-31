@@ -782,13 +782,25 @@
                 </a>
             </div>
 
-            <h2>Quick Install</h2>
-            <p>The fastest way to install KubeGraf on macOS or Linux:</p>
-            <pre><code>curl -sSL https://kubegraf.io/install.sh | bash</code></pre>
-            <p>This script automatically detects your OS and architecture, downloads the appropriate binary, and installs it to <code>/usr/local/bin</code>.</p>
-
             <h2 id="macos">macOS</h2>
 
+            <!-- macOS Tab Navigation -->
+            <div class="tabs-container">
+                <div class="tabs-header">
+                    <button class="tab-button active" data-tab="macos-homebrew">
+                        Homebrew
+                        <span class="badge" style="margin-left: 0.5rem;">Recommended</span>
+                    </button>
+                    <button class="tab-button" data-tab="macos-manual">
+                        Manual Download
+                    </button>
+                    <button class="tab-button" data-tab="macos-script">
+                        Install Script
+                    </button>
+                </div>
+
+                <!-- Homebrew Tab -->
+                <div class="tab-content active" id="tab-macos-homebrew">
             <div class="install-method">
                 <h3>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/></svg>
@@ -799,7 +811,10 @@
 brew install kubegraf</code></pre>
                 <p>To upgrade: <code>brew upgrade kubegraf</code></p>
             </div>
+                </div>
 
+                <!-- Manual Download Tab -->
+                <div class="tab-content" id="tab-macos-manual">
             <div class="two-col">
                 <div class="feature-card">
                     <h3>Apple Silicon (M1/M2/M3)</h3>
@@ -816,10 +831,40 @@ sudo mv kubegraf /usr/local/bin/</code></pre>
 tar xzf kubegraf-darwin-amd64.tar.gz
 sudo mv kubegraf /usr/local/bin/</code></pre>
                 </div>
+                </div>
+            </div>
+                </div>
+
+                <!-- Install Script Tab -->
+                <div class="tab-content" id="tab-macos-script">
+            <div class="install-method">
+                <h3>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/></svg>
+                    Quick Install Script
+                </h3>
+                <p>The fastest way to install KubeGraf on macOS:</p>
+                <pre><code>curl -sSL https://kubegraf.io/install.sh | bash</code></pre>
+                <p>This script automatically detects your architecture (Apple Silicon or Intel), downloads the appropriate binary, and installs it to <code>/usr/local/bin</code>.</p>
+            </div>
+                </div>
             </div>
 
             <h2 id="linux">Linux</h2>
 
+            <!-- Linux Tab Navigation -->
+            <div class="tabs-container">
+                <div class="tabs-header">
+                    <button class="tab-button active" data-tab="linux-manual">
+                        Manual Download
+                        <span class="badge" style="margin-left: 0.5rem;">Recommended</span>
+                    </button>
+                    <button class="tab-button" data-tab="linux-script">
+                        Install Script
+                    </button>
+                </div>
+
+                <!-- Manual Download Tab -->
+                <div class="tab-content active" id="tab-linux-manual">
             <div class="two-col">
                 <div class="feature-card">
                     <h3>x86_64 / AMD64 <span class="badge-small">Most Common</span></h3>
@@ -835,6 +880,22 @@ sudo mv kubegraf /usr/local/bin/</code></pre>
                     <pre><code>curl -LO https://github.com/kubegraf/kubegraf/releases/latest/download/kubegraf-linux-arm64.tar.gz
 tar xzf kubegraf-linux-arm64.tar.gz
 sudo mv kubegraf /usr/local/bin/</code></pre>
+                </div>
+                </div>
+            </div>
+                </div>
+
+                <!-- Install Script Tab -->
+                <div class="tab-content" id="tab-linux-script">
+            <div class="install-method">
+                <h3>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/></svg>
+                    Quick Install Script
+                </h3>
+                <p>The fastest way to install KubeGraf on Linux:</p>
+                <pre><code>curl -sSL https://kubegraf.io/install.sh | bash</code></pre>
+                <p>This script automatically detects your architecture (amd64 or arm64), downloads the appropriate binary, and installs it to <code>/usr/local/bin</code>.</p>
+            </div>
                 </div>
             </div>
 
