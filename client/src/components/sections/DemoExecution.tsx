@@ -9,25 +9,25 @@
 
 export default function DemoExecution() {
   return (
-    <section className="relative py-12 md:py-16 lg:py-24 border-t border-border/50">
+    <section className="relative py-12 sm:py-16 lg:py-20 border-t border-border/50">
       <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 max-w-6xl">
-        <div className="text-center mb-8 md:mb-12 px-2">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold mb-2">
+        <div className="text-center mb-8 sm:mb-10 px-2">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-4 leading-tight">
             See It In Action
           </h2>
-          <p className="text-sm md:text-base text-muted-foreground mb-2">
+          <p className="text-lg sm:text-xl text-muted-foreground mb-2 leading-relaxed">
             Real output from a CrashLoopBackOff investigation.
             No edits. No marketing. Just evidence.
           </p>
-          <p className="text-xs md:text-sm text-muted-foreground">
+          <p className="text-base sm:text-lg text-muted-foreground">
             Same investigation, two interfaces
           </p>
         </div>
 
         {/* Single column on mobile, two columns on desktop */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 items-start">
           {/* Terminal UI */}
-          <div>
+          <div className="flex flex-col">
             <div className="mb-3 md:mb-4 text-center px-2">
               <h3 className="text-base md:text-lg font-display font-semibold mb-1">Terminal UI</h3>
               <p className="text-xs text-muted-foreground">
@@ -35,8 +35,8 @@ export default function DemoExecution() {
               </p>
             </div>
 
-            <div className="bg-card border border-border rounded-lg overflow-hidden shadow-lg">
-              <div className="p-3 sm:p-4 md:p-6 font-mono text-xs sm:text-sm leading-relaxed max-h-[400px] sm:max-h-[500px] md:max-h-[600px] overflow-y-auto overflow-x-auto" role="log" aria-label="Demo execution output" tabIndex={0}>
+            <div className="bg-card border border-border rounded-lg overflow-hidden shadow-lg flex-1">
+              <div className="p-3 sm:p-4 md:p-6 font-mono text-xs sm:text-sm leading-relaxed h-[500px] overflow-y-auto overflow-x-auto" role="log" aria-label="Demo execution output" tabIndex={0}>
             <pre className="text-foreground/80 whitespace-pre min-w-max">
 {`$ kubegraf watch --cluster prod-eu-1
 
@@ -140,7 +140,7 @@ Dry-run: no changes applied yet
           </div>
 
           {/* Web UI */}
-          <div>
+          <div className="flex flex-col">
             <div className="mb-3 md:mb-4 text-center px-2">
               <h3 className="text-base md:text-lg font-display font-semibold mb-1">Web Dashboard</h3>
               <p className="text-xs text-muted-foreground">
@@ -148,10 +148,9 @@ Dry-run: no changes applied yet
               </p>
             </div>
 
-            <div className="bg-card border border-border rounded-lg overflow-hidden shadow-lg">
-            <div className="p-3 sm:p-4 md:p-6">
+            <div className="bg-card border border-border rounded-lg overflow-hidden shadow-lg flex-1 flex flex-col">
               {/* Mock browser chrome */}
-              <div className="bg-muted/20 rounded-t-lg px-2 sm:px-3 md:px-4 py-2 flex items-center gap-2 border-b border-border">
+              <div className="bg-muted/20 px-2 sm:px-3 md:px-4 py-2 flex items-center gap-2 border-b border-border flex-shrink-0">
                 <div className="flex gap-1 sm:gap-1.5">
                   <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-red-500/50" />
                   <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-yellow-500/50" />
@@ -163,7 +162,7 @@ Dry-run: no changes applied yet
               </div>
 
               {/* Web UI content */}
-              <div className="bg-card/30 p-3 sm:p-4 md:p-6 rounded-b-lg space-y-4 sm:space-y-5 md:space-y-6 overflow-x-auto">
+              <div className="bg-card/30 p-3 sm:p-4 md:p-6 space-y-3 sm:space-y-4 overflow-x-auto overflow-y-auto h-[460px]">
                 {/* Incident header */}
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0 flex-1">
@@ -242,7 +241,7 @@ Dry-run: no changes applied yet
                 </div>
 
                 {/* Action buttons */}
-                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3 pt-3 sm:pt-4 border-t border-border/50">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3 pt-2 sm:pt-3 border-t border-border/50">
                   <button className="px-3 sm:px-4 py-2 bg-primary text-primary-foreground rounded font-medium text-xs sm:text-sm hover:bg-primary/90 transition-colors">
                     Preview Fix
                   </button>
@@ -255,12 +254,11 @@ Dry-run: no changes applied yet
                 </div>
               </div>
             </div>
-            </div>
           </div>
         </div>
 
         {/* Bottom note */}
-        <div className="text-center mt-8 md:mt-12 pt-6 md:pt-8 border-t border-border/50 px-3">
+        <div className="text-center mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-border/50 px-3">
           <p className="text-xs sm:text-sm text-muted-foreground max-w-2xl mx-auto">
             Every diagnosis is backed by collected evidence. Every fix requires human approval.
           </p>

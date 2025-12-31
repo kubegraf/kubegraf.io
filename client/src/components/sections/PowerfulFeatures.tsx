@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Terminal, Globe, Lock, BarChart3, Code, Database } from "lucide-react";
+import { Terminal, Globe, BarChart3, Code, Database } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
@@ -38,13 +38,6 @@ const powerfulFeatures = [
     description: "All incident history stored in SQLite on your machine. No cloud dependencies for core features.",
     badge: "Security",
     color: "from-blue-500/20 to-blue-600/20"
-  },
-  {
-    icon: Lock,
-    title: "Open Source",
-    description: "Audit the code, run it offline, modify it for your environment. Apache License 2.0.",
-    badge: "Trust",
-    color: "from-green-500/20 to-green-600/20"
   }
 ];
 
