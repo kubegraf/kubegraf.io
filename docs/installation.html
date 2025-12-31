@@ -396,6 +396,59 @@
             transform: translateY(-2px);
         }
 
+        /* Tabs Styles */
+        .tabs-container {
+            margin: 2rem 0;
+        }
+
+        .tabs-header {
+            display: flex;
+            gap: 0.5rem;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 2rem;
+        }
+
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            font-family: inherit;
+        }
+
+        .tab-button:hover {
+            color: var(--text);
+            background: rgba(6, 182, 212, 0.05);
+        }
+
+        .tab-button.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+            font-weight: 600;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         /* Mobile Menu Button */
         /* Mobile Menu Buttons */
         .mobile-menu-btn,
@@ -787,6 +840,23 @@ sudo mv kubegraf /usr/local/bin/</code></pre>
 
             <h2 id="windows">Windows</h2>
 
+            <!-- Tab Navigation -->
+            <div class="tabs-container">
+                <div class="tabs-header">
+                    <button class="tab-button active" data-tab="manual">
+                        Manual Download
+                        <span class="badge" style="margin-left: 0.5rem;">Recommended</span>
+                    </button>
+                    <button class="tab-button" data-tab="gui">
+                        GUI Installer
+                    </button>
+                    <button class="tab-button" data-tab="scoop">
+                        Scoop
+                    </button>
+                </div>
+
+                <!-- Manual Download Tab -->
+                <div class="tab-content active" id="tab-manual">
             <div class="install-method">
                 <h3>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/></svg>
@@ -814,7 +884,10 @@ sudo mv kubegraf /usr/local/bin/</code></pre>
                     <p><strong>📖 Need help with PATH?</strong> See the detailed <a href="#troubleshooting-path" style="color: var(--primary); text-decoration: underline;">PATH troubleshooting section below</a> for step-by-step instructions and common issues.</p>
                 </div>
             </div>
+                </div>
 
+                <!-- GUI Installer Tab -->
+                <div class="tab-content" id="tab-gui">
             <div class="install-method">
                 <h3>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/></svg>
@@ -843,13 +916,18 @@ sudo mv kubegraf /usr/local/bin/</code></pre>
                 </div>
                 <p><strong>What you get:</strong> Automatic PATH setup, Start Menu shortcuts, Desktop shortcut (optional), Professional uninstaller</p>
             </div>
+                </div>
 
+                <!-- Scoop Tab -->
+                <div class="tab-content" id="tab-scoop">
             <div class="feature-card" style="margin: 1.5rem 0;">
                 <h3 style="margin-bottom: 0.5rem; margin-top: 0;">Scoop <span class="badge-small">Package Manager</span></h3>
                 <p style="margin-bottom: 1rem; margin-top: 0;">For users with Scoop package manager installed</p>
                 <pre style="margin: 0 0 1rem 0;"><code>scoop bucket add kubegraf https://github.com/kubegraf/scoop-bucket
 scoop install kubegraf</code></pre>
                 <p style="margin: 0; font-size: 0.9rem;"><strong>To upgrade:</strong> <code>scoop update kubegraf</code></p>
+            </div>
+                </div>
             </div>
 
 
@@ -1121,6 +1199,26 @@ brew install kubegraf</code></pre>
                     downloadLink.href = 'https://github.com/kubegraf/kubegraf/releases/latest';
                 });
         })();
+
+        // Tab switching functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const tabName = this.getAttribute('data-tab');
+
+                    // Remove active class from all buttons and contents
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+
+                    // Add active class to clicked button and corresponding content
+                    this.classList.add('active');
+                    document.getElementById('tab-' + tabName).classList.add('active');
+                });
+            });
+        });
     </script>
 </body>
 </html>
