@@ -181,7 +181,7 @@ export default function Navbar() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
             {/* Logo */}
-            <a href="/" className="flex items-center gap-1 font-display font-bold text-xl tracking-tight group">
+            <a href="/" className="flex items-center gap-1 font-display font-bold text-base sm:text-lg lg:text-xl tracking-tight group">
               <img
                 src={theme === 'light' ? '/assets/logos/binary-matrix/logo-transparent-light.svg' : '/assets/logos/binary-matrix/logo-transparent-dark.svg'}
                 alt="KubeGraf"

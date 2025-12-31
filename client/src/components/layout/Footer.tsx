@@ -100,7 +100,7 @@ export default function Footer({ variant = "default" }: FooterProps) {
                     alt="KubeGraf"
                     className="kubegraf-logo"
                   />
-                  <span className="text-xl font-bold text-foreground transition-colors duration-300 group-hover:text-amber-500">KubēGraf</span>
+                  <span className="text-base sm:text-lg md:text-xl font-bold text-foreground transition-colors duration-300 group-hover:text-amber-500">KubēGraf</span>
                 </div>
               </Link>
               <p className="text-sm text-muted-foreground mb-4 max-w-sm">
