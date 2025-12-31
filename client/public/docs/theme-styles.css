@@ -1066,4 +1066,206 @@ footer .kubegraf-logo:hover {
   }
 }
 
-/* Mobile Responsiveness - footer is already full-width */
+/* ========================================
+   COMPREHENSIVE MOBILE OPTIMIZATIONS
+   ======================================== */
+
+/* Mobile-specific footer improvements */
+@media (max-width: 640px) {
+  /* Footer - reduce padding on mobile */
+  .docs-footer-content {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .docs-footer-main {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  /* Footer grid - single column on mobile */
+  .docs-footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  /* Footer brand - full width */
+  .docs-footer-brand {
+    grid-column: span 1 !important;
+    padding-right: 0 !important;
+    margin-bottom: 1rem;
+  }
+
+  /* Footer columns - compact spacing */
+  .docs-footer-column {
+    margin-bottom: 1rem;
+  }
+
+  .docs-footer-column h3 {
+    font-size: 0.875rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  .docs-footer-column ul {
+    gap: 0.5rem !important;
+  }
+
+  .docs-footer-column a {
+    font-size: 0.875rem !important;
+    padding: 0.5rem 0 !important;
+  }
+
+  /* Footer bottom - stack vertically */
+  .docs-footer-bottom {
+    flex-direction: column !important;
+    gap: 1rem !important;
+    text-align: center;
+  }
+
+  .docs-footer-copyright {
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+    font-size: 0.75rem !important;
+  }
+
+  .docs-footer-separator {
+    display: none !important;
+  }
+
+  /* Logo sizes on mobile */
+  .kubegraf-logo,
+  footer .kubegraf-logo {
+    height: 36px !important;
+  }
+
+  .docs-footer-logo-text {
+    font-size: 1.125rem !important;
+  }
+}
+
+/* Tablet improvements (641px - 768px) */
+@media (min-width: 641px) and (max-width: 768px) {
+  .docs-footer-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .docs-footer-brand {
+    grid-column: span 2 !important;
+  }
+}
+
+/* Additional mobile navigation improvements */
+@media (max-width: 768px) {
+  /* Page navigation buttons */
+  .docs-page-nav {
+    margin-top: 2rem !important;
+    padding-top: 1.5rem !important;
+  }
+
+  .docs-nav-btn {
+    padding: 0.75rem 1rem !important;
+    font-size: 0.875rem !important;
+  }
+
+  /* Navbar improvements */
+  .docs-navbar {
+    padding: 0 1rem !important;
+  }
+
+  .docs-navbar-logo {
+    font-size: 1.125rem !important;
+  }
+
+  /* Content spacing */
+  .docs-hero {
+    padding: 1rem 0 !important;
+  }
+
+  /* Callouts and cards */
+  .callout {
+    padding: 0.75rem !important;
+    margin: 1rem 0 !important;
+  }
+
+  /* Lists */
+  ul, ol {
+    padding-left: 1.25rem !important;
+  }
+
+  /* Images */
+  img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+}
+
+/* Very small screens (< 360px) */
+@media (max-width: 360px) {
+  .docs-content {
+    padding: 0.5rem !important;
+  }
+
+  .docs-footer-content {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+
+  .docs-footer-main {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+  }
+
+  h1 {
+    font-size: 1.375rem !important;
+  }
+
+  h2 {
+    font-size: 1.125rem !important;
+  }
+
+  .kubegraf-logo,
+  footer .kubegraf-logo {
+    height: 32px !important;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Increase tap targets */
+  .docs-footer-column a,
+  .sidebar-section a,
+  .docs-nav-btn {
+    min-height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  /* Remove hover effects on touch devices */
+  .docs-footer-column a:hover,
+  .sidebar-section a:hover {
+    transform: none !important;
+  }
+
+  /* Better touch scrolling */
+  .sidebar,
+  .docs-content,
+  pre {
+    -webkit-overflow-scrolling: touch !important;
+  }
+}
+
+/* Landscape mobile phones */
+@media (max-width: 768px) and (orientation: landscape) {
+  .sidebar {
+    height: calc(100vh - 64px) !important;
+  }
+
+  .docs-content {
+    padding-top: 1rem !important;
+  }
+
+  .docs-footer-main {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+  }
+}
