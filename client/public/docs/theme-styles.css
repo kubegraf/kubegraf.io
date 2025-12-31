@@ -1140,6 +1140,12 @@ footer .kubegraf-logo:hover {
 
   .docs-footer-logo-text {
     font-size: 1.125rem !important;
+    margin-left: 0.25rem !important; /* Add extra spacing between logo and text on mobile */
+  }
+
+  /* Increase gap between logo and text on mobile */
+  .docs-footer-logo-link {
+    gap: 0.75rem !important; /* Increase from 0.5rem to 0.75rem (12px) */
   }
 }
 
