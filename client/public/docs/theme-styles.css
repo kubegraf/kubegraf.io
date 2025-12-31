@@ -176,6 +176,8 @@ body {
   padding: 1rem;
   overflow-x: auto;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  white-space: pre;
+  word-wrap: normal;
 }
 
 :root[data-theme="light"] pre code {
@@ -183,6 +185,9 @@ body {
   color: var(--text);
   border: none;
   padding: 0;
+  white-space: pre;
+  word-wrap: normal;
+  display: block;
 }
 
 :root[data-theme="light"] .docs-hero::before {
