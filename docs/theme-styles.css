@@ -752,12 +752,14 @@ body {
 .docs-footer-brand {
   grid-column: span 2;
   padding-right: 1rem;
+  padding-left: 2rem;
 }
 
 @media (min-width: 768px) {
   .docs-footer-brand {
     grid-column: span 3;
     padding-right: 2rem;
+    padding-left: 2.5rem;
   }
 }
 
@@ -765,6 +767,7 @@ body {
   .docs-footer-brand {
     grid-column: span 2;
     padding-right: 3rem; /* Extra space between brand and Product columns */
+    padding-left: 3rem;
   }
 }
 
