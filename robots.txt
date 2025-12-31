@@ -1,6 +1,20 @@
-# Robots.txt for kubegraf.io
+# robots.txt for kubegraf.io
+
 User-agent: *
 Allow: /
 
-# Sitemap location
+# Sitemap
 Sitemap: https://kubegraf.io/sitemap.xml
+
+# Allow crawling of important assets
+Allow: /assets/logos/
+Allow: /favicon.ico
+Allow: /apple-touch-icon.png
+Allow: /site.webmanifest
+
+# Crawl delay (optional, adjust if needed)
+Crawl-delay: 1
+
+# Disallow specific paths if needed
+# Disallow: /admin/
+# Disallow: /api/
