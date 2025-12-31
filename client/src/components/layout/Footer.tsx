@@ -94,7 +94,13 @@ export default function Footer({ variant = "default" }: FooterProps) {
   }
 
   return (
-    <footer className="border-t border-neutral-200" style={{ backgroundColor: '#f5f1e8' }}>
+    <footer
+      className="border-t"
+      style={{
+        backgroundColor: themePreference === 'light' ? '#f5e8d5' : 'hsl(240, 10%, 8%)',
+        borderColor: themePreference === 'light' ? '#e5e5e5' : 'hsl(240, 10%, 15%)'
+      }}
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Footer Content */}
         <div className="py-12 lg:py-16">

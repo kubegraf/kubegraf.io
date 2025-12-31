@@ -79,18 +79,10 @@
     const theme = getTheme();
     applyTheme(theme);
 
-    // Also attach event listener to button as fallback (in addition to onclick)
-    const themeBtn = document.getElementById('theme-toggle-btn');
-
-    if (themeBtn) {
-      // Remove existing listeners to avoid duplicates
-      const newThemeBtn = themeBtn.cloneNode(true);
-      themeBtn.parentNode.replaceChild(newThemeBtn, themeBtn);
-      newThemeBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        window.toggleTheme();
-      });
+    // The button already has onclick="toggleTheme()" in HTML, no need to clone
+    // Just verify window.toggleTheme is available
+    if (typeof window.toggleTheme === 'function') {
+      console.log('Theme toggle initialized successfully');
     }
   };
 

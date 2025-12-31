@@ -636,11 +636,18 @@ body,
 
 /* Footer Container - matches Tailwind: border-t border-border/50 bg-muted/20 */
 /* Footer is full-width like landing page, NOT offset by sidebar */
+/* Footer - Light theme */
 .docs-footer {
   border-top: 1px solid #e5e5e5;
-  background: #f5f1e8; /* oat color - warm beige */
+  background: #f5e8d5; /* brighter oat/biscuit blend - warm golden beige */
   margin-left: 0;
   width: 100%;
+}
+
+/* Footer - Dark theme */
+:root[data-theme="dark"] .docs-footer {
+  border-top: 1px solid hsl(240, 10%, 15%);
+  background: hsl(240, 10%, 8%); /* darker graphite background */
 }
 
 /* Container - exactly matches landing page: container mx-auto px-4 sm:px-6 lg:px-8 */
@@ -893,6 +900,20 @@ body,
 
 .docs-footer-copyright a:hover {
   color: var(--primary);
+}
+
+/* Theme Toggle Button - SVG sun icon */
+#theme-toggle-btn {
+  color: var(--text);
+}
+
+#theme-toggle-btn:hover {
+  transform: scale(1.1);
+  background: rgba(var(--muted-rgb), 0.3);
+}
+
+#theme-toggle-btn svg {
+  stroke: var(--text);
 }
 
 /* Theme Selector - matches: inline-flex items-center gap-1 p-1 rounded-md bg-muted/20 border border-border/50 */
