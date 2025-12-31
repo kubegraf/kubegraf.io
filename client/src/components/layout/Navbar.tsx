@@ -22,8 +22,6 @@ const resourcesItems = [
 const companyItems = [
   { label: "About KubeGraf", href: "/kubegraf", icon: Brain, description: "Our mission" },
   { label: "Compare", href: "/compare", icon: FileCode, description: "vs. alternatives" },
-  { label: "Community", href: "https://github.com/kubegraf/kubegraf/discussions", icon: Users, description: "Join the discussion" },
-  { label: "GitHub", href: "https://github.com/kubegraf/kubegraf", icon: Github, description: "Source code" },
 ];
 
 interface DropdownProps {
