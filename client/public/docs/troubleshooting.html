@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Troubleshooting - KubeGraf Documentation</title>
+    <meta name="description" content="Complete reference for all KubeGraf CLI commands and flags.">
+    <link rel="canonical" href="https://kubegraf.io/docs/troubleshooting.html" />
+
+    <meta property="og:title" content="KubeGraf Documentation – Intelligent Insight for Kubernetes Incidents" />
+    <meta property="og:description" content="Official KubeGraf documentation for detecting incidents, diagnosing root causes, and safely responding to Kubernetes failures." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kubegraf.io/docs/troubleshooting.html" />
+    <meta property="og:site_name" content="KubeGraf" />
+    <meta property="og:image" content="https://kubegraf.io/opengraph.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@kubegraf" />
+    <meta name="twitter:title" content="KubeGraf Documentation – Intelligent Insight for Kubernetes Incidents" />
+    <meta name="twitter:description" content="Official KubeGraf documentation for detecting incidents, diagnosing root causes, and safely responding to Kubernetes failures." />
+    <meta name="twitter:image" content="https://kubegraf.io/opengraph.jpg" />
+    <!-- Favicons - same as main landing page -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <!-- Use the same font stack as the main landing page -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Theme Switcher -->
+  <link rel="stylesheet" href="/docs/theme-styles.css">
+    <style>
+    :root {
+            /* Align colors with main landing page palette */
+            --primary: #06b6d4;         /* Neon cyan */
+            --primary-light: #22d3ee;
+            --secondary: #0e7490;       /* Dark cyan */
+            --accent: #22d3ee;
+            --text: #f9fafb;
+            --text-muted: #9ca3af;
+            --bg: #09090b;              /* Same as main background */
+            --bg-secondary: #020617;
+            --bg-tertiary: #111827;
+            --border: rgba(148, 163, 184, 0.25);
+        }
+        /* Light Theme */
+        :root[data-theme="light"] {
+            --primary: #0891b2;
+            --primary-light: #06b6d4;
+            --text: #0f172a;
+            --text-muted: #475569;
+            --bg: #faf6e9;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+            --border: rgba(15, 23, 42, 0.1);
+        }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Outfit', -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+
+        /* Floating orbs */
+        .floating-orbs { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
+        .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.12; animation: float 20s ease-in-out infinite; }
+        .orb-1 { width: 500px; height: 500px; background: var(--primary); top: -150px; right: -100px; }
+        .orb-2 { width: 350px; height: 350px; background: var(--primary); bottom: 30%; left: 200px; animation-delay: -5s; }
+        .orb-3 { width: 400px; height: 400px; background: var(--primary); top: 60%; right: -100px; animation-delay: -10s; }
+        @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 25% { transform: translate(20px, -20px) scale(1.03); } 50% { transform: translate(-15px, 15px) scale(0.97); } 75% { transform: translate(15px, 20px) scale(1.01); } }
+
+        /* Hero header */
+        .docs-hero { position: relative; padding: 3rem 0 2rem; margin-bottom: 1rem; overflow: hidden; }
+        .docs-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(6, 182, 212, 0.15), transparent), radial-gradient(ellipse 60% 40% at 80% 50%, rgba(0, 212, 170, 0.08), transparent); pointer-events: none; }
+        .docs-hero .grid-pattern { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(6, 182, 212, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 182, 212, 0.03) 1px, transparent 1px); background-size: 50px 50px; mask-image: radial-gradient(ellipse 70% 70% at 50% 30%, black 0%, transparent 70%); -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 30%, black 0%, transparent 70%); }
+        .docs-hero h1 { position: relative; z-index: 1; animation: heroFadeIn 0.8s ease-out; }
+        .docs-hero h1 span { background: linear-gradient(135deg, var(--primary), var(--primary-light), var(--primary)); background-size: 200% 200%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: gradientShift 5s ease infinite; }
+        .docs-hero .intro { position: relative; z-index: 1; animation: heroFadeIn 0.8s ease-out 0.2s both; }
+        .docs-hero h1::after { content: ''; display: block; width: 80px; height: 3px; background: linear-gradient(90deg, var(--primary), var(--primary-light)); margin-top: 1rem; border-radius: 2px; animation: expandLine 0.8s ease-out 0.4s both; }
+        @keyframes gradientShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+        @keyframes heroFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes expandLine { from { width: 0; opacity: 0; } to { width: 80px; opacity: 1; } }
+
+        a { color: var(--primary); text-decoration: none; } a:hover { text-decoration: underline; }
+        .docs-layout { 
+            display: flex; 
+            flex-direction: column;
+            min-height: 100vh; 
+        }
+        
+        .docs-main-wrapper {
+            display: block;
+            flex: 1;
+        }
+        .sidebar { width: 280px; background: var(--bg-secondary); border-right: 1px solid var(--border); padding: 1.5rem; padding-top: 80px; position: fixed; height: 100vh; overflow-y: auto; padding-bottom: 4rem; }
+        .sidebar-logo { display: none !important; }
+        .sidebar-logo svg { width: 28px; height: 28px; }
+
+        /* .sidebar-logo-icon sizes now in theme-styles.css */
+        .sidebar-section { margin-bottom: 1.5rem; } .sidebar-section h3 { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 0.75rem; }
+        .sidebar-section ul { list-style: none; } .sidebar-section a { display: block; padding: 0.5rem 0.75rem; color: var(--text-muted); border-radius: 6px; font-size: 0.9rem; transition: all 0.2s; }
+        .sidebar-section a:hover { background: var(--bg-tertiary); color: var(--text); text-decoration: none; } .sidebar-section a.active { background: rgba(6, 182, 212, 0.15); color: var(--primary); }
+        .docs-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 3rem 4rem 3rem 3rem;
+            max-width: 1400px;
+        }
+        .docs-content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-family: 'Space Grotesk', system-ui, sans-serif;
+            letter-spacing: -0.03em; color: var(--text);
+        }
+        .docs-content h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+            font-family: 'Space Grotesk', system-ui, sans-serif; color: var(--text);
+        }
+        .docs-content h3 { font-size: 1.2rem; font-weight: 600; margin: 2rem 0 0.75rem; color: var(--primary); }
+        .docs-content p { color: var(--text-muted); margin-bottom: 1rem; }
+        .docs-content code { font-family: 'JetBrains Mono', monospace; font-size: 0.875rem; background: var(--bg-tertiary); padding: 0.2rem 0.4rem; border-radius: 4px; color: var(--primary); }
+        .docs-content pre { background: var(--bg-tertiary); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.25rem; overflow-x: auto; margin: 1rem 0; }
+        .docs-content pre code { background: none; padding: 0; color: var(--text); }
+        .intro { font-size: 1.15rem; color: var(--text); margin-bottom: 2rem; }
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        th, td { text-align: left; padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); }
+        th { color: var(--text); font-weight: 600; background: var(--bg-secondary); }
+        td { color: var(--text-muted); } td code { font-size: 0.8rem; }
+        
+        
+        /* Mobile Menu Button */
+        /* Mobile Menu Buttons */
+        .mobile-menu-btn,
+        .mobile-home-btn.mobile-menu-btn {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1001;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.5rem;
+            line-height: 1;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            min-width: 48px;
+            min-height: 48px;
+        }
+
+        .mobile-menu-btn {
+            left: 1rem;
+        }
+
+        .mobile-menu-btn:hover,
+        .mobile-menu-btn:active {
+            background: var(--bg-tertiary);
+            transform: scale(1.05);
+        }
+
+        /* Mobile Sidebar Overlay */
+        .mobile-sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+        }
+
+        .mobile-sidebar-overlay.active {
+            display: block;
+        }
+@media (max-width: 900px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            .mobile-home-btn {
+                display: block;
+            }
+            
+            .sidebar {
+                position: fixed !important;
+                left: -280px !important;
+                top: 0;
+                z-index: 1000;
+                transition: left 0.3s ease;
+                box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+            }
+            
+            .sidebar.mobile-open {
+                left: 0 !important;
+            }
+            
+            .docs-content { 
+                margin-left: 0; 
+                padding: 2rem 1.5rem; 
+                padding-top: 5rem !important;
+            } .docs-content { margin-left: 0; padding: 2rem 1.5rem; } }
+
+        /* Header Navbar */
+        .docs-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 64px;
+            background: var(--bg)/95;
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+        }
+        
+        .docs-navbar-content {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .docs-navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--text);
+            text-decoration: none;
+        }
+        
+        /* .docs-navbar-logo-icon sizes now in theme-styles.css */
+        
+        .docs-navbar-links {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .docs-navbar-links a {
+            padding: 0.5rem 1rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        
+        .docs-navbar-links a:hover {
+            color: var(--text);
+            background: var(--bg-tertiary);
+        }
+        
+        .docs-navbar-links a.active {
+            color: var(--primary);
+        }
+        
+        @media (max-width: 900px) {
+            .docs-navbar-links {
+                display: none;
+            }
+        }
+
+        /* Footer Styles - Now handled by theme-styles.css */
+        /* Page Navigation Styles */
+        .docs-nav-btn:hover {
+            background: var(--bg-tertiary) !important;
+            border-color: var(--primary) !important;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 640px) {
+            .docs-page-nav {
+                flex-direction: column !important;
+                gap: 1rem;
+            }
+            .docs-nav-btn {
+                width: 100%;
+                justify-content: center !important;
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+    <!-- Header Navbar -->
+    <nav class="docs-navbar">
+        <div class="docs-navbar-content">
+            <a href="/" class="docs-navbar-logo">
+                <img src="/assets/logos/binary-matrix/logo-transparent-dark.svg" alt="KubeGraf" class="docs-navbar-logo-icon">
+                <span>KubēGraf</span>
+            </a>
+            <div class="docs-navbar-links">
+                <a href="/#features">Features</a>
+                <a href="/kubegraf">About</a>
+                <a href="/docs/" class="active">Docs</a>
+                <a href="/pricing">Pricing</a>
+                <a href="https://github.com/kubegraf/kubegraf" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="docs-layout" style="padding-top: 64px;">
+            
+        <!-- Mobile Menu Button -->
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle navigation menu">
+            ☰
+        </button>
+        
+        <!-- Mobile Sidebar Overlay -->
+        <div class="mobile-sidebar-overlay" id="mobile-sidebar-overlay"></div>
+        
+<aside class="sidebar" id="sidebar">
+      <a href="/" class="sidebar-logo">
+        <img src="/assets/logos/binary-matrix/logo-transparent-dark.svg" alt="KubeGraf logo" class="sidebar-logo-icon">
+        KubēGraf
+      </a>
+
+      
+      
+      
+      <div class="sidebar-section">
+        <h3>Getting Started</h3>
+        <ul>
+          <li><a href="/docs/">Overview</a></li>
+          <li><a href="/docs/quickstart.html">Quick Start</a></li>
+          <li><a href="/docs/installation.html">Installation</a></li>
+          <li><a href="/docs/getting-started/first-cluster.html">First cluster</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Introduction</h3>
+        <ul>
+          <li><a href="/docs/introduction/what-is-kubegraf.html">What is KubeGraf</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>User Guide</h3>
+        <ul>
+          <li><a href="/docs/terminal-ui.html">Terminal UI</a></li>
+          <li><a href="/docs/web-dashboard.html">Web Dashboard</a></li>
+          <li><a href="/docs/commands.html" class="active">Commands</a></li>
+          <li><a href="/docs/configuration.html">Configuration</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Features</h3>
+        <ul>
+          <li><a href="/docs/resource-map.html">Resource Map</a></li>
+          <li><a href="/docs/security.html">Security Analysis</a></li>
+          <li><a href="/docs/plugins.html">Plugins</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Troubleshooting</h3>
+        <ul>
+          <li><a href="/docs/troubleshooting/crashloopbackoff.html">CrashLoopBackOff</a></li>
+          <li><a href="/docs/troubleshooting/rollout-stuck.html">Rollout stuck</a></li>
+          <li><a href="/docs/troubleshooting/high-cpu-memory.html">High CPU / memory</a></li>
+          <li><a href="/docs/troubleshooting/restarts-after-config-change.html">Restarts after config change</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Workflows</h3>
+        <ul>
+          <li><a href="/docs/workflows/debug-crashloop.html">Debug CrashLoopBackOff</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="https://github.com/kubegraf/kubegraf" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://github.com/kubegraf/kubegraf/releases" target="_blank" rel="noopener noreferrer">Releases</a></li>
+          <li><a href="https://github.com/kubegraf/kubegraf/issues" target="_blank" rel="noopener noreferrer">Report Issue</a></li>
+        </ul>
+      </div>
+    </aside>
+        <div class="docs-main-wrapper">
+
+        <div class="floating-orbs">
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+            <div class="orb orb-3"></div>
+        </div>
+        </div>
+        </div>
+
+        <main class="docs-content">
+            <div class="docs-hero">
+                <div class="grid-pattern"></div>
+                <h1><span>Troubleshooting</span></h1>
+                <p class="intro">
+                    Common issues and solutions for KubeGraf installation and usage across different platforms.
+                </p>
+            </div>
+
+                        <h2>Troubleshooting</h2>
+
+            <h3 id="troubleshooting-path">Windows Issues</h3>
+
+            <div class="feature-card" style="margin-bottom: 2rem;">
+                <h4 style="margin-top: 0; color: var(--primary);">"kubegraf is not recognized" - PATH Configuration</h4>
+                <p>If you see this error after manual installation:</p>
+                <pre><code>kubegraf : The term 'kubegraf' is not recognized as the name of a cmdlet, function, script file, or operable program.</code></pre>
+
+                <p><strong>The issue:</strong> The directory containing kubegraf.exe is not in your system PATH environment variable.</p>
+
+                <h4 style="margin-top: 1.5rem; margin-bottom: 0.5rem;">Step-by-Step: Add Folder to PATH Permanently</h4>
+
+                <p><strong>Method 1: Using PowerShell (Recommended)</strong></p>
+                <ol style="margin-bottom: 1.5rem;">
+                    <li>Open PowerShell as Administrator (right-click PowerShell → Run as Administrator)</li>
+                    <li>Find where you extracted kubegraf.exe (e.g., <code>C:\kubegraf</code>)</li>
+                    <li>Run this command, replacing <code>C:\kubegraf</code> with your actual path:
+                        <pre style="margin-top: 0.5rem;"><code>[Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\kubegraf", [EnvironmentVariableTarget]::User)</code></pre>
+                    </li>
+                    <li><strong>CRITICAL:</strong> Close ALL open terminal windows (PowerShell, CMD, Git Bash, etc.)</li>
+                    <li>Open a NEW terminal window</li>
+                    <li>Test: <code>kubegraf --version</code></li>
+                </ol>
+
+                <p><strong>Method 2: Using Windows System Settings (GUI)</strong></p>
+                <ol style="margin-bottom: 1.5rem;">
+                    <li>Press <kbd>Win + X</kbd> → Select "System"</li>
+                    <li>Click "Advanced system settings" on the right</li>
+                    <li>Click "Environment Variables" button at the bottom</li>
+                    <li>In "User variables" section, select "Path" → Click "Edit"</li>
+                    <li>Click "New" → Paste your folder path (e.g., <code>C:\kubegraf</code>)</li>
+                    <li>Click OK on all dialogs to save</li>
+                    <li><strong>CRITICAL:</strong> Close ALL terminal windows and open NEW ones</li>
+                    <li>Test: <code>kubegraf --version</code></li>
+                </ol>
+
+                <div class="note" style="background: rgba(251, 191, 36, 0.1); border-left-color: #fbbf24;">
+                    <p><strong>⚠️ Important:</strong> PATH changes only affect NEW terminal sessions. Already-open terminals will NOT see the updated PATH. You must close and reopen your terminals for the changes to take effect.</p>
+                </div>
+
+                <div class="two-col" style="gap: 1rem; margin-top: 1rem;">
+                    <div style="min-width: 0;">
+                        <p><strong>Quick Test (Temporary)</strong></p>
+                        <pre style="margin: 0.5rem 0;"><code># Only works in current PowerShell session
+$env:Path += ";C:\kubegraf"
+kubegraf --version</code></pre>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">Use this to test if kubegraf.exe works before adding to PATH permanently.</p>
+                    </div>
+                    <div style="min-width: 0;">
+                        <p><strong>Verify PATH was Added</strong></p>
+                        <pre style="margin: 0.5rem 0;"><code># Check if folder is in PATH
+$env:Path -split ';' | Select-String 'kubegraf'</code></pre>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">Should show your kubegraf folder path if correctly added.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-card" style="margin-bottom: 2rem;">
+                <h4 style="margin-top: 0; color: var(--primary);">"Running scripts is disabled"</h4>
+                <p>If you get this error when running PowerShell scripts:</p>
+                <pre><code>.\install.ps1 : File C:\Users\...\install.ps1 cannot be loaded because running scripts is disabled on this system.</code></pre>
+
+                <div class="two-col" style="gap: 1rem; margin-top: 1rem;">
+                    <div style="min-width: 0;">
+                        <p><strong>✅ Solution 1: Bypass (Recommended)</strong></p>
+                        <pre style="margin: 0.5rem 0;"><code>Invoke-WebRequest -Uri https://kubegraf.io/install.ps1 -OutFile install.ps1
+powershell -ExecutionPolicy Bypass -File install.ps1</code></pre>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">No permanent changes to your system.</p>
+                    </div>
+                    <div style="min-width: 0;">
+                        <p><strong>Solution 2: Change execution policy</strong></p>
+                        <pre style="margin: 0.5rem 0;"><code>Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force</code></pre>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">Then run installation normally. This change persists.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>macOS & Linux Issues</h3>
+
+            <div class="two-col">
+                <div class="feature-card">
+                    <h4 style="margin-top: 0; color: var(--primary);">macOS: Homebrew permission errors</h4>
+                    <p>If you see "directories are not writable" error:</p>
+                    <pre style="margin: 0.5rem 0;"><code>Error: The following directories are not writable by your user:
+/usr/local/share/man/man8</code></pre>
+                    <p><strong>Solution:</strong> Fix permissions with:</p>
+                    <pre style="margin: 0.5rem 0;"><code>sudo chown -R $(whoami) /usr/local/share/man/man8
+chmod u+w /usr/local/share/man/man8
+
+brew tap kubegraf/tap
+brew install kubegraf</code></pre>
+                </div>
+
+                <div class="feature-card">
+                    <h4 style="margin-top: 0; color: var(--primary);">macOS: "kubegraf cannot be opened"</h4>
+                    <p>If you see a security warning on macOS:</p>
+                    <pre style="margin: 0.5rem 0;"><code>sudo xattr -rd com.apple.quarantine /usr/local/bin/kubegraf</code></pre>
+                    <p style="font-size: 0.85rem; margin-top: 0.5rem;">This removes the quarantine attribute that prevents unsigned binaries from running.</p>
+                </div>
+            </div>
+
+            <div class="feature-card" style="margin-top: 1rem;">
+                <h4 style="margin-top: 0; color: var(--primary);">Linux: Permission denied</h4>
+                <p>If you get permission errors when running kubegraf:</p>
+                <pre style="margin: 0.5rem 0;"><code>sudo chmod +x /usr/local/bin/kubegraf</code></pre>
+                <p style="font-size: 0.85rem; margin-top: 0.5rem;">This makes the binary executable for all users.</p>
+            </div>
+                </main>
+        </div>
+        </div>
+                                                                                <footer class="docs-footer">
+            <div class="docs-footer-content">
+                <!-- Main Footer Content -->
+                <div class="docs-footer-main">
+                    <div class="docs-footer-grid">
+                        <!-- Brand Column -->
+                        <div class="docs-footer-brand">
+                            <a href="/" class="docs-footer-logo-link">
+                                <img id="footer-logo-img" src="/assets/logos/binary-matrix/logo-transparent-dark.svg" alt="KubeGraf" class="kubegraf-logo">
+                                <span class="docs-footer-logo-text">KubēGraf</span>
+                            </a>
+                            <p class="docs-footer-description">Local-first Kubernetes incident detection and diagnosis. No SaaS lock-in.</p>
+                            <div class="docs-footer-brand-clarity">
+                                <strong>Brand clarity:</strong> KubeGraf (kubegraf.io) is an independent product and is not affiliated with Kubernetes, the CNCF, Grafana Labs, or the DevOpsProdigy KubeGraf Grafana plugin.
+                            </div>
+                            <div class="docs-footer-github">
+                                <a href="https://github.com/kubegraf/kubegraf" target="_blank" rel="noopener noreferrer">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+                                    <span>GitHub</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Product Column -->
+                        <div class="docs-footer-column">
+                            <h3>Product</h3>
+                            <ul>
+                                <li><a href="/#features">Features</a></li>
+                                <li><a href="/docs/installation.html">Installation</a></li>
+                                <li><a href="/compare">Compare</a></li>
+                                <li><a href="https://github.com/kubegraf/kubegraf/issues" target="_blank" rel="noopener noreferrer">Roadmap</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Resources Column -->
+                        <div class="docs-footer-column">
+                            <h3>Resources</h3>
+                            <ul>
+                                <li><a href="/docs/">Documentation</a></li>
+                                <li><a href="/docs/quickstart.html">Quickstart</a></li>
+                                <li><a href="/docs/terminal-ui.html">Guides</a></li>
+                                <li><a href="https://github.com/kubegraf/kubegraf/discussions" target="_blank" rel="noopener noreferrer">Community</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Developers Column -->
+                        <div class="docs-footer-column">
+                            <h3>Developers</h3>
+                            <ul>
+                                <li><a href="https://github.com/kubegraf/kubegraf" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                                <li><a href="/docs/commands.html">CLI Reference</a></li>
+                                <li><a href="/docs/configuration.html">API Docs</a></li>
+                                <li><a href="https://github.com/kubegraf/kubegraf/issues/new" target="_blank" rel="noopener noreferrer">Report Bug</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Company Column -->
+                        <div class="docs-footer-column">
+                            <h3>Company</h3>
+                            <ul>
+                                <li><a href="/kubegraf">About</a></li>
+                                <li><a href="mailto:contact@kubegraf.io">Contact</a></li>
+                                <li><a href="/privacy">Privacy</a></li>
+                                <li><a href="/license">License</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Bar -->
+                <div class="docs-footer-bottom">
+                    <div class="docs-footer-copyright">
+                        <span>&copy; 2025 KubēGraf. All rights reserved.</span>
+                        <span class="docs-footer-separator">•</span>
+                        <span>Apache 2.0 License</span>
+                        <span class="docs-footer-separator">•</span>
+                        <a href="mailto:contact@kubegraf.io">contact@kubegraf.io</a>
+                    </div>
+                    <div class="theme-selector">
+                        <button id="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme" style="padding: 0.5rem 0.75rem; border-radius: 0.375rem; background: rgba(var(--muted-rgb), 0.2); border: 1px solid rgba(var(--border-rgb), 0.5); transition: all 0.2s; cursor: pointer;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: block; transition: all 0.2s;">
+                            <circle cx="12" cy="12" r="4"></circle>
+                            <path d="M12 2v2"></path>
+                            <path d="M12 20v2"></path>
+                            <path d="m4.93 4.93 1.41 1.41"></path>
+                            <path d="m17.66 17.66 1.41 1.41"></path>
+                            <path d="M2 12h2"></path>
+                            <path d="M20 12h2"></path>
+                            <path d="m6.34 17.66-1.41 1.41"></path>
+                            <path d="m19.07 4.93-1.41 1.41"></path>
+                        </svg>
+                    </button>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="/docs/mobile-menu.js"></script>
+    <script src="/docs/theme-switcher.js"></script>
+</body>
+</html>
