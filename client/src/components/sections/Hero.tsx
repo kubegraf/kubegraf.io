@@ -12,19 +12,19 @@ function MobileTerminal() {
   const [visibleLines, setVisibleLines] = useState(0);
 
   const terminalLines = [
-    { type: 'command', text: '$ kubegraf analyze crash-pod-7x9a' },
+    { type: 'command', text: '$ kubegraf incidents show restarts-payments-api' },
+    { type: 'info', text: 'Scanning cluster...' },
     { type: 'output', text: '' },
-    { type: 'info', text: '⚡ Collecting evidence...' },
-    { type: 'detail', text: '  ├─ Pod logs (3 sources)' },
-    { type: 'detail', text: '  ├─ Events (12 cluster events)' },
-    { type: 'detail', text: '  ├─ Resource metrics (memory spike detected)' },
-    { type: 'detail', text: '  └─ Recent changes (deployment @ 14:23 UTC)' },
+    { type: 'detail', text: '═══════════════════════════════════════════════════' },
+    { type: 'detail', text: 'INCIDENT DETAILS' },
+    { type: 'detail', text: '═══════════════════════════════════════════════════' },
+    { type: 'detail', text: 'ID:          restarts-payments-api' },
+    { type: 'warning', text: 'Severity:    WARNING' },
+    { type: 'detail', text: 'Namespace:   secrets-test' },
+    { type: 'detail', text: 'Resource:    Pod/test-app-csi-7c9bd978bb-mp28c' },
     { type: 'output', text: '' },
-    { type: 'success', text: '✓ Root cause identified:' },
-    { type: 'detail', text: '  OOMKilled - memory limit 512Mi exceeded' },
-    { type: 'detail', text: '  Evidence: 3 restarts, 94% correlation' },
-    { type: 'output', text: '' },
-    { type: 'success', text: '✓ Safe fix available:' },
+    { type: 'detail', text: 'Type:        high_restarts' },
+    { type: 'warning', text: 'Summary:     Container app has restarted 268 times' },
   ];
 
   useEffect(() => {
@@ -82,23 +82,25 @@ function AnimatedTerminal() {
   const [visibleLines, setVisibleLines] = useState(0);
 
   const terminalLines = [
-    { type: 'command', text: '$ kubegraf analyze crash-pod-7x9a' },
+    { type: 'command', text: '$ kubegraf incidents show restarts-payments-api' },
+    { type: 'info', text: 'Incident not found in database, scanning cluster...' },
+    { type: 'detail', text: '═══════════════════════════════════════════════════════════════════' },
+    { type: 'detail', text: 'INCIDENT DETAILS' },
+    { type: 'detail', text: '═══════════════════════════════════════════════════════════════════' },
+    { type: 'detail', text: 'ID:          restarts-payments-api-service-7c9bd978bb-mp28c-app' },
+    { type: 'warning', text: 'Severity:    WARNING' },
+    { type: 'detail', text: 'Started:     2025-12-21 19:10:40 GMT' },
+    { type: 'detail', text: 'Namespace:   secrets-test' },
+    { type: 'detail', text: 'Resource:    Pod/test-app-csi-7c9bd978bb-mp28c' },
     { type: 'output', text: '' },
-    { type: 'info', text: '⚡ Collecting evidence...' },
-    { type: 'detail', text: '  ├─ Pod logs (3 sources)' },
-    { type: 'detail', text: '  ├─ Events (12 cluster events)' },
-    { type: 'detail', text: '  ├─ Resource metrics (memory spike detected)' },
-    { type: 'detail', text: '  └─ Recent changes (deployment @ 14:23 UTC)' },
+    { type: 'detail', text: 'Type:        high_restarts' },
+    { type: 'warning', text: 'Summary:     Container app has restarted 268 times' },
+    { type: 'detail', text: 'Count:       268' },
     { type: 'output', text: '' },
-    { type: 'success', text: '✓ Root cause identified:' },
-    { type: 'detail', text: '  OOMKilled - memory limit 512Mi exceeded' },
-    { type: 'detail', text: '  Evidence: 3 restarts, 94% correlation' },
-    { type: 'output', text: '' },
-    { type: 'warning', text: '✓ Safe fix available:' },
-    { type: 'detail', text: '  memory: 512Mi → 1Gi' },
-    { type: 'detail', text: '  confidence: 94% | risk: low' },
-    { type: 'output', text: '' },
-    { type: 'prompt', text: '? Preview before applying? (Y/n)' },
+    { type: 'success', text: '🔍 Investigation Steps:' },
+    { type: 'detail', text: '   1. Check container logs for error patterns' },
+    { type: 'detail', text: '   2. Review recent pod events' },
+    { type: 'detail', text: '   3. Check previous container logs (if crashed)' },
   ];
 
   useEffect(() => {
