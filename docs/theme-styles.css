@@ -287,6 +287,14 @@ body {
    NAVBAR LOGO - EXACTLY MATCHING LANDING PAGE
    ======================================== */
 
+/* Center navbar content on mobile */
+@media (max-width: 767px) {
+  .docs-navbar-content {
+    display: flex !important;
+    justify-content: center !important;
+  }
+}
+
 /* Navbar logo - matches landing page Navbar.tsx exactly */
 .docs-navbar-logo-icon {
   width: auto !important;
