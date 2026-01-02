@@ -179,7 +179,7 @@ export default function Navbar() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
             {/* Logo */}
-            <a href="/" className="flex items-center gap-2 sm:gap-3 md:gap-3 group">
+            <a href="/" className="flex items-center gap-3 group">
               <motion.img
                 key={theme}
                 src={theme === 'dark' ? '/kubegraf-dark-new-bg.svg' : '/kubegraf.svg'}
