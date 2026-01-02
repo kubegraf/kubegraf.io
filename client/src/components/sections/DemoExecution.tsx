@@ -36,8 +36,10 @@ export default function DemoExecution() {
             </div>
 
             <div className="bg-card border border-border rounded-lg overflow-hidden shadow-lg flex-1" style={{ aspectRatio: '3226 / 1668' }}>
-              <div className="p-3 sm:p-4 md:p-6 font-mono text-xs sm:text-sm leading-relaxed overflow-y-auto overflow-x-auto h-full" role="log" aria-label="Demo execution output" tabIndex={0}>
-            <pre className="text-foreground/80 whitespace-pre min-w-max">
+              <div className="p-2 sm:p-3 md:p-4 lg:p-6 font-mono text-[10px] sm:text-xs md:text-sm leading-relaxed overflow-y-auto overflow-x-auto h-full touch-pan-x touch-pan-y"
+                   style={{ WebkitOverflowScrolling: 'touch', scrollPaddingInline: '1rem' }}
+                   role="log" aria-label="Demo execution output" tabIndex={0}>
+            <pre className="text-foreground/80 whitespace-pre min-w-max break-words max-w-full">
 {`$ kubegraf incidents show restarts-payments-api-service-7c9bd978bb-mp28c-app
 
 Incident not found in database, scanning cluster...
@@ -127,23 +129,24 @@ Confidence: 92%
 
             <div className="bg-card border border-border rounded-lg overflow-hidden shadow-lg flex-1 flex flex-col" style={{ aspectRatio: '3226 / 1668' }}>
               {/* Mock browser chrome */}
-              <div className="bg-muted/20 px-2 sm:px-3 md:px-4 py-2 flex items-center gap-2 border-b border-border flex-shrink-0">
+              <div className="bg-muted/20 px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 flex items-center gap-1.5 sm:gap-2 border-b border-border flex-shrink-0">
                 <div className="flex gap-1 sm:gap-1.5">
-                  <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-red-500/50" />
-                  <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-yellow-500/50" />
-                  <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-green-500/50" />
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 md:w-3 md:h-3 rounded-full bg-red-500/50" />
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 md:w-3 md:h-3 rounded-full bg-yellow-500/50" />
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 md:w-3 md:h-3 rounded-full bg-green-500/50" />
                 </div>
                 <div className="flex-1 text-center overflow-hidden">
-                  <span className="text-[10px] sm:text-xs text-muted-foreground font-mono truncate block">localhost:8080 - KubeGraf</span>
+                  <span className="text-[9px] sm:text-[10px] md:text-xs text-muted-foreground font-mono truncate block">localhost:8080 - KubeGraf</span>
                 </div>
               </div>
 
               {/* Screenshot of actual Web UI */}
-              <div className="bg-card/30 overflow-hidden">
+              <div className="bg-card/30 overflow-hidden flex-1">
                 <img
                   src="/assets/screenshots/incident-intelligence.png"
                   alt="KubeGraf Web Dashboard showing incident intelligence with AI insights and security overview"
-                  className="w-full h-auto object-contain"
+                  className="w-full h-full object-cover object-top"
+                  loading="lazy"
                 />
               </div>
             </div>

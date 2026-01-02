@@ -222,8 +222,8 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-              style={{ fontSize: 'clamp(3.5rem, 2.89rem + 3.06vw, 6rem)' }}
-              className="font-mono font-bold mb-8 leading-[1.2] tracking-[-0.01em]"
+              style={{ fontSize: 'clamp(2rem, 4vw + 1rem, 6rem)' }}
+              className="font-mono font-bold mb-6 sm:mb-8 leading-[1.2] tracking-[-0.01em]"
             >
               <span className="text-foreground/90">Intelligent </span>
               <span className="text-primary">Kubernetes</span>
