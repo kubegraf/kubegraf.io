@@ -35,8 +35,8 @@ export default function DemoExecution() {
               </p>
             </div>
 
-            <div className="bg-card border border-border rounded-lg overflow-hidden shadow-lg flex-1">
-              <div className="p-3 sm:p-4 md:p-6 font-mono text-xs sm:text-sm leading-relaxed h-[500px] overflow-y-auto overflow-x-auto" role="log" aria-label="Demo execution output" tabIndex={0}>
+            <div className="bg-card border border-border rounded-lg overflow-hidden shadow-lg flex-1" style={{ aspectRatio: '3226 / 1668' }}>
+              <div className="p-3 sm:p-4 md:p-6 font-mono text-xs sm:text-sm leading-relaxed overflow-y-auto overflow-x-auto h-full" role="log" aria-label="Demo execution output" tabIndex={0}>
             <pre className="text-foreground/80 whitespace-pre min-w-max">
 {`$ kubegraf incidents show restarts-payments-api-service-7c9bd978bb-mp28c-app
 
@@ -125,7 +125,7 @@ Confidence: 92%
               </p>
             </div>
 
-            <div className="bg-card border border-border rounded-lg overflow-hidden shadow-lg flex-1 flex flex-col">
+            <div className="bg-card border border-border rounded-lg overflow-hidden shadow-lg flex-1 flex flex-col" style={{ aspectRatio: '3226 / 1668' }}>
               {/* Mock browser chrome */}
               <div className="bg-muted/20 px-2 sm:px-3 md:px-4 py-2 flex items-center gap-2 border-b border-border flex-shrink-0">
                 <div className="flex gap-1 sm:gap-1.5">
