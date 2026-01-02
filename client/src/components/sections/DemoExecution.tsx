@@ -143,7 +143,7 @@ Confidence: 92%
                 <img
                   src="/assets/screenshots/incident-intelligence.png"
                   alt="KubeGraf Web Dashboard showing incident intelligence with AI insights and security overview"
-                  className="w-full h-auto object-contain"
+                  className="w-full h-auto object-contain transform scale-125 origin-top"
                 />
               </div>
             </div>
