@@ -139,11 +139,11 @@ Confidence: 92%
               </div>
 
               {/* Screenshot of actual Web UI */}
-              <div className="bg-card/30 overflow-hidden">
+              <div className="bg-card/30 h-[500px] overflow-hidden flex items-center justify-center">
                 <img
                   src="/assets/screenshots/incident-intelligence.png"
                   alt="KubeGraf Web Dashboard showing incident intelligence with AI insights and security overview"
-                  className="w-full h-auto object-contain"
+                  className="w-full h-full object-contain"
                 />
               </div>
             </div>
