@@ -125,7 +125,7 @@ Confidence: 92%
               </p>
             </div>
 
-            <div className="bg-card border border-border rounded-lg overflow-hidden shadow-lg flex-1 flex flex-col">
+            <div className="bg-card border border-border rounded-lg overflow-hidden shadow-lg flex-1">
               {/* Mock browser chrome */}
               <div className="bg-muted/20 px-2 sm:px-3 md:px-4 py-2 flex items-center gap-2 border-b border-border flex-shrink-0">
                 <div className="flex gap-1 sm:gap-1.5">
@@ -139,11 +139,11 @@ Confidence: 92%
               </div>
 
               {/* Screenshot of actual Web UI */}
-              <div className="bg-card/30 overflow-hidden">
+              <div className="bg-card/30 h-[500px] overflow-hidden">
                 <img
                   src="/assets/screenshots/incident-intelligence.png"
                   alt="KubeGraf Web Dashboard showing incident intelligence with AI insights and security overview"
-                  className="w-full h-auto object-contain"
+                  className="w-full h-full object-cover"
                 />
               </div>
             </div>
