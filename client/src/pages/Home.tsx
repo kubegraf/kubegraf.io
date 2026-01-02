@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useState } from "react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Hero from "@/components/sections/Hero";
+import DemoExecution from "@/components/sections/DemoExecution";
 import LogoMarquee from "@/components/sections/LogoMarquee";
 import Benefits from "@/components/sections/Benefits";
 import Workflow from "@/components/sections/Workflow";
@@ -17,6 +18,7 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
+        <DemoExecution />
         <LogoMarquee />
         <Benefits />
         <Workflow />
