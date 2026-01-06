@@ -62,7 +62,7 @@ async function prepareSite() {
     "kubegraf-logo.svg",
     "kubegraf-logo-dark.png",
     "kubegraf-logo-light.png",
-    "opengraph.jpg",
+    "opengraph-v2.jpg",
   ];
 
   for (const file of staticFiles) {
@@ -87,5 +87,6 @@ prepareSite().catch((err) => {
   console.error("Error preparing _site directory:", err);
   process.exit(1);
 });
+
 
 

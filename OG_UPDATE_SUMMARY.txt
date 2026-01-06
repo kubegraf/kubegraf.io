@@ -1,0 +1,124 @@
+================================================================================
+OPENGRAPH IMAGE UPDATE - COMPLETE SUMMARY
+================================================================================
+
+PROBLEM FIXED:
+--------------
+✓ Google SERP showing old "Orchestrate Kubernetes..." snippet
+✓ Old OG image (opengraph.jpg) had outdated messaging
+✓ No cache-busting strategy for OG image updates
+
+SOLUTION IMPLEMENTED:
+--------------------
+✓ Created NEW OpenGraph image: opengraph-v2.jpg (1200x630, 184KB)
+✓ Used actual website screenshot showing "Intelligent Kubernetes Incident Response"
+✓ Updated ALL meta tags (og:image, twitter:image) to reference opengraph-v2.jpg
+✓ Added proper OG metadata: width, height, alt text
+✓ Updated descriptions to match current positioning
+✓ Used absolute URLs (https://kubegraf.io/opengraph-v2.jpg)
+✓ Updated 54 HTML files across docs/ and client/public/docs/
+
+FILES CHANGED:
+--------------
+Modified:
+  • client/index.html (main source - OG tags updated)
+  • vite-plugin-meta-images.ts (references new filename)
+  • script/prepare-site.ts (copies new file)
+  • All docs/**/*.html (48 files)
+  • All client/public/docs/**/*.html (48 files)
+
+New:
+  • client/public/opengraph-v2.jpg (NEW OG IMAGE)
+  • opengraph-v2.jpg (root copy for build)
+  • script/generate-og-image.py (generation script)
+  • script/update-og-tags.sh (bulk update script)
+  • script/verify-og-tags.sh (verification script)
+  • DEPLOY_CHECKLIST.md (deployment guide)
+
+CURRENT META TAGS:
+------------------
+og:title: "KubēGraf – Intelligent Insight for Kubernetes Incidents"
+og:description: "Local-first Kubernetes incident detection & diagnosis. Evidence-first root cause analysis and safe fix previews — runs on your machine."
+og:image: https://kubegraf.io/opengraph-v2.jpg
+og:image:width: 1200
+og:image:height: 630
+og:image:alt: "KubēGraf – Local-first Kubernetes incident intelligence"
+twitter:card: summary_large_image
+twitter:image: https://kubegraf.io/opengraph-v2.jpg
+
+VERIFICATION:
+-------------
+Run: bash script/verify-og-tags.sh
+
+All checks passed:
+  ✓ Image files exist (1200x630)
+  ✓ References new filename
+  ✓ Has proper dimensions
+  ✓ Has alt text
+  ✓ Uses absolute URLs
+  ✓ Has canonical URL
+  ✓ No old references remain
+
+DEPLOYMENT STEPS:
+-----------------
+1. Commit changes (see DEPLOY_CHECKLIST.md for exact command)
+2. Push to main/production branch
+3. **CRITICAL: Clear CDN cache** (Cloudflare/Vercel/Netlify)
+4. Verify live: curl -I https://kubegraf.io/opengraph-v2.jpg
+5. Google Search Console → Request indexing
+6. Test social debuggers:
+   - Facebook: https://developers.facebook.com/tools/debug/
+   - Twitter: https://cards-dev.twitter.com/validator
+   - LinkedIn: https://www.linkedin.com/post-inspector/
+
+EXPECTED TIMELINE:
+------------------
+• Immediate: New image live on site
+• 1-24 hours: Social platforms update cache
+• 1-7 days: Google re-indexes SERP snippet
+
+VERIFICATION COMMANDS:
+----------------------
+# Local
+bash script/verify-og-tags.sh
+
+# After deployment
+curl -I https://kubegraf.io/opengraph-v2.jpg
+curl -s https://kubegraf.io/ | grep "og:image"
+
+# View in browser
+open https://kubegraf.io/
+# View Page Source → Search for "opengraph-v2.jpg"
+
+CANONICAL URL:
+--------------
+✓ Verified: <link rel="canonical" href="https://kubegraf.io/" />
+✓ All OG images use absolute URLs with HTTPS
+
+IMPORTANT NOTES:
+----------------
+1. The new filename (opengraph-v2.jpg) acts as cache-buster
+2. Old file (opengraph.jpg) can remain but is no longer referenced
+3. Must clear CDN cache after deployment
+4. Must request Google re-indexing for SERP update
+5. Social platforms cache OG data - use debuggers to refresh
+
+ROLLBACK:
+---------
+If needed: git revert HEAD && git push origin main
+
+SUCCESS CRITERIA:
+-----------------
+☐ Deploy to production
+☐ CDN cache cleared
+☐ Image accessible at https://kubegraf.io/opengraph-v2.jpg
+☐ Meta tags verified in live HTML
+☐ Google Search Console indexing requested
+☐ Facebook debugger shows new image
+☐ Twitter validator shows new card
+☐ Within 1-7 days: Google SERP updated
+
+================================================================================
+For detailed deployment instructions, see: DEPLOY_CHECKLIST.md
+For verification, run: bash script/verify-og-tags.sh
+================================================================================

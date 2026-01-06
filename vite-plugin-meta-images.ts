@@ -19,7 +19,7 @@ export function metaImagesPlugin(): Plugin {
       // Check if opengraph image exists in public directory
       const publicDir = path.resolve(process.cwd(), 'client', 'public');
       const opengraphPngPath = path.join(publicDir, 'opengraph.png');
-      const opengraphJpgPath = path.join(publicDir, 'opengraph.jpg');
+      const opengraphJpgPath = path.join(publicDir, 'opengraph-v2.jpg');
       const opengraphJpegPath = path.join(publicDir, 'opengraph.jpeg');
 
       let imageExt: string | null = null;
