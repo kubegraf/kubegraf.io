@@ -1,0 +1,187 @@
+/* Core Features Section */
+.section {
+  padding: 5rem 1rem;
+  background: hsl(var(--background));
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.title {
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 1rem 0;
+  /* Gradient text for title - theme aware */
+  background: linear-gradient(135deg, hsl(var(--primary)), #22d3ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  /* Ensure high contrast in cream theme */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Fallback for browsers that don't support background-clip */
+@supports not (-webkit-background-clip: text) {
+  .title {
+    color: hsl(var(--primary));
+  }
+}
+
+.subtitle {
+  font-size: clamp(1.125rem, 1.5vw, 1.25rem);
+  color: hsl(var(--foreground));
+  max-width: 650px;
+  margin: 0 auto;
+  line-height: 1.6;
+  opacity: 0.85;
+  font-weight: 400;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  position: relative;
+  padding: 1.75rem;
+  border: 1px solid hsl(var(--border));
+  border-radius: 0.75rem;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  /* Warm cream color matching theme - more visible than white */
+  /* Background is hsl(45, 65%, 95%) - using hsl(45, 40%, 96%) for cards */
+  /* This creates a subtle but visible cream tone that complements the theme */
+  background: hsl(45, 40%, 96%);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+/* Override for dark theme */
+:global(:root[data-theme="dark"]) .card {
+  background: hsl(var(--card));
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, hsl(var(--primary)), #22d3ee);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: hsl(var(--primary));
+}
+
+/* Light theme hover shadow */
+:global(:root[data-theme="light"]) .card:hover,
+:global(:root:not([data-theme])) .card:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  /* Slightly brighter cream on hover for subtle lift effect */
+  background: hsl(45, 45%, 97%);
+}
+
+/* Dark theme hover shadow */
+:global(:root[data-theme="dark"]) .card:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+  background: hsl(var(--card));
+}
+
+.card:hover::before {
+  transform: scaleX(1);
+}
+
+.iconContainer {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(6, 182, 212, 0.1);
+  border-radius: 0.75rem;
+  margin-bottom: 1.25rem;
+  transition: all 0.3s ease;
+}
+
+.card:hover .iconContainer {
+  background: rgba(6, 182, 212, 0.2);
+  transform: scale(1.1);
+}
+
+.icon {
+  font-size: 2rem;
+  display: block;
+}
+
+.iconSvg {
+  width: 32px;
+  height: 32px;
+  color: hsl(var(--primary));
+}
+
+.cardTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+  margin: 0 0 0.5rem 0;
+}
+
+.cardDescription {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: hsl(var(--muted-foreground));
+  margin: 0;
+}
+
+.hoverContent {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, margin-top 0.3s ease;
+  margin-top: 0;
+}
+
+.card:hover .hoverContent {
+  max-height: 200px;
+  margin-top: 1rem;
+}
+
+.hoverDescription {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: hsl(var(--muted-foreground));
+  margin: 0;
+  padding-top: 1rem;
+  border-top: 1px solid hsl(var(--border));
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .section {
+    padding: 4rem 1rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .card {
+    padding: 1.5rem;
+  }
+}

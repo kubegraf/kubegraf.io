@@ -1,0 +1,109 @@
+import { motion } from "framer-motion";
+import styles from "./HowItWorks.module.css";
+
+const steps = [
+  {
+    id: 1,
+    number: "01",
+    title: "Detect",
+    description: "Auto scan clusters and detect incidents",
+    details:
+      "Continuously monitors your Kubernetes clusters for common failure patterns including CrashLoopBackOff, OOMKilled, probe failures, and deployment issues.",
+    icon: "🔍", // Replace with SVG icon
+  },
+  {
+    id: 2,
+    number: "02",
+    title: "Diagnose",
+    description: "Correlate logs, events, metrics, YAML diffs",
+    details:
+      "Gathers evidence from multiple sources—container logs, Kubernetes events, metrics, and recent YAML changes—to identify root causes with confidence scores.",
+    icon: "📊", // Replace with SVG icon
+  },
+  {
+    id: 3,
+    number: "03",
+    title: "Preview Fix",
+    description: "Dry-run, impact analysis, confidence scores",
+    details:
+      "Shows exactly what will change before applying any fix. Includes impact assessment, rollback plan, and confidence scores to help you make informed decisions.",
+    icon: "👁️", // Replace with SVG icon
+  },
+  {
+    id: 4,
+    number: "04",
+    title: "Apply Safely",
+    description: "Human-in-loop approval with rollback",
+    details:
+      "You approve or reject every change. One-click rollback available. Every action requires explicit human confirmation—no blind automation.",
+    icon: "✅", // Replace with SVG icon
+  },
+];
+
+export default function HowItWorks() {
+  return (
+    <section className={styles.section} aria-label="How it works">
+      <div className={styles.container}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className={styles.header}
+        >
+          <h2 className={styles.title}>
+            Four Steps to Safe, Evidence-Driven Incident Response
+          </h2>
+          <p className={styles.subtitle}>
+            From detection to resolution, KubeGraf guides you through every step with evidence and
+            safety in mind
+          </p>
+        </motion.div>
+
+        <div className={styles.stepsContainer}>
+          {steps.map((step, index) => (
+            <motion.div
+              key={step.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.15 }}
+              className={styles.stepCard}
+            >
+              <div className={styles.stepHeader}>
+                <div className={styles.stepNumber}>{step.number}</div>
+                <div className={styles.stepIcon} aria-hidden="true">
+                  {step.icon}
+                </div>
+                {/* TODO: Replace icon with <IconComponent className={styles.iconSvg} /> */}
+              </div>
+              <h3 className={styles.stepTitle}>{step.title}</h3>
+              <p className={styles.stepDescription}>{step.description}</p>
+              <div className={styles.stepDetails}>
+                <p>{step.details}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Interactive Visual Placeholder */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className={styles.visualPlaceholder}
+        >
+          <div className={styles.visualContainer}>
+            <p className={styles.placeholderText}>
+              [Interactive Visual: Step-by-step flow diagram showing the four-step process]
+            </p>
+            <p className={styles.placeholderSubtext}>
+              Replace with interactive visual diagram or animation
+            </p>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
