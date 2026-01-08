@@ -1,0 +1,350 @@
+/* Hero Section Styles */
+.heroSection {
+  position: relative;
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  padding: 7rem 1rem 4rem; /* Add top padding for fixed navbar */
+  background: linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--background)) 100%);
+  overflow: hidden;
+}
+
+.heroSection::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    ellipse 80% 50% at 50% -20%,
+    rgba(6, 182, 212, 0.08),
+    transparent
+  );
+  pointer-events: none;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+@media (max-width: 1024px) {
+  .content {
+    gap: 3rem;
+  }
+}
+
+/* Text Content */
+.textContent {
+  display: flex;
+  max-width: 100%;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+  border-radius: 9999px;
+  width: fit-content;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: hsl(var(--primary));
+  /* Ensure visibility in cream theme */
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.badgeDot {
+  width: 8px;
+  height: 8px;
+  background: hsl(var(--primary));
+  border-radius: 50%;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.badgeText {
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+}
+
+.headline {
+  font-size: clamp(2rem, 4vw + 0.5rem, 3rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: hsl(var(--foreground));
+  margin: 0 0 1.5rem 0;
+  /* Ensure high contrast in cream theme */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  max-width: 100%;
+}
+
+@media (min-width: 768px) {
+  .headline {
+    font-size: clamp(2.5rem, 4vw + 0.5rem, 3.5rem);
+    line-height: 1.25;
+  }
+}
+
+@media (min-width: 1024px) {
+  .headline {
+    font-size: clamp(3rem, 4vw + 0.5rem, 4rem);
+    line-height: 1.2;
+  }
+}
+
+.highlight {
+  background: linear-gradient(135deg, hsl(var(--primary)), #22d3ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subheadline {
+  font-size: clamp(1.25rem, 1.75vw + 0.5rem, 1.5rem);
+  line-height: 1.6;
+  color: hsl(var(--foreground));
+  opacity: 0.9;
+  max-width: 650px;
+  margin: 0 0 2rem 0;
+  font-weight: 400;
+}
+
+.ctaGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0;
+}
+
+.primaryCTA {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+  box-shadow: 0 4px 14px 0 rgba(6, 182, 212, 0.3);
+}
+
+.primaryCTA:hover {
+  background: hsl(var(--primary));
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px 0 rgba(6, 182, 212, 0.4);
+}
+
+.secondaryCTA {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  border: 1px solid hsl(var(--border));
+  background: transparent;
+  color: hsl(var(--foreground));
+  transition: all 0.2s;
+}
+
+.secondaryCTA:hover {
+  background: hsl(var(--muted));
+  border-color: hsl(var(--primary));
+}
+
+.ctaIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-left: 0.5rem;
+}
+
+.trustIndicators {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid hsl(var(--border));
+}
+
+.trustItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: hsl(var(--muted-foreground));
+}
+
+.trustIcon {
+  font-size: 1.25rem;
+}
+
+.socialProof {
+  font-size: 0.875rem;
+  color: hsl(var(--muted-foreground));
+  text-align: center;
+  margin-top: 1rem;
+  opacity: 0.8;
+  font-weight: 400;
+}
+
+@media (min-width: 640px) {
+  .socialProof {
+    text-align: left;
+  }
+}
+
+/* Visual Content */
+.visualContent {
+  position: relative;
+}
+
+.demoContainer {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.demoPlaceholder {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.demoHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: hsl(var(--muted));
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+.demoButtons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.demoButton {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: hsl(var(--muted-foreground));
+}
+
+.demoButton:nth-child(1) {
+  background: #ef4444;
+}
+
+.demoButton:nth-child(2) {
+  background: #f59e0b;
+}
+
+.demoButton:nth-child(3) {
+  background: #10b981;
+}
+
+.demoTitle {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: hsl(var(--foreground));
+  font-family: var(--font-mono);
+}
+
+.demoContent {
+  padding: 2rem;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: hsl(var(--background));
+}
+
+.gifPlaceholder {
+  text-align: center;
+  padding: 2rem;
+}
+
+.placeholderText {
+  font-size: 1rem;
+  color: hsl(var(--muted-foreground));
+  margin-bottom: 0.5rem;
+  font-style: italic;
+}
+
+.placeholderSubtext {
+  font-size: 0.875rem;
+  color: hsl(var(--muted-foreground));
+  opacity: 0.7;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .content {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .visualContent {
+    order: -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .heroSection {
+    min-height: auto;
+    padding: 6rem 1rem 2rem; /* Keep top padding for navbar on mobile */
+  }
+
+  .headline {
+    font-size: clamp(1.75rem, 5vw + 0.5rem, 2.25rem);
+    line-height: 1.3;
+  }
+
+  .subheadline {
+    font-size: 1rem;
+  }
+
+  .ctaGroup {
+    flex-direction: column;
+  }
+
+  .primaryCTA,
+  .secondaryCTA {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .trustIndicators {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}

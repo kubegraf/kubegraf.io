@@ -1,0 +1,235 @@
+/* CTA Section Modern */
+.section {
+  padding: 5rem 1rem;
+  background: hsl(var(--background));
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+@media (max-width: 1024px) {
+  .content {
+    gap: 3rem;
+  }
+}
+
+.textContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.title {
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+  /* Gradient text for title - theme aware */
+  background: linear-gradient(135deg, hsl(var(--primary)), #22d3ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  /* Ensure high contrast in cream theme */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Fallback for browsers that don't support background-clip */
+@supports not (-webkit-background-clip: text) {
+  .title {
+    color: hsl(var(--primary));
+  }
+}
+
+.subtitle {
+  font-size: clamp(1.125rem, 1.5vw, 1.25rem);
+  line-height: 1.6;
+  color: hsl(var(--foreground));
+  margin: 0;
+  opacity: 0.85;
+  font-weight: 400;
+}
+
+.ctaGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.primaryCTA {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+  box-shadow: 0 4px 14px 0 rgba(6, 182, 212, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.primaryCTA:hover {
+  background: hsl(var(--primary));
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px 0 rgba(6, 182, 212, 0.4);
+}
+
+.secondaryCTA,
+.tertiaryCTA {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  border: 1px solid hsl(var(--border));
+  background: transparent;
+  color: hsl(var(--foreground));
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.secondaryCTA:hover,
+.tertiaryCTA:hover {
+  background: hsl(var(--muted));
+  border-color: hsl(var(--primary));
+}
+
+.ctaIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.trustMessage {
+  padding-top: 2rem;
+  border-top: 1px solid hsl(var(--border));
+}
+
+.trustText {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: hsl(var(--muted-foreground));
+  font-style: italic;
+  margin: 0;
+  text-align: center;
+}
+
+.visualContent {
+  position: relative;
+}
+
+.visualPlaceholder {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.placeholderHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: hsl(var(--muted));
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+.placeholderButtons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.placeholderButton {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: hsl(var(--muted-foreground));
+}
+
+.placeholderButton:nth-child(1) {
+  background: #ef4444;
+}
+
+.placeholderButton:nth-child(2) {
+  background: #f59e0b;
+}
+
+.placeholderButton:nth-child(3) {
+  background: #10b981;
+}
+
+.placeholderTitle {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: hsl(var(--foreground));
+  font-family: var(--font-mono);
+}
+
+.placeholderContent {
+  padding: 3rem 2rem;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: hsl(var(--background));
+}
+
+.placeholderText {
+  font-size: 1rem;
+  color: hsl(var(--muted-foreground));
+  font-style: italic;
+  text-align: center;
+  margin: 0;
+}
+
+.placeholderSubtext {
+  font-size: 0.875rem;
+  color: hsl(var(--muted-foreground));
+  opacity: 0.7;
+  text-align: center;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .content {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .visualContent {
+    order: -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 4rem 1rem;
+  }
+
+  .ctaGroup {
+    gap: 0.75rem;
+  }
+
+  .primaryCTA,
+  .secondaryCTA,
+  .tertiaryCTA {
+    width: 100%;
+  }
+}

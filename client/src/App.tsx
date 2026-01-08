@@ -8,6 +8,7 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 
 // Lazy load all pages for code splitting
 const Home = lazy(() => import("@/pages/Home"));
+const HomeModern = lazy(() => import("@/pages/HomeModern"));
 const Pricing = lazy(() => import("@/pages/Pricing"));
 const Docs = lazy(() => import("@/pages/Docs"));
 const WhatIsKubeGraf = lazy(() => import("@/pages/WhatIsKubeGraf"));
@@ -33,6 +34,7 @@ function Routes() {
     <Suspense fallback={<PageLoader />}>
       <Switch>
         <Route path="/" component={Home} />
+        <Route path="/modern" component={HomeModern} />
         <Route path="/kubegraf" component={WhatIsKubeGraf} />
         <Route path="/pricing" component={Pricing} />
         <Route path="/compare" component={Compare} />
