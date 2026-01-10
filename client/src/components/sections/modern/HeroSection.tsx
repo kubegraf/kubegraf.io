@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Download, Shield, Zap, Lock, ChevronDown } from "lucide-react";
+import { ArrowRight, Download, Shield, Zap, Lock } from "lucide-react";
 import styles from "./HeroSection.module.css";
 
 const terminalLines = [
@@ -130,9 +130,26 @@ export default function HeroSection() {
             <p className={styles.socialProof}>
               Trusted by SREs | Designed for Enterprise & Local-First Deployments
             </p>
+
+            {/* Terminal Demo - Mobile: appears after social proof */}
+            <div className={styles.visualContentMobile}>
+              <div className={styles.demoContainer}>
+                <div className={styles.demoPlaceholder}>
+                  <div className={styles.demoHeader}>
+                    <div className={styles.demoButtons}>
+                      <span className={styles.demoButton}></span>
+                      <span className={styles.demoButton}></span>
+                      <span className={styles.demoButton}></span>
+                    </div>
+                    <span className={styles.demoTitle}>kubegraf — zsh</span>
+                  </div>
+                  <AnimatedTerminal />
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Right Column - Visual Demo */}
+          {/* Right Column - Visual Demo - Desktop */}
           <div className={styles.visualContent}>
             <div className={styles.demoContainer}>
               {/* Placeholder for Terminal UI + Web Dashboard GIF */}
@@ -149,22 +166,6 @@ export default function HeroSection() {
               </div>
             </div>
           </div>
-        </div>
-
-        {/* Scroll Indicator */}
-        <div
-          className={styles.scrollIndicator}
-          onClick={() => {
-            const featuresSection = document.getElementById('features');
-            if (featuresSection) {
-              featuresSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-          }}
-        >
-          <div className={styles.scrollIcon}>
-            <ChevronDown className={styles.chevron} aria-hidden="true" />
-          </div>
-          <span className={styles.scrollText}>Scroll to explore</span>
         </div>
       </div>
     </section>

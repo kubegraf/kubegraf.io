@@ -68,6 +68,12 @@
   font-weight: 700;
   line-height: 1.2;
   margin: 0;
+  color: hsl(var(--foreground));
+}
+
+/* Ensure title is visible in dark theme */
+:global(:root[data-theme="dark"]) .title {
+  color: #ffffff;
 }
 
 .highlight {
@@ -78,7 +84,20 @@
 }
 
 :global(:root[data-theme="dark"]) .highlight {
-  background: linear-gradient(135deg, hsl(var(--primary)), #22d3ee);
+  background: linear-gradient(135deg, #06b6d4, #22d3ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Ensure title is visible in dark theme */
+:global(:root[data-theme="dark"]) .title {
+  color: hsl(var(--foreground));
+}
+
+:global(:root[data-theme="dark"]) .title .highlight,
+:global(:root[data-theme="dark"]) .title .highlightAmber {
+  color: #06b6d4;
 }
 
 .highlightAmber {

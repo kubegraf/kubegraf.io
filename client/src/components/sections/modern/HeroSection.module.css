@@ -7,6 +7,7 @@
   padding: 7rem 1rem 4rem; /* Reduced top padding for better spacing after navbar */
   background: linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--background)) 100%);
   overflow: hidden;
+  isolation: isolate; /* Create new stacking context for 3D canvas */
 }
 
 .heroSection::before {
@@ -103,6 +104,25 @@
   max-width: 100%;
 }
 
+/* Ensure headline text is visible in dark theme */
+:global(:root[data-theme="dark"]) .headline {
+  color: #ffffff;
+}
+
+:global(:root[data-theme="dark"]) .headline .highlight {
+  background: linear-gradient(135deg, #06b6d4, #22d3ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+:global(:root[data-theme="dark"]) .headline .highlightAmber {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 :global(:root[data-theme="light"]) .headline,
 :global(:root:not([data-theme])) .headline {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
@@ -130,7 +150,15 @@
 }
 
 :global(:root[data-theme="dark"]) .highlight {
-  background: linear-gradient(135deg, hsl(var(--primary)), #22d3ee);
+  background: linear-gradient(135deg, #06b6d4, #22d3ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Fallback for dark theme if gradient doesn't work */
+:global(:root[data-theme="dark"]) .headline {
+  color: hsl(var(--foreground));
 }
 
 .highlightAmber {
@@ -246,6 +274,12 @@
 /* Visual Content */
 .visualContent {
   position: relative;
+  display: block;
+}
+
+/* Mobile-only terminal (appears after social proof) */
+.visualContentMobile {
+  display: none;
 }
 
 .demoContainer {
@@ -371,8 +405,15 @@
     gap: 3rem;
   }
 
+  /* Hide desktop terminal on tablet/mobile */
   .visualContent {
-    order: -1;
+    display: none;
+  }
+
+  /* Show mobile terminal after social proof */
+  .visualContentMobile {
+    display: block;
+    margin-top: 2rem;
   }
 }
 
@@ -415,58 +456,4 @@
   .terminalLine {
     font-size: 0.75rem;
   }
-
-  .scrollIndicator {
-    bottom: 1rem;
-  }
-
-  .scrollText {
-    font-size: 0.75rem;
-  }
-}
-
-/* Scroll Indicator */
-.scrollIndicator {
-  position: absolute;
-  bottom: 1.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  opacity: 0.7;
-  transition: opacity 0.3s ease;
-  z-index: 10;
-}
-
-.scrollIndicator:hover {
-  opacity: 1;
-}
-
-.scrollIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: hsl(var(--primary) / 0.1);
-  border: 2px solid hsl(var(--primary) / 0.3);
-  backdrop-filter: blur(8px);
-  cursor: pointer;
-}
-
-.chevron {
-  width: 24px;
-  height: 24px;
-  color: hsl(var(--primary));
-}
-
-.scrollText {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: hsl(var(--muted-foreground));
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
 }
