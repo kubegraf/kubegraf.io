@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Download, Shield, Zap, Lock, ChevronDown } from "lucide-react";
@@ -31,7 +30,6 @@ const terminalLines = [
 
 function AnimatedTerminal() {
   const [visibleLines, setVisibleLines] = useState(0);
-  const scrollRef = useState<HTMLDivElement | null>(null)[0];
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -42,147 +40,78 @@ function AnimatedTerminal() {
         }
         return prev + 1;
       });
-    }, 400); // Slightly faster typing for more lines
+    }, 400);
     return () => clearInterval(timer);
   }, []);
 
-  // Auto-scroll to bottom as lines appear
-  const containerRef = (el: HTMLDivElement | null) => {
-    if (el) {
-      el.scrollTop = el.scrollHeight;
-    }
-  };
-
   return (
-    <div className={styles.demoContent} ref={containerRef}>
+    <div className={styles.demoContent}>
       {terminalLines.slice(0, visibleLines).map((line, i) => (
-        <motion.div
+        <div
           key={i}
-          initial={{ opacity: 0, x: -5 }}
-          animate={{ opacity: 1, x: 0 }}
           className={`${styles.terminalLine} ${styles[line.type]}`}
         >
           {line.text || '\u00A0'}
-        </motion.div>
+        </div>
       ))}
       {visibleLines < terminalLines.length && (
-        <motion.span
-          animate={{ opacity: [1, 0] }}
-          transition={{ repeat: Infinity, duration: 0.8 }}
-          className={styles.cursor}
-        />
+        <span className={styles.cursor} />
       )}
     </div>
   );
 }
 
 export default function HeroSection() {
-  const [showScrollIndicator, setShowScrollIndicator] = useState(true);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      // Hide scroll indicator after scrolling down 100px
-      if (window.scrollY > 100) {
-        setShowScrollIndicator(false);
-      } else {
-        setShowScrollIndicator(true);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
     <section className={styles.heroSection} aria-label="Hero section">
       <div className={styles.container}>
         <div className={styles.content}>
           {/* Left Column - Text Content */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className={styles.textContent}
-          >
+          <div className={styles.textContent}>
             {/* Badge */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.4, delay: 0.1 }}
-              className={styles.badge}
-            >
+            <div className={styles.badge}>
               <span className={styles.badgeDot}></span>
               <span className={styles.badgeText}>AI-Powered Kubernetes Intelligence</span>
-            </motion.div>
+            </div>
 
             {/* Headline */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className={styles.headline}
-            >
+            <h1 className={styles.headline}>
               <span className={styles.highlight}>Next‑Gen AI Brain</span>{" "}
               for Kubernetes <span className={styles.highlightAmber}>Incident Intelligence</span>
-            </motion.h1>
+            </h1>
 
             {/* Subheadline */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className={styles.subheadline}
-            >
+            <p className={styles.subheadline}>
               Smart, evidence-driven Kubernetes incident intelligence. KubeGraf thinks like an
               SRE — providing insights and safe recommendations while you remain in control.
-            </motion.p>
+            </p>
 
             {/* CTA Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className={styles.ctaGroup}
-            >
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+            <div className={styles.ctaGroup}>
+              <Button
+                size="lg"
+                className={styles.primaryCTA}
+                onClick={() => (window.location.href = "/docs/installation.html")}
+                aria-label="Start exploring KubeGraf"
               >
-                <Button
-                  size="lg"
-                  className={styles.primaryCTA}
-                  onClick={() => (window.location.href = "/docs/installation.html")}
-                  aria-label="Start exploring KubeGraf"
-                >
-                  Start Exploring
-                  <ArrowRight className={styles.ctaIcon} aria-hidden="true" />
-                </Button>
-              </motion.div>
+                Start Exploring
+                <ArrowRight className={styles.ctaIcon} aria-hidden="true" />
+              </Button>
               
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+              <Button
+                size="lg"
+                variant="outline"
+                className={styles.secondaryCTA}
+                onClick={() => (window.location.href = "/docs/installation.html")}
+                aria-label="View installation guide"
               >
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className={styles.secondaryCTA}
-                  onClick={() => (window.location.href = "/docs/installation.html")}
-                  aria-label="View installation guide"
-                >
-                  Installation
-                  <Download className={styles.ctaIcon} aria-hidden="true" />
-                </Button>
-              </motion.div>
-            </motion.div>
+                Installation
+                <Download className={styles.ctaIcon} aria-hidden="true" />
+              </Button>
+            </div>
 
             {/* Trust Indicators */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-              className={styles.trustIndicators}
-            >
+            <div className={styles.trustIndicators}>
               <div className={styles.trustItem}>
                 <Lock className={styles.trustLucideIcon} aria-hidden="true" />
                 <span>Local-First</span>
@@ -195,26 +124,16 @@ export default function HeroSection() {
                 <Shield className={styles.trustLucideIcon} aria-hidden="true" />
                 <span>Human-in-Loop</span>
               </div>
-            </motion.div>
+            </div>
             
             {/* Optional Micro-Text for Social Proof */}
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.7 }}
-              className={styles.socialProof}
-            >
+            <p className={styles.socialProof}>
               Trusted by SREs | Designed for Enterprise & Local-First Deployments
-            </motion.p>
-          </motion.div>
+            </p>
+          </div>
 
           {/* Right Column - Visual Demo */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className={styles.visualContent}
-          >
+          <div className={styles.visualContent}>
             <div className={styles.demoContainer}>
               {/* Placeholder for Terminal UI + Web Dashboard GIF */}
               <div className={styles.demoPlaceholder}>
@@ -229,16 +148,12 @@ export default function HeroSection() {
                 <AnimatedTerminal />
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
 
         {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: showScrollIndicator ? 1 : 0 }}
-          transition={{ duration: 0.3 }}
+        <div
           className={styles.scrollIndicator}
-          style={{ pointerEvents: showScrollIndicator ? 'auto' : 'none' }}
           onClick={() => {
             const featuresSection = document.getElementById('features');
             if (featuresSection) {
@@ -246,19 +161,11 @@ export default function HeroSection() {
             }
           }}
         >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{
-              duration: 1.5,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            className={styles.scrollIcon}
-          >
+          <div className={styles.scrollIcon}>
             <ChevronDown className={styles.chevron} aria-hidden="true" />
-          </motion.div>
+          </div>
           <span className={styles.scrollText}>Scroll to explore</span>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import styles from "./PlatformsPlugins.module.css";
 
 interface Integration {
@@ -32,19 +31,11 @@ const plugins: Integration[] = [
 export default function PlatformsPlugins() {
   // Combine platforms and plugins for unified grid
   const allIntegrations = [...platforms, ...plugins];
-  // Duplicate items for seamless infinite scroll
-  const duplicatedIntegrations = [...allIntegrations, ...allIntegrations];
 
   return (
     <section className={styles.section} aria-label="Supported platforms and plugins">
       <div className={styles.container}>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className={styles.header}
-        >
+        <div className={styles.header}>
           <h2 className={styles.title}>
             <span className={styles.highlight}>Works with Your</span>{" "}
             <span className={styles.highlightAmber}>Kubernetes Stack</span>
@@ -52,63 +43,46 @@ export default function PlatformsPlugins() {
           <p className={styles.subtitle}>
             Any cluster • Built-in plugins
           </p>
-        </motion.div>
+        </div>
 
-        {/* Scrolling Container with Gradient Fade */}
-        <div className={styles.scrollContainer}>
-          <div className={styles.gradientLeft} />
-          <div className={styles.gradientRight} />
-          
-          {/* Continuous Scrolling Animation */}
-          <motion.div
-            className={styles.scrollingGrid}
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{
-              x: {
-                repeat: Infinity,
-                repeatType: "loop",
-                duration: 40,
-                ease: "linear",
-              },
-            }}
-          >
-            {duplicatedIntegrations.map((item, index) => (
-              <div
-                key={`${item.id}-${index}`}
-                className={styles.platformCard}
-                title={item.name}
-              >
-                <div className={styles.logoContainer}>
-                  <img
-                    src={item.logo}
-                    alt={`${item.name} logo`}
-                    className={styles.logoImage}
-                    loading="lazy"
-                    onError={(e) => {
-                      // Fallback: show colored circle with first letter if image fails (matching LogoMarquee.tsx)
-                      const target = e.target as HTMLImageElement;
-                      target.style.display = "none";
-                      const parent = target.parentElement;
-                      if (parent && !parent.querySelector(`.${styles.fallbackLogo}`)) {
-                        const fallback = document.createElement("div");
-                        fallback.className = styles.fallbackLogo;
-                        fallback.textContent = item.name.charAt(0);
-                        fallback.style.backgroundColor = item.color;
-                        fallback.style.color = "#ffffff";
-                        parent.appendChild(fallback);
-                      }
-                    }}
-                  />
-                </div>
-                <div className={styles.content}>
-                  <span className={styles.platformName}>{item.name}</span>
-                  {item.badge && (
-                    <span className={styles.badge}>{item.badge}</span>
-                  )}
-                </div>
+        {/* Static Grid */}
+        <div className={styles.grid}>
+          {allIntegrations.map((item) => (
+            <div
+              key={item.id}
+              className={styles.platformCard}
+              title={item.name}
+            >
+              <div className={styles.logoContainer}>
+                <img
+                  src={item.logo}
+                  alt={`${item.name} logo`}
+                  className={styles.logoImage}
+                  loading="lazy"
+                  onError={(e) => {
+                    // Fallback: show colored circle with first letter if image fails (matching LogoMarquee.tsx)
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = "none";
+                    const parent = target.parentElement;
+                    if (parent && !parent.querySelector(`.${styles.fallbackLogo}`)) {
+                      const fallback = document.createElement("div");
+                      fallback.className = styles.fallbackLogo;
+                      fallback.textContent = item.name.charAt(0);
+                      fallback.style.backgroundColor = item.color;
+                      fallback.style.color = "#ffffff";
+                      parent.appendChild(fallback);
+                    }
+                  }}
+                />
               </div>
-            ))}
-          </motion.div>
+              <div className={styles.content}>
+                <span className={styles.platformName}>{item.name}</span>
+                {item.badge && (
+                  <span className={styles.badge}>{item.badge}</span>
+                )}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

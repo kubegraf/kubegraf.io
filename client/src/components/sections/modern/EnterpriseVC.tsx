@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { TrendingDown, ShieldCheck, Clock } from "lucide-react";
 import styles from "./EnterpriseVC.module.css";
 
@@ -30,13 +29,7 @@ export default function EnterpriseVC() {
   return (
     <section className={styles.section} aria-label="Enterprise and VC focused section">
       <div className={styles.container}>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className={styles.header}
-        >
+        <div className={styles.header}>
           <h2 className={styles.title}>
             <span className={styles.highlight}>Built for Scale</span>{" "}
             <span className={styles.highlightAmber}>& Enterprise</span>
@@ -44,19 +37,15 @@ export default function EnterpriseVC() {
           <p className={styles.subtitle}>
             KubeGraf delivers measurable ROI and is designed for enterprise Kubernetes environments
           </p>
-        </motion.div>
+        </div>
 
         {/* KPIs */}
         <div className={styles.kpisGrid}>
-          {kpis.map((kpi, index) => {
+          {kpis.map((kpi) => {
             const IconComponent = kpi.icon;
             return (
-              <motion.div
+              <div
                 key={kpi.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
                 className={styles.kpiCard}
               >
                 <div className={styles.kpiHeader}>
@@ -65,19 +54,13 @@ export default function EnterpriseVC() {
                 </div>
                 <h3 className={styles.kpiLabel}>{kpi.label}</h3>
                 <p className={styles.kpiDescription}>{kpi.description}</p>
-              </motion.div>
+              </div>
             );
           })}
         </div>
 
         {/* Testimonial */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className={styles.testimonial}
-        >
+        <div className={styles.testimonial}>
           <div className={styles.testimonialContent}>
             <p className={styles.testimonialQuote}>
               "KubeGraf transformed how we handle Kubernetes incidents. The evidence-backed
@@ -90,7 +73,7 @@ export default function EnterpriseVC() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
 
       </div>
     </section>

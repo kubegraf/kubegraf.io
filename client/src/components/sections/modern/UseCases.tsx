@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { AlertCircle, Zap, Database, Settings, Activity } from "lucide-react";
 import styles from "./UseCases.module.css";
 
@@ -49,13 +48,7 @@ export default function UseCases() {
   return (
     <section className={styles.section} aria-label="Use cases">
       <div className={styles.container}>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className={styles.header}
-        >
+        <div className={styles.header}>
           <h2 className={styles.title}>
             <span className={styles.highlight}>Solve Real</span>{" "}
             <span className={styles.highlightAmber}>Kubernetes Problems</span>
@@ -63,7 +56,7 @@ export default function UseCases() {
           <p className={styles.subtitle}>
             KubeGraf helps you diagnose and fix the most common production Kubernetes incidents
           </p>
-        </motion.div>
+        </div>
 
         <div className={styles.timelineContainer}>
           {/* Visual Timeline */}
@@ -86,15 +79,11 @@ export default function UseCases() {
         </div>
 
         <div className={styles.grid}>
-          {useCases.map((useCase, index) => {
+          {useCases.map((useCase) => {
             const IconComponent = useCase.icon;
             return (
-              <motion.div
+              <div
                 key={useCase.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
                 className={styles.card}
               >
                 <div className={styles.cardHeader}>
@@ -108,7 +97,7 @@ export default function UseCases() {
                   <span className={styles.impactLabel}>Impact:</span>
                   <span className={styles.impactText}>{useCase.impact}</span>
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>

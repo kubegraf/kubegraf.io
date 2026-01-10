@@ -61,37 +61,11 @@
   font-weight: 400;
 }
 
-.scrollContainer {
-  position: relative;
-  overflow: hidden;
-  margin-top: 2rem;
-  padding: 1rem 0;
-}
-
-.gradientLeft,
-.gradientRight {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 128px;
-  z-index: 10;
-  pointer-events: none;
-}
-
-.gradientLeft {
-  left: 0;
-  background: linear-gradient(to right, hsl(var(--background) / 0), transparent);
-}
-
-.gradientRight {
-  right: 0;
-  background: linear-gradient(to left, hsl(var(--background) / 0), transparent);
-}
-
-.scrollingGrid {
-  display: flex;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
-  width: fit-content;
+  margin-top: 2rem;
 }
 
 @media (max-width: 640px) {

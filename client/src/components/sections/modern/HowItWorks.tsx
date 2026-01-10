@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Search, BarChart3, Eye, CheckCircle2 } from "lucide-react";
 import styles from "./HowItWorks.module.css";
 
@@ -45,13 +44,7 @@ export default function HowItWorks() {
   return (
     <section className={styles.section} aria-label="How it works">
       <div className={styles.container}>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className={styles.header}
-        >
+        <div className={styles.header}>
           <h2 className={styles.title}>
             <span className={styles.highlight}>Four Steps</span>{" "}
             <span className={styles.highlightAmber}>to Safe Incident Response</span>
@@ -60,18 +53,14 @@ export default function HowItWorks() {
             From detection to resolution, KubeGraf guides you through every step with evidence and
             safety in mind
           </p>
-        </motion.div>
+        </div>
 
         <div className={styles.stepsContainer}>
-          {steps.map((step, index) => {
+          {steps.map((step) => {
             const IconComponent = step.icon;
             return (
-              <motion.div
+              <div
                 key={step.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.15 }}
                 className={styles.stepCard}
               >
                 <div className={styles.stepHeader}>
@@ -85,19 +74,13 @@ export default function HowItWorks() {
                 <div className={styles.stepDetails}>
                   <p>{step.details}</p>
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>
 
         {/* Interactive Visual Placeholder */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className={styles.visualPlaceholder}
-        >
+        <div className={styles.visualPlaceholder}>
           <div className={styles.visualContainer}>
             <p className={styles.placeholderText}>
               [Interactive Visual: Step-by-step flow diagram showing the four-step process]
@@ -106,7 +89,7 @@ export default function HowItWorks() {
               Replace with interactive visual diagram or animation
             </p>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

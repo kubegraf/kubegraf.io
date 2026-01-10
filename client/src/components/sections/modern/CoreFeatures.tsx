@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Search, BarChart3, Eye, TestTube2, Building2, Lock } from "lucide-react";
 import styles from "./CoreFeatures.module.css";
 
@@ -55,13 +54,7 @@ export default function CoreFeatures({ id }: CoreFeaturesProps) {
   return (
     <section id={id} className={styles.section} aria-label="Core features">
       <div className={styles.container}>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className={styles.header}
-        >
+        <div className={styles.header}>
           <h2 className={styles.title}>
             <span className={styles.highlight}>Core</span>{" "}
             <span className={styles.highlightAmber}>Capabilities</span>
@@ -69,18 +62,14 @@ export default function CoreFeatures({ id }: CoreFeaturesProps) {
           <p className={styles.subtitle}>
             Everything you need to detect, diagnose, and safely fix Kubernetes incidents
           </p>
-        </motion.div>
+        </div>
 
         <div className={styles.grid}>
-          {features.map((feature, index) => {
+          {features.map((feature) => {
             const IconComponent = feature.icon;
             return (
-              <motion.div
+              <div
                 key={feature.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
                 className={styles.card}
               >
                 <div className={styles.iconContainer}>
@@ -91,7 +80,7 @@ export default function CoreFeatures({ id }: CoreFeaturesProps) {
                 <div className={styles.hoverContent}>
                   <p className={styles.hoverDescription}>{feature.hoverDescription}</p>
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>

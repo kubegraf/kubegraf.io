@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, BarChart3, Search, Activity, Terminal } from "lucide-react";
 import styles from "./EvidenceDesign.module.css";
@@ -34,13 +33,7 @@ export default function EvidenceDesign() {
   return (
     <section className={styles.section} aria-label="Evidence-driven design">
       <div className={styles.container}>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className={styles.header}
-        >
+        <div className={styles.header}>
           <h2 className={styles.title}>
             <span className={styles.highlight}>Every Diagnosis</span>{" "}
             <span className={styles.highlightAmber}>is Backed by Evidence</span>
@@ -49,19 +42,15 @@ export default function EvidenceDesign() {
             KubeGraf provides transparent, verifiable diagnostics with confidence scores and
             reproducible root cause analysis
           </p>
-        </motion.div>
+        </div>
 
         <div className={styles.content}>
           <div className={styles.evidenceGrid}>
-            {evidencePoints.map((point, index) => {
+            {evidencePoints.map((point) => {
               const IconComponent = point.icon;
               return (
-                <motion.div
+                <div
                   key={point.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
                   className={styles.evidenceCard}
                 >
                   <div className={styles.evidenceIcon}>
@@ -69,19 +58,13 @@ export default function EvidenceDesign() {
                   </div>
                   <h3 className={styles.evidenceTitle}>{point.title}</h3>
                   <p className={styles.evidenceDescription}>{point.description}</p>
-                </motion.div>
+                </div>
               );
             })}
           </div>
 
           {/* Visual Timeline */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className={styles.timelineContainer}
-          >
+          <div className={styles.timelineContainer}>
             <h3 className={styles.timelineTitle}>Diagnosis Timeline</h3>
             <div className={styles.timelineVisual}>
               <div className={styles.timelineItem}>
@@ -108,16 +91,10 @@ export default function EvidenceDesign() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className={styles.ctaContainer}
-        >
+        <div className={styles.ctaContainer}>
           <Button
             size="lg"
             className={styles.ctaButton}
@@ -127,7 +104,7 @@ export default function EvidenceDesign() {
             See It In Action
             <ArrowRight className={styles.ctaIcon} aria-hidden="true" />
           </Button>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

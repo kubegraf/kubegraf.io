@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield, Lock, CheckCircle, Zap } from "lucide-react";
 import styles from "./ProductionReady.module.css";
@@ -34,13 +33,7 @@ export default function ProductionReady() {
   return (
     <section className={styles.section} aria-label="Production ready">
       <div className={styles.container}>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className={styles.header}
-        >
+        <div className={styles.header}>
           <h2 className={styles.title}>
             <span className={styles.highlight}>Production-Ready</span>{" "}
             <span className={styles.highlightAmber}>& Trusted</span>
@@ -48,18 +41,14 @@ export default function ProductionReady() {
           <p className={styles.subtitle}>
             Built for engineers who need trust, safety, and control during critical moments
           </p>
-        </motion.div>
+        </div>
 
         <div className={styles.featuresGrid}>
-          {features.map((feature, index) => {
+          {features.map((feature) => {
             const IconComponent = feature.icon;
             return (
-              <motion.div
+              <div
                 key={feature.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
                 className={styles.featureCard}
               >
                 <div className={styles.iconContainer}>
@@ -67,32 +56,20 @@ export default function ProductionReady() {
                 </div>
                 <h3 className={styles.featureTitle}>{feature.title}</h3>
                 <p className={styles.featureDescription}>{feature.description}</p>
-              </motion.div>
+              </div>
             );
           })}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className={styles.licenseSection}
-        >
+        <div className={styles.licenseSection}>
           <div className={styles.licenseCard}>
             <p className={styles.licenseDescription}>
               Open source, no SaaS lock-in. Use KubeGraf in production with confidence.
             </p>
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className={styles.ctaContainer}
-        >
+        <div className={styles.ctaContainer}>
           <Button
             size="lg"
             className={styles.ctaButton}
@@ -102,7 +79,7 @@ export default function ProductionReady() {
             Get Started – Free Install
             <ArrowRight className={styles.ctaIcon} aria-hidden="true" />
           </Button>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
