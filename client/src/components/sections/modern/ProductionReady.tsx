@@ -41,7 +41,10 @@ export default function ProductionReady() {
           transition={{ duration: 0.6 }}
           className={styles.header}
         >
-          <h2 className={styles.title}>Production-Ready & Trusted</h2>
+          <h2 className={styles.title}>
+            <span className={styles.highlight}>Production-Ready</span>{" "}
+            <span className={styles.highlightAmber}>& Trusted</span>
+          </h2>
           <p className={styles.subtitle}>
             Built for engineers who need trust, safety, and control during critical moments
           </p>

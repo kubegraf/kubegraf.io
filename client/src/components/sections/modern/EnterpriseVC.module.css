@@ -1,7 +1,7 @@
 /* Enterprise VC Section */
 .section {
   padding: 5rem 1rem;
-  background: hsl(var(--background));
+  background: transparent;
 }
 
 .container {
@@ -19,12 +19,28 @@
   font-weight: 700;
   line-height: 1.2;
   margin: 0 0 1rem 0;
-  /* Gradient text for title - theme aware */
-  background: linear-gradient(135deg, hsl(var(--primary)), #22d3ee);
+}
+
+.highlight {
+  background: linear-gradient(135deg, hsl(var(--primary)), #0891b2);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  /* Ensure high contrast in cream theme */
+}
+
+:global(:root[data-theme="dark"]) .highlight {
+  background: linear-gradient(135deg, hsl(var(--primary)), #22d3ee);
+}
+
+.highlightAmber {
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+:global(:root[data-theme="light"]) .title,
+:global(:root:not([data-theme])) .title {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
@@ -54,19 +70,8 @@
 
 .kpiCard {
   padding: 1.75rem;
-  /* Warm cream color matching theme */
-  background: hsl(45, 40%, 96%);
-  border: 1px solid hsl(var(--border));
-  border-radius: 0.75rem;
-  text-align: center;
-  transition: all 0.3s ease;
+  background: transparent;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
-}
-
-/* Override for dark theme */
-:global(:root[data-theme="dark"]) .kpiCard {
-  background: hsl(var(--card));
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .kpiCard:hover {
@@ -78,13 +83,20 @@
 :global(:root[data-theme="light"]) .kpiCard:hover,
 :global(:root:not([data-theme])) .kpiCard:hover {
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  background: hsl(45, 45%, 97%);
 }
 
 /* Dark theme hover */
 :global(:root[data-theme="dark"]) .kpiCard:hover {
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
-  background: hsl(var(--card));
+  background: transparent;
+}
+
+.kpiHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .kpiMetric {
@@ -93,7 +105,13 @@
   color: hsl(var(--primary));
   font-family: var(--font-mono);
   line-height: 1;
-  margin-bottom: 0.5rem;
+}
+
+.kpiIcon {
+  width: 2rem;
+  height: 2rem;
+  color: hsl(var(--primary));
+  opacity: 0.8;
 }
 
 .kpiLabel {
@@ -118,18 +136,11 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 2.5rem;
-  /* Warm cream color matching theme */
-  background: hsl(45, 40%, 96%);
+  background: transparent;
   border: 1px solid hsl(var(--border));
   border-radius: 0.75rem;
   text-align: center;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
-}
-
-/* Override for dark theme */
-:global(:root[data-theme="dark"]) .testimonialContent {
-  background: hsl(var(--card));
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .testimonialQuote {
@@ -197,11 +208,16 @@
   }
 
   .testimonialContent {
-    padding: 2rem 1.5rem;
+    padding: 1.5rem;
   }
 
   .testimonialQuote {
-    font-size: 1.125rem;
+    font-size: 1rem;
   }
 
+  .testimonialQuote::before {
+    font-size: 3rem;
+    top: -0.5rem;
+    left: -0.5rem;
+  }
 }

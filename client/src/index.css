@@ -379,34 +379,6 @@ body {
   -webkit-filter: none !important;
 }
 
-/* Fix gradient text visibility in light theme */
-:root[data-theme="light"] .bg-gradient-to-r.from-primary {
-  background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--foreground)), hsl(var(--secondary))) !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-}
-
-:root[data-theme="light"] .text-transparent {
-  -webkit-text-fill-color: transparent !important;
-}
-
-/* Fix gradient text for What is KubeGraf heading in light theme */
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) h1.bg-gradient-to-r {
-    background: linear-gradient(to right, hsl(var(--foreground)), hsl(var(--primary)), hsl(var(--secondary))) !important;
-    -webkit-background-clip: text !important;
-    background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-  }
-}
-
-:root[data-theme="light"] h1.bg-gradient-to-r {
-  background: linear-gradient(to right, hsl(var(--foreground)), hsl(var(--primary)), hsl(var(--secondary))) !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-}
-
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
@@ -977,8 +949,8 @@ p {
 
 /* Tight spacing with professional text sizes */
 section {
-  padding-top: clamp(2rem, 3vw, 3rem) !important; /* 32-48px */
-  padding-bottom: clamp(2rem, 3vw, 3rem) !important;
+  padding-top: clamp(2rem, 3vw, 3rem); /* 32-48px */
+  padding-bottom: clamp(2rem, 3vw, 3rem);
 }
 
 /* Professional text sizes matching Anthropic/Portworx */

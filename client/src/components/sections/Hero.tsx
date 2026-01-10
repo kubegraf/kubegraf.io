@@ -225,11 +225,11 @@ export default function Hero() {
               style={{ fontSize: 'clamp(2rem, 4vw + 1rem, 6rem)' }}
               className="font-mono font-bold mb-6 sm:mb-8 leading-[1.2] tracking-[-0.01em]"
             >
-              <span className="text-foreground/90">Intelligent </span>
-              <span className="text-primary">Kubernetes</span>
+              <span className="text-foreground/90">Next‑Gen </span>
+              <span className="text-primary">AI Brain</span>
               <br className="hidden sm:block" />
-              <span className="text-foreground/90"> Incident </span>
-              <span className="text-amber-500">Response</span>
+              <span className="text-foreground/90"> for Kubernetes </span>
+              <span className="text-amber-500">Incident Intelligence</span>
             </motion.h1>
 
             {/* Subheading - Larger description text - WCAG AA compliant */}
@@ -240,8 +240,7 @@ export default function Hero() {
               style={{ fontSize: 'clamp(1.25rem, 1.17rem + 0.41vw, 1.5rem)' }}
               className="leading-[1.7] text-foreground/85 max-w-2xl mx-auto lg:mx-0 mb-10 font-normal"
             >
-              Detect incidents, understand root causes with evidence analysis,
-              and safely preview fixes—all running locally on your machine.
+              Smart, evidence-driven Kubernetes incident intelligence. KubeGraf thinks like an SRE — providing insights and safe recommendations while you remain in control.
             </motion.p>
 
             {/* CTAs - Anthropic style buttons */}
@@ -277,15 +276,24 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className="pt-8 border-t border-border/20"
             >
-              <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start text-[0.875rem] text-muted-foreground/75">
+              <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start text-[0.875rem] text-muted-foreground/75 mb-4">
                 <div className="flex items-center gap-2">
-                  <Terminal className="w-4 h-4 text-primary/70" />
-                  <span className="font-medium text-foreground/60">TUI + Web Dashboard</span>
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                  <span className="font-medium text-foreground/70">Local-First</span>
                 </div>
                 <div className="hidden sm:block w-1 h-1 rounded-full bg-muted-foreground/30" />
-                <span className="font-normal text-muted-foreground/70">macOS • Linux • Windows</span>
+                <div className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                  <span className="font-medium text-foreground/70">Evidence-Driven</span>
+                </div>
                 <div className="hidden sm:block w-1 h-1 rounded-full bg-muted-foreground/30" />
-                <span className="font-medium text-primary/80">Apache 2.0</span>
+                <div className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                  <span className="font-medium text-foreground/70">Human-in-Loop</span>
+                </div>
+              </div>
+              <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start text-[0.875rem] text-muted-foreground/75">
+                <span className="font-normal text-muted-foreground/70">Trusted by SREs | Designed for Enterprise & Local-First Deployments</span>
               </div>
             </motion.div>
           </div>

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, BarChart3, Search, Activity, Terminal } from "lucide-react";
 import styles from "./EvidenceDesign.module.css";
 
 const evidencePoints = [
@@ -8,21 +8,25 @@ const evidencePoints = [
     id: 1,
     title: "Confidence Scores",
     description: "Every diagnosis includes a confidence score based on evidence quality and correlation strength.",
+    icon: BarChart3,
   },
   {
     id: 2,
     title: "Reproducible RCA",
     description: "Root cause analysis is backed by logs, events, and metrics that you can verify independently.",
+    icon: Search,
   },
   {
     id: 3,
     title: "Multi-Source Correlation",
     description: "Correlates data from logs, events, metrics, and YAML diffs to build a complete picture.",
+    icon: Activity,
   },
   {
     id: 4,
     title: "TUI + Web Dashboard",
     description: "View evidence in both terminal UI and web dashboard for different workflows and preferences.",
+    icon: Terminal,
   },
 ];
 
@@ -38,7 +42,8 @@ export default function EvidenceDesign() {
           className={styles.header}
         >
           <h2 className={styles.title}>
-            Every Diagnosis is Backed by Evidence, Not Magic
+            <span className={styles.highlight}>Every Diagnosis</span>{" "}
+            <span className={styles.highlightAmber}>is Backed by Evidence</span>
           </h2>
           <p className={styles.subtitle}>
             KubeGraf provides transparent, verifiable diagnostics with confidence scores and
@@ -48,25 +53,28 @@ export default function EvidenceDesign() {
 
         <div className={styles.content}>
           <div className={styles.evidenceGrid}>
-            {evidencePoints.map((point, index) => (
-              <motion.div
-                key={point.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={styles.evidenceCard}
-              >
-                <div className={styles.evidenceIcon}>
-                  <span className={styles.iconDot}></span>
-                </div>
-                <h3 className={styles.evidenceTitle}>{point.title}</h3>
-                <p className={styles.evidenceDescription}>{point.description}</p>
-              </motion.div>
-            ))}
+            {evidencePoints.map((point, index) => {
+              const IconComponent = point.icon;
+              return (
+                <motion.div
+                  key={point.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className={styles.evidenceCard}
+                >
+                  <div className={styles.evidenceIcon}>
+                    <IconComponent className={styles.iconLucide} aria-hidden="true" />
+                  </div>
+                  <h3 className={styles.evidenceTitle}>{point.title}</h3>
+                  <p className={styles.evidenceDescription}>{point.description}</p>
+                </motion.div>
+              );
+            })}
           </div>
 
-          {/* Visual Timeline Placeholder */}
+          {/* Visual Timeline */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -74,7 +82,7 @@ export default function EvidenceDesign() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className={styles.timelineContainer}
           >
-            <h3 className={styles.timelineTitle}>Visual Timeline</h3>
+            <h3 className={styles.timelineTitle}>Diagnosis Timeline</h3>
             <div className={styles.timelineVisual}>
               <div className={styles.timelineItem}>
                 <div className={styles.timelineDot}></div>
@@ -100,9 +108,6 @@ export default function EvidenceDesign() {
                 </div>
               </div>
             </div>
-            <p className={styles.timelinePlaceholder}>
-              [Visual Timeline: incident → RCA → applied fixes]
-            </p>
           </motion.div>
         </div>
 

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Search, BarChart3, Eye, CheckCircle2 } from "lucide-react";
 import styles from "./HowItWorks.module.css";
 
 const steps = [
@@ -9,7 +10,7 @@ const steps = [
     description: "Auto scan clusters and detect incidents",
     details:
       "Continuously monitors your Kubernetes clusters for common failure patterns including CrashLoopBackOff, OOMKilled, probe failures, and deployment issues.",
-    icon: "🔍", // Replace with SVG icon
+    icon: Search,
   },
   {
     id: 2,
@@ -18,7 +19,7 @@ const steps = [
     description: "Correlate logs, events, metrics, YAML diffs",
     details:
       "Gathers evidence from multiple sources—container logs, Kubernetes events, metrics, and recent YAML changes—to identify root causes with confidence scores.",
-    icon: "📊", // Replace with SVG icon
+    icon: BarChart3,
   },
   {
     id: 3,
@@ -27,7 +28,7 @@ const steps = [
     description: "Dry-run, impact analysis, confidence scores",
     details:
       "Shows exactly what will change before applying any fix. Includes impact assessment, rollback plan, and confidence scores to help you make informed decisions.",
-    icon: "👁️", // Replace with SVG icon
+    icon: Eye,
   },
   {
     id: 4,
@@ -36,7 +37,7 @@ const steps = [
     description: "Human-in-loop approval with rollback",
     details:
       "You approve or reject every change. One-click rollback available. Every action requires explicit human confirmation—no blind automation.",
-    icon: "✅", // Replace with SVG icon
+    icon: CheckCircle2,
   },
 ];
 
@@ -52,7 +53,8 @@ export default function HowItWorks() {
           className={styles.header}
         >
           <h2 className={styles.title}>
-            Four Steps to Safe, Evidence-Driven Incident Response
+            <span className={styles.highlight}>Four Steps</span>{" "}
+            <span className={styles.highlightAmber}>to Safe Incident Response</span>
           </h2>
           <p className={styles.subtitle}>
             From detection to resolution, KubeGraf guides you through every step with evidence and
@@ -61,29 +63,31 @@ export default function HowItWorks() {
         </motion.div>
 
         <div className={styles.stepsContainer}>
-          {steps.map((step, index) => (
-            <motion.div
-              key={step.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.15 }}
-              className={styles.stepCard}
-            >
-              <div className={styles.stepHeader}>
-                <div className={styles.stepNumber}>{step.number}</div>
-                <div className={styles.stepIcon} aria-hidden="true">
-                  {step.icon}
+          {steps.map((step, index) => {
+            const IconComponent = step.icon;
+            return (
+              <motion.div
+                key={step.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.15 }}
+                className={styles.stepCard}
+              >
+                <div className={styles.stepHeader}>
+                  <div className={styles.stepNumber}>{step.number}</div>
+                  <div className={styles.stepIcon} aria-hidden="true">
+                    <IconComponent className={styles.iconSvg} />
+                  </div>
                 </div>
-                {/* TODO: Replace icon with <IconComponent className={styles.iconSvg} /> */}
-              </div>
-              <h3 className={styles.stepTitle}>{step.title}</h3>
-              <p className={styles.stepDescription}>{step.description}</p>
-              <div className={styles.stepDetails}>
-                <p>{step.details}</p>
-              </div>
-            </motion.div>
-          ))}
+                <h3 className={styles.stepTitle}>{step.title}</h3>
+                <p className={styles.stepDescription}>{step.description}</p>
+                <div className={styles.stepDetails}>
+                  <p>{step.details}</p>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* Interactive Visual Placeholder */}

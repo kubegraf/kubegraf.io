@@ -89,7 +89,14 @@ export default function FooterModern() {
           {/* Brand Section */}
           <div className={styles.brandSection}>
             <Link href="/" className={styles.brandLink}>
-              <span className={styles.brandName}>KubēGraf</span>
+              <div className={styles.logoContainer}>
+                <img
+                  src={themePreference === 'dark' ? '/kubegraf-dark-new-bg.svg' : '/kubegraf.svg'}
+                  alt="KubeGraf"
+                  className={styles.logo}
+                />
+                <span className={styles.brandName}>KubēGraf</span>
+              </div>
             </Link>
             <p className={styles.tagline}>
               Local-first Kubernetes incident detection & diagnosis

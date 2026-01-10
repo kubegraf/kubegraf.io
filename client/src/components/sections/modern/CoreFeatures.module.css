@@ -1,7 +1,7 @@
 /* Core Features Section */
 .section {
   padding: 5rem 1rem;
-  background: hsl(var(--background));
+  background: transparent;
 }
 
 .container {
@@ -19,20 +19,24 @@
   font-weight: 700;
   line-height: 1.2;
   margin: 0 0 1rem 0;
-  /* Gradient text for title - theme aware */
-  background: linear-gradient(135deg, hsl(var(--primary)), #22d3ee);
+}
+
+.highlight {
+  background: linear-gradient(135deg, hsl(var(--primary)), #0891b2);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  /* Ensure high contrast in cream theme */
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-/* Fallback for browsers that don't support background-clip */
-@supports not (-webkit-background-clip: text) {
-  .title {
-    color: hsl(var(--primary));
-  }
+:global(:root[data-theme="dark"]) .highlight {
+  background: linear-gradient(135deg, hsl(var(--primary)), #22d3ee);
+}
+
+.highlightAmber {
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .subtitle {
@@ -58,17 +62,8 @@
   border-radius: 0.75rem;
   transition: all 0.3s ease;
   overflow: hidden;
-  /* Warm cream color matching theme - more visible than white */
-  /* Background is hsl(45, 65%, 95%) - using hsl(45, 40%, 96%) for cards */
-  /* This creates a subtle but visible cream tone that complements the theme */
-  background: hsl(45, 40%, 96%);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
-}
-
-/* Override for dark theme */
-:global(:root[data-theme="dark"]) .card {
-  background: hsl(var(--card));
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
+  background: transparent;
 }
 
 .card::before {
@@ -78,7 +73,7 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, hsl(var(--primary)), #22d3ee);
+  background: hsl(var(--primary));
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.3s ease;
@@ -93,14 +88,6 @@
 :global(:root[data-theme="light"]) .card:hover,
 :global(:root:not([data-theme])) .card:hover {
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  /* Slightly brighter cream on hover for subtle lift effect */
-  background: hsl(45, 45%, 97%);
-}
-
-/* Dark theme hover shadow */
-:global(:root[data-theme="dark"]) .card:hover {
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
-  background: hsl(var(--card));
 }
 
 .card:hover::before {
@@ -113,14 +100,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(6, 182, 212, 0.1);
+  background: transparent;
   border-radius: 0.75rem;
   margin-bottom: 1.25rem;
   transition: all 0.3s ease;
 }
 
 .card:hover .iconContainer {
-  background: rgba(6, 182, 212, 0.2);
+  background: transparent;
   transform: scale(1.1);
 }
 
@@ -183,5 +170,14 @@
 
   .card {
     padding: 1.5rem;
+  }
+
+  .hoverContent {
+    max-height: 200px;
+    margin-top: 1rem;
+  }
+
+  .hoverDescription {
+    padding-top: 0.75rem;
   }
 }

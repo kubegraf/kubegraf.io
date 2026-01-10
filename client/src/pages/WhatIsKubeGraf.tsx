@@ -1,281 +1,282 @@
-import { Terminal, Globe, Code, Database, Lock, Zap, AlertCircle, CheckCircle, Clock, FileText } from "lucide-react";
+import { Terminal, Globe, Code, Database, Lock, Zap, AlertCircle, CheckCircle, Clock, FileText, Shield, Search, Wrench, Download, ArrowRight, Play } from "lucide-react";
 import { Link } from "wouter";
+import { motion } from "framer-motion";
 import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+import { Button } from "@/components/ui/button";
+import { FooterModern } from "@/components/sections/modern";
 
 export default function WhatIsKubeGraf() {
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="bg-background text-foreground selection:bg-primary/30 scroll-smooth min-h-screen">
       <Navbar />
 
-      {/* Hero */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-24 pb-12 sm:pt-28 sm:pb-16">
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-          <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">
-            About KubeGraf
-          </p>
-          <h1 className="text-4xl md:text-6xl font-display font-bold mb-6 bg-gradient-to-r from-white via-primary to-purple-400 bg-clip-text text-transparent">
-            What is KubeGraf?
-          </h1>
-          <p className="text-xl text-muted-foreground leading-relaxed">
-            A local-first Kubernetes tool for detecting incidents, understanding root causes, and safely
-            responding to failures—without SaaS lock-in.
-          </p>
-        </div>
+      <main>
+        {/* Hero */}
+        <section className="relative pt-64 md:pt-80 pb-20 overflow-hidden bg-background" aria-label="About KubeGraf Hero">
+          <div className="absolute inset-0 z-0 pointer-events-none">
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(6,182,212,0.15),transparent)] dark:bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(6,182,212,0.1),transparent)]" />
+          </div>
 
-        {/* Quick Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-12 sm:mb-16">
-          <div className="glass-card p-6 rounded-xl border border-white/10 text-center">
-            <div className="text-3xl font-bold text-primary mb-1">100%</div>
-            <div className="text-sm text-muted-foreground">Local-first</div>
-          </div>
-          <div className="glass-card p-6 rounded-xl border border-white/10 text-center">
-            <div className="text-3xl font-bold text-primary mb-1">0</div>
-            <div className="text-sm text-muted-foreground">Agents required</div>
-          </div>
-          <div className="glass-card p-6 rounded-xl border border-white/10 text-center">
-            <div className="text-3xl font-bold text-primary mb-1">3</div>
-            <div className="text-sm text-muted-foreground">Interfaces (TUI/Web/SPA)</div>
-          </div>
-          <div className="glass-card p-6 rounded-xl border border-white/10 text-center">
-            <div className="text-3xl font-bold text-primary mb-1">∞</div>
-            <div className="text-sm text-muted-foreground">Clusters supported</div>
-          </div>
-        </div>
-
-        {/* How It Works */}
-        <div className="mb-12 sm:mb-16">
-          <h2 className="text-2xl font-bold mb-6 sm:mb-8 text-center">How It Works</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-            <div className="glass-card p-6 rounded-xl border border-white/10">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                <AlertCircle className="w-6 h-6 text-primary" />
-              </div>
-              <h3 className="font-bold mb-2">1. Detect</h3>
-              <p className="text-sm text-muted-foreground">
-                Monitors for CrashLoopBackOff, OOMKilled, restart storms, and probe failures
-              </p>
-            </div>
-            <div className="glass-card p-6 rounded-xl border border-white/10">
-              <div className="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center mb-4">
-                <FileText className="w-6 h-6 text-purple-400" />
-              </div>
-              <h3 className="font-bold mb-2">2. Diagnose</h3>
-              <p className="text-sm text-muted-foreground">
-                Correlates events, logs, and recent changes to explain what failed
-              </p>
-            </div>
-            <div className="glass-card p-6 rounded-xl border border-white/10">
-              <div className="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center mb-4">
-                <CheckCircle className="w-6 h-6 text-green-400" />
-              </div>
-              <h3 className="font-bold mb-2">3. Preview Fix</h3>
-              <p className="text-sm text-muted-foreground">
-                Dry-run validation shows exactly what will change before applying
-              </p>
-            </div>
-            <div className="glass-card p-6 rounded-xl border border-white/10">
-              <div className="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4">
-                <Database className="w-6 h-6 text-orange-400" />
-              </div>
-              <h3 className="font-bold mb-2">4. Store Locally</h3>
-              <p className="text-sm text-muted-foreground">
-                Every diagnosis saved in SQLite for future reference and learning
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Core Features */}
-        <div className="mb-12 sm:mb-16">
-          <h2 className="text-2xl font-bold mb-6 sm:mb-8">Core Capabilities</h2>
-          <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
-            <div className="glass-card p-8 rounded-2xl border border-white/10">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <Terminal className="w-6 h-6 text-primary" />
+          <div className="container relative z-10 mx-auto px-4 max-w-6xl">
+            <div className="text-center max-w-4xl mx-auto mb-16">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="relative z-10"
+              >
+                <div className="text-sm font-bold tracking-[0.2em] text-primary uppercase mb-4">
+                  Everything you need to know
                 </div>
-                <div>
-                  <h3 className="text-xl font-bold mb-2">Multiple Interfaces</h3>
-                  <p className="text-muted-foreground mb-3">
-                    Choose how you work: keyboard-driven TUI for SSH sessions, web dashboard for visual exploration, or modern SPA interface.
-                  </p>
-                  <div className="flex gap-2 flex-wrap">
-                    <span className="text-xs px-2 py-1 rounded bg-black/40 border border-white/10">Terminal UI</span>
-                    <span className="text-xs px-2 py-1 rounded bg-black/40 border border-white/10">Web Dashboard</span>
-                    <span className="text-xs px-2 py-1 rounded bg-black/40 border border-white/10">SPA</span>
+                <h1 className="text-4xl md:text-7xl font-bold mb-8 leading-[1.1] tracking-tight">
+                  <span className="bg-gradient-to-r from-primary to-[#0891b2] dark:to-[#22d3ee] bg-clip-text text-transparent [text-shadow:0_1px_2px_rgba(0,0,0,0.1)] dark:[text-shadow:none]">What is</span>{" "}
+                  <span className="bg-gradient-to-r from-[#92400e] to-[#991b1b] dark:from-[#f59e0b] dark:to-[#ef4444] bg-clip-text text-transparent [text-shadow:0_1px_2px_rgba(0,0,0,0.1)] dark:[text-shadow:none]">KubeGraf?</span>
+                </h1>
+                <p className="text-xl md:text-2xl text-foreground opacity-90 leading-relaxed font-medium">
+                  A local-first Kubernetes intelligence brain for detecting incidents, understanding root causes, and safely
+                  responding to failures—without SaaS lock-in.
+                </p>
+              </motion.div>
+            </div>
+
+            {/* Quick Stats Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+              {[
+                { label: "Local-first", value: "100%" },
+                { label: "Agents required", value: "0" },
+                { label: "Interfaces (TUI/Web/SPA)", value: "3" },
+                { label: "Clusters supported", value: "∞" },
+              ].map((stat, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className="p-8 rounded-2xl border border-border/50 bg-card dark:bg-card/30 backdrop-blur-sm text-center hover:border-primary/50 transition-all group shadow-md dark:shadow-sm"
+                >
+                  <div className="text-4xl font-bold bg-gradient-to-br from-primary to-[#0891b2] dark:to-[#22d3ee] bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform">
+                    {stat.value}
                   </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="glass-card p-8 rounded-2xl border border-white/10">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center flex-shrink-0">
-                  <Clock className="w-6 h-6 text-purple-400" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold mb-2">Change Intelligence</h3>
-                  <p className="text-muted-foreground mb-3">
-                    See what changed before an incident: deployments, configs, secrets. Correlate changes with failures to find root causes faster.
-                  </p>
-                  <div className="flex gap-2 flex-wrap">
-                    <span className="text-xs px-2 py-1 rounded bg-black/40 border border-white/10">Deployment tracking</span>
-                    <span className="text-xs px-2 py-1 rounded bg-black/40 border border-white/10">Config diffs</span>
+                  <div className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+                    {stat.label}
                   </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="glass-card p-8 rounded-2xl border border-white/10">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center flex-shrink-0">
-                  <Database className="w-6 h-6 text-green-400" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold mb-2">Knowledge Bank</h3>
-                  <p className="text-muted-foreground mb-3">
-                    Every incident stored locally in SQLite. Search by pod, namespace, error type, or fix applied. Learn from past incidents.
-                  </p>
-                  <div className="flex gap-2 flex-wrap">
-                    <span className="text-xs px-2 py-1 rounded bg-black/40 border border-white/10">Local storage</span>
-                    <span className="text-xs px-2 py-1 rounded bg-black/40 border border-white/10">Searchable</span>
-                    <span className="text-xs px-2 py-1 rounded bg-black/40 border border-white/10">Exportable</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="glass-card p-8 rounded-2xl border border-white/10">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center flex-shrink-0">
-                  <Lock className="w-6 h-6 text-orange-400" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold mb-2">Security First</h3>
-                  <p className="text-muted-foreground mb-3">
-                    Credentials stay on your machine. Read-only by default. Dry-run validation before any changes. Open source and auditable.
-                  </p>
-                  <div className="flex gap-2 flex-wrap">
-                    <span className="text-xs px-2 py-1 rounded bg-black/40 border border-white/10">Local-first</span>
-                    <span className="text-xs px-2 py-1 rounded bg-black/40 border border-white/10">Read-only mode</span>
-                    <span className="text-xs px-2 py-1 rounded bg-black/40 border border-white/10">Apache 2.0</span>
-                  </div>
-                </div>
-              </div>
+                </motion.div>
+              ))}
             </div>
           </div>
-        </div>
+        </section>
 
-        {/* Use Cases */}
-        <div className="mb-12 sm:mb-16">
-          <h2 className="text-2xl font-bold mb-6 sm:mb-8">Common Use Cases</h2>
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-            <div className="glass-card p-6 rounded-xl border border-white/10">
-              <h3 className="font-bold mb-2">On-call Engineers</h3>
-              <p className="text-sm text-muted-foreground">
-                Get paged at 3am? KubeGraf shows you what changed, what failed, and suggests fixes—all from your terminal.
+        {/* How It Works Section */}
+        <section className="py-24 relative overflow-hidden">
+          <div className="container mx-auto px-4 max-w-6xl">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-5xl font-bold mb-6">
+                <span className="bg-gradient-to-r from-primary to-[#0891b2] dark:to-[#22d3ee] bg-clip-text text-transparent">How It</span>{" "}
+                <span className="bg-gradient-to-r from-[#92400e] to-[#991b1b] dark:from-[#f59e0b] dark:to-[#ef4444] bg-clip-text text-transparent">Works</span>
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                KubeGraf streamlines the entire incident lifecycle with an evidence-driven approach.
               </p>
             </div>
-            <div className="glass-card p-6 rounded-xl border border-white/10">
-              <h3 className="font-bold mb-2">Platform Teams</h3>
-              <p className="text-sm text-muted-foreground">
-                Track recurring incidents across namespaces. Identify patterns. Export reports for postmortems.
-              </p>
-            </div>
-            <div className="glass-card p-6 rounded-xl border border-white/10">
-              <h3 className="font-bold mb-2">DevOps Engineers</h3>
-              <p className="text-sm text-muted-foreground">
-                Multi-cluster visibility without SaaS overhead. Switch contexts instantly. No agents to manage.
-              </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                { 
+                  icon: AlertCircle, 
+                  title: "1. Detect", 
+                  desc: "Monitors for CrashLoopBackOff, OOMKilled, restart storms, and probe failures in real-time.", 
+                  color: "#06b6d4" 
+                },
+                { 
+                  icon: FileText, 
+                  title: "2. Diagnose", 
+                  desc: "Correlates events, logs, and recent changes to explain exactly why the resource failed.", 
+                  color: "#f59e0b" 
+                },
+                { 
+                  icon: CheckCircle, 
+                  title: "3. Preview Fix", 
+                  desc: "Dry-run validation shows exactly what will change before applying any fix to your cluster.", 
+                  color: "#10b981" 
+                },
+                { 
+                  icon: Database, 
+                  title: "4. Store Locally", 
+                  desc: "Every diagnosis is saved in a local SQLite database for future reference and machine learning.", 
+                  color: "#f97316" 
+                },
+              ].map((step, i) => (step && (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className="p-8 rounded-2xl border border-border/50 bg-card/10 backdrop-blur-md hover:border-primary/30 transition-all flex flex-col items-center text-center group"
+                >
+                  <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`} style={{ backgroundColor: `${step.color}20` }}>
+                    <step.icon className={`w-8 h-8`} style={{ color: step.color }} />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3">{step.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {step.desc}
+                  </p>
+                </motion.div>
+              )))}
             </div>
           </div>
-        </div>
+        </section>
+
+        {/* Core Capabilities */}
+        <section className="py-24 bg-card/20 dark:bg-card/5">
+          <div className="container mx-auto px-4 max-w-6xl">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">
+                <span className="bg-gradient-to-r from-primary to-[#0891b2] dark:to-[#22d3ee] bg-clip-text text-transparent">Core</span>{" "}
+                <span className="bg-gradient-to-r from-[#92400e] to-[#991b1b] dark:from-[#f59e0b] dark:to-[#ef4444] bg-clip-text text-transparent">Capabilities</span>
+              </h2>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              {[
+                {
+                  icon: Terminal,
+                  title: "Multiple Interfaces",
+                  desc: "Choose how you work: keyboard-driven TUI for SSH sessions, web dashboard for visual exploration, or modern SPA interface.",
+                  tags: ["Terminal UI", "Web Dashboard", "Modern SPA"],
+                  color: "#06b6d4"
+                },
+                {
+                  icon: Clock,
+                  title: "Change Intelligence",
+                  desc: "See what changed before an incident: deployments, configs, secrets. Correlate changes with failures to find root causes faster.",
+                  tags: ["Deployment tracking", "Config diffs"],
+                  color: "#3b82f6"
+                },
+                {
+                  icon: Search,
+                  title: "Knowledge Bank",
+                  desc: "Every incident stored locally in SQLite. Search by pod, namespace, error type, or fix applied. Learn from past incidents.",
+                  tags: ["Local storage", "Searchable", "Exportable"],
+                  color: "#10b981"
+                },
+                {
+                  icon: Shield,
+                  title: "Security First",
+                  desc: "Credentials stay on your machine. Read-only by default. Dry-run validation before any changes. Open source and auditable.",
+                  tags: ["Local-first", "Read-only mode", "Apache 2.0"],
+                  color: "#f59e0b"
+                }
+              ].map((cap, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  className="p-8 rounded-3xl border border-border/50 bg-card/20 backdrop-blur-sm hover:border-primary/50 transition-all group"
+                >
+                  <div className="flex items-start gap-6">
+                    <div className="w-16 h-16 rounded-2xl bg-card border border-border flex items-center justify-center flex-shrink-0 group-hover:border-primary/50 transition-colors">
+                      <cap.icon className={`w-8 h-8`} style={{ color: cap.color }} />
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold mb-3">{cap.title}</h3>
+                      <p className="text-muted-foreground mb-6 leading-relaxed">
+                        {cap.desc}
+                      </p>
+                      <div className="flex gap-2 flex-wrap">
+                        {cap.tags.map(tag => (
+                          <span key={tag} className="text-[10px] uppercase tracking-widest px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary font-bold">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Use Cases Grid */}
+        <section className="py-24">
+          <div className="container mx-auto px-4 max-w-6xl">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-5xl font-bold mb-6">
+                <span className="bg-gradient-to-r from-primary to-[#0891b2] dark:to-[#22d3ee] bg-clip-text text-transparent">Common</span>{" "}
+                <span className="bg-gradient-to-r from-[#92400e] to-[#991b1b] dark:from-[#f59e0b] dark:to-[#ef4444] bg-clip-text text-transparent">Use Cases</span>
+              </h2>
+            </div>
+            
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+              {[
+                { title: "On-call Engineers", desc: "Get paged at 3am? KubeGraf shows you what changed, what failed, and suggests fixes—all from your terminal." },
+                { title: "Platform Teams", desc: "Track recurring incidents across namespaces. Identify patterns. Export reports for postmortems." },
+                { title: "DevOps Engineers", desc: "Multi-cluster visibility without SaaS overhead. Switch contexts instantly. No agents to manage." }
+              ].map((useCase, i) => (
+                <div key={i} className="p-8 rounded-2xl border border-border/50 bg-card/10 hover:border-primary/30 transition-all">
+                  <h3 className="text-xl font-bold mb-4">{useCase.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {useCase.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
         {/* What KubeGraf is NOT */}
-        <div className="glass-card p-6 sm:p-8 rounded-2xl border border-white/10 mb-12 sm:mb-16 bg-black/20">
-          <h2 className="text-2xl font-bold mb-6">What KubeGraf is NOT</h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <h3 className="font-semibold mb-2 flex items-center gap-2">
-                <span className="text-muted-foreground">✗</span> Not a monitoring platform
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                Use Prometheus, Datadog, or Grafana for metrics. KubeGraf focuses on incident detection and diagnosis.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-2 flex items-center gap-2">
-                <span className="text-muted-foreground">✗</span> Not a deployment tool
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                Use Argo, Flux, or Jenkins for CI/CD. KubeGraf can rollback during incidents, but it's not a GitOps platform.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-2 flex items-center gap-2">
-                <span className="text-muted-foreground">✗</span> Not an auto-healer
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                KubeGraf suggests fixes. You decide whether to apply them. No silent automation or black-box changes.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-2 flex items-center gap-2">
-                <span className="text-muted-foreground">✗</span> Not a SaaS
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                Runs locally. No accounts, no subscriptions, no cloud dependencies for core features.
-              </p>
+        <section className="py-24 bg-card/10 border-y border-border/50">
+          <div className="container mx-auto px-4 max-w-6xl">
+            <h2 className="text-3xl md:text-5xl font-bold mb-12 text-center tracking-tight">What KubeGraf is <span className="text-destructive">NOT</span></h2>
+            <div className="grid md:grid-cols-2 gap-8">
+              {[
+                { title: "Not a monitoring platform", desc: "Use Prometheus, Datadog, or Grafana for metrics. KubeGraf focuses on incident detection and diagnosis." },
+                { title: "Not a deployment tool", desc: "Use Argo, Flux, or Jenkins for CI/CD. KubeGraf can rollback during incidents, but it's not a GitOps platform." },
+                { title: "Not an auto-healer", desc: "KubeGraf suggests fixes. You decide whether to apply them. No silent automation or black-box changes." },
+                { title: "Not a SaaS", desc: "Runs locally. No accounts, no subscriptions, no cloud dependencies for core features." }
+              ].map((item, i) => (
+                <div key={i} className="flex gap-4 p-6 rounded-2xl bg-background/50 border border-border/50">
+                  <div className="text-destructive font-bold text-2xl">✗</div>
+                  <div>
+                    <h3 className="text-lg font-bold mb-2">{item.title}</h3>
+                    <p className="text-muted-foreground text-sm leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
-
-        {/* Brand Clarity */}
-        <div className="glass-card p-6 sm:p-8 rounded-2xl border border-primary/20 mb-12 sm:mb-16 bg-primary/5">
-          <h2 className="text-xl font-bold mb-4">Brand Clarity</h2>
-          <p className="text-muted-foreground mb-4 leading-relaxed">
-            The term <strong className="text-foreground">KubeGraf</strong> on this site refers exclusively to the product distributed via{' '}
-            <span className="font-mono text-primary">kubegraf.io</span> and related installers and binaries.
-          </p>
-          <p className="text-sm text-muted-foreground mb-3 leading-relaxed">
-            <strong className="text-foreground">Important:</strong> KubeGraf (kubegraf.io) is an independent product and is{' '}
-            <strong>not</strong> affiliated with Kubernetes, the CNCF, Grafana Labs, or the{' '}
-            <strong className="text-foreground">DevOpsProdigy KubeGraf</strong> Grafana plugin.
-          </p>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            Any references to other tools are purely for comparison and do not imply partnership or endorsement.
-          </p>
-        </div>
+        </section>
 
         {/* CTA Section */}
-        <div className="text-center">
-          <h2 className="text-2xl font-bold mb-6">Ready to try KubeGraf?</h2>
-          <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4">
-            <a
-              href="/docs/installation.html"
-              className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 rounded-full border border-primary/50 bg-primary/10 hover:bg-primary/20 transition-all font-semibold text-sm sm:text-base"
-            >
-              Install KubeGraf
-            </a>
-            <a
-              href="/docs/quickstart.html"
-              className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 rounded-full border border-white/20 bg-black/40 hover:bg-black/60 transition-all font-semibold text-sm sm:text-base"
-            >
-              Quick Start Guide
-            </a>
-            <a
-              href="https://github.com/kubegraf/kubegraf"
-              className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 rounded-full border border-white/20 bg-black/40 hover:bg-black/60 transition-all font-semibold text-sm sm:text-base"
-            >
-              View on GitHub
-            </a>
+        <section className="py-32 relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(6,182,212,0.1),transparent)]" />
+          <div className="container relative z-10 mx-auto px-4 text-center">
+            <h2 className="text-4xl md:text-6xl font-bold mb-8 tracking-tight">Ready to try KubeGraf?</h2>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link href="/docs/installation.html">
+                <Button size="lg" className="h-14 px-10 text-lg font-bold bg-primary hover:bg-primary/90 shadow-xl shadow-primary/20 transition-all rounded-full group">
+                  <Download className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
+                  Install KubeGraf
+                </Button>
+              </Link>
+              <Link href="/docs/quickstart.html">
+                <Button variant="outline" size="lg" className="h-14 px-10 text-lg font-bold border-border hover:bg-card/50 transition-all rounded-full group">
+                  <Play className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
+                  Quick Start Guide
+                </Button>
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
 
-      <Footer />
+      <FooterModern />
     </div>
   );
 }

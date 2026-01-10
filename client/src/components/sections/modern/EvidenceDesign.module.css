@@ -1,7 +1,7 @@
 /* Evidence Design Section */
 .section {
   padding: 5rem 1rem;
-  background: hsl(var(--background));
+  background: transparent;
 }
 
 .container {
@@ -19,12 +19,28 @@
   font-weight: 700;
   line-height: 1.2;
   margin: 0 0 1rem 0;
-  /* Gradient text for title - theme aware */
-  background: linear-gradient(135deg, hsl(var(--primary)), #22d3ee);
+}
+
+.highlight {
+  background: linear-gradient(135deg, hsl(var(--primary)), #0891b2);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  /* Ensure high contrast in cream theme */
+}
+
+:global(:root[data-theme="dark"]) .highlight {
+  background: linear-gradient(135deg, hsl(var(--primary)), #22d3ee);
+}
+
+.highlightAmber {
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+:global(:root[data-theme="light"]) .title,
+:global(:root:not([data-theme])) .title {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
@@ -58,7 +74,7 @@
 
 .evidenceCard {
   padding: 1.75rem;
-  background: hsl(var(--background));
+  background: transparent;
   border: 1px solid hsl(var(--border));
   border-radius: 0.75rem;
   transition: all 0.3s ease;
@@ -76,28 +92,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(6, 182, 212, 0.1);
-  border-radius: 50%;
+  background: hsl(var(--primary) / 0.1);
+  border-radius: 12px;
   margin-bottom: 1rem;
+  color: hsl(var(--primary));
 }
 
-.iconDot {
-  width: 12px;
-  height: 12px;
-  background: hsl(var(--primary));
-  border-radius: 50%;
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.7;
-    transform: scale(1.1);
-  }
+.iconLucide {
+  width: 24px;
+  height: 24px;
 }
 
 .evidenceTitle {
@@ -116,7 +119,7 @@
 
 .timelineContainer {
   padding: 2rem;
-  background: hsl(var(--background));
+  background: transparent;
   border: 1px solid hsl(var(--border));
   border-radius: 1rem;
 }
@@ -183,13 +186,6 @@
   max-width: 100px;
 }
 
-.timelinePlaceholder {
-  text-align: center;
-  font-size: 0.875rem;
-  color: hsl(var(--muted-foreground));
-  font-style: italic;
-  margin: 1rem 0 0 0;
-}
 
 .ctaContainer {
   text-align: center;
@@ -243,5 +239,21 @@
     height: 40px;
     min-width: 0;
     max-width: none;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .section {
+    padding: 4rem 1rem;
+  }
+
+  .evidenceGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .evidenceCard {
+    padding: 1.5rem;
   }
 }

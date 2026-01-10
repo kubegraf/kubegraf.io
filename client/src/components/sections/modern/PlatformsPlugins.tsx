@@ -45,7 +45,10 @@ export default function PlatformsPlugins() {
           transition={{ duration: 0.6 }}
           className={styles.header}
         >
-          <h2 className={styles.title}>Works with Your Kubernetes Stack</h2>
+          <h2 className={styles.title}>
+            <span className={styles.highlight}>Works with Your</span>{" "}
+            <span className={styles.highlightAmber}>Kubernetes Stack</span>
+          </h2>
           <p className={styles.subtitle}>
             Any cluster • Built-in plugins
           </p>

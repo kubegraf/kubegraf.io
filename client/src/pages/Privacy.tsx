@@ -9,7 +9,7 @@ export default function Privacy() {
       <Navbar />
 
       {/* Content */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 pt-24 pb-16 sm:pt-28">
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 pt-64 pb-16 sm:pt-72">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

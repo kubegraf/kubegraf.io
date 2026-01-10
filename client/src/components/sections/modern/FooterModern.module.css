@@ -38,17 +38,45 @@
 .brandLink {
   text-decoration: none;
   color: hsl(var(--foreground));
-  transition: color 0.2s;
+  transition: all 0.2s;
 }
 
-.brandLink:hover {
-  color: hsl(var(--primary));
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.brandLink:hover .logoContainer {
+  transform: scale(1.02);
+}
+
+.logo {
+  height: 3rem;
+  width: auto;
+  transition: transform 0.2s ease;
 }
 
 .brandName {
   font-size: 1.5rem;
   font-weight: 700;
   color: hsl(var(--foreground));
+  transition: color 0.2s;
+}
+
+.brandLink:hover .brandName {
+  color: #f59e0b; /* Amber/Orange color matching Footer.tsx group-hover:text-orange-500 */
+}
+
+:root[data-theme="dark"] .brandName {
+  color: #9ca3af; /* text-gray-400 */
+}
+
+:root[data-theme="light"] .brandName,
+:root:not([data-theme]) .brandName {
+  color: #4b5563; /* text-gray-600 */
 }
 
 .tagline {
@@ -170,11 +198,19 @@
   .content {
     grid-template-columns: 1fr;
     gap: 3rem;
+    text-align: center;
   }
 
-  .linksGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+  .brandSection {
+    align-items: center;
+  }
+
+  .logoContainer {
+    justify-content: center;
+  }
+
+  .link {
+    justify-content: center;
   }
 }
 

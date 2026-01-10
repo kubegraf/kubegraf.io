@@ -54,33 +54,30 @@ function NavDropdown({ label, items, isOpen, onToggle, onClose, theme }: Dropdow
 
   return (
     <div ref={dropdownRef} className="relative">
-      <button
+      <motion.button
         onClick={onToggle}
-        className="flex items-center gap-1 px-4 py-2 rounded-lg font-medium transition-colors"
+        className="flex items-center gap-1.5 px-4 py-2 rounded-lg font-medium transition-all duration-200 outline-none"
         style={{
-          color: 'rgba(17, 24, 39, 1)', // Dark color for all themes
-          fontSize: '1.125rem', // 18px - increased font size
+          color: theme === 'dark' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(17, 24, 39, 0.9)',
+          fontSize: '1rem', // Standardizing font size
         }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.color = 'rgba(17, 24, 39, 1)';
-          e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.05)';
+        whileHover={{ 
+          backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)',
+          color: theme === 'dark' ? 'rgba(255, 255, 255, 1)' : 'rgba(17, 24, 39, 1)',
         }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.color = 'rgba(17, 24, 39, 1)';
-          e.currentTarget.style.backgroundColor = 'transparent';
-        }}
+        whileTap={{ scale: 0.98 }}
       >
         {label}
-        <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
-      </button>
+        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+      </motion.button>
 
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+            initial={{ opacity: 0, y: 8, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 10, scale: 0.95 }}
-            transition={{ duration: 0.15 }}
+            exit={{ opacity: 0, y: 8, scale: 0.98 }}
+            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="absolute top-full left-0 mt-2 w-72 bg-card/95 backdrop-blur-xl border border-border rounded-xl shadow-2xl overflow-hidden z-50"
           >
             <div className="p-2">
@@ -89,26 +86,27 @@ function NavDropdown({ label, items, isOpen, onToggle, onClose, theme }: Dropdow
                   key={item.label}
                   href={item.href}
                   onClick={onClose}
-                  className="flex items-start gap-3 p-3 rounded-lg hover:bg-accent/10 transition-colors group"
+                  className="flex items-start gap-3 p-3 rounded-lg hover:bg-accent/10 transition-all duration-200 group"
                 >
-                  <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
+                  <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-200">
                     <item.icon className="w-4 h-4 text-primary" />
                   </div>
                   <div>
                     <div 
-                      className="font-medium"
+                      className="font-semibold transition-colors duration-200"
                       style={{
-                        color: 'rgba(17, 24, 39, 1)', // Dark color
-                        fontSize: '0.9375rem', // 15px - larger than text-xs
+                        color: theme === 'dark' ? 'rgba(255, 255, 255, 0.95)' : 'rgba(17, 24, 39, 0.95)',
+                        fontSize: '0.9375rem',
                       }}
                     >
                       {item.label}
                     </div>
                     <div 
-                      className=""
+                      className="transition-colors duration-200"
                       style={{
-                        color: 'rgba(31, 41, 55, 1)', // Slightly lighter dark color
-                        fontSize: '0.875rem', // 14px - larger than text-xs
+                        color: theme === 'dark' ? 'rgba(255, 255, 255, 0.55)' : 'rgba(75, 85, 99, 1)',
+                        fontSize: '0.8125rem',
+                        lineHeight: '1.25rem',
                       }}
                     >
                       {item.description}
@@ -215,44 +213,35 @@ export default function Navbar() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out ${
-          scrolled ? 'border-b' : ''
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out`}
         style={{
           // Progressive background opacity based on scroll progress
           backgroundColor: theme === 'dark' 
-            ? `rgba(2, 6, 23, ${0.8 + scrollProgress * 0.15})` // 0.8 to 0.95
-            : `rgba(250, 246, 233, ${0.9 + scrollProgress * 0.08})`, // 0.9 to 0.98
+            ? `rgba(2, 6, 23, ${0.7 + scrollProgress * 0.25})` // 0.7 to 0.95
+            : `rgba(255, 255, 255, ${0.8 + scrollProgress * 0.18})`, // 0.8 to 0.98
           
           // Progressive backdrop blur
-          backdropFilter: `blur(${8 + scrollProgress * 16}px)`, // 8px to 24px
-          WebkitBackdropFilter: `blur(${8 + scrollProgress * 16}px)`,
+          backdropFilter: `blur(${12 + scrollProgress * 12}px)`, // 12px to 24px
+          WebkitBackdropFilter: `blur(${12 + scrollProgress * 12}px)`,
           
           // Progressive border opacity
-          borderBottomColor: theme === 'dark' 
-            ? `rgba(255, 255, 255, ${0.05 + scrollProgress * 0.1})` // 0.05 to 0.15
-            : `rgba(15, 23, 42, ${0.05 + scrollProgress * 0.1})`, // 0.05 to 0.15
-          borderBottomWidth: scrolled ? '1px' : '0px',
+          borderBottom: scrolled ? `1px solid ${theme === 'dark' 
+            ? `rgba(255, 255, 255, ${0.05 + scrollProgress * 0.05})` 
+            : `rgba(15, 23, 42, ${0.05 + scrollProgress * 0.05})`}` : 'none',
           
           // Progressive shadow - increases with scroll
           boxShadow: scrolled 
             ? (theme === 'dark' 
-                ? `0 ${4 + scrollProgress * 10}px ${20 + scrollProgress * 30}px rgba(0, 0, 0, ${0.2 + scrollProgress * 0.3}), 0 0 ${10 + scrollProgress * 15}px rgba(0, 0, 0, ${0.1 + scrollProgress * 0.15})`
-                : `0 ${4 + scrollProgress * 10}px ${20 + scrollProgress * 30}px rgba(0, 0, 0, ${0.05 + scrollProgress * 0.1}), 0 0 ${10 + scrollProgress * 15}px rgba(0, 0, 0, ${0.02 + scrollProgress * 0.05})`)
+                ? `0 ${4 + scrollProgress * 6}px ${20 + scrollProgress * 10}px rgba(0, 0, 0, ${0.15 + scrollProgress * 0.15})`
+                : `0 ${4 + scrollProgress * 6}px ${20 + scrollProgress * 10}px rgba(0, 0, 0, ${0.03 + scrollProgress * 0.05})`)
             : 'none',
           
-          // Slight height reduction on scroll for modern effect
-          height: scrolled ? '56px' : 'auto', // Slightly reduced on scroll
+          // Progressive height reduction on scroll for modern effect
+          height: scrolled ? '64px' : '80px',
         }}
       >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            className="flex items-center justify-between"
-            animate={{
-              height: scrolled ? 56 : 80, // Reduce height on scroll
-            }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-          >
+        <div className="container mx-auto h-full px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-full">
             {/* Logo */}
             <a href="/" className="flex items-center gap-3 group">
               <motion.img
@@ -280,7 +269,7 @@ export default function Navbar() {
                 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
                 style={{
-                  color: 'rgba(17, 24, 39, 1)', // Dark color for all themes
+                  color: theme === 'dark' ? 'rgba(255, 255, 255, 0.95)' : 'rgba(17, 24, 39, 1)',
                 }}
               >
                 KubēGraf
@@ -317,132 +306,96 @@ export default function Navbar() {
 
             {/* CTA Buttons - Portainer style */}
             <div className="hidden lg:flex items-center gap-3">
-              <a
+              <motion.a
                 href="https://github.com/kubegraf/kubegraf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="transition-colors flex items-center gap-1.5"
+                className="transition-all duration-200 flex items-center gap-2 px-3 py-1.5 rounded-lg font-medium"
                 style={{
-                  color: 'rgba(17, 24, 39, 1)', // Dark color
-                  fontSize: '1rem', // 16px - larger font size
+                  color: theme === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(17, 24, 39, 0.8)',
+                  fontSize: '0.9375rem',
                 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = 'hsl(var(--primary))';
+                whileHover={{ 
+                  color: theme === 'dark' ? 'rgba(255, 255, 255, 1)' : 'rgba(17, 24, 39, 1)',
+                  backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)',
                 }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = 'rgba(17, 24, 39, 1)';
-                }}
+                whileTap={{ scale: 0.98 }}
               >
                 <Github className="w-4 h-4" />
                 <span className="hidden xl:inline">GitHub</span>
-              </a>
-              {/* Docs and Install in a box with rotating border */}
+              </motion.a>
+
+              {/* Docs and Install combined CTA */}
               <div 
-                className="relative rounded-md"
+                className="relative rounded-lg group p-[1px] transition-all duration-500"
                 style={{
-                  padding: '2px', // Border width
-                  background: 'linear-gradient(90deg, rgba(6, 182, 212, 0.8), rgba(34, 211, 238, 0.9), rgba(59, 130, 246, 0.8), rgba(6, 182, 212, 0.8))',
-                  backgroundSize: '400% 100%',
-                  animation: 'borderRotate 4s linear infinite',
+                  background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.5), rgba(59, 130, 246, 0.5))',
                 }}
               >
-                <style>{`
-                  @keyframes borderRotate {
-                    0% {
-                      background-position: 0% 50%;
-                    }
-                    100% {
-                      background-position: 400% 50%;
-                    }
-                  }
-                `}</style>
+                {/* Glow effect on hover */}
+                <div className="absolute inset-0 rounded-lg bg-primary/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
+                
                 <div 
-                  className="flex items-center gap-0 px-0.5 py-0.5 rounded-md relative"
+                  className="flex items-center gap-0 px-1 py-1 rounded-[7px] relative overflow-hidden"
                   style={{
-                    backgroundColor: 'rgba(6, 182, 212, 0.08)',
-                    transition: 'background-color 0.3s ease',
-                    borderRadius: 'calc(0.375rem - 2px)', // Slightly smaller to account for border
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = 'rgba(6, 182, 212, 0.12)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = 'rgba(6, 182, 212, 0.08)';
+                    backgroundColor: theme === 'dark' ? 'rgba(2, 6, 23, 0.8)' : 'rgba(255, 255, 255, 0.9)',
+                    backdropFilter: 'blur(8px)',
                   }}
                 >
-                <a
-                  href="/docs/"
-                  className="px-2 py-1 font-medium transition-colors flex items-center gap-1 rounded-sm"
-                  style={{
-                    color: 'rgba(17, 24, 39, 1)', // Dark color
-                    fontSize: '0.9375rem', // 15px - slightly smaller
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.color = 'hsl(var(--primary))';
-                    e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.05)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.color = 'rgba(17, 24, 39, 1)';
-                    e.currentTarget.style.backgroundColor = 'transparent';
-                  }}
-                >
-                  <BookOpen className="w-4 h-4" />
-                  Docs
-                </a>
-                <span 
-                  style={{ 
-                    width: '1px',
-                    height: '18px',
-                    backgroundColor: 'rgba(6, 182, 212, 0.7)',
-                    display: 'block',
-                    marginLeft: '8px',
-                    marginRight: '8px',
-                    flexShrink: 0,
-                    alignSelf: 'center',
-                  }}
-                ></span>
-                <button
-                  onClick={() => window.location.href = '/docs/installation.html'}
-                  className="px-2 py-1 font-medium transition-colors rounded-sm"
-                  style={{
-                    color: 'rgba(17, 24, 39, 1)', // Dark color
-                    backgroundColor: 'transparent',
-                    border: 'none',
-                    cursor: 'pointer',
-                    fontSize: '0.9375rem', // 15px - slightly smaller
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.color = 'hsl(var(--primary))';
-                    e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.05)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.color = 'rgba(17, 24, 39, 1)';
-                    e.currentTarget.style.backgroundColor = 'transparent';
-                  }}
-                >
-                  Install
-                </button>
+                  <motion.a
+                    href="/docs/"
+                    className="px-3 py-1.5 font-semibold transition-all duration-200 flex items-center gap-2 rounded-md"
+                    style={{
+                      color: theme === 'dark' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(17, 24, 39, 0.9)',
+                      fontSize: '0.875rem',
+                    }}
+                    whileHover={{ 
+                      backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)',
+                      color: 'hsl(var(--primary))'
+                    }}
+                  >
+                    <BookOpen className="w-4 h-4" />
+                    Docs
+                  </motion.a>
+                  
+                  <div className="w-[1px] h-4 bg-border/50 mx-1" />
+
+                  <motion.button
+                    onClick={() => window.location.href = '/docs/installation.html'}
+                    className="px-3 py-1.5 font-bold transition-all duration-200 rounded-md"
+                    style={{
+                      color: theme === 'dark' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(17, 24, 39, 0.9)',
+                      fontSize: '0.875rem',
+                    }}
+                    whileHover={{ 
+                      backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)',
+                      color: 'hsl(var(--primary))'
+                    }}
+                  >
+                    Install
+                  </motion.button>
                 </div>
               </div>
-              <Button
-                size="sm"
-                className="shadow-lg"
-                style={{
-                  backgroundColor: 'hsl(var(--primary))',
-                  color: 'rgba(255, 255, 255, 1)', // White text on primary background
-                  fontSize: '1.125rem', // 18px - increased font size
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.opacity = '0.9';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.opacity = '1';
-                }}
-                onClick={() => window.location.href = '/docs/quickstart.html'}
+
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
-                Get Started
-                <Terminal className="w-4 h-4 ml-1.5" />
-              </Button>
+                <Button
+                  size="sm"
+                  className="shadow-xl px-5 h-10 font-bold tracking-tight rounded-lg transition-all duration-300"
+                  style={{
+                    backgroundColor: 'hsl(var(--primary))',
+                    color: 'white',
+                    fontSize: '0.9375rem',
+                    boxShadow: '0 10px 15px -3px rgba(6, 182, 212, 0.25)',
+                  }}
+                  onClick={() => window.location.href = '/docs/quickstart.html'}
+                >
+                  Get Started
+                  <Terminal className="w-4 h-4 ml-2 opacity-80" />
+                </Button>
+              </motion.div>
             </div>
 
             {/* Mobile menu button */}
@@ -453,12 +406,12 @@ export default function Navbar() {
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle navigation menu"
               style={{
-                color: 'rgba(17, 24, 39, 1)', // Dark color
+                color: theme === 'dark' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(17, 24, 39, 1)',
               }}
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </Button>
-          </motion.div>
+          </div>
         </div>
       </motion.nav>
 
@@ -478,7 +431,7 @@ export default function Navbar() {
                 <div 
                   className="text-xs font-semibold uppercase tracking-wider mb-3"
                   style={{
-                    color: 'rgba(107, 114, 128, 1)', // Dark muted color
+                    color: theme === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(107, 114, 128, 1)',
                   }}
                 >
                   Product
@@ -489,13 +442,13 @@ export default function Navbar() {
                     href={item.href}
                     className="flex items-center gap-3 py-3 transition-colors"
                     style={{
-                      color: 'rgba(17, 24, 39, 1)', // Dark color
+                      color: theme === 'dark' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(17, 24, 39, 1)',
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.color = 'hsl(var(--primary))';
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.color = 'rgba(17, 24, 39, 1)';
+                      e.currentTarget.style.color = theme === 'dark' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(17, 24, 39, 1)';
                     }}
                     onClick={() => setMobileMenuOpen(false)}
                   >
@@ -510,7 +463,7 @@ export default function Navbar() {
                 <div 
                   className="text-xs font-semibold uppercase tracking-wider mb-3"
                   style={{
-                    color: 'rgba(107, 114, 128, 1)', // Dark muted color
+                    color: theme === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(107, 114, 128, 1)',
                   }}
                 >
                   Resources
@@ -521,13 +474,13 @@ export default function Navbar() {
                     href={item.href}
                     className="flex items-center gap-3 py-3 transition-colors"
                     style={{
-                      color: 'rgba(17, 24, 39, 1)', // Dark color
+                      color: theme === 'dark' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(17, 24, 39, 1)',
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.color = 'hsl(var(--primary))';
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.color = 'rgba(17, 24, 39, 1)';
+                      e.currentTarget.style.color = theme === 'dark' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(17, 24, 39, 1)';
                     }}
                     onClick={() => setMobileMenuOpen(false)}
                   >
@@ -542,7 +495,7 @@ export default function Navbar() {
                 <div 
                   className="text-xs font-semibold uppercase tracking-wider mb-3"
                   style={{
-                    color: 'rgba(107, 114, 128, 1)', // Dark muted color
+                    color: theme === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(107, 114, 128, 1)',
                   }}
                 >
                   Company
@@ -553,13 +506,13 @@ export default function Navbar() {
                     href={item.href}
                     className="flex items-center gap-3 py-3 transition-colors"
                     style={{
-                      color: 'rgba(17, 24, 39, 1)', // Dark color
+                      color: theme === 'dark' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(17, 24, 39, 1)',
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.color = 'hsl(var(--primary))';
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.color = 'rgba(17, 24, 39, 1)';
+                      e.currentTarget.style.color = theme === 'dark' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(17, 24, 39, 1)';
                     }}
                     onClick={() => setMobileMenuOpen(false)}
                   >
@@ -575,8 +528,8 @@ export default function Navbar() {
                   variant="outline"
                   className="w-full justify-center"
                   style={{
-                    borderColor: 'rgba(15, 23, 42, 0.2)',
-                    color: 'rgba(17, 24, 39, 1)', // Dark color
+                    borderColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.2)' : 'rgba(15, 23, 42, 0.2)',
+                    color: theme === 'dark' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(17, 24, 39, 1)',
                   }}
                   onClick={() => {
                     window.location.href = '/docs/installation.html';
