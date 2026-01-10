@@ -6,10 +6,10 @@ export default function Privacy() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Navbar />
+      <Navbar disableScrollEffects={true} />
 
       {/* Content */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 pt-64 pb-16 sm:pt-72">
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 pt-24 sm:pt-32 md:pt-40 lg:pt-48 pb-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

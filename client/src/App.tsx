@@ -33,8 +33,8 @@ function Routes() {
   return (
     <Suspense fallback={<PageLoader />}>
       <Switch>
-        <Route path="/" component={Home} />
-        <Route path="/modern" component={HomeModern} />
+        <Route path="/" component={HomeModern} />
+        <Route path="/classic" component={Home} />
         <Route path="/kubegraf" component={WhatIsKubeGraf} />
         <Route path="/pricing" component={Pricing} />
         <Route path="/compare" component={Compare} />

@@ -4,7 +4,7 @@
   min-height: 85vh;
   display: flex;
   align-items: center;
-  padding: 15rem 1rem 4rem; /* Increased top padding for fixed navbar */
+  padding: 7rem 1rem 4rem; /* Reduced top padding for better spacing after navbar */
   background: linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--background)) 100%);
   overflow: hidden;
 }
@@ -379,7 +379,7 @@
 @media (max-width: 640px) {
   .heroSection {
     min-height: auto;
-    padding: 13rem 1rem 3rem; /* Increased top padding for navbar on mobile */
+    padding: 5rem 1rem 3rem; /* Adjusted for 64px mobile navbar (64px = 4rem + 1rem breathing room) */
   }
 
   .headline {
@@ -415,4 +415,58 @@
   .terminalLine {
     font-size: 0.75rem;
   }
+
+  .scrollIndicator {
+    bottom: 1rem;
+  }
+
+  .scrollText {
+    font-size: 0.75rem;
+  }
+}
+
+/* Scroll Indicator */
+.scrollIndicator {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+}
+
+.scrollIndicator:hover {
+  opacity: 1;
+}
+
+.scrollIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: hsl(var(--primary) / 0.1);
+  border: 2px solid hsl(var(--primary) / 0.3);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+}
+
+.chevron {
+  width: 24px;
+  height: 24px;
+  color: hsl(var(--primary));
+}
+
+.scrollText {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: hsl(var(--muted-foreground));
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }

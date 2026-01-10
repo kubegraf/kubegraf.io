@@ -37,12 +37,12 @@ export default function Docs() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Navbar />
+      <Navbar disableScrollEffects={true} />
 
       <main className="relative pb-20">
         {/* Hero */}
         <section className="border-b border-white/5 bg-gradient-to-b from-black/60 via-black/40 to-black/0">
-          <div className="container mx-auto max-w-5xl px-4 pt-28 pb-16">
+          <div className="container mx-auto max-w-5xl px-4 pt-20 sm:pt-24 md:pt-28 lg:pt-32 pb-16">
             <div className="max-w-3xl">
               <h1 className="text-4xl md:text-5xl font-semibold tracking-tight mb-4">
                 KubeGraf Documentation

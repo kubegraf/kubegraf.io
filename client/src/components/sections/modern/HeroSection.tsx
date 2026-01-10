@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Download, Shield, Zap, Lock } from "lucide-react";
+import { ArrowRight, Download, Shield, Zap, Lock, ChevronDown } from "lucide-react";
 import styles from "./HeroSection.module.css";
 
 const terminalLines = [
@@ -77,6 +77,22 @@ function AnimatedTerminal() {
 }
 
 export default function HeroSection() {
+  const [showScrollIndicator, setShowScrollIndicator] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Hide scroll indicator after scrolling down 100px
+      if (window.scrollY > 100) {
+        setShowScrollIndicator(false);
+      } else {
+        setShowScrollIndicator(true);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <section className={styles.heroSection} aria-label="Hero section">
       <div className={styles.container}>
@@ -215,6 +231,34 @@ export default function HeroSection() {
             </div>
           </motion.div>
         </div>
+
+        {/* Scroll Indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: showScrollIndicator ? 1 : 0 }}
+          transition={{ duration: 0.3 }}
+          className={styles.scrollIndicator}
+          style={{ pointerEvents: showScrollIndicator ? 'auto' : 'none' }}
+          onClick={() => {
+            const featuresSection = document.getElementById('features');
+            if (featuresSection) {
+              featuresSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }}
+        >
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+            className={styles.scrollIcon}
+          >
+            <ChevronDown className={styles.chevron} aria-hidden="true" />
+          </motion.div>
+          <span className={styles.scrollText}>Scroll to explore</span>
+        </motion.div>
       </div>
     </section>
   );

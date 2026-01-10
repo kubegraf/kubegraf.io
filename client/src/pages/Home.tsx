@@ -15,7 +15,7 @@ export default function Home() {
 
   return (
     <div className="bg-background text-foreground selection:bg-primary/30 scroll-smooth">
-      <Navbar />
+      <Navbar disableScrollEffects={true} />
       <main>
         <Hero />
         <DemoExecution />

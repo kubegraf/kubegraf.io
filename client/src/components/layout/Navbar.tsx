@@ -6,7 +6,7 @@ import { useState, useEffect, useRef } from "react";
 
 // Dropdown menu items
 const productItems = [
-  { label: "Features", href: "/#features", icon: Zap, description: "Core capabilities" },
+  { label: "Features", href: "#features", icon: Zap, description: "Core capabilities" },
   { label: "Terminal UI", href: "/docs/terminal-ui.html", icon: Terminal, description: "Command-line interface" },
   { label: "Web Dashboard", href: "/docs/web-dashboard.html", icon: Network, description: "Visual monitoring" },
   { label: "Security", href: "/docs/security.html", icon: Shield, description: "Local-first design" },
@@ -31,6 +31,10 @@ interface DropdownProps {
   onToggle: () => void;
   onClose: () => void;
   theme: 'light' | 'dark';
+}
+
+interface NavbarProps {
+  disableScrollEffects?: boolean;
 }
 
 function NavDropdown({ label, items, isOpen, onToggle, onClose, theme }: DropdownProps) {
@@ -85,7 +89,18 @@ function NavDropdown({ label, items, isOpen, onToggle, onClose, theme }: Dropdow
                 <a
                   key={item.label}
                   href={item.href}
-                  onClick={onClose}
+                  onClick={(e) => {
+                    onClose();
+                    // Handle smooth scrolling for hash links
+                    if (item.href.startsWith('#')) {
+                      e.preventDefault();
+                      const targetId = item.href.substring(1);
+                      const targetElement = document.getElementById(targetId);
+                      if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }
+                    }
+                  }}
                   className="flex items-start gap-3 p-3 rounded-lg hover:bg-accent/10 transition-all duration-200 group"
                 >
                   <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-200">
@@ -122,21 +137,28 @@ function NavDropdown({ label, items, isOpen, onToggle, onClose, theme }: Dropdow
   );
 }
 
-export default function Navbar() {
+export default function Navbar({ disableScrollEffects = false }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0); // 0 to 1, represents scroll position
+  const [scrollProgress, setScrollProgress] = useState(disableScrollEffects ? 0 : 0); // 0 to 1, represents scroll position
 
   useEffect(() => {
+    // Skip scroll listener entirely if effects are disabled
+    if (disableScrollEffects) {
+      setScrolled(false);
+      setScrollProgress(0);
+      return;
+    }
+
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const scrollThreshold = 50; // Start effect at 50px
       const maxScroll = 200; // Fully applied at 200px
-      
+
       setScrolled(scrollY > scrollThreshold);
-      
+
       // Calculate scroll progress (0 to 1)
       if (scrollY <= scrollThreshold) {
         setScrollProgress(0);
@@ -151,7 +173,7 @@ export default function Navbar() {
     handleScroll(); // Check initial scroll position
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [disableScrollEffects]);
 
   useEffect(() => {
     // Read theme from localStorage (same key as docs pages)
@@ -210,32 +232,43 @@ export default function Navbar() {
   return (
     <>
       <motion.nav
-        initial={{ y: -100 }}
+        initial={disableScrollEffects ? { y: 0 } : { y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.5 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out`}
-        style={{
+        transition={disableScrollEffects ? { duration: 0 } : { duration: 0.5 }}
+        className={`fixed top-0 left-0 right-0 z-50 ${disableScrollEffects ? '' : 'transition-all duration-300 ease-out'}`}
+        style={disableScrollEffects ? {
+          // Static styles when effects are disabled - NO effects at all
+          backgroundColor: theme === 'dark'
+            ? 'rgba(2, 6, 23, 0.9)'
+            : 'rgba(250, 246, 233, 1)', // #faf6e9 - Rich cream matching page background
+          backdropFilter: 'none',
+          WebkitBackdropFilter: 'none',
+          borderBottom: 'none',
+          boxShadow: 'none',
+          // Responsive height: 64px on mobile, 72px on tablet, 80px on desktop
+          height: window.innerWidth < 640 ? '64px' : window.innerWidth < 1024 ? '72px' : '80px',
+        } : {
           // Progressive background opacity based on scroll progress
-          backgroundColor: theme === 'dark' 
+          backgroundColor: theme === 'dark'
             ? `rgba(2, 6, 23, ${0.7 + scrollProgress * 0.25})` // 0.7 to 0.95
             : `rgba(255, 255, 255, ${0.8 + scrollProgress * 0.18})`, // 0.8 to 0.98
-          
+
           // Progressive backdrop blur
           backdropFilter: `blur(${12 + scrollProgress * 12}px)`, // 12px to 24px
           WebkitBackdropFilter: `blur(${12 + scrollProgress * 12}px)`,
-          
+
           // Progressive border opacity
-          borderBottom: scrolled ? `1px solid ${theme === 'dark' 
-            ? `rgba(255, 255, 255, ${0.05 + scrollProgress * 0.05})` 
+          borderBottom: scrolled ? `1px solid ${theme === 'dark'
+            ? `rgba(255, 255, 255, ${0.05 + scrollProgress * 0.05})`
             : `rgba(15, 23, 42, ${0.05 + scrollProgress * 0.05})`}` : 'none',
-          
+
           // Progressive shadow - increases with scroll
-          boxShadow: scrolled 
-            ? (theme === 'dark' 
+          boxShadow: scrolled
+            ? (theme === 'dark'
                 ? `0 ${4 + scrollProgress * 6}px ${20 + scrollProgress * 10}px rgba(0, 0, 0, ${0.15 + scrollProgress * 0.15})`
                 : `0 ${4 + scrollProgress * 6}px ${20 + scrollProgress * 10}px rgba(0, 0, 0, ${0.03 + scrollProgress * 0.05})`)
             : 'none',
-          
+
           // Progressive height reduction on scroll for modern effect
           height: scrolled ? '64px' : '80px',
         }}
@@ -248,28 +281,29 @@ export default function Navbar() {
                 key={theme}
                 src={theme === 'dark' ? '/kubegraf-dark-new-bg.svg' : '/kubegraf.svg'}
                 alt="KubeGraf"
-                className="w-auto flex-shrink-0"
-                initial={{ rotateY: 0 }}
-                animate={{ 
-                  rotateY: 360,
-                  height: scrolled ? 40 : 64, // Reduce logo size on scroll
-                  width: 'auto'
+                className="w-auto flex-shrink-0 h-8 sm:h-10 md:h-12 lg:h-14"
+                animate={disableScrollEffects ? {} : {
+                  height: scrolled ? 40 : undefined, // Only animate on scroll when effects enabled
                 }}
-                transition={{
-                  rotateY: { duration: 1.2, ease: "easeInOut", times: [0, 0.5, 1] },
+                transition={disableScrollEffects ? { duration: 0 } : {
                   height: { duration: 0.3, ease: "easeOut" }
                 }}
-                whileHover={{ scale: 1.05 }}
-                style={{ transformStyle: "preserve-3d" }}
+                whileHover={disableScrollEffects ? {} : { scale: 1.05 }}
               />
-              <motion.span 
-                className={`font-display font-bold whitespace-nowrap transition-colors duration-300 group-hover:text-orange-500`}
-                animate={{
-                  fontSize: scrolled ? '1.5rem' : '2rem', // Reduce text size on scroll
+              <motion.span
+                className="font-display font-bold whitespace-nowrap transition-colors duration-300 text-lg sm:text-xl md:text-2xl lg:text-3xl"
+                animate={disableScrollEffects ? {} : {
+                  fontSize: scrolled ? '1.5rem' : undefined, // Only animate on scroll when effects enabled
                 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
+                transition={disableScrollEffects ? { duration: 0 } : { duration: 0.3, ease: "easeOut" }}
                 style={{
-                  color: theme === 'dark' ? 'rgba(255, 255, 255, 0.95)' : 'rgba(17, 24, 39, 1)',
+                  color: theme === 'dark' ? 'rgba(255, 255, 255, 0.95)' : '#4a3b2e', // Warm brown for cream theme
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = '#FE5000'; // Primary orange color
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = theme === 'dark' ? 'rgba(255, 255, 255, 0.95)' : '#4a3b2e';
                 }}
               >
                 KubēGraf
@@ -310,30 +344,30 @@ export default function Navbar() {
                 href="https://github.com/kubegraf/kubegraf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="transition-all duration-200 flex items-center gap-2 px-3 py-1.5 rounded-lg font-medium"
+                className={`${disableScrollEffects ? '' : 'transition-all duration-200'} flex items-center gap-2 px-3 py-1.5 rounded-lg font-medium`}
                 style={{
                   color: theme === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(17, 24, 39, 0.8)',
                   fontSize: '0.9375rem',
                 }}
-                whileHover={{ 
+                whileHover={disableScrollEffects ? {} : {
                   color: theme === 'dark' ? 'rgba(255, 255, 255, 1)' : 'rgba(17, 24, 39, 1)',
                   backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)',
                 }}
-                whileTap={{ scale: 0.98 }}
+                whileTap={disableScrollEffects ? {} : { scale: 0.98 }}
               >
                 <Github className="w-4 h-4" />
                 <span className="hidden xl:inline">GitHub</span>
               </motion.a>
 
               {/* Docs and Install combined CTA */}
-              <div 
-                className="relative rounded-lg group p-[1px] transition-all duration-500"
+              <div
+                className={`relative rounded-lg group p-[1px] ${disableScrollEffects ? '' : 'transition-all duration-500'}`}
                 style={{
                   background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.5), rgba(59, 130, 246, 0.5))',
                 }}
               >
                 {/* Glow effect on hover */}
-                <div className="absolute inset-0 rounded-lg bg-primary/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
+                {!disableScrollEffects && <div className="absolute inset-0 rounded-lg bg-primary/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />}
                 
                 <div 
                   className="flex items-center gap-0 px-1 py-1 rounded-[7px] relative overflow-hidden"
@@ -344,12 +378,12 @@ export default function Navbar() {
                 >
                   <motion.a
                     href="/docs/"
-                    className="px-3 py-1.5 font-semibold transition-all duration-200 flex items-center gap-2 rounded-md"
+                    className={`px-3 py-1.5 font-semibold ${disableScrollEffects ? '' : 'transition-all duration-200'} flex items-center gap-2 rounded-md`}
                     style={{
                       color: theme === 'dark' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(17, 24, 39, 0.9)',
                       fontSize: '0.875rem',
                     }}
-                    whileHover={{ 
+                    whileHover={disableScrollEffects ? {} : {
                       backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)',
                       color: 'hsl(var(--primary))'
                     }}
@@ -362,12 +396,12 @@ export default function Navbar() {
 
                   <motion.button
                     onClick={() => window.location.href = '/docs/installation.html'}
-                    className="px-3 py-1.5 font-bold transition-all duration-200 rounded-md"
+                    className={`px-3 py-1.5 font-bold ${disableScrollEffects ? '' : 'transition-all duration-200'} rounded-md`}
                     style={{
                       color: theme === 'dark' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(17, 24, 39, 0.9)',
                       fontSize: '0.875rem',
                     }}
-                    whileHover={{ 
+                    whileHover={disableScrollEffects ? {} : {
                       backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)',
                       color: 'hsl(var(--primary))'
                     }}
@@ -378,8 +412,8 @@ export default function Navbar() {
               </div>
 
               <motion.div
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={disableScrollEffects ? {} : { scale: 1.02 }}
+                whileTap={disableScrollEffects ? {} : { scale: 0.98 }}
               >
                 <Button
                   size="sm"
@@ -425,7 +459,7 @@ export default function Navbar() {
             transition={{ duration: 0.2 }}
             className="fixed inset-0 z-40 bg-background/98 backdrop-blur-xl lg:hidden"
           >
-            <div className="pt-20 px-6 pb-6 h-full overflow-y-auto">
+            <div className="pt-20 sm:pt-24 px-6 pb-6 h-full overflow-y-auto">
               {/* Product Section */}
               <div className="mb-6">
                 <div 
@@ -440,20 +474,34 @@ export default function Navbar() {
                   <a
                     key={item.label}
                     href={item.href}
-                    className="flex items-center gap-3 py-3 transition-colors"
+                    className="flex items-center gap-3 py-3.5 px-2 rounded-lg transition-all active:bg-primary/10"
                     style={{
                       color: theme === 'dark' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(17, 24, 39, 1)',
+                      minHeight: '48px', // Better touch target for mobile
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.color = 'hsl(var(--primary))';
+                      e.currentTarget.style.backgroundColor = theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.03)';
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.color = theme === 'dark' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(17, 24, 39, 1)';
+                      e.currentTarget.style.backgroundColor = 'transparent';
                     }}
-                    onClick={() => setMobileMenuOpen(false)}
+                    onClick={(e) => {
+                      setMobileMenuOpen(false);
+                      // Handle smooth scrolling for hash links
+                      if (item.href.startsWith('#')) {
+                        e.preventDefault();
+                        const targetId = item.href.substring(1);
+                        const targetElement = document.getElementById(targetId);
+                        if (targetElement) {
+                          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                      }
+                    }}
                   >
                     <item.icon className="w-5 h-5" style={{ color: 'hsl(var(--primary))' }} />
-                    <span className="font-medium">{item.label}</span>
+                    <span className="font-medium text-base">{item.label}</span>
                   </a>
                 ))}
               </div>
@@ -472,20 +520,23 @@ export default function Navbar() {
                   <a
                     key={item.label}
                     href={item.href}
-                    className="flex items-center gap-3 py-3 transition-colors"
+                    className="flex items-center gap-3 py-3.5 px-2 rounded-lg transition-all active:bg-primary/10"
                     style={{
                       color: theme === 'dark' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(17, 24, 39, 1)',
+                      minHeight: '48px', // Better touch target for mobile
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.color = 'hsl(var(--primary))';
+                      e.currentTarget.style.backgroundColor = theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.03)';
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.color = theme === 'dark' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(17, 24, 39, 1)';
+                      e.currentTarget.style.backgroundColor = 'transparent';
                     }}
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <item.icon className="w-5 h-5" style={{ color: 'hsl(var(--primary))' }} />
-                    <span className="font-medium">{item.label}</span>
+                    <span className="font-medium text-base">{item.label}</span>
                   </a>
                 ))}
               </div>
@@ -504,20 +555,23 @@ export default function Navbar() {
                   <a
                     key={item.label}
                     href={item.href}
-                    className="flex items-center gap-3 py-3 transition-colors"
+                    className="flex items-center gap-3 py-3.5 px-2 rounded-lg transition-all active:bg-primary/10"
                     style={{
                       color: theme === 'dark' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(17, 24, 39, 1)',
+                      minHeight: '48px', // Better touch target for mobile
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.color = 'hsl(var(--primary))';
+                      e.currentTarget.style.backgroundColor = theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.03)';
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.color = theme === 'dark' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(17, 24, 39, 1)';
+                      e.currentTarget.style.backgroundColor = 'transparent';
                     }}
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <item.icon className="w-5 h-5" style={{ color: 'hsl(var(--primary))' }} />
-                    <span className="font-medium">{item.label}</span>
+                    <span className="font-medium text-base">{item.label}</span>
                   </a>
                 ))}
               </div>
@@ -526,7 +580,7 @@ export default function Navbar() {
               <div className="pt-6 border-t border-border space-y-3">
                 <Button
                   variant="outline"
-                  className="w-full justify-center"
+                  className="w-full justify-center h-12 text-base font-semibold"
                   style={{
                     borderColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.2)' : 'rgba(15, 23, 42, 0.2)',
                     color: theme === 'dark' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(17, 24, 39, 1)',
@@ -536,11 +590,11 @@ export default function Navbar() {
                     setMobileMenuOpen(false);
                   }}
                 >
-                  <Download className="w-4 h-4 mr-2" />
+                  <Download className="w-5 h-5 mr-2" />
                   Install
                 </Button>
                 <Button
-                  className="w-full justify-center"
+                  className="w-full justify-center h-12 text-base font-bold"
                   style={{
                     backgroundColor: 'hsl(var(--primary))',
                     color: 'rgba(255, 255, 255, 1)', // White text on primary background
@@ -556,7 +610,7 @@ export default function Navbar() {
                     setMobileMenuOpen(false);
                   }}
                 >
-                  <Terminal className="w-4 h-4 mr-2" />
+                  <Terminal className="w-5 h-5 mr-2" />
                   Get Started
                 </Button>
               </div>

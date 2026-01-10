@@ -24,33 +24,33 @@ import {
 export default function HomeModern() {
   return (
     <div className="bg-background text-foreground selection:bg-primary/30 scroll-smooth min-h-screen">
-      <Navbar />
+      <Navbar disableScrollEffects={true} />
       <main>
         {/* 1. Hero Section */}
         <HeroSection />
 
         {/* 2. Core Features / Capabilities */}
-        <CoreFeatures />
+        <CoreFeatures id="features" />
 
-        {/* 3. Use Cases */}
+        {/* 4. Use Cases */}
         <UseCases />
 
-        {/* 4. How It Works */}
+        {/* 5. How It Works */}
         <HowItWorks />
 
-        {/* 5. Evidence-Driven Design */}
+        {/* 6. Evidence-Driven Design */}
         <EvidenceDesign />
 
-        {/* 6. Supported Platforms / Plugins */}
+        {/* 7. Supported Platforms / Plugins */}
         <PlatformsPlugins />
 
-        {/* 7. Production-Ready */}
+        {/* 8. Production-Ready */}
         <ProductionReady />
 
-        {/* 8. Optional Enterprise / VC-Focused Section */}
+        {/* 9. Optional Enterprise / VC-Focused Section */}
         <EnterpriseVC />
 
-        {/* 9. CTA Section */}
+        {/* 10. CTA Section */}
         <CTASectionModern />
       </main>
       <FooterModern />

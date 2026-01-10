@@ -9,11 +9,11 @@ export default function WhatIsKubeGraf() {
 
   return (
     <div className="bg-background text-foreground selection:bg-primary/30 scroll-smooth min-h-screen">
-      <Navbar />
+      <Navbar disableScrollEffects={true} />
 
       <main>
         {/* Hero */}
-        <section className="relative pt-64 md:pt-80 pb-20 overflow-hidden bg-background" aria-label="About KubeGraf Hero">
+        <section className="relative pb-20 overflow-hidden bg-background pt-20 sm:pt-24 md:pt-28 lg:pt-32" aria-label="About KubeGraf Hero">
           <div className="absolute inset-0 z-0 pointer-events-none">
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(6,182,212,0.15),transparent)] dark:bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(6,182,212,0.1),transparent)]" />
           </div>
@@ -30,8 +30,18 @@ export default function WhatIsKubeGraf() {
                   Everything you need to know
                 </div>
                 <h1 className="text-4xl md:text-7xl font-bold mb-8 leading-[1.1] tracking-tight">
-                  <span className="bg-gradient-to-r from-primary to-[#0891b2] dark:to-[#22d3ee] bg-clip-text text-transparent [text-shadow:0_1px_2px_rgba(0,0,0,0.1)] dark:[text-shadow:none]">What is</span>{" "}
-                  <span className="bg-gradient-to-r from-[#92400e] to-[#991b1b] dark:from-[#f59e0b] dark:to-[#ef4444] bg-clip-text text-transparent [text-shadow:0_1px_2px_rgba(0,0,0,0.1)] dark:[text-shadow:none]">KubeGraf?</span>
+                  <span style={{
+                    background: 'linear-gradient(135deg, #FE5000, #0891b2)',
+                    backgroundClip: 'text',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                  }}>What is</span>{" "}
+                  <span style={{
+                    background: 'linear-gradient(135deg, #f59e0b, #ef4444)',
+                    backgroundClip: 'text',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                  }}>KubeGraf?</span>
                 </h1>
                 <p className="text-xl md:text-2xl text-foreground opacity-90 leading-relaxed font-medium">
                   A local-first Kubernetes intelligence brain for detecting incidents, understanding root causes, and safely
@@ -55,10 +65,18 @@ export default function WhatIsKubeGraf() {
                   transition={{ duration: 0.5, delay: i * 0.1 }}
                   className="p-8 rounded-2xl border border-border/50 bg-card dark:bg-card/30 backdrop-blur-sm text-center hover:border-primary/50 transition-all group shadow-md dark:shadow-sm"
                 >
-                  <div className="text-4xl font-bold bg-gradient-to-br from-primary to-[#0891b2] dark:to-[#22d3ee] bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform">
+                  <div
+                    className="text-4xl font-bold mb-2 group-hover:scale-110 transition-transform"
+                    style={{
+                      background: 'linear-gradient(135deg, #FE5000, #0891b2)',
+                      backgroundClip: 'text',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                    }}
+                  >
                     {stat.value}
                   </div>
-                  <div className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+                  <div className="text-sm font-semibold text-foreground/75 dark:text-muted-foreground uppercase tracking-wider">
                     {stat.label}
                   </div>
                 </motion.div>
@@ -72,10 +90,14 @@ export default function WhatIsKubeGraf() {
           <div className="container mx-auto px-4 max-w-6xl">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-5xl font-bold mb-6">
-                <span className="bg-gradient-to-r from-primary to-[#0891b2] dark:to-[#22d3ee] bg-clip-text text-transparent">How It</span>{" "}
-                <span className="bg-gradient-to-r from-[#92400e] to-[#991b1b] dark:from-[#f59e0b] dark:to-[#ef4444] bg-clip-text text-transparent">Works</span>
+                <span style={{
+                  background: 'linear-gradient(135deg, #f59e0b, #ef4444)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}>How It Works</span>
               </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-lg max-w-2xl mx-auto text-foreground/75 dark:text-muted-foreground">
                 KubeGraf streamlines the entire incident lifecycle with an evidence-driven approach.
               </p>
             </div>
@@ -119,7 +141,7 @@ export default function WhatIsKubeGraf() {
                     <step.icon className={`w-8 h-8`} style={{ color: step.color }} />
                   </div>
                   <h3 className="text-xl font-bold mb-3">{step.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p className="text-foreground/75 dark:text-muted-foreground leading-relaxed">
                     {step.desc}
                   </p>
                 </motion.div>
@@ -133,8 +155,12 @@ export default function WhatIsKubeGraf() {
           <div className="container mx-auto px-4 max-w-6xl">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">
-                <span className="bg-gradient-to-r from-primary to-[#0891b2] dark:to-[#22d3ee] bg-clip-text text-transparent">Core</span>{" "}
-                <span className="bg-gradient-to-r from-[#92400e] to-[#991b1b] dark:from-[#f59e0b] dark:to-[#ef4444] bg-clip-text text-transparent">Capabilities</span>
+                <span style={{
+                  background: 'linear-gradient(135deg, #FE5000, #0891b2)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}>Core Capabilities</span>
               </h2>
             </div>
 
@@ -183,7 +209,7 @@ export default function WhatIsKubeGraf() {
                     </div>
                     <div>
                       <h3 className="text-2xl font-bold mb-3">{cap.title}</h3>
-                      <p className="text-muted-foreground mb-6 leading-relaxed">
+                      <p className="text-foreground/75 dark:text-muted-foreground mb-6 leading-relaxed">
                         {cap.desc}
                       </p>
                       <div className="flex gap-2 flex-wrap">
@@ -206,8 +232,12 @@ export default function WhatIsKubeGraf() {
           <div className="container mx-auto px-4 max-w-6xl">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-5xl font-bold mb-6">
-                <span className="bg-gradient-to-r from-primary to-[#0891b2] dark:to-[#22d3ee] bg-clip-text text-transparent">Common</span>{" "}
-                <span className="bg-gradient-to-r from-[#92400e] to-[#991b1b] dark:from-[#f59e0b] dark:to-[#ef4444] bg-clip-text text-transparent">Use Cases</span>
+                <span style={{
+                  background: 'linear-gradient(135deg, #f59e0b, #ef4444)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}>Common Use Cases</span>
               </h2>
             </div>
             
@@ -219,7 +249,7 @@ export default function WhatIsKubeGraf() {
               ].map((useCase, i) => (
                 <div key={i} className="p-8 rounded-2xl border border-border/50 bg-card/10 hover:border-primary/30 transition-all">
                   <h3 className="text-xl font-bold mb-4">{useCase.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p className="text-foreground/75 dark:text-muted-foreground leading-relaxed">
                     {useCase.desc}
                   </p>
                 </div>
@@ -231,7 +261,15 @@ export default function WhatIsKubeGraf() {
         {/* What KubeGraf is NOT */}
         <section className="py-24 bg-card/10 border-y border-border/50">
           <div className="container mx-auto px-4 max-w-6xl">
-            <h2 className="text-3xl md:text-5xl font-bold mb-12 text-center tracking-tight">What KubeGraf is <span className="text-destructive">NOT</span></h2>
+            <h2 className="text-3xl md:text-5xl font-bold mb-12 text-center tracking-tight">
+              <span style={{
+                background: 'linear-gradient(135deg, #FE5000, #0891b2)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}>What KubeGraf is</span>{" "}
+              <span className="text-destructive">NOT</span>
+            </h2>
             <div className="grid md:grid-cols-2 gap-8">
               {[
                 { title: "Not a monitoring platform", desc: "Use Prometheus, Datadog, or Grafana for metrics. KubeGraf focuses on incident detection and diagnosis." },
@@ -243,7 +281,7 @@ export default function WhatIsKubeGraf() {
                   <div className="text-destructive font-bold text-2xl">✗</div>
                   <div>
                     <h3 className="text-lg font-bold mb-2">{item.title}</h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed">
+                    <p className="text-foreground/75 dark:text-muted-foreground text-sm leading-relaxed">
                       {item.desc}
                     </p>
                   </div>
@@ -257,7 +295,20 @@ export default function WhatIsKubeGraf() {
         <section className="py-32 relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(6,182,212,0.1),transparent)]" />
           <div className="container relative z-10 mx-auto px-4 text-center">
-            <h2 className="text-4xl md:text-6xl font-bold mb-8 tracking-tight">Ready to try KubeGraf?</h2>
+            <h2 className="text-4xl md:text-6xl font-bold mb-8 tracking-tight">
+              <span style={{
+                background: 'linear-gradient(135deg, #FE5000, #0891b2)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}>Ready to try</span>{" "}
+              <span style={{
+                background: 'linear-gradient(135deg, #f59e0b, #ef4444)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}>KubeGraf?</span>
+            </h2>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link href="/docs/installation.html">
                 <Button size="lg" className="h-14 px-10 text-lg font-bold bg-primary hover:bg-primary/90 shadow-xl shadow-primary/20 transition-all rounded-full group">
