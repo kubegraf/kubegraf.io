@@ -30,18 +30,29 @@ const terminalLines = [
 
 function AnimatedTerminal() {
   const [visibleLines, setVisibleLines] = useState(0);
+  const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setVisibleLines(prev => {
-        if (prev >= terminalLines.length) {
-          setTimeout(() => setVisibleLines(0), 3000);
-          return prev;
-        }
-        return prev + 1;
-      });
-    }, 400);
-    return () => clearInterval(timer);
+    // Small delay before starting to prevent initial flicker
+    let timer: NodeJS.Timeout | null = null;
+    
+    const startDelay = setTimeout(() => {
+      timer = setInterval(() => {
+        setVisibleLines(prev => {
+          if (prev >= terminalLines.length) {
+            setIsComplete(true);
+            if (timer) clearInterval(timer);
+            return prev;
+          }
+          return prev + 1;
+        });
+      }, 400);
+    }, 300);
+
+    return () => {
+      clearTimeout(startDelay);
+      if (timer) clearInterval(timer);
+    };
   }, []);
 
   return (
@@ -54,7 +65,7 @@ function AnimatedTerminal() {
           {line.text || '\u00A0'}
         </div>
       ))}
-      {visibleLines < terminalLines.length && (
+      {!isComplete && visibleLines < terminalLines.length && (
         <span className={styles.cursor} />
       )}
     </div>
