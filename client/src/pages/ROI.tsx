@@ -115,7 +115,13 @@ export default function ROI() {
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-white font-semibold px-8 py-6 text-lg"
+                  className="font-semibold px-8 py-6 text-lg"
+                  style={{
+                    background: isDark
+                      ? 'linear-gradient(to right, rgb(6, 182, 212), rgb(20, 184, 166))'
+                      : 'linear-gradient(to right, rgb(8, 145, 178), rgb(13, 148, 136))',
+                    color: 'white'
+                  }}
                   onClick={() => window.location.href = "#calculator"}
                 >
                   <Calculator className="w-5 h-5 mr-2" />
@@ -873,7 +879,13 @@ export default function ROI() {
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-white font-semibold px-8 py-6 text-lg"
+                  className="font-semibold px-8 py-6 text-lg"
+                  style={{
+                    background: isDark
+                      ? 'linear-gradient(to right, rgb(6, 182, 212), rgb(20, 184, 166))'
+                      : 'linear-gradient(to right, rgb(8, 145, 178), rgb(13, 148, 136))',
+                    color: 'white'
+                  }}
                   onClick={() => window.location.href = "/docs/installation.html"}
                 >
                   Install Free Now
