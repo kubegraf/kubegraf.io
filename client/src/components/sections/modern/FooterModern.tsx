@@ -178,8 +178,7 @@ export default function FooterModern() {
         {/* Bottom Bar */}
         <div className={styles.bottomBar}>
           <p className={styles.copyright}>
-            &copy; {new Date().getFullYear()} KubēGraf. All rights reserved.{" "}
-            <span className={styles.licenseText}>Apache 2.0</span>
+            &copy; {new Date().getFullYear()} KubēGraf. All rights reserved.
           </p>
           <ThemePreferenceControl />
         </div>

@@ -1,21 +1,35 @@
 import { motion } from "framer-motion";
 import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+import { FooterModern } from "@/components/sections/modern";
 
 export default function Privacy() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Navbar disableScrollEffects={true} />
+      <Navbar disableScrollEffects />
 
-      {/* Content */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 pt-24 sm:pt-32 md:pt-40 lg:pt-48 pb-16">
+      <main className="pt-20">
+        {/* Content */}
+        <section className="max-w-4xl mx-auto px-4 sm:px-6 py-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-4xl md:text-5xl font-display font-bold mb-8">Privacy Policy</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-8">
+            <span style={{
+              background: 'linear-gradient(135deg, #FE5000, #0891b2)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}>Privacy</span>{" "}
+            <span style={{
+              background: 'linear-gradient(135deg, #f59e0b, #ef4444)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}>Policy</span>
+          </h1>
 
           <div className="prose prose-invert max-w-none space-y-6 text-muted-foreground leading-relaxed">
             <p>
@@ -83,8 +97,9 @@ export default function Privacy() {
           </div>
         </motion.div>
       </section>
+      </main>
 
-      <Footer />
+      <FooterModern />
     </div>
   );
 }

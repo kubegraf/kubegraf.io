@@ -16,6 +16,7 @@ const resourcesItems = [
   { label: "Documentation", href: "/docs/", icon: BookOpen, description: "Getting started guides" },
   { label: "Quick Start", href: "/docs/quickstart.html", icon: Zap, description: "5-minute setup" },
   { label: "Installation", href: "/docs/installation.html", icon: Download, description: "Platform-specific guides" },
+  { label: "ROI & Business Impact", href: "/roi", icon: TrendingUp, description: "Cost savings analysis" },
   { label: "FAQ", href: "/faq", icon: HelpCircle, description: "Common questions" },
 ];
 

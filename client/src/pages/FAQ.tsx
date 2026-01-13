@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+import { FooterModern } from "@/components/sections/modern";
 
 type FAQItemProps = {
   question: string;
@@ -152,17 +152,29 @@ export default function FAQ() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Navbar disableScrollEffects={true} />
+      <Navbar disableScrollEffects />
 
-      {/* Hero */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 pt-24 sm:pt-32 md:pt-40 lg:pt-48 pb-12 sm:pb-16 text-center">
+      <main className="pt-20">
+        {/* Hero */}
+        <section className="max-w-4xl mx-auto px-4 sm:px-6 py-16 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">
-            Frequently Asked Questions
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            <span style={{
+              background: 'linear-gradient(135deg, #FE5000, #0891b2)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}>Frequently Asked</span>{" "}
+            <span style={{
+              background: 'linear-gradient(135deg, #f59e0b, #ef4444)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}>Questions</span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Common questions about installing, using, and understanding KubeGraf
@@ -218,8 +230,9 @@ export default function FAQ() {
           </div>
         </motion.div>
       </section>
+      </main>
 
-      <Footer />
+      <FooterModern />
     </div>
   );
 }

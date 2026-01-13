@@ -10,7 +10,8 @@ import {
   Calculator,
   BarChart3,
   Users,
-  Zap
+  Zap,
+  ExternalLink
 } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import { FooterModern } from "@/components/sections/modern";
@@ -57,59 +58,39 @@ export default function ROI() {
 
   return (
     <div className="bg-background text-foreground min-h-screen">
-      <Navbar />
+      <Navbar disableScrollEffects />
 
       <main className="pt-20">
         {/* Hero Section */}
-        <section
-          className="py-20 px-6 lg:px-8"
-          style={{
-            background: isDark
-              ? 'linear-gradient(to bottom, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))'
-              : 'linear-gradient(to bottom, #faf6e9, #f5ede0, #faf6e9)'
-          }}
-        >
-          <div className="max-w-7xl mx-auto text-center">
+        <section className="py-16 px-6 lg:px-8">
+          <div className="max-w-5xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <div
-                className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full"
-                style={{
-                  background: 'linear-gradient(to right, rgba(239, 68, 68, 0.1), rgba(249, 115, 22, 0.1), rgba(239, 68, 68, 0.1))',
-                  border: '1px solid rgba(239, 68, 68, 0.2)'
-                }}
+              <h1
+                className="text-5xl md:text-6xl font-bold mb-6"
+                style={{ color: isDark ? 'white' : '#2c1810' }}
               >
-                <AlertTriangle className="w-4 h-4" style={{ color: '#fb923c' }} />
-                <span className="text-sm font-medium" style={{ color: '#fb923c' }}>
-                  The True Cost of Kubernetes Incidents
-                </span>
-              </div>
-
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-                <span style={{ color: isDark ? 'white' : '#2c1810' }}>
-                  Every Hour of Downtime Costs
-                </span>{" "}
+                KubeGraf ROI —{" "}
                 <span
                   className="bg-clip-text text-transparent"
                   style={{
                     backgroundImage: isDark
-                      ? 'linear-gradient(to right, rgb(248, 113, 113), rgb(251, 146, 60), rgb(250, 204, 21))'
-                      : 'linear-gradient(to right, rgb(220, 38, 38), rgb(234, 88, 12), rgb(202, 138, 4))'
+                      ? 'linear-gradient(to right, rgb(110, 231, 183), rgb(94, 234, 212))'
+                      : 'linear-gradient(to right, rgb(5, 150, 105), rgb(13, 148, 136))'
                   }}
                 >
-                  $260,000
+                  Turn Kubernetes Incidents Into Savings
                 </span>
               </h1>
 
               <p
-                className="text-xl md:text-2xl mb-12 max-w-4xl mx-auto leading-relaxed"
+                className="text-xl md:text-2xl mb-8 max-w-4xl mx-auto"
                 style={{ color: isDark ? 'rgb(148, 163, 184)' : 'rgb(87, 83, 78)' }}
               >
-                Industry research shows that Kubernetes incidents cost enterprises $5,600 per minute.
-                KubeGraf reduces resolution time by 80%—turning $260K/hour problems into $52K/hour recoveries.
+                Every hour of downtime costs ~$2M. KubeGraf reduces incident resolution by 80%, turning costly outages into fast recoveries.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -135,323 +116,34 @@ export default function ROI() {
                     color: isDark ? 'white' : '#2c1810'
                   }}
                   className="hover:bg-accent/10 px-8 py-6 text-lg"
-                  onClick={() => window.location.href = "/docs/installation.html"}
+                  onClick={() => window.location.href = "mailto:contact@kubegraf.io?subject=Enterprise Demo Request"}
                 >
-                  See How It Works
-                  <ArrowRight className="w-5 h-5 ml-2" />
+                  Request Demo
                 </Button>
               </div>
             </motion.div>
           </div>
         </section>
 
-        {/* The Hidden Costs */}
+        {/* The Cost of Doing Nothing */}
         <section
-          className="py-20 px-6 lg:px-8"
+          className="py-16 px-6 lg:px-8"
           style={{
             backgroundColor: isDark ? 'rgba(15, 23, 42, 0.5)' : 'rgba(245, 237, 224, 0.5)'
           }}
         >
-          <div className="max-w-7xl mx-auto">
+          <div className="max-w-5xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="text-center mb-16"
             >
               <h2
-                className="text-4xl md:text-5xl font-bold mb-6"
+                className="text-3xl md:text-4xl font-bold mb-8 text-center"
                 style={{ color: isDark ? 'white' : '#2c1810' }}
               >
-                The Hidden Cost of{" "}
-                <span
-                  className="bg-clip-text text-transparent"
-                  style={{
-                    backgroundImage: isDark
-                      ? 'linear-gradient(to right, rgb(103, 232, 249), rgb(94, 234, 212))'
-                      : 'linear-gradient(to right, rgb(8, 145, 178), rgb(13, 148, 136))'
-                  }}
-                >
-                  Manual Incident Response
-                </span>
-              </h2>
-              <p
-                className="text-xl max-w-3xl mx-auto"
-                style={{ color: isDark ? 'rgb(148, 163, 184)' : 'rgb(87, 83, 78)' }}
-              >
-                Beyond revenue loss: Engineering productivity, opportunity cost, and team burnout
-              </p>
-            </motion.div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[
-                {
-                  icon: DollarSign,
-                  title: "Revenue Loss",
-                  stat: "$5,600/min",
-                  description: "Average cost of downtime per minute (Gartner, 2024)",
-                  color: { light: '#dc2626', dark: '#f87171', bg: 'rgba(220, 38, 38, 0.1)' }
-                },
-                {
-                  icon: Clock,
-                  title: "Engineering Time",
-                  stat: "40%",
-                  description: "Of SRE time spent firefighting instead of building (DORA)",
-                  color: { light: '#ea580c', dark: '#fb923c', bg: 'rgba(234, 88, 12, 0.1)' }
-                },
-                {
-                  icon: Users,
-                  title: "Team Burnout",
-                  stat: "3-5 hours",
-                  description: "Average time to resolve Kubernetes incidents manually",
-                  color: { light: '#ca8a04', dark: '#fbbf24', bg: 'rgba(202, 138, 4, 0.1)' }
-                },
-                {
-                  icon: TrendingDown,
-                  title: "Customer Churn",
-                  stat: "23%",
-                  description: "Of customers churn after repeated downtime events",
-                  color: { light: '#9333ea', dark: '#c084fc', bg: 'rgba(147, 51, 234, 0.1)' }
-                }
-              ].map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="rounded-2xl p-6 transition-all"
-                  style={{
-                    backgroundColor: isDark ? 'rgba(30, 41, 59, 0.5)' : 'rgba(255, 255, 255, 0.6)',
-                    border: isDark ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(0, 0, 0, 0.1)'
-                  }}
-                >
-                  <div
-                    className="w-14 h-14 rounded-xl flex items-center justify-center mb-4"
-                    style={{ backgroundColor: item.color.bg }}
-                  >
-                    <item.icon className="w-7 h-7" style={{ color: isDark ? item.color.dark : item.color.light }} />
-                  </div>
-                  <h3
-                    className="text-3xl font-bold mb-2"
-                    style={{ color: isDark ? 'white' : '#2c1810' }}
-                  >
-                    {item.stat}
-                  </h3>
-                  <h4
-                    className="text-lg font-semibold mb-2"
-                    style={{ color: isDark ? 'white' : '#2c1810' }}
-                  >
-                    {item.title}
-                  </h4>
-                  <p
-                    className="text-sm leading-relaxed"
-                    style={{ color: isDark ? 'rgb(148, 163, 184)' : 'rgb(87, 83, 78)' }}
-                  >
-                    {item.description}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* MTTR Benchmarks */}
-        <section className="py-20 px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="text-center mb-16"
-            >
-              <h2
-                className="text-4xl md:text-5xl font-bold mb-6"
-                style={{ color: isDark ? 'white' : '#2c1810' }}
-              >
-                Industry MTTR Benchmarks
-              </h2>
-              <p
-                className="text-xl max-w-3xl mx-auto"
-                style={{ color: isDark ? 'rgb(148, 163, 184)' : 'rgb(87, 83, 78)' }}
-              >
-                Mean Time To Recovery (MTTR): How long does it take your team to fix incidents?
-              </p>
-            </motion.div>
-
-            <div className="grid md:grid-cols-3 gap-8 mb-16">
-              {[
-                {
-                  tier: "Elite Performers",
-                  mttr: "< 1 hour",
-                  description: "DORA Elite: Automated detection, AI-driven RCA, instant remediation",
-                  percentage: "7%",
-                  colors: {
-                    bg: isDark ? 'rgba(16, 185, 129, 0.1)' : 'rgba(16, 185, 129, 0.08)',
-                    border: 'rgba(16, 185, 129, 0.2)',
-                    text: isDark ? '#6ee7b7' : '#059669',
-                    badge: 'rgba(16, 185, 129, 0.15)'
-                  }
-                },
-                {
-                  tier: "High Performers",
-                  mttr: "< 1 day",
-                  description: "DORA High: Semi-automated workflows, good observability, fast escalation",
-                  percentage: "26%",
-                  colors: {
-                    bg: isDark ? 'rgba(6, 182, 212, 0.1)' : 'rgba(6, 182, 212, 0.08)',
-                    border: 'rgba(6, 182, 212, 0.2)',
-                    text: isDark ? '#67e8f9' : '#0891b2',
-                    badge: 'rgba(6, 182, 212, 0.15)'
-                  }
-                },
-                {
-                  tier: "Medium/Low Performers",
-                  mttr: "1 week - 1 month",
-                  description: "Manual triage, siloed tools, lengthy investigation processes",
-                  percentage: "67%",
-                  colors: {
-                    bg: isDark ? 'rgba(100, 116, 139, 0.1)' : 'rgba(100, 116, 139, 0.08)',
-                    border: 'rgba(100, 116, 139, 0.2)',
-                    text: isDark ? '#cbd5e1' : '#475569',
-                    badge: 'rgba(100, 116, 139, 0.15)'
-                  }
-                }
-              ].map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="rounded-2xl p-8"
-                  style={{
-                    background: `linear-gradient(to bottom right, ${item.colors.bg}, ${item.colors.bg})`,
-                    border: `1px solid ${item.colors.border}`
-                  }}
-                >
-                  <div className="flex items-center justify-between mb-4">
-                    <h3
-                      className="text-2xl font-bold"
-                      style={{ color: isDark ? 'white' : '#2c1810' }}
-                    >
-                      {item.tier}
-                    </h3>
-                    <div
-                      className="px-3 py-1 rounded-full text-sm font-semibold"
-                      style={{
-                        backgroundColor: item.colors.badge,
-                        color: item.colors.text
-                      }}
-                    >
-                      {item.percentage} of orgs
-                    </div>
-                  </div>
-                  <div
-                    className="text-4xl font-bold mb-4"
-                    style={{ color: item.colors.text }}
-                  >
-                    {item.mttr}
-                  </div>
-                  <p
-                    className="leading-relaxed"
-                    style={{ color: isDark ? 'rgb(148, 163, 184)' : 'rgb(87, 83, 78)' }}
-                  >
-                    {item.description}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="rounded-3xl p-8 md:p-12"
-              style={{
-                background: isDark
-                  ? 'linear-gradient(to bottom right, rgba(6, 182, 212, 0.1), rgba(20, 184, 166, 0.1))'
-                  : 'linear-gradient(to bottom right, rgba(6, 182, 212, 0.08), rgba(20, 184, 166, 0.08))',
-                border: '1px solid rgba(6, 182, 212, 0.2)'
-              }}
-            >
-              <div className="flex items-center gap-3 mb-6">
-                <Zap className="w-8 h-8 text-cyan-400" />
-                <h3
-                  className="text-2xl md:text-3xl font-bold"
-                  style={{ color: isDark ? 'white' : '#2c1810' }}
-                >
-                  KubeGraf Moves You to Elite Tier
-                </h3>
-              </div>
-              <p
-                className="text-lg mb-6"
-                style={{ color: isDark ? 'rgb(203, 213, 225)' : 'rgb(68, 64, 60)' }}
-              >
-                By reducing MTTR from hours to minutes (5-15 min average), KubeGraf enables your team to achieve DORA Elite performance—putting you in the top 7% of organizations.
-              </p>
-              <div className="grid md:grid-cols-3 gap-6">
-                <div>
-                  <div
-                    className="text-sm mb-1"
-                    style={{ color: isDark ? 'rgb(100, 116, 139)' : 'rgb(120, 113, 108)' }}
-                  >
-                    Before KubeGraf
-                  </div>
-                  <div className="text-3xl font-bold text-red-400">2-4 hours</div>
-                  <div
-                    className="text-sm"
-                    style={{ color: isDark ? 'rgb(148, 163, 184)' : 'rgb(87, 83, 78)' }}
-                  >
-                    Manual correlation
-                  </div>
-                </div>
-                <div className="flex items-center justify-center">
-                  <ArrowRight className="w-8 h-8 text-cyan-400" />
-                </div>
-                <div>
-                  <div
-                    className="text-sm mb-1"
-                    style={{ color: isDark ? 'rgb(100, 116, 139)' : 'rgb(120, 113, 108)' }}
-                  >
-                    With KubeGraf
-                  </div>
-                  <div className="text-3xl font-bold text-emerald-400">5-15 min</div>
-                  <div
-                    className="text-sm"
-                    style={{ color: isDark ? 'rgb(148, 163, 184)' : 'rgb(87, 83, 78)' }}
-                  >
-                    AI-driven automation
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* Time Allocation Breakdown */}
-        <section
-          className="py-20 px-6 lg:px-8"
-          style={{
-            backgroundColor: isDark ? 'rgba(15, 23, 42, 0.5)' : 'rgba(245, 237, 224, 0.5)'
-          }}
-        >
-          <div className="max-w-7xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="text-center mb-16"
-            >
-              <h2
-                className="text-4xl md:text-5xl font-bold mb-6"
-                style={{ color: isDark ? 'white' : '#2c1810' }}
-              >
-                Where Does Your{" "}
+                The Cost of{" "}
                 <span
                   className="bg-clip-text text-transparent"
                   style={{
@@ -460,174 +152,100 @@ export default function ROI() {
                       : 'linear-gradient(to right, rgb(220, 38, 38), rgb(234, 88, 12))'
                   }}
                 >
-                  Engineering Time Go?
+                  Doing Nothing
                 </span>
               </h2>
-              <p
-                className="text-xl max-w-3xl mx-auto"
-                style={{ color: isDark ? 'rgb(148, 163, 184)' : 'rgb(87, 83, 78)' }}
-              >
-                Compare manual incident response vs. AI-powered automation
-              </p>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                {[
+                  {
+                    icon: DollarSign,
+                    text: "$2M per hour — Average cost of high-impact outages (~$33,333/min)",
+                    source: "New Relic 2025 Observability Forecast (1,700+ IT leaders surveyed)",
+                    url: "https://newrelic.com/resources/report/observability-forecast/2025"
+                  },
+                  {
+                    icon: Clock,
+                    text: "33% of engineering time spent firefighting instead of building",
+                    source: "New Relic 2025 Observability Forecast",
+                    url: "https://newrelic.com/resources/report/observability-forecast/2025"
+                  },
+                  {
+                    icon: AlertTriangle,
+                    text: "28 min detection, ~40 min resolution — with full observability",
+                    source: "New Relic 2025 Observability data",
+                    url: "https://newrelic.com/resources/report/observability-forecast/2025"
+                  },
+                  {
+                    icon: TrendingDown,
+                    text: "29% of organizations lost customers due to IT downtime",
+                    source: "IT Downtime Cost Trends, 2026",
+                    url: "https://www.atlassian.com/incident-management/kpis/cost-of-downtime"
+                  }
+                ].map((item, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: i * 0.1 }}
+                    viewport={{ once: true }}
+                    className="flex items-start gap-4 p-6 rounded-xl"
+                    style={{
+                      backgroundColor: isDark ? 'rgba(30, 41, 59, 0.5)' : 'rgba(255, 255, 255, 0.6)',
+                      border: isDark ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(0, 0, 0, 0.1)'
+                    }}
+                  >
+                    <div className="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center flex-shrink-0">
+                      <item.icon className="w-6 h-6 text-red-400" />
+                    </div>
+                    <div className="flex-1">
+                      <p
+                        className="text-base font-semibold mb-2"
+                        style={{ color: isDark ? 'white' : '#2c1810' }}
+                      >
+                        {item.text}
+                      </p>
+                      {item.url ? (
+                        <a
+                          href={item.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs flex items-center gap-1 hover:underline"
+                          style={{ color: isDark ? 'rgb(103, 232, 249)' : 'rgb(8, 145, 178)' }}
+                        >
+                          {item.source}
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      ) : (
+                        <p
+                          className="text-xs"
+                          style={{ color: isDark ? 'rgb(148, 163, 184)' : 'rgb(87, 83, 78)' }}
+                        >
+                          {item.source}
+                        </p>
+                      )}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </motion.div>
-
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* Manual Approach */}
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6 }}
-                viewport={{ once: true }}
-                className="rounded-2xl p-8"
-                style={{
-                  backgroundColor: isDark ? 'rgba(30, 41, 59, 0.5)' : 'rgba(255, 255, 255, 0.6)',
-                  border: isDark ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(0, 0, 0, 0.1)'
-                }}
-              >
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center">
-                    <AlertTriangle className="w-6 h-6 text-red-400" />
-                  </div>
-                  <h3
-                    className="text-2xl font-bold"
-                    style={{ color: isDark ? 'white' : '#2c1810' }}
-                  >
-                    Manual Approach
-                  </h3>
-                </div>
-                <div className="space-y-4">
-                  {[
-                    { label: "Firefighting / Incidents", value: "40%", color: "rgb(248, 113, 113)" },
-                    { label: "Toil (repetitive ops)", value: "25%", color: "rgb(251, 146, 60)" },
-                    { label: "Feature development", value: "25%", color: "rgb(96, 165, 250)" },
-                    { label: "Innovation / R&D", value: "10%", color: "rgb(134, 239, 172)" }
-                  ].map((item, i) => (
-                    <div key={i}>
-                      <div className="flex justify-between mb-2">
-                        <span
-                          className="text-sm font-medium"
-                          style={{ color: isDark ? 'rgb(203, 213, 225)' : 'rgb(68, 64, 60)' }}
-                        >
-                          {item.label}
-                        </span>
-                        <span
-                          className="text-sm font-bold"
-                          style={{ color: isDark ? 'white' : '#2c1810' }}
-                        >
-                          {item.value}
-                        </span>
-                      </div>
-                      <div
-                        className="h-3 rounded-full overflow-hidden"
-                        style={{ backgroundColor: isDark ? 'rgba(51, 65, 85, 1)' : 'rgba(0, 0, 0, 0.1)' }}
-                      >
-                        <div
-                          className="h-full rounded-full transition-all duration-500"
-                          style={{
-                            width: item.value,
-                            backgroundColor: item.color
-                          }}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <p
-                  className="mt-6 text-sm"
-                  style={{ color: isDark ? 'rgb(148, 163, 184)' : 'rgb(87, 83, 78)' }}
-                >
-                  65% of time spent on firefighting and toil—not building new features.
-                </p>
-              </motion.div>
-
-              {/* KubeGraf Approach */}
-              <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6 }}
-                viewport={{ once: true }}
-                className="rounded-2xl p-8"
-                style={{
-                  backgroundColor: isDark ? 'rgba(30, 41, 59, 0.5)' : 'rgba(255, 255, 255, 0.6)',
-                  border: '1px solid rgba(16, 185, 129, 0.3)'
-                }}
-              >
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center">
-                    <CheckCircle2 className="w-6 h-6 text-emerald-400" />
-                  </div>
-                  <h3
-                    className="text-2xl font-bold"
-                    style={{ color: isDark ? 'white' : '#2c1810' }}
-                  >
-                    With KubeGraf
-                  </h3>
-                </div>
-                <div className="space-y-4">
-                  {[
-                    { label: "Firefighting / Incidents", value: "10%", color: "rgb(248, 113, 113)", saved: "30% recovered" },
-                    { label: "Toil (repetitive ops)", value: "10%", color: "rgb(251, 146, 60)", saved: "15% recovered" },
-                    { label: "Feature development", value: "50%", color: "rgb(96, 165, 250)", saved: "+25% gain" },
-                    { label: "Innovation / R&D", value: "30%", color: "rgb(134, 239, 172)", saved: "+20% gain" }
-                  ].map((item, i) => (
-                    <div key={i}>
-                      <div className="flex justify-between mb-2">
-                        <span
-                          className="text-sm font-medium"
-                          style={{ color: isDark ? 'rgb(203, 213, 225)' : 'rgb(68, 64, 60)' }}
-                        >
-                          {item.label}
-                        </span>
-                        <div className="flex items-center gap-2">
-                          <span
-                            className="text-sm font-bold"
-                            style={{ color: isDark ? 'white' : '#2c1810' }}
-                          >
-                            {item.value}
-                          </span>
-                          <span className="text-xs text-emerald-400">({item.saved})</span>
-                        </div>
-                      </div>
-                      <div
-                        className="h-3 rounded-full overflow-hidden"
-                        style={{ backgroundColor: isDark ? 'rgba(51, 65, 85, 1)' : 'rgba(0, 0, 0, 0.1)' }}
-                      >
-                        <div
-                          className="h-full rounded-full transition-all duration-500"
-                          style={{
-                            width: item.value,
-                            backgroundColor: item.color
-                          }}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <p
-                  className="mt-6 text-sm font-semibold text-emerald-400"
-                >
-                  80% of time now available for building and innovation—45% net increase in productive work.
-                </p>
-              </motion.div>
-            </div>
           </div>
         </section>
 
-        {/* ROI Calculator */}
-        <section id="calculator" className="py-20 px-6 lg:px-8">
+        {/* MTTR Benchmarks Table */}
+        <section className="py-16 px-6 lg:px-8">
           <div className="max-w-5xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="text-center mb-16"
             >
               <h2
-                className="text-4xl md:text-5xl font-bold mb-6"
+                className="text-3xl md:text-4xl font-bold mb-4 text-center"
                 style={{ color: isDark ? 'white' : '#2c1810' }}
               >
-                Calculate Your{" "}
+                Industry{" "}
                 <span
                   className="bg-clip-text text-transparent"
                   style={{
@@ -636,143 +254,175 @@ export default function ROI() {
                       : 'linear-gradient(to right, rgb(5, 150, 105), rgb(13, 148, 136))'
                   }}
                 >
-                  Annual Savings
+                  MTTR Benchmarks
                 </span>
               </h2>
-              <p
-                className="text-xl max-w-3xl mx-auto"
-                style={{ color: isDark ? 'rgb(148, 163, 184)' : 'rgb(87, 83, 78)' }}
+              <a
+                href="https://dora.dev/research/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm flex items-center justify-center gap-1 mb-8 hover:underline"
+                style={{ color: isDark ? 'rgb(103, 232, 249)' : 'rgb(8, 145, 178)' }}
               >
-                Conservative estimate for a 100-person engineering org
-              </p>
-            </motion.div>
+                Source: DORA 2024 State of DevOps Report (36,000+ responses)
+                <ExternalLink className="w-3 h-3" />
+              </a>
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="rounded-3xl p-8 md:p-12"
-              style={{
-                background: isDark
-                  ? 'linear-gradient(to bottom right, rgba(6, 182, 212, 0.1), rgba(16, 185, 129, 0.1))'
-                  : 'linear-gradient(to bottom right, rgba(6, 182, 212, 0.08), rgba(16, 185, 129, 0.08))',
-                border: '1px solid rgba(6, 182, 212, 0.2)'
-              }}
-            >
-              <div className="space-y-6">
-                {[
-                  {
-                    icon: Clock,
-                    label: "Engineering Time Recovered",
-                    calculation: "30% of 20 SREs × $150K avg salary",
-                    value: "$390,000",
-                    description: "Reduced incident firefighting + toil automation"
-                  },
-                  {
-                    icon: TrendingDown,
-                    label: "Downtime Cost Reduction",
-                    calculation: "80% MTTR reduction × 10 incidents/year × 2hr avg",
-                    value: "$134,000",
-                    description: "Faster recovery = less business impact"
-                  },
-                  {
-                    icon: BarChart3,
-                    label: "Opportunity Cost Recovery",
-                    calculation: "45% productivity gain × feature velocity",
-                    value: "$100,000",
-                    description: "Ship 2-3 major features faster per year"
-                  }
-                ].map((item, i) => (
-                  <div
-                    key={i}
-                    className="flex items-start gap-4 pb-6"
-                    style={{
-                      borderBottom: i < 2 ? (isDark ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(0, 0, 0, 0.1)') : 'none'
-                    }}
-                  >
-                    <div className="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center flex-shrink-0">
-                      <item.icon className="w-6 h-6 text-cyan-400" />
-                    </div>
-                    <div className="flex-1">
-                      <h3
-                        className="text-xl font-bold mb-1"
-                        style={{ color: isDark ? 'white' : '#2c1810' }}
-                      >
-                        {item.label}
-                      </h3>
-                      <p
-                        className="text-sm mb-2"
-                        style={{ color: isDark ? 'rgb(148, 163, 184)' : 'rgb(87, 83, 78)' }}
-                      >
-                        {item.calculation}
-                      </p>
-                      <p
-                        className="text-xs"
-                        style={{ color: isDark ? 'rgb(100, 116, 139)' : 'rgb(120, 113, 108)' }}
-                      >
-                        {item.description}
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-3xl font-bold text-emerald-400">{item.value}</div>
-                      <div
-                        className="text-xs"
-                        style={{ color: isDark ? 'rgb(100, 116, 139)' : 'rgb(120, 113, 108)' }}
-                      >
-                        per year
-                      </div>
-                    </div>
-                  </div>
-                ))}
-
-                <div
-                  className="pt-6 flex items-center justify-between"
-                  style={{
-                    borderTop: isDark ? '2px solid rgba(6, 182, 212, 0.3)' : '2px solid rgba(6, 182, 212, 0.3)'
-                  }}
-                >
-                  <div>
-                    <h3
-                      className="text-2xl font-bold mb-1"
-                      style={{ color: isDark ? 'white' : '#2c1810' }}
-                    >
-                      Total Annual Savings
-                    </h3>
-                    <p
-                      className="text-sm"
-                      style={{ color: isDark ? 'rgb(148, 163, 184)' : 'rgb(87, 83, 78)' }}
-                    >
-                      Conservative estimate for 100-person org
-                    </p>
-                  </div>
-                  <div className="text-right">
-                    <div
-                      className="text-5xl font-bold bg-clip-text text-transparent"
+              <div
+                className="overflow-x-auto rounded-xl"
+                style={{
+                  backgroundColor: isDark ? 'rgba(30, 41, 59, 0.5)' : 'rgba(255, 255, 255, 0.6)',
+                  border: isDark ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(0, 0, 0, 0.1)'
+                }}
+              >
+                <table className="w-full">
+                  <thead>
+                    <tr
                       style={{
-                        backgroundImage: isDark
-                          ? 'linear-gradient(to right, rgb(110, 231, 183), rgb(94, 234, 212))'
-                          : 'linear-gradient(to right, rgb(5, 150, 105), rgb(13, 148, 136))'
+                        borderBottom: isDark ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(0, 0, 0, 0.1)'
                       }}
                     >
-                      $624K
-                    </div>
-                    <div
-                      className="text-sm font-medium"
-                      style={{ color: isDark ? 'rgb(203, 213, 225)' : 'rgb(68, 64, 60)' }}
+                      <th
+                        className="text-left py-4 px-6 font-bold"
+                        style={{ color: isDark ? 'white' : '#2c1810' }}
+                      >
+                        Tier
+                      </th>
+                      <th
+                        className="text-left py-4 px-6 font-bold"
+                        style={{ color: isDark ? 'white' : '#2c1810' }}
+                      >
+                        MTTR
+                      </th>
+                      <th
+                        className="text-left py-4 px-6 font-bold"
+                        style={{ color: isDark ? 'white' : '#2c1810' }}
+                      >
+                        Description
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      style={{
+                        borderBottom: isDark ? '1px solid rgba(255, 255, 255, 0.05)' : '1px solid rgba(0, 0, 0, 0.05)'
+                      }}
                     >
-                      First year ROI: 312x
-                    </div>
-                  </div>
-                </div>
+                      <td className="py-4 px-6">
+                        <div
+                          className="font-semibold"
+                          style={{ color: isDark ? 'rgb(110, 231, 183)' : 'rgb(5, 150, 105)' }}
+                        >
+                          Elite
+                        </div>
+                        <div
+                          className="text-xs"
+                          style={{ color: isDark ? 'rgb(148, 163, 184)' : 'rgb(87, 83, 78)' }}
+                        >
+                          7% of orgs
+                        </div>
+                      </td>
+                      <td
+                        className="py-4 px-6 font-bold text-lg"
+                        style={{ color: isDark ? 'white' : '#2c1810' }}
+                      >
+                        &lt; 1 hr
+                      </td>
+                      <td
+                        className="py-4 px-6"
+                        style={{ color: isDark ? 'rgb(203, 213, 225)' : 'rgb(68, 64, 60)' }}
+                      >
+                        Automated detection + AI root cause analysis
+                      </td>
+                    </tr>
+                    <tr
+                      style={{
+                        borderBottom: isDark ? '1px solid rgba(255, 255, 255, 0.05)' : '1px solid rgba(0, 0, 0, 0.05)'
+                      }}
+                    >
+                      <td className="py-4 px-6">
+                        <div
+                          className="font-semibold"
+                          style={{ color: isDark ? 'rgb(103, 232, 249)' : 'rgb(8, 145, 178)' }}
+                        >
+                          High
+                        </div>
+                        <div
+                          className="text-xs"
+                          style={{ color: isDark ? 'rgb(148, 163, 184)' : 'rgb(87, 83, 78)' }}
+                        >
+                          26% of orgs
+                        </div>
+                      </td>
+                      <td
+                        className="py-4 px-6 font-bold text-lg"
+                        style={{ color: isDark ? 'white' : '#2c1810' }}
+                      >
+                        &lt; 1 day
+                      </td>
+                      <td
+                        className="py-4 px-6"
+                        style={{ color: isDark ? 'rgb(203, 213, 225)' : 'rgb(68, 64, 60)' }}
+                      >
+                        Semi-automated workflows, fast escalation
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="py-4 px-6">
+                        <div
+                          className="font-semibold"
+                          style={{ color: isDark ? 'rgb(248, 113, 113)' : 'rgb(220, 38, 38)' }}
+                        >
+                          Medium/Low
+                        </div>
+                        <div
+                          className="text-xs"
+                          style={{ color: isDark ? 'rgb(148, 163, 184)' : 'rgb(87, 83, 78)' }}
+                        >
+                          67% of orgs
+                        </div>
+                      </td>
+                      <td
+                        className="py-4 px-6 font-bold text-lg"
+                        style={{ color: isDark ? 'white' : '#2c1810' }}
+                      >
+                        1 wk – 1 mo
+                      </td>
+                      <td
+                        className="py-4 px-6"
+                        style={{ color: isDark ? 'rgb(203, 213, 225)' : 'rgb(68, 64, 60)' }}
+                      >
+                        Manual triage, siloed tools
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div
+                className="mt-8 p-6 rounded-xl text-center"
+                style={{
+                  background: isDark
+                    ? 'linear-gradient(to bottom right, rgba(16, 185, 129, 0.1), rgba(20, 184, 166, 0.1))'
+                    : 'linear-gradient(to bottom right, rgba(16, 185, 129, 0.08), rgba(20, 184, 166, 0.08))',
+                  border: '1px solid rgba(16, 185, 129, 0.2)'
+                }}
+              >
+                <Zap className="w-8 h-8 text-emerald-400 mx-auto mb-3" />
+                <p
+                  className="text-lg font-bold"
+                  style={{ color: isDark ? 'white' : '#2c1810' }}
+                >
+                  KubeGraf moves teams to Elite tier: average MTTR 5–15 minutes
+                </p>
               </div>
             </motion.div>
           </div>
         </section>
 
-        {/* Industry Sources */}
+        {/* Before vs After Table */}
         <section
-          className="py-20 px-6 lg:px-8"
+          className="py-16 px-6 lg:px-8"
           style={{
             backgroundColor: isDark ? 'rgba(15, 23, 42, 0.5)' : 'rgba(245, 237, 224, 0.5)'
           }}
@@ -783,64 +433,415 @@ export default function ROI() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="text-center mb-12"
             >
               <h2
-                className="text-3xl md:text-4xl font-bold mb-4"
+                className="text-3xl md:text-4xl font-bold mb-4 text-center"
                 style={{ color: isDark ? 'white' : '#2c1810' }}
               >
-                Industry Research & Sources
-              </h2>
-              <p
-                className="text-lg"
-                style={{ color: isDark ? 'rgb(148, 163, 184)' : 'rgb(87, 83, 78)' }}
-              >
-                Data-driven insights from leading DevOps research organizations
-              </p>
-            </motion.div>
-
-            <div className="grid md:grid-cols-2 gap-6">
-              {[
-                { name: "Gartner", stat: "$5,600/min downtime cost", year: "2024" },
-                { name: "DORA (DevOps Research)", stat: "MTTR benchmarks by tier", year: "2024 State of DevOps" },
-                { name: "Aberdeen Group", stat: "40% time on firefighting", year: "2023 SRE Survey" },
-                { name: "Forrester Research", stat: "23% churn from downtime", year: "2023 Customer Impact Study" },
-                { name: "CNCF Survey", stat: "67% in Medium/Low tier", year: "2024 Cloud Native Survey" },
-                { name: "Uptime Institute", stat: "$260K/hour enterprise cost", year: "2024 Outage Analysis" }
-              ].map((source, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  viewport={{ once: true }}
-                  className="rounded-xl p-6"
+                Engineering Productivity —{" "}
+                <span
+                  className="bg-clip-text text-transparent"
                   style={{
-                    backgroundColor: isDark ? 'rgba(30, 41, 59, 0.5)' : 'rgba(255, 255, 255, 0.6)',
-                    border: isDark ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(0, 0, 0, 0.1)'
+                    backgroundImage: isDark
+                      ? 'linear-gradient(to right, rgb(110, 231, 183), rgb(94, 234, 212))'
+                      : 'linear-gradient(to right, rgb(5, 150, 105), rgb(13, 148, 136))'
                   }}
                 >
-                  <h3
-                    className="text-lg font-bold mb-2"
-                    style={{ color: isDark ? 'white' : '#2c1810' }}
+                  Before vs After
+                </span>
+              </h2>
+              <p
+                className="text-center mb-8"
+                style={{ color: isDark ? 'rgb(148, 163, 184)' : 'rgb(87, 83, 78)' }}
+              >
+                How engineering teams allocate their time
+              </p>
+
+              <div
+                className="overflow-x-auto rounded-xl mb-8"
+                style={{
+                  backgroundColor: isDark ? 'rgba(30, 41, 59, 0.5)' : 'rgba(255, 255, 255, 0.6)',
+                  border: isDark ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(0, 0, 0, 0.1)'
+                }}
+              >
+                <table className="w-full">
+                  <thead>
+                    <tr
+                      style={{
+                        borderBottom: isDark ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(0, 0, 0, 0.1)'
+                      }}
+                    >
+                      <th
+                        className="text-left py-4 px-6 font-bold"
+                        style={{ color: isDark ? 'white' : '#2c1810' }}
+                      >
+                        Activity
+                      </th>
+                      <th
+                        className="text-center py-4 px-6 font-bold"
+                        style={{ color: isDark ? 'rgb(248, 113, 113)' : 'rgb(220, 38, 38)' }}
+                      >
+                        Manual
+                      </th>
+                      <th
+                        className="text-center py-4 px-6 font-bold"
+                        style={{ color: isDark ? 'rgb(110, 231, 183)' : 'rgb(5, 150, 105)' }}
+                      >
+                        With KubeGraf
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      { activity: "Firefighting", manual: "33%", kubegraf: "8%", change: "−25%" },
+                      { activity: "Repetitive Ops", manual: "25%", kubegraf: "10%", change: "−15%" },
+                      { activity: "Feature Development", manual: "30%", kubegraf: "52%", change: "+22%" },
+                      { activity: "Innovation / R&D", manual: "12%", kubegraf: "30%", change: "+18%" }
+                    ].map((row, i) => (
+                      <tr
+                        key={i}
+                        style={{
+                          borderBottom: i < 3 ? (isDark ? '1px solid rgba(255, 255, 255, 0.05)' : '1px solid rgba(0, 0, 0, 0.05)') : 'none'
+                        }}
+                      >
+                        <td
+                          className="py-4 px-6 font-semibold"
+                          style={{ color: isDark ? 'white' : '#2c1810' }}
+                        >
+                          {row.activity}
+                        </td>
+                        <td
+                          className="py-4 px-6 text-center font-bold text-lg"
+                          style={{ color: isDark ? 'rgb(248, 113, 113)' : 'rgb(220, 38, 38)' }}
+                        >
+                          {row.manual}
+                        </td>
+                        <td className="py-4 px-6 text-center">
+                          <div
+                            className="font-bold text-lg"
+                            style={{ color: isDark ? 'rgb(110, 231, 183)' : 'rgb(5, 150, 105)' }}
+                          >
+                            {row.kubegraf}
+                          </div>
+                          <div
+                            className="text-xs"
+                            style={{ color: isDark ? 'rgb(148, 163, 184)' : 'rgb(87, 83, 78)' }}
+                          >
+                            ({row.change})
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              <div
+                className="p-6 rounded-xl text-center"
+                style={{
+                  background: isDark
+                    ? 'linear-gradient(to right, rgba(16, 185, 129, 0.1), rgba(20, 184, 166, 0.1))'
+                    : 'linear-gradient(to right, rgba(16, 185, 129, 0.08), rgba(20, 184, 166, 0.08))',
+                  border: '1px solid rgba(16, 185, 129, 0.2)'
+                }}
+              >
+                <p
+                  className="text-lg font-bold"
+                  style={{ color: isDark ? 'white' : '#2c1810' }}
+                >
+                  Result: 40% net increase in productive engineering work
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ROI Calculator */}
+        <section id="calculator" className="py-16 px-6 lg:px-8">
+          <div className="max-w-5xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <h2
+                className="text-3xl md:text-4xl font-bold mb-4 text-center"
+                style={{ color: isDark ? 'white' : '#2c1810' }}
+              >
+                Example:{" "}
+                <span
+                  className="bg-clip-text text-transparent"
+                  style={{
+                    backgroundImage: isDark
+                      ? 'linear-gradient(to right, rgb(110, 231, 183), rgb(94, 234, 212))'
+                      : 'linear-gradient(to right, rgb(5, 150, 105), rgb(13, 148, 136))'
+                  }}
+                >
+                  100-Person Engineering Team
+                </span>
+              </h2>
+              <p
+                className="text-center mb-8"
+                style={{ color: isDark ? 'rgb(148, 163, 184)' : 'rgb(87, 83, 78)' }}
+              >
+                Conservative annual impact estimate
+              </p>
+
+              <div
+                className="rounded-2xl p-8"
+                style={{
+                  background: isDark
+                    ? 'linear-gradient(to bottom right, rgba(6, 182, 212, 0.1), rgba(16, 185, 129, 0.1))'
+                    : 'linear-gradient(to bottom right, rgba(6, 182, 212, 0.08), rgba(16, 185, 129, 0.08))',
+                  border: '1px solid rgba(6, 182, 212, 0.2)'
+                }}
+              >
+                <div className="space-y-6">
+                  {[
+                    {
+                      label: "Engineering Time Recovered",
+                      value: "$390,000",
+                      detail: "30% of 20 SREs × $150K avg salary"
+                    },
+                    {
+                      label: "Reduced Downtime Cost",
+                      value: "$134,000",
+                      detail: "80% MTTR reduction × 10 incidents/year"
+                    },
+                    {
+                      label: "Opportunity Cost Recovery",
+                      value: "$100,000",
+                      detail: "40% productivity gain × feature velocity"
+                    }
+                  ].map((item, i) => (
+                    <div
+                      key={i}
+                      className="flex items-center justify-between pb-6"
+                      style={{
+                        borderBottom: i < 2 ? (isDark ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(0, 0, 0, 0.1)') : 'none'
+                      }}
+                    >
+                      <div className="flex-1">
+                        <div
+                          className="text-lg font-bold mb-1"
+                          style={{ color: isDark ? 'white' : '#2c1810' }}
+                        >
+                          {item.label}
+                        </div>
+                        <div
+                          className="text-sm"
+                          style={{ color: isDark ? 'rgb(148, 163, 184)' : 'rgb(87, 83, 78)' }}
+                        >
+                          {item.detail}
+                        </div>
+                      </div>
+                      <div
+                        className="text-3xl font-bold"
+                        style={{ color: isDark ? 'rgb(110, 231, 183)' : 'rgb(5, 150, 105)' }}
+                      >
+                        {item.value}
+                      </div>
+                    </div>
+                  ))}
+
+                  <div
+                    className="pt-6 flex items-center justify-between"
+                    style={{
+                      borderTop: isDark ? '2px solid rgba(6, 182, 212, 0.3)' : '2px solid rgba(6, 182, 212, 0.3)'
+                    }}
                   >
-                    {source.name}
-                  </h3>
-                  <p
-                    className="text-sm mb-1"
-                    style={{ color: isDark ? 'rgb(148, 163, 184)' : 'rgb(87, 83, 78)' }}
+                    <div className="flex-1">
+                      <div
+                        className="text-2xl font-bold mb-1"
+                        style={{ color: isDark ? 'white' : '#2c1810' }}
+                      >
+                        Total Annual Savings
+                      </div>
+                      <div
+                        className="text-sm"
+                        style={{ color: isDark ? 'rgb(148, 163, 184)' : 'rgb(87, 83, 78)' }}
+                      >
+                        First-year ROI: ~3× conservative estimate
+                      </div>
+                    </div>
+                    <div
+                      className="text-5xl font-bold"
+                      style={{ color: isDark ? 'rgb(110, 231, 183)' : 'rgb(5, 150, 105)' }}
+                    >
+                      $624K
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Why Investors Should Care */}
+        <section
+          className="py-16 px-6 lg:px-8"
+          style={{
+            backgroundColor: isDark ? 'rgba(15, 23, 42, 0.5)' : 'rgba(245, 237, 224, 0.5)'
+          }}
+        >
+          <div className="max-w-5xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <h2
+                className="text-3xl md:text-4xl font-bold mb-12 text-center"
+                style={{ color: isDark ? 'white' : '#2c1810' }}
+              >
+                Why{" "}
+                <span
+                  className="bg-clip-text text-transparent"
+                  style={{
+                    backgroundImage: isDark
+                      ? 'linear-gradient(to right, rgb(110, 231, 183), rgb(94, 234, 212))'
+                      : 'linear-gradient(to right, rgb(5, 150, 105), rgb(13, 148, 136))'
+                  }}
+                >
+                  Investors Should Care
+                </span>
+              </h2>
+
+              <div className="grid md:grid-cols-2 gap-8">
+                {[
+                  {
+                    icon: DollarSign,
+                    title: "High-cost problem",
+                    description: "$2M/hour downtime cost drives urgent need for AI-powered incident resolution",
+                    color: { light: '#dc2626', dark: '#f87171' }
+                  },
+                  {
+                    icon: BarChart3,
+                    title: "Large market",
+                    description: "7M+ developers, 96% of Fortune 100 using Kubernetes—massive TAM with strong adoption",
+                    color: { light: '#059669', dark: '#6ee7b7' }
+                  },
+                  {
+                    icon: TrendingDown,
+                    title: "Strong ROI and measurable gains",
+                    description: "$624K annual savings for mid-sized teams. Clear productivity metrics VCs can validate",
+                    color: { light: '#059669', dark: '#10b981' }
+                  },
+                  {
+                    icon: Zap,
+                    title: "AI-driven competitive moat",
+                    description: "Moves teams to elite performance (<1hr MTTR). Defensible with evidence-based diagnostics",
+                    color: { light: '#0d9488', dark: '#5eead4' }
+                  }
+                ].map((item, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: i * 0.1 }}
+                    viewport={{ once: true }}
+                    className="p-6 rounded-xl"
+                    style={{
+                      backgroundColor: isDark ? 'rgba(30, 41, 59, 0.5)' : 'rgba(255, 255, 255, 0.6)',
+                      border: isDark ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(0, 0, 0, 0.1)'
+                    }}
                   >
-                    {source.stat}
-                  </p>
-                  <p
-                    className="text-xs"
-                    style={{ color: isDark ? 'rgb(100, 116, 139)' : 'rgb(120, 113, 108)' }}
-                  >
-                    {source.year}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
+                    <div
+                      className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
+                      style={{ backgroundColor: `${item.color.light}15` }}
+                    >
+                      <item.icon className="w-6 h-6" style={{ color: isDark ? item.color.dark : item.color.light }} />
+                    </div>
+                    <h3
+                      className="text-xl font-bold mb-2"
+                      style={{ color: isDark ? 'white' : '#2c1810' }}
+                    >
+                      {item.title}
+                    </h3>
+                    <p
+                      className="text-base"
+                      style={{ color: isDark ? 'rgb(203, 213, 225)' : 'rgb(68, 64, 60)' }}
+                    >
+                      {item.description}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Market Stats */}
+              <div
+                className="mt-12 p-8 rounded-2xl"
+                style={{
+                  background: isDark
+                    ? 'linear-gradient(to bottom right, rgba(16, 185, 129, 0.1), rgba(20, 184, 166, 0.1))'
+                    : 'linear-gradient(to bottom right, rgba(16, 185, 129, 0.08), rgba(20, 184, 166, 0.08))',
+                  border: '1px solid rgba(16, 185, 129, 0.2)'
+                }}
+              >
+                <h3
+                  className="text-2xl font-bold mb-6 text-center"
+                  style={{ color: isDark ? 'white' : '#2c1810' }}
+                >
+                  The Kubernetes Ecosystem: By the Numbers
+                </h3>
+                <div className="grid md:grid-cols-3 gap-8">
+                  <div className="text-center">
+                    <div
+                      className="text-5xl font-bold mb-2"
+                      style={{ color: isDark ? 'rgb(110, 231, 183)' : 'rgb(5, 150, 105)' }}
+                    >
+                      96%
+                    </div>
+                    <p
+                      className="text-sm"
+                      style={{ color: isDark ? 'rgb(148, 163, 184)' : 'rgb(87, 83, 78)' }}
+                    >
+                      Fortune 100 companies use Kubernetes
+                    </p>
+                  </div>
+                  <div className="text-center">
+                    <div
+                      className="text-5xl font-bold mb-2"
+                      style={{ color: isDark ? 'rgb(110, 231, 183)' : 'rgb(5, 150, 105)' }}
+                    >
+                      7M+
+                    </div>
+                    <p
+                      className="text-sm"
+                      style={{ color: isDark ? 'rgb(148, 163, 184)' : 'rgb(87, 83, 78)' }}
+                    >
+                      Developers using Kubernetes globally
+                    </p>
+                  </div>
+                  <div className="text-center">
+                    <div
+                      className="text-5xl font-bold mb-2"
+                      style={{ color: isDark ? 'rgb(110, 231, 183)' : 'rgb(5, 150, 105)' }}
+                    >
+                      $7.3B+
+                    </div>
+                    <p
+                      className="text-sm"
+                      style={{ color: isDark ? 'rgb(148, 163, 184)' : 'rgb(87, 83, 78)' }}
+                    >
+                      CNCF ecosystem contributions (2024)
+                    </p>
+                  </div>
+                </div>
+                <a
+                  href="https://www.cncf.io/reports/cncf-annual-survey-2024/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm flex items-center justify-center gap-1 mt-6 hover:underline"
+                  style={{ color: isDark ? 'rgb(103, 232, 249)' : 'rgb(8, 145, 178)' }}
+                >
+                  Source: CNCF Annual Survey 2024
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              </div>
+            </motion.div>
           </div>
         </section>
 
@@ -866,7 +867,7 @@ export default function ROI() {
                       : 'linear-gradient(to right, rgb(8, 145, 178), rgb(13, 148, 136))'
                   }}
                 >
-                  Reduce Your MTTR?
+                  Reduce MTTR?
                 </span>
               </h2>
               <p

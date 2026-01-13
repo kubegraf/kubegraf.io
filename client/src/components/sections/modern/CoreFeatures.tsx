@@ -33,7 +33,7 @@ const features = [
   {
     id: 5,
     title: "Enterprise-Grade Security",
-    description: "Zero data exfiltration. All analysis runs locally. RBAC-aware, audit-logged, SOC 2 compliant.",
+    description: "Zero data exfiltration. All analysis runs locally. RBAC-aware, audit-logged, compliance-ready.",
     icon: Lock,
     hoverDescription: "Local-first architecture. Your cluster data never leaves your environment. Full RBAC integration.",
   },

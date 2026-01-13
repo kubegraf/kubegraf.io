@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Download, Users, Play, Terminal, Globe } from "lucide-react";
+import { ArrowRight, Download, Users, Play, Terminal, Globe, TrendingUp } from "lucide-react";
 import styles from "./CTASectionModern.module.css";
 
 const terminalLines = [
@@ -91,13 +91,24 @@ export default function CTASectionModern() {
                   size="lg"
                   variant="outline"
                   className={styles.secondaryCTA}
+                  onClick={() => (window.location.href = "/roi")}
+                  aria-label="See ROI and business impact"
+                >
+                  <TrendingUp className={styles.ctaIcon} aria-hidden="true" />
+                  See ROI & Business Impact
+                </Button>
+
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className={styles.secondaryCTA}
                   onClick={() => (window.location.href = "mailto:contact@kubegraf.io?subject=Enterprise Demo Request")}
                   aria-label="Request demo or enterprise information"
                 >
                   <Play className={styles.ctaIcon} aria-hidden="true" />
                   Request Demo / Enterprise
                 </Button>
-                
+
                 <Button
                   size="lg"
                   variant="outline"

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useEffect } from "react";
 import { Link } from "wouter";
 import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+import { FooterModern } from "@/components/sections/modern";
 
 export default function Pricing() {
   useEffect(() => {
@@ -18,17 +18,23 @@ export default function Pricing() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Navbar disableScrollEffects={true} />
+      <Navbar disableScrollEffects />
 
-      {/* Hero Section */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 pt-24 sm:pt-32 md:pt-40 lg:pt-48 pb-12 sm:pb-16 text-center">
+      <main className="pt-20">
+        {/* Hero Section */}
+        <section className="max-w-5xl mx-auto px-4 sm:px-6 py-16 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-5xl md:text-6xl font-display font-bold mb-6">
-            Pricing
+          <h1 className="text-5xl md:text-6xl font-bold mb-6">
+            <span style={{
+              background: 'linear-gradient(135deg, #FE5000, #0891b2)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}>Pricing</span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Start free. Upgrade only if you need deeper incident insight.
@@ -211,8 +217,9 @@ export default function Pricing() {
           </a>
         </motion.div>
       </section>
+      </main>
 
-      <Footer />
+      <FooterModern />
     </div>
   );
 }

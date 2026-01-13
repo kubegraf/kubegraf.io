@@ -1,72 +1,100 @@
 import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+import { FooterModern } from "@/components/sections/modern";
 
 export default function License() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Navbar disableScrollEffects={true} />
+      <Navbar disableScrollEffects />
 
-      {/* Content */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 pt-24 sm:pt-32 md:pt-40 lg:pt-48 pb-16">
+      <main className="pt-20">
+        {/* Content */}
+        <section className="max-w-4xl mx-auto px-4 sm:px-6 py-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-4xl md:text-5xl font-display font-bold mb-8">License</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            <span style={{
+              background: 'linear-gradient(135deg, #FE5000, #0891b2)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}>Licensing</span>{" "}
+            <span style={{
+              background: 'linear-gradient(135deg, #f59e0b, #ef4444)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}>& Usage</span>
+          </h1>
 
-          <div className="prose prose-invert max-w-none space-y-6 text-muted-foreground leading-relaxed">
-            <p className="text-lg">
-              KubeGraf is licensed under the <strong className="text-foreground">Apache License 2.0</strong>.
-            </p>
+          <p className="text-xl text-muted-foreground mb-12 max-w-3xl">
+            Local-first tool. Free for individuals and small teams. Enterprise plans for advanced features.
+          </p>
 
-            <h2 className="text-2xl font-bold text-foreground mt-8 mb-4">What the license allows</h2>
-            <p>
-              You may use, modify, and distribute KubeGraf for any purpose, including commercial use. You can create derivative works, integrate KubeGraf into proprietary products, and use it in production environments without restriction.
-            </p>
+          <div className="grid md:grid-cols-3 gap-6 mb-12">
+            <div className="p-6 rounded-xl border border-white/10 bg-white/5">
+              <h3 className="text-lg font-bold text-foreground mb-2">Free Edition</h3>
+              <p className="text-sm text-muted-foreground mb-3">
+                Full incident detection, terminal UI, web dashboard. No pod limits.
+              </p>
+              <p className="text-xs text-muted-foreground/70">
+                Individual developers & small teams
+              </p>
+            </div>
+            <div className="p-6 rounded-xl border border-white/10 bg-white/5">
+              <h3 className="text-lg font-bold text-foreground mb-2">Pro</h3>
+              <p className="text-sm text-muted-foreground mb-3">
+                AI-powered root cause analysis, advanced diagnostics, multi-cluster management.
+              </p>
+              <p className="text-xs text-muted-foreground/70">
+                Growing teams & production use
+              </p>
+            </div>
+            <div className="p-6 rounded-xl border border-white/10 bg-white/5">
+              <h3 className="text-lg font-bold text-foreground mb-2">Enterprise</h3>
+              <p className="text-sm text-muted-foreground mb-3">
+                SSO/SAML, audit logs, dedicated support, custom integrations.
+              </p>
+              <p className="text-xs text-muted-foreground/70">
+                Large organizations & compliance needs
+              </p>
+            </div>
+          </div>
 
-            <h2 className="text-2xl font-bold text-foreground mt-8 mb-4">What the license requires</h2>
-            <p>
-              If you distribute KubeGraf or any derivative work, you must include a copy of the Apache License 2.0 and preserve all copyright, patent, trademark, and attribution notices from the original source code.
+          <div className="text-center p-6 rounded-xl border border-emerald-500/20 bg-emerald-500/5 mb-8">
+            <p className="text-sm font-semibold text-foreground mb-1">
+              🔒 All editions run locally on your machine
             </p>
-            <p>
-              If you modify KubeGraf, you must clearly mark your changes and include a notice stating that you modified the files.
+            <p className="text-xs text-muted-foreground">
+              Zero data exfiltration. No SaaS. Works offline. Your cluster data never leaves your laptop.
             </p>
+          </div>
 
-            <h2 className="text-2xl font-bold text-foreground mt-8 mb-4">Patent grant</h2>
-            <p>
-              The Apache License 2.0 includes an express patent grant. Contributors grant you a license to any patents they hold that cover their contributions to KubeGraf. If you sue anyone over patent claims related to KubeGraf, your patent license terminates.
-            </p>
-
-            <h2 className="text-2xl font-bold text-foreground mt-8 mb-4">Commercial use</h2>
-            <p>
-              Commercial use is explicitly allowed. You can use KubeGraf in your business, sell products that include it, or offer services based on it. No additional license or permission is required.
-            </p>
-
-            <h2 className="text-2xl font-bold text-foreground mt-8 mb-4">Full license text</h2>
-            <p>
-              The complete Apache License 2.0 is available at:
-            </p>
+          <div className="text-center space-y-4">
             <a
-              href="https://www.apache.org/licenses/LICENSE-2.0"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-mono text-sm"
+              href="/pricing"
+              className="text-primary hover:text-primary/80 font-semibold inline-flex items-center gap-2 mr-6"
             >
-              https://www.apache.org/licenses/LICENSE-2.0
+              View Pricing Details
+            </a>
+            <a
+              href="mailto:contact@kubegraf.io?subject=Enterprise Inquiry"
+              className="text-primary hover:text-primary/80 font-semibold inline-flex items-center gap-2"
+            >
+              Contact Sales
               <ExternalLink className="w-4 h-4" />
             </a>
-            <p className="mt-4">
-              A copy of the license is also included in the <code className="text-sm bg-white/5 px-2 py-1 rounded">LICENSE</code> file in the KubeGraf source repository.
-            </p>
           </div>
         </motion.div>
       </section>
+      </main>
 
-      <Footer />
+      <FooterModern />
     </div>
   );
 }

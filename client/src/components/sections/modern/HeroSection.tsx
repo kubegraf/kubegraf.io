@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Download, Shield, Zap, Lock } from "lucide-react";
+import { ArrowRight, Download, Shield, Zap, Lock, TrendingUp } from "lucide-react";
 import styles from "./HeroSection.module.css";
 
 const terminalLines = [
@@ -93,7 +93,7 @@ export default function HeroSection() {
 
             {/* Subheadline */}
             <p className={styles.subheadline}>
-              AI-powered root cause analysis cuts incident resolution time by 80%—saving platform teams $500K+ annually. Correlates logs, metrics, traces, events, and deployments. Evidence-based diagnostics. Safe auto-remediation. Built for SREs who need answers, not dashboards.
+              AI-powered root cause analysis that cuts incident resolution by 80%—saving $500K+ annually. Correlates logs, metrics, traces, and events into evidence-based diagnostics. Built for SREs who need answers, not dashboards.
             </p>
 
             {/* CTA Buttons */}
@@ -106,6 +106,22 @@ export default function HeroSection() {
               >
                 Install in 60 Seconds
                 <ArrowRight className={styles.ctaIcon} aria-hidden="true" />
+              </Button>
+
+              <Button
+                size="lg"
+                className={styles.roiCTA}
+                onClick={() => (window.location.href = "/roi")}
+                aria-label="See ROI and business impact - $500K+ savings"
+                style={{
+                  background: 'linear-gradient(135deg, #10b981 0%, #14b8a6 100%)',
+                  color: 'white',
+                  fontWeight: '600',
+                  boxShadow: '0 10px 25px -5px rgba(16, 185, 129, 0.3), 0 4px 10px -2px rgba(16, 185, 129, 0.2)',
+                }}
+              >
+                <TrendingUp className={styles.ctaIcon} aria-hidden="true" />
+                See ROI – $500K+ Savings
               </Button>
 
               <Button
@@ -132,7 +148,7 @@ export default function HeroSection() {
               </div>
               <div className={styles.trustItem}>
                 <Shield className={styles.trustLucideIcon} aria-hidden="true" />
-                <span>SOC 2 Type II Ready</span>
+                <span>Enterprise-Grade Security</span>
               </div>
             </div>
 

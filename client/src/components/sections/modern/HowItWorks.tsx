@@ -4,7 +4,6 @@ import styles from "./HowItWorks.module.css";
 const steps = [
   {
     id: 1,
-    number: "01",
     title: "Detect Anomalies",
     description: "Real-time pattern recognition across clusters",
     details:
@@ -13,7 +12,6 @@ const steps = [
   },
   {
     id: 2,
-    number: "02",
     title: "Correlate Evidence",
     description: "Multi-source analysis with temporal correlation",
     details:
@@ -22,7 +20,6 @@ const steps = [
   },
   {
     id: 3,
-    number: "03",
     title: "Simulate Fixes",
     description: "Dry-run validation before any changes",
     details:
@@ -31,7 +28,6 @@ const steps = [
   },
   {
     id: 4,
-    number: "04",
     title: "Execute with Control",
     description: "You approve, we execute, rollback ready",
     details:

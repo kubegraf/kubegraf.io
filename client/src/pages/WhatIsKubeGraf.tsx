@@ -9,11 +9,11 @@ export default function WhatIsKubeGraf() {
 
   return (
     <div className="bg-background text-foreground selection:bg-primary/30 scroll-smooth min-h-screen">
-      <Navbar disableScrollEffects={true} />
+      <Navbar disableScrollEffects />
 
-      <main>
+      <main className="pt-20">
         {/* Hero */}
-        <section className="relative pb-20 overflow-hidden bg-background pt-20 sm:pt-24 md:pt-28 lg:pt-32" aria-label="About KubeGraf Hero">
+        <section className="relative py-16 overflow-hidden bg-background" aria-label="About KubeGraf Hero">
           <div className="absolute inset-0 z-0 pointer-events-none">
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(6,182,212,0.15),transparent)] dark:bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(6,182,212,0.1),transparent)]" />
           </div>
