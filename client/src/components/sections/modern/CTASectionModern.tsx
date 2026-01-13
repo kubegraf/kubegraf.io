@@ -68,12 +68,11 @@ export default function CTASectionModern() {
         <div className={styles.content}>
           <div className={styles.textContent}>
             <h2 className={styles.title}>
-              <span className={styles.highlight}>Ready to Get</span>{" "}
-              <span className={styles.highlightAmber}>Started?</span>
+              <span className={styles.highlight}>Start Reducing</span>{" "}
+              <span className={styles.highlightAmber}>MTTR Today</span>
             </h2>
             <p className={styles.subtitle}>
-              Join teams using KubeGraf for evidence-driven incident resolution. Get started free
-              or request a demo.
+              Install in 60 seconds. No cloud dependencies. Works with your existing Kubernetes clusters. Free for teams under 50 pods.
             </p>
 
             <div className={styles.ctaGroup}>

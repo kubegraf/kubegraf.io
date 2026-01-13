@@ -5,37 +5,37 @@ const steps = [
   {
     id: 1,
     number: "01",
-    title: "Detect",
-    description: "Auto scan clusters and detect incidents",
+    title: "Detect Anomalies",
+    description: "Real-time pattern recognition across clusters",
     details:
-      "Continuously monitors your Kubernetes clusters for common failure patterns including CrashLoopBackOff, OOMKilled, probe failures, and deployment issues.",
+      "Identifies CrashLoopBackOff, OOMKills, probe failures, and deployment anomalies. Tracks restart patterns, resource pressure, and configuration drift.",
     icon: Search,
   },
   {
     id: 2,
     number: "02",
-    title: "Diagnose",
-    description: "Correlate logs, events, metrics, YAML diffs",
+    title: "Correlate Evidence",
+    description: "Multi-source analysis with temporal correlation",
     details:
-      "Gathers evidence from multiple sources—container logs, Kubernetes events, metrics, and recent YAML changes—to identify root causes with confidence scores.",
+      "Correlates logs, Kubernetes events, metrics, traces, and recent deployments. Builds a timeline of what changed and when. Outputs reproducible evidence chains with confidence scores.",
     icon: BarChart3,
   },
   {
     id: 3,
     number: "03",
-    title: "Preview Fix",
-    description: "Dry-run, impact analysis, confidence scores",
+    title: "Simulate Fixes",
+    description: "Dry-run validation before any changes",
     details:
-      "Shows exactly what will change before applying any fix. Includes impact assessment, rollback plan, and confidence scores to help you make informed decisions.",
+      "Generates kubectl apply --dry-run output. Shows exact YAML diffs, blast radius analysis, and potential side effects. No surprises.",
     icon: Eye,
   },
   {
     id: 4,
     number: "04",
-    title: "Apply Safely",
-    description: "Human-in-loop approval with rollback",
+    title: "Execute with Control",
+    description: "You approve, we execute, rollback ready",
     details:
-      "You approve or reject every change. One-click rollback available. Every action requires explicit human confirmation—no blind automation.",
+      "Every change requires explicit approval. Full audit trail. One-command rollback. No black-box automation—you're always in control.",
     icon: CheckCircle2,
   },
 ];
@@ -46,12 +46,11 @@ export default function HowItWorks() {
       <div className={styles.container}>
         <div className={styles.header}>
           <h2 className={styles.title}>
-            <span className={styles.highlight}>Four Steps</span>{" "}
-            <span className={styles.highlightAmber}>to Safe Incident Response</span>
+            <span className={styles.highlight}>Evidence-Based</span>{" "}
+            <span className={styles.highlightAmber}>Root Cause Analysis</span>
           </h2>
           <p className={styles.subtitle}>
-            From detection to resolution, KubeGraf guides you through every step with evidence and
-            safety in mind
+            How KubeGraf reduces MTTR: Detect anomalies, correlate evidence, simulate fixes, execute with control. No guesswork.
           </p>
         </div>
 

@@ -82,19 +82,18 @@ export default function HeroSection() {
             {/* Badge */}
             <div className={styles.badge}>
               <span className={styles.badgeDot}></span>
-              <span className={styles.badgeText}>AI-Powered Kubernetes Intelligence</span>
+              <span className={styles.badgeText}>Kubernetes Incident Intelligence</span>
             </div>
 
             {/* Headline */}
             <h1 className={styles.headline}>
-              <span className={styles.highlight}>Next‑Gen AI Brain</span>{" "}
-              for Kubernetes <span className={styles.highlightAmber}>Incident Intelligence</span>
+              <span className={styles.highlight}>Reduce MTTR</span>{" "}
+              from Hours to <span className={styles.highlightAmber}>Minutes</span>
             </h1>
 
             {/* Subheadline */}
             <p className={styles.subheadline}>
-              Smart, evidence-driven Kubernetes incident intelligence. KubeGraf thinks like an
-              SRE — providing insights and safe recommendations while you remain in control.
+              KubeGraf performs evidence-based root cause analysis by correlating logs, metrics, traces, events, and deployment changes. Simulates safe fixes before you apply them. Built for SREs who need answers, not dashboards.
             </p>
 
             {/* CTA Buttons */}
@@ -103,20 +102,20 @@ export default function HeroSection() {
                 size="lg"
                 className={styles.primaryCTA}
                 onClick={() => (window.location.href = "/docs/installation.html")}
-                aria-label="Start exploring KubeGraf"
+                aria-label="Install KubeGraf in 60 seconds"
               >
-                Start Exploring
+                Install in 60 Seconds
                 <ArrowRight className={styles.ctaIcon} aria-hidden="true" />
               </Button>
-              
+
               <Button
                 size="lg"
                 variant="outline"
                 className={styles.secondaryCTA}
                 onClick={() => (window.location.href = "/docs/installation.html")}
-                aria-label="View installation guide"
+                aria-label="View documentation"
               >
-                Installation
+                View Docs
                 <Download className={styles.ctaIcon} aria-hidden="true" />
               </Button>
             </div>
@@ -125,21 +124,21 @@ export default function HeroSection() {
             <div className={styles.trustIndicators}>
               <div className={styles.trustItem}>
                 <Lock className={styles.trustLucideIcon} aria-hidden="true" />
-                <span>Local-First</span>
+                <span>Zero Data Exfiltration</span>
               </div>
               <div className={styles.trustItem}>
                 <Zap className={styles.trustLucideIcon} aria-hidden="true" />
-                <span>Evidence-Driven</span>
+                <span>Evidence-Based RCA</span>
               </div>
               <div className={styles.trustItem}>
                 <Shield className={styles.trustLucideIcon} aria-hidden="true" />
-                <span>Human-in-Loop</span>
+                <span>Dry-Run Validation</span>
               </div>
             </div>
-            
+
             {/* Optional Micro-Text for Social Proof */}
             <p className={styles.socialProof}>
-              Trusted by SREs | Designed for Enterprise & Local-First Deployments
+              Built for SREs and Platform Engineers | Enterprise-Ready | Local-First Architecture
             </p>
 
             {/* Terminal Demo - Mobile: appears after social proof */}

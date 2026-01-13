@@ -4,45 +4,45 @@ import styles from "./CoreFeatures.module.css";
 const features = [
   {
     id: 1,
-    title: "Detect Incidents",
-    description: "Automatically scans your clusters to identify CrashLoopBackOff, OOMKilled, probe failures, and deployment issues.",
-    icon: Search,
-    hoverDescription: "Real-time monitoring with pattern recognition for common Kubernetes failure modes.",
+    title: "Multi-Source Correlation",
+    description: "Correlates logs, metrics, traces, Kubernetes events, and deployment changes in real-time. No manual grepping across tools.",
+    icon: BarChart3,
+    hoverDescription: "Unified correlation layer that understands temporal relationships between signals across your entire stack.",
   },
   {
     id: 2,
-    title: "Diagnose with Evidence",
-    description: "Correlates logs, events, metrics, and YAML diffs to provide evidence-backed root cause analysis.",
-    icon: BarChart3,
-    hoverDescription: "Multi-source correlation with confidence scores and reproducible diagnostics.",
+    title: "Evidence-Based Root Cause Analysis",
+    description: "Presents facts, not guesses. Every diagnosis is backed by evidence with confidence scores and reproducible analysis paths.",
+    icon: Search,
+    hoverDescription: "AI-driven analysis that shows its work—traces back through logs, events, and metrics to identify the root cause.",
   },
   {
     id: 3,
-    title: "Preview Fix Safely",
-    description: "Dry-run validation shows exactly what will change before applying any fix, with impact analysis.",
+    title: "Dry-Run Validation Before Execution",
+    description: "Simulates every fix before applying it. See the exact YAML diff, impact analysis, and blast radius.",
     icon: Eye,
-    hoverDescription: "See the diff, understand the impact, and make informed decisions with confidence scores.",
+    hoverDescription: "Zero-risk preview with kubectl diff integration. Know exactly what changes before you commit.",
   },
   {
     id: 4,
-    title: "Safe Dev Environment Testing",
-    description: "Test fixes in isolated environments before applying to production clusters.",
+    title: "Thinks Like an SRE",
+    description: "Trained on real incident patterns. Recommends fixes based on proven remediation strategies, not generic suggestions.",
     icon: TestTube2,
-    hoverDescription: "Safe testing environment for validating fixes without production risk.",
+    hoverDescription: "Decision intelligence that understands context—deployment timing, resource constraints, and failure patterns.",
   },
   {
     id: 5,
-    title: "Scalable & Team-Friendly",
-    description: "Built for production with multi-cluster support, RBAC integration, and audit logging.",
-    icon: Building2,
-    hoverDescription: "Scalable architecture designed for teams and enterprise Kubernetes environments.",
+    title: "Enterprise-Grade Security",
+    description: "Zero data exfiltration. All analysis runs locally. RBAC-aware, audit-logged, SOC 2 compliant.",
+    icon: Lock,
+    hoverDescription: "Local-first architecture. Your cluster data never leaves your environment. Full RBAC integration.",
   },
   {
     id: 6,
-    title: "Local-First & Secure",
-    description: "All data stays on your machine. No cloud dependency, no data exfiltration, complete control.",
-    icon: Lock,
-    hoverDescription: "Zero-trust architecture with local-first design. Your cluster data never leaves your environment.",
+    title: "Production-Ready at Scale",
+    description: "Multi-cluster support, team workflows, audit trails. Built for organizations with compliance requirements.",
+    icon: Building2,
+    hoverDescription: "Battle-tested in production environments. Handles thousands of pods across multiple clusters.",
   },
 ];
 
@@ -56,11 +56,11 @@ export default function CoreFeatures({ id }: CoreFeaturesProps) {
       <div className={styles.container}>
         <div className={styles.header}>
           <h2 className={styles.title}>
-            <span className={styles.highlight}>Core</span>{" "}
-            <span className={styles.highlightAmber}>Capabilities</span>
+            <span className={styles.highlight}>Decision Intelligence,</span>{" "}
+            <span className={styles.highlightAmber}>Not Just Observability</span>
           </h2>
           <p className={styles.subtitle}>
-            Everything you need to detect, diagnose, and safely fix Kubernetes incidents
+            KubeGraf goes beyond monitoring. It correlates, analyzes, and recommends—so you can fix incidents faster with confidence.
           </p>
         </div>
 
