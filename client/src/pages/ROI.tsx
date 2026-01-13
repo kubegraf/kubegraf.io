@@ -92,7 +92,14 @@ export default function ROI() {
                 <span style={{ color: isDark ? 'white' : '#2c1810' }}>
                   Every Hour of Downtime Costs
                 </span>{" "}
-                <span className="bg-gradient-to-r from-red-400 via-orange-400 to-yellow-400 bg-clip-text text-transparent">
+                <span
+                  className="bg-clip-text text-transparent"
+                  style={{
+                    backgroundImage: isDark
+                      ? 'linear-gradient(to right, rgb(248, 113, 113), rgb(251, 146, 60), rgb(250, 204, 21))'
+                      : 'linear-gradient(to right, rgb(220, 38, 38), rgb(234, 88, 12), rgb(202, 138, 4))'
+                  }}
+                >
                   $260,000
                 </span>
               </h1>
@@ -152,7 +159,14 @@ export default function ROI() {
                 style={{ color: isDark ? 'white' : '#2c1810' }}
               >
                 The Hidden Cost of{" "}
-                <span className="bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent">
+                <span
+                  className="bg-clip-text text-transparent"
+                  style={{
+                    backgroundImage: isDark
+                      ? 'linear-gradient(to right, rgb(103, 232, 249), rgb(94, 234, 212))'
+                      : 'linear-gradient(to right, rgb(8, 145, 178), rgb(13, 148, 136))'
+                  }}
+                >
                   Manual Incident Response
                 </span>
               </h2>
@@ -432,7 +446,14 @@ export default function ROI() {
                 style={{ color: isDark ? 'white' : '#2c1810' }}
               >
                 Where Does Your{" "}
-                <span className="bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text text-transparent">
+                <span
+                  className="bg-clip-text text-transparent"
+                  style={{
+                    backgroundImage: isDark
+                      ? 'linear-gradient(to right, rgb(248, 113, 113), rgb(251, 146, 60))'
+                      : 'linear-gradient(to right, rgb(220, 38, 38), rgb(234, 88, 12))'
+                  }}
+                >
                   Engineering Time Go?
                 </span>
               </h2>
@@ -601,7 +622,14 @@ export default function ROI() {
                 style={{ color: isDark ? 'white' : '#2c1810' }}
               >
                 Calculate Your{" "}
-                <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
+                <span
+                  className="bg-clip-text text-transparent"
+                  style={{
+                    backgroundImage: isDark
+                      ? 'linear-gradient(to right, rgb(110, 231, 183), rgb(94, 234, 212))'
+                      : 'linear-gradient(to right, rgb(5, 150, 105), rgb(13, 148, 136))'
+                  }}
+                >
                   Annual Savings
                 </span>
               </h2>
@@ -713,7 +741,14 @@ export default function ROI() {
                     </p>
                   </div>
                   <div className="text-right">
-                    <div className="text-5xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
+                    <div
+                      className="text-5xl font-bold bg-clip-text text-transparent"
+                      style={{
+                        backgroundImage: isDark
+                          ? 'linear-gradient(to right, rgb(110, 231, 183), rgb(94, 234, 212))'
+                          : 'linear-gradient(to right, rgb(5, 150, 105), rgb(13, 148, 136))'
+                      }}
+                    >
                       $624K
                     </div>
                     <div
@@ -817,7 +852,14 @@ export default function ROI() {
                 style={{ color: isDark ? 'white' : '#2c1810' }}
               >
                 Ready to{" "}
-                <span className="bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent">
+                <span
+                  className="bg-clip-text text-transparent"
+                  style={{
+                    backgroundImage: isDark
+                      ? 'linear-gradient(to right, rgb(103, 232, 249), rgb(94, 234, 212))'
+                      : 'linear-gradient(to right, rgb(8, 145, 178), rgb(13, 148, 136))'
+                  }}
+                >
                   Reduce Your MTTR?
                 </span>
               </h2>
