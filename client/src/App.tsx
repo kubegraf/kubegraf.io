@@ -17,6 +17,7 @@ const Privacy = lazy(() => import("@/pages/Privacy"));
 const License = lazy(() => import("@/pages/License"));
 const FAQ = lazy(() => import("@/pages/FAQ"));
 const Support = lazy(() => import("@/pages/Support"));
+const ROI = lazy(() => import("@/pages/ROI"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
 // Lazy load heavy visual components - only on desktop
@@ -40,6 +41,7 @@ function Routes() {
         <Route path="/compare" component={Compare} />
         <Route path="/docs-overview" component={Docs} />
         <Route path="/faq" component={FAQ} />
+        <Route path="/roi" component={ROI} />
         <Route path="/privacy" component={Privacy} />
         <Route path="/license" component={License} />
         <Route path="/support" component={Support} />
