@@ -82,7 +82,7 @@ export default function HeroSection() {
             {/* Badge */}
             <div className={styles.badge}>
               <span className={styles.badgeDot}></span>
-              <span className={styles.badgeText}>Kubernetes Incident Intelligence</span>
+              <span className={styles.badgeText}>AI-Powered Kubernetes Incident Intelligence</span>
             </div>
 
             {/* Headline */}
@@ -93,7 +93,7 @@ export default function HeroSection() {
 
             {/* Subheadline */}
             <p className={styles.subheadline}>
-              KubeGraf performs evidence-based root cause analysis by correlating logs, metrics, traces, events, and deployment changes. Simulates safe fixes before you apply them. Built for SREs who need answers, not dashboards.
+              AI-driven root cause analysis that correlates logs, metrics, traces, events, and deployment changes. Evidence-based diagnostics with confidence scores. Simulates safe fixes before you apply them. Built for SREs who need answers, not dashboards.
             </p>
 
             {/* CTA Buttons */}
