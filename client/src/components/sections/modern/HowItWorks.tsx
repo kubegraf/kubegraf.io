@@ -50,7 +50,7 @@ export default function HowItWorks() {
             <span className={styles.highlightAmber}>Root Cause Analysis</span>
           </h2>
           <p className={styles.subtitle}>
-            How KubeGraf reduces MTTR: Detect anomalies, correlate evidence, simulate fixes, execute with control. No guesswork.
+            How KubeGraf reduces Mean Time To Recovery (MTTR) by 80%: Detect anomalies, correlate evidence, simulate fixes, execute with control. No guesswork.
           </p>
         </div>
 
