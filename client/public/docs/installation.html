@@ -924,33 +924,49 @@ sudo mv kubegraf /usr/local/bin/</code></pre>
 
                 <!-- Manual Download Tab -->
                 <div class="tab-content active" id="tab-manual">
-            <div class="install-method">
-                <h3>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/></svg>
-                    Manual Download
-                    <span class="badge">Recommended</span>
-                </h3>
-                <p>Direct binary download without package manager - simple and fast:</p>
-                <ol>
-                    <li><a href="https://github.com/kubegraf/kubegraf/releases/latest" style="font-weight: 600;">Download kubegraf-windows-amd64.zip</a> from GitHub releases</li>
-                    <li>Extract the ZIP file to a folder of your choice (e.g., <code>C:\kubegraf</code> or <code>C:\Program Files\kubegraf</code>)</li>
-                    <li>Add the folder to your system PATH:
-                        <ul style="margin-top: 0.5rem;">
-                            <li>Open PowerShell as Administrator</li>
-                            <li>Run: <code>[Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\kubegraf", [EnvironmentVariableTarget]::User)</code></li>
-                            <li>Replace <code>C:\kubegraf</code> with your actual folder path</li>
-                            <li><strong>IMPORTANT:</strong> Close all terminals and open a NEW Command Prompt or PowerShell</li>
-                        </ul>
-                    </li>
-                    <li>Verify: Run <code>kubegraf --version</code> in your new terminal</li>
-                </ol>
-                <div class="note" style="background: rgba(56, 189, 248, 0.1); border-left-color: var(--primary);">
-                    <p><strong>💡 In-App Updates:</strong> The app UI supports updating directly from the interface. After clicking the update button, wait approximately 60 seconds for the update to complete.</p>
-                </div>
-                <div class="note">
-                    <p><strong>📖 Need help with PATH?</strong> See the detailed <a href="#troubleshooting-path" style="color: var(--primary); text-decoration: underline;">PATH troubleshooting section below</a> for step-by-step instructions and common issues.</p>
-                </div>
-            </div>
+                    <div class="install-method">
+                        <h3>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/></svg>
+                            Manual Download
+                            <span class="badge">Recommended</span>
+                        </h3>
+                        <p>Direct binary download without package manager - simple and fast.</p>
+
+                        <div style="display: flex; gap: 1rem; margin: 1.5rem 0; flex-wrap: wrap;">
+                            <a href="https://github.com/kubegraf/kubegraf/releases/latest/download/kubegraf-windows-amd64.zip" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem; background: var(--primary); color: white; border-radius: 8px; font-weight: 600; text-decoration: none; transition: all 0.2s;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                Download for x64 (AMD64)
+                            </a>
+                            <a href="https://github.com/kubegraf/kubegraf/releases/latest/download/kubegraf-windows-arm64.zip" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem; background: var(--bg-tertiary); color: var(--text); border: 1px solid var(--border); border-radius: 8px; font-weight: 600; text-decoration: none; transition: all 0.2s;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                Download for ARM64
+                            </a>
+                        </div>
+
+                        <div class="note" style="margin-bottom: 1rem;">
+                            <p><strong>Which version?</strong> Most Windows PCs use <strong>x64 (AMD64)</strong>. Use ARM64 only for Surface Pro X, Windows on ARM devices, or Snapdragon-powered laptops.</p>
+                        </div>
+
+                        <p><strong>After downloading:</strong></p>
+                        <ol>
+                            <li>Extract the ZIP file to a folder of your choice (e.g., <code>C:\kubegraf</code> or <code>C:\Program Files\kubegraf</code>)</li>
+                            <li>Add the folder to your system PATH:
+                                <ul style="margin-top: 0.5rem;">
+                                    <li>Open PowerShell as Administrator</li>
+                                    <li>Run: <code>[Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\kubegraf", [EnvironmentVariableTarget]::User)</code></li>
+                                    <li>Replace <code>C:\kubegraf</code> with your actual folder path</li>
+                                    <li><strong>IMPORTANT:</strong> Close all terminals and open a NEW Command Prompt or PowerShell</li>
+                                </ul>
+                            </li>
+                            <li>Verify: Run <code>kubegraf --version</code> in your new terminal</li>
+                        </ol>
+                        <div class="note" style="background: rgba(56, 189, 248, 0.1); border-left-color: var(--primary);">
+                            <p><strong>💡 In-App Updates:</strong> The app UI supports updating directly from the interface. After clicking the update button, wait approximately 60 seconds for the update to complete.</p>
+                        </div>
+                        <div class="note">
+                            <p><strong>📖 Need help with PATH?</strong> See the detailed <a href="#troubleshooting-path" style="color: var(--primary); text-decoration: underline;">PATH troubleshooting section below</a> for step-by-step instructions and common issues.</p>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- GUI Installer Tab -->
