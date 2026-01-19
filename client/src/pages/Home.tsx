@@ -1,31 +1,24 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+/**
+ * Optimized Landing Page - Single version
+ * Reduced component count for better performance
+ */
+
 import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import Hero from "@/components/sections/Hero";
-import DemoExecution from "@/components/sections/DemoExecution";
-import LogoMarquee from "@/components/sections/LogoMarquee";
-import Benefits from "@/components/sections/Benefits";
-import Workflow from "@/components/sections/Workflow";
-import TrustAnchors from "@/components/sections/TrustAnchors";
-import CTASection from "@/components/sections/CTASection";
-import { useIsMobile } from "@/hooks/useIsMobile";
+import HeroSection from "@/components/sections/animated/HeroSection";
+import FeatureShowcase from "@/components/sections/animated/FeatureShowcase";
+import AnimatedMetrics from "@/components/sections/animated/AnimatedMetrics";
+import InteractiveDemo from "@/components/sections/animated/InteractiveDemo";
 
 export default function Home() {
-  const isMobile = useIsMobile();
-
   return (
-    <div className="bg-background text-foreground selection:bg-primary/30 scroll-smooth">
-      <Navbar disableScrollEffects={true} />
-      <main>
-        <Hero />
-        <DemoExecution />
-        <LogoMarquee />
-        <Benefits />
-        <Workflow />
-        <TrustAnchors />
-        <CTASection />
+    <div className="min-h-screen bg-gray-950 text-white overflow-hidden">
+      <Navbar />
+      <main className="relative">
+        <HeroSection />
+        <FeatureShowcase />
+        <AnimatedMetrics />
+        <InteractiveDemo />
       </main>
-      <Footer />
     </div>
   );
 }

@@ -6,27 +6,23 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { lazy, Suspense, useEffect, useState } from "react";
 import ErrorBoundary from "@/components/ErrorBoundary";
 
-// Lazy load all pages for code splitting
+// Core pages only - optimized for performance
 const Home = lazy(() => import("@/pages/Home"));
-const HomeModern = lazy(() => import("@/pages/HomeModern"));
 const Pricing = lazy(() => import("@/pages/Pricing"));
 const Docs = lazy(() => import("@/pages/Docs"));
 const WhatIsKubeGraf = lazy(() => import("@/pages/WhatIsKubeGraf"));
 const Compare = lazy(() => import("@/pages/Compare"));
+const FAQ = lazy(() => import("@/pages/FAQ"));
+const ROI = lazy(() => import("@/pages/ROI"));
 const Privacy = lazy(() => import("@/pages/Privacy"));
 const License = lazy(() => import("@/pages/License"));
-const FAQ = lazy(() => import("@/pages/FAQ"));
 const Support = lazy(() => import("@/pages/Support"));
-const ROI = lazy(() => import("@/pages/ROI"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
-// Lazy load heavy visual components - only on desktop
-const CursorGlow = lazy(() => import("@/components/CursorGlow"));
-
-// Minimal loading fallback - just background color, no spinner
+// Lightweight loading fallback
 function PageLoader() {
   return (
-    <div className="min-h-screen bg-background" />
+    <div className="min-h-screen bg-gray-950" />
   );
 }
 
@@ -34,8 +30,7 @@ function Routes() {
   return (
     <Suspense fallback={<PageLoader />}>
       <Switch>
-        <Route path="/" component={HomeModern} />
-        <Route path="/classic" component={Home} />
+        <Route path="/" component={Home} />
         <Route path="/kubegraf" component={WhatIsKubeGraf} />
         <Route path="/pricing" component={Pricing} />
         <Route path="/compare" component={Compare} />
@@ -51,24 +46,11 @@ function Routes() {
   );
 }
 
-function App() {
-  const [isDesktop, setIsDesktop] = useState(false);
-
-  useEffect(() => {
-    // Check if device is desktop (no touch) - must be in useEffect for SSR safety
-    setIsDesktop(!('ontouchstart' in window) && window.matchMedia('(pointer: fine)').matches);
-  }, []);
-
+export default function App() {
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
-          {/* Only load cursor glow on desktop devices */}
-          {isDesktop && (
-            <Suspense fallback={null}>
-              <CursorGlow />
-            </Suspense>
-          )}
           <Toaster />
           <Routes />
         </TooltipProvider>
@@ -76,5 +58,3 @@ function App() {
     </ErrorBoundary>
   );
 }
-
-export default App;
