@@ -16,9 +16,11 @@ import {
 import Navbar from "@/components/layout/Navbar";
 import { FooterModern } from "@/components/sections/modern";
 import { Button } from "@/components/ui/button";
+import DemoRequestModal from "@/components/forms/DemoRequestModal";
 
 export default function ROI() {
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+  const [demoModalOpen, setDemoModalOpen] = useState(false);
 
   useEffect(() => {
     // Read theme from localStorage
@@ -116,7 +118,7 @@ export default function ROI() {
                     color: isDark ? 'white' : '#2c1810'
                   }}
                   className="hover:bg-accent/10 px-8 py-6 text-lg"
-                  onClick={() => window.location.href = "mailto:contact@kubegraf.io?subject=Enterprise Demo Request"}
+                  onClick={() => setDemoModalOpen(true)}
                 >
                   Request Demo
                 </Button>
@@ -900,7 +902,7 @@ export default function ROI() {
                     color: isDark ? 'white' : '#2c1810'
                   }}
                   className="hover:bg-accent/10 px-8 py-6 text-lg"
-                  onClick={() => window.location.href = "mailto:contact@kubegraf.io?subject=Enterprise Demo Request"}
+                  onClick={() => setDemoModalOpen(true)}
                 >
                   Request Demo / Enterprise
                 </Button>
@@ -911,6 +913,7 @@ export default function ROI() {
       </main>
 
       <FooterModern />
+      <DemoRequestModal open={demoModalOpen} onOpenChange={setDemoModalOpen} />
     </div>
   );
 }

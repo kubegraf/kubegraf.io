@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Download, Users, Play, Terminal, Globe, TrendingUp } from "lucide-react";
 import styles from "./CTASectionModern.module.css";
+import DemoRequestModal from "@/components/forms/DemoRequestModal";
 
 const terminalLines = [
   { type: 'command', text: '$ kubegraf scan' },
@@ -54,6 +55,7 @@ function DashboardView() {
 
 export default function CTASectionModern() {
   const [activeTab, setActiveTab] = useState<'terminal' | 'dashboard'>('terminal');
+  const [demoModalOpen, setDemoModalOpen] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -102,7 +104,7 @@ export default function CTASectionModern() {
                   size="lg"
                   variant="outline"
                   className={styles.secondaryCTA}
-                  onClick={() => (window.location.href = "mailto:contact@kubegraf.io?subject=Enterprise Demo Request")}
+                  onClick={() => setDemoModalOpen(true)}
                   aria-label="Request demo or enterprise information"
                 >
                   <Play className={styles.ctaIcon} aria-hidden="true" />
@@ -168,5 +170,7 @@ export default function CTASectionModern() {
         </div>
       </div>
     </section>
+
+    <DemoRequestModal open={demoModalOpen} onOpenChange={setDemoModalOpen} />
   );
 }

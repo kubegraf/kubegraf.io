@@ -2,6 +2,16 @@ export interface WaitlistResponse {
   message: string;
 }
 
+export interface DemoPayload {
+  email: string;
+  name?: string;
+  company?: string;
+  role?: string;
+  teamSize?: string;
+  clusters?: string;
+  useCase?: string;
+}
+
 export interface WaitlistPayload {
   email: string;
   name?: string;
@@ -43,6 +53,38 @@ export async function joinWaitlist(payload: WaitlistPayload): Promise<WaitlistRe
 
   return {
     message: "You're on the list! We'll be in touch soon.",
+  };
+}
+
+export async function requestDemo(payload: DemoPayload): Promise<WaitlistResponse> {
+  const response = await fetch(APPS_SCRIPT_URL, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify({
+      type: "demo",
+      email: payload.email,
+      name: payload.name ?? "",
+      company: payload.company ?? "",
+      role: payload.role ?? "",
+      teamSize: payload.teamSize ?? "",
+      clusters: payload.clusters ?? "",
+      useCase: payload.useCase ?? "",
+    }),
+  });
+
+  let data: { result?: string; error?: string } = {};
+  try {
+    data = await response.json();
+  } catch {
+    // ignore parse errors
+  }
+
+  if (!response.ok || data.result === "error") {
+    throw new Error(data.error || "Failed to submit. Please try again.");
+  }
+
+  return {
+    message: "We'll reach out within 1 business day to schedule your demo.",
   };
 }
 
