@@ -173,12 +173,12 @@ export default function WaitlistForm({ size = "lg", placeholder = "Enter your em
               className={inputBase}
             />
 
-            <div className="grid grid-cols-1 gap-2 min-[480px]:grid-cols-2">
+            <div className="grid grid-cols-1 gap-2 min-[560px]:grid-cols-2">
               <select
                 value={teamSize}
                 onChange={(e) => setTeamSize(e.target.value)}
                 disabled={status === "loading"}
-                className={`${inputBase} rounded-md border border-border px-3 cursor-pointer`}
+                className={`${inputBase} rounded-md border border-border pl-3 pr-8 cursor-pointer`}
               >
                 <option value="">Team size</option>
                 <option value="1–10">1–10 engineers</option>
@@ -191,7 +191,7 @@ export default function WaitlistForm({ size = "lg", placeholder = "Enter your em
                 value={clusters}
                 onChange={(e) => setClusters(e.target.value)}
                 disabled={status === "loading"}
-                className={`${inputBase} rounded-md border border-border px-3 cursor-pointer`}
+                className={`${inputBase} rounded-md border border-border pl-3 pr-8 cursor-pointer`}
               >
                 <option value="">No. of clusters</option>
                 <option value="1–2">1–2 clusters</option>
