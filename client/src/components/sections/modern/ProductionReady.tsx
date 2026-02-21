@@ -39,7 +39,7 @@ export default function ProductionReady() {
             <span className={styles.highlightAmber}>Engineering Teams</span>
           </h2>
           <p className={styles.subtitle}>
-            Operational tooling designed around how real SRE teams work—at scale, under pressure, with compliance requirements
+            Operational tooling designed around how real SRE teams work on Kubernetes—at scale, under pressure, with compliance requirements
           </p>
         </div>
 

@@ -64,7 +64,7 @@ export default function ROI() {
 
       <main className="pt-20">
         {/* Hero Section */}
-        <section className="py-16 px-6 lg:px-8">
+        <section className="py-10 sm:py-16 px-4 sm:px-6 lg:px-8">
           <div className="max-w-5xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -72,7 +72,7 @@ export default function ROI() {
               transition={{ duration: 0.6 }}
             >
               <h1
-                className="text-5xl md:text-6xl font-bold mb-6"
+                className="text-3xl sm:text-5xl md:text-6xl font-bold mb-6"
                 style={{ color: isDark ? 'white' : '#2c1810' }}
               >
                 KubeGraf ROI —{" "}
@@ -89,7 +89,7 @@ export default function ROI() {
               </h1>
 
               <p
-                className="text-xl md:text-2xl mb-8 max-w-4xl mx-auto"
+                className="text-base sm:text-xl md:text-2xl mb-8 max-w-4xl mx-auto"
                 style={{ color: isDark ? 'rgb(148, 163, 184)' : 'rgb(87, 83, 78)' }}
               >
                 Every hour of downtime costs ~$2M. KubeGraf reduces incident resolution by 80%, turning costly outages into fast recoveries.
@@ -129,7 +129,7 @@ export default function ROI() {
 
         {/* The Cost of Doing Nothing */}
         <section
-          className="py-16 px-6 lg:px-8"
+          className="py-10 sm:py-16 px-4 sm:px-6 lg:px-8"
           style={{
             backgroundColor: isDark ? 'rgba(15, 23, 42, 0.5)' : 'rgba(245, 237, 224, 0.5)'
           }}
@@ -142,7 +142,7 @@ export default function ROI() {
               viewport={{ once: true }}
             >
               <h2
-                className="text-3xl md:text-4xl font-bold mb-8 text-center"
+                className="text-2xl sm:text-3xl md:text-4xl font-bold mb-8 text-center"
                 style={{ color: isDark ? 'white' : '#2c1810' }}
               >
                 The Cost of{" "}
@@ -235,7 +235,7 @@ export default function ROI() {
         </section>
 
         {/* MTTR Benchmarks Table */}
-        <section className="py-16 px-6 lg:px-8">
+        <section className="py-10 sm:py-16 px-4 sm:px-6 lg:px-8">
           <div className="max-w-5xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -244,7 +244,7 @@ export default function ROI() {
               viewport={{ once: true }}
             >
               <h2
-                className="text-3xl md:text-4xl font-bold mb-4 text-center"
+                className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-center"
                 style={{ color: isDark ? 'white' : '#2c1810' }}
               >
                 Industry{" "}
@@ -424,7 +424,7 @@ export default function ROI() {
 
         {/* Before vs After Table */}
         <section
-          className="py-16 px-6 lg:px-8"
+          className="py-10 sm:py-16 px-4 sm:px-6 lg:px-8"
           style={{
             backgroundColor: isDark ? 'rgba(15, 23, 42, 0.5)' : 'rgba(245, 237, 224, 0.5)'
           }}
@@ -437,7 +437,7 @@ export default function ROI() {
               viewport={{ once: true }}
             >
               <h2
-                className="text-3xl md:text-4xl font-bold mb-4 text-center"
+                className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-center"
                 style={{ color: isDark ? 'white' : '#2c1810' }}
               >
                 Engineering Productivity —{" "}
@@ -559,7 +559,7 @@ export default function ROI() {
         </section>
 
         {/* ROI Calculator */}
-        <section id="calculator" className="py-16 px-6 lg:px-8">
+        <section id="calculator" className="py-10 sm:py-16 px-4 sm:px-6 lg:px-8">
           <div className="max-w-5xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -568,7 +568,7 @@ export default function ROI() {
               viewport={{ once: true }}
             >
               <h2
-                className="text-3xl md:text-4xl font-bold mb-4 text-center"
+                className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-center"
                 style={{ color: isDark ? 'white' : '#2c1810' }}
               >
                 Example:{" "}
@@ -591,7 +591,7 @@ export default function ROI() {
               </p>
 
               <div
-                className="rounded-2xl p-8"
+                className="rounded-2xl p-5 sm:p-8"
                 style={{
                   background: isDark
                     ? 'linear-gradient(to bottom right, rgba(6, 182, 212, 0.1), rgba(16, 185, 129, 0.1))'
@@ -682,7 +682,7 @@ export default function ROI() {
 
         {/* Why Investors Should Care */}
         <section
-          className="py-16 px-6 lg:px-8"
+          className="py-10 sm:py-16 px-4 sm:px-6 lg:px-8"
           style={{
             backgroundColor: isDark ? 'rgba(15, 23, 42, 0.5)' : 'rgba(245, 237, 224, 0.5)'
           }}
@@ -695,7 +695,7 @@ export default function ROI() {
               viewport={{ once: true }}
             >
               <h2
-                className="text-3xl md:text-4xl font-bold mb-12 text-center"
+                className="text-2xl sm:text-3xl md:text-4xl font-bold mb-8 sm:mb-12 text-center"
                 style={{ color: isDark ? 'white' : '#2c1810' }}
               >
                 Why{" "}
@@ -774,7 +774,7 @@ export default function ROI() {
 
               {/* Market Stats */}
               <div
-                className="mt-12 p-8 rounded-2xl"
+                className="mt-8 sm:mt-12 p-5 sm:p-8 rounded-2xl"
                 style={{
                   background: isDark
                     ? 'linear-gradient(to bottom right, rgba(16, 185, 129, 0.1), rgba(20, 184, 166, 0.1))'
@@ -848,7 +848,7 @@ export default function ROI() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 px-6 lg:px-8">
+        <section className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -857,7 +857,7 @@ export default function ROI() {
               viewport={{ once: true }}
             >
               <h2
-                className="text-4xl md:text-5xl font-bold mb-6"
+                className="text-2xl sm:text-4xl md:text-5xl font-bold mb-6"
                 style={{ color: isDark ? 'white' : '#2c1810' }}
               >
                 Ready to{" "}
