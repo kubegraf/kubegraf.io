@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,24 +23,30 @@ export default function DemoRequestModal({ open, onOpenChange }: DemoRequestModa
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
 
-  // Lock body scroll when modal is open
+  // Lock body scroll without layout shift
   useEffect(() => {
     if (open) {
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
       document.body.style.overflow = "hidden";
     } else {
+      document.body.style.paddingRight = "";
       document.body.style.overflow = "";
     }
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.paddingRight = "";
+      document.body.style.overflow = "";
+    };
   }, [open]);
 
-  // Close on Escape key
+  // Close on Escape
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && open) onOpenChange(false);
+      if (e.key === "Escape" && open) handleClose();
     };
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [open, onOpenChange]);
+  }, [open]);
 
   const reset = () => {
     setEmail(""); setName(""); setCompany(""); setRole("");
@@ -75,23 +82,28 @@ export default function DemoRequestModal({ open, onOpenChange }: DemoRequestModa
 
   const inputBase = "h-10 text-sm border-border focus:border-primary/50 transition-all placeholder:text-muted-foreground/50 bg-background";
 
-  return (
+  const modal = (
     <AnimatePresence>
       {open && (
         <>
-          {/* Backdrop — semi-transparent so landing page stays visible behind */}
+          {/* Backdrop — rendered into document.body via portal, fixed to viewport */}
           <motion.div
             key="demo-backdrop"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-[9998] bg-black/40"
+            transition={{ duration: 0.2 }}
+            style={{
+              position: "fixed",
+              inset: 0,
+              zIndex: 9998,
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
+            }}
             onClick={handleClose}
             aria-hidden="true"
           />
 
-          {/* Modal card — sits above backdrop */}
+          {/* Modal card */}
           <motion.div
             key="demo-modal"
             initial={{ opacity: 0, scale: 0.96, y: 20 }}
@@ -101,8 +113,17 @@ export default function DemoRequestModal({ open, onOpenChange }: DemoRequestModa
             role="dialog"
             aria-modal="true"
             aria-label="Request a Demo"
-            className="fixed left-1/2 top-1/2 z-[9999] -translate-x-1/2 -translate-y-1/2 rounded-xl border border-border bg-background p-6 shadow-2xl"
-            style={{ width: "min(480px, calc(100vw - 2rem))", maxHeight: "90vh", overflowY: "auto" }}
+            style={{
+              position: "fixed",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              zIndex: 9999,
+              width: "min(480px, calc(100vw - 2rem))",
+              maxHeight: "90vh",
+              overflowY: "auto",
+            }}
+            className="rounded-xl border border-border bg-background p-6 shadow-2xl"
           >
             {/* Header */}
             <div className="flex items-start justify-between mb-1">
@@ -228,4 +249,8 @@ export default function DemoRequestModal({ open, onOpenChange }: DemoRequestModa
       )}
     </AnimatePresence>
   );
+
+  // Portal renders directly into document.body — bypasses all CSS transforms
+  // and stacking contexts from parent components (including Framer Motion motion.divs)
+  return createPortal(modal, document.body);
 }
