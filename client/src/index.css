@@ -45,27 +45,27 @@
   --popover: 0 0% 100%;
   --popover-foreground: 240 7% 8%;
 
-  /* Portworx Orange Primary (vibrant) */
-  --primary: 14 100% 50%; /* #FE5000 - Portworx Pure Orange */
+  /* Cyan Primary — matches Kubernetes visual language */
+  --primary: 190 80% 42%; /* #0ea5c9 — deep cyan, readable on cream */
   --primary-foreground: 0 0% 100%;
 
-  /* Anthropic Terracotta Secondary (softer alternative) */
-  --secondary: 14 58% 60%; /* #D97757 - Anthropic terracotta */
+  /* Terracotta Secondary (warm accent) */
+  --secondary: 14 58% 60%; /* #D97757 - warm terracotta */
   --secondary-foreground: 0 0% 100%;
 
-  --muted: 40 30% 90%; /* Warm beige for chips/badges - harmonious with cream bg */
-  --muted-foreground: 30 10% 35%; /* Warm brown text for better contrast */
+  --muted: 40 30% 90%; /* Warm beige for chips/badges */
+  --muted-foreground: 30 10% 35%; /* Warm brown text */
 
-  /* Warm amber accent */
+  /* Amber accent */
   --accent: 38 92% 50%;
   --accent-foreground: 0 0% 100%;
 
   --destructive: 0 72% 51%;
   --destructive-foreground: 0 0% 100%;
 
-  --border: 40 20% 85%; /* #DDD9CC - slightly darker warm border for chips */
+  --border: 40 20% 85%;
   --input: 40 20% 88%;
-  --ring: 14 100% 50%; /* Match primary orange */
+  --ring: 190 80% 42%; /* Match primary cyan */
 
   --radius: 0.75rem;
 }
@@ -116,16 +116,15 @@ pre[aria-label] {
     --popover: 0 0% 100%;
     --popover-foreground: 240 7% 8%;
 
-    /* Portworx Orange Primary */
-    --primary: 14 100% 50%; /* #FE5000 - Portworx Pure Orange */
+    /* Cyan Primary — consistent with dark theme */
+    --primary: 190 80% 42%;
     --primary-foreground: 0 0% 100%;
 
-    /* Anthropic Terracotta Secondary */
-    --secondary: 14 58% 60%; /* #D97757 - Anthropic terracotta */
+    --secondary: 14 58% 60%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 40 30% 90%; /* Warm beige for chips/badges - harmonious with cream bg */
-    --muted-foreground: 30 10% 35%; /* Warm brown text for better contrast */
+    --muted: 40 30% 90%;
+    --muted-foreground: 30 10% 35%;
 
     --accent: 38 92% 50%;
     --accent-foreground: 0 0% 100%;
@@ -133,9 +132,9 @@ pre[aria-label] {
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 40 20% 85%; /* #DDD9CC - slightly darker warm border for chips */
+    --border: 40 20% 85%;
     --input: 40 20% 88%;
-    --ring: 14 100% 50%;
+    --ring: 190 80% 42%;
   }
 }
 
@@ -147,19 +146,19 @@ pre[aria-label] {
   --card-foreground: 240 7% 8%;
   --popover: 0 0% 100%;
   --popover-foreground: 240 7% 8%;
-  --primary: 14 100% 50%; /* #FE5000 - Portworx orange */
+  --primary: 190 80% 42%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 14 58% 60%; /* #D97757 - Anthropic terracotta */
+  --secondary: 14 58% 60%;
   --secondary-foreground: 0 0% 100%;
-  --muted: 40 30% 90%; /* Warm beige for chips/badges - harmonious with cream bg */
-  --muted-foreground: 30 10% 35%; /* Warm brown text for better contrast */
+  --muted: 40 30% 90%;
+  --muted-foreground: 30 10% 35%;
   --accent: 38 92% 50%;
   --accent-foreground: 0 0% 100%;
   --destructive: 0 72% 51%;
   --destructive-foreground: 0 0% 100%;
-  --border: 40 20% 85%; /* #DDD9CC - slightly darker warm border for chips */
+  --border: 40 20% 85%;
   --input: 40 20% 88%;
-  --ring: 14 100% 50%;
+  --ring: 190 80% 42%;
 }
 
 :root[data-theme="dark"] {
@@ -731,18 +730,18 @@ footer {
   }
 
   h1 {
-    font-size: 2rem !important;
-    line-height: 1.15 !important;
+    font-size: 2rem;
+    line-height: 1.15;
   }
 
   h2 {
-    font-size: 1.5rem !important;
-    line-height: 1.2 !important;
+    font-size: 1.5rem;
+    line-height: 1.2;
   }
 
   h3 {
-    font-size: 1.25rem !important;
-    line-height: 1.3 !important;
+    font-size: 1.125rem;
+    line-height: 1.3;
   }
 
   /* Improve text readability on mobile */
@@ -760,11 +759,11 @@ footer {
 /* Extra small mobile devices (iPhone SE, etc.) */
 @media (max-width: 375px) {
   h1 {
-    font-size: 1.75rem !important;
+    font-size: 1.75rem;
   }
 
   h2 {
-    font-size: 1.375rem !important;
+    font-size: 1.375rem;
   }
 
   /* Reduce logo size further on very small screens */
@@ -897,47 +896,10 @@ h1, h2, h3, h4, h5, h6 {
   text-wrap: balance;
 }
 
-/* Heading color hierarchy - forensic aesthetic */
-/* Theme-aware heading colors for both dark and light modes */
-h1 {
-  color: hsl(0 0% 92%) !important;
-}
-
-h2 {
-  color: hsl(0 0% 90%) !important; /* Section titles - slightly muted */
-}
-
-h3, h4 {
-  color: hsl(190 80% 55%) !important; /* Subsection titles - subtle cyan tint */
-}
-
-h5, h6 {
-  color: hsl(var(--muted-foreground)) !important;
-}
-
-/* Light theme heading overrides */
-.light h1,
-:root[data-theme="light"] h1 {
-  color: hsl(222 47% 11%) !important; /* Match foreground for maximum contrast */
-}
-
-.light h2,
-:root[data-theme="light"] h2 {
-  color: hsl(222 47% 15%) !important; /* Slightly lighter than H1 */
-}
-
-.light h3,
-.light h4,
-:root[data-theme="light"] h3,
-:root[data-theme="light"] h4 {
-  color: hsl(188 91% 30%) !important; /* Darker cyan for better readability */
-}
-
-.light h5,
-.light h6,
-:root[data-theme="light"] h5,
-:root[data-theme="light"] h6 {
-  color: hsl(var(--muted-foreground)) !important;
+/* Heading color — let components and CSS modules own their own colors.
+   Only set a sensible fallback (no !important so CSS modules always win). */
+h1, h2, h3, h4, h5, h6 {
+  color: hsl(var(--foreground));
 }
 
 p {
@@ -953,28 +915,28 @@ section {
   padding-bottom: clamp(2rem, 3vw, 3rem);
 }
 
-/* Professional text sizes matching Anthropic/Portworx */
+/* Base heading sizes — no !important, CSS modules override freely */
 h1 {
-  font-size: clamp(2.5rem, 5vw, 3.5rem) !important; /* 40-56px */
-  line-height: 1.15 !important;
-  margin-bottom: 1rem !important;
-  font-weight: 700 !important;
-  letter-spacing: -0.02em !important;
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 h2 {
-  font-size: clamp(1.75rem, 3.5vw, 2.5rem) !important; /* 28-40px */
-  line-height: 1.25 !important;
-  margin-bottom: 0.75rem !important;
-  font-weight: 700 !important;
-  letter-spacing: -0.01em !important;
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  line-height: 1.25;
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 h3 {
-  font-size: clamp(1.25rem, 2vw, 1.75rem) !important; /* 20-28px */
-  line-height: 1.35 !important;
-  margin-bottom: 0.625rem !important;
-  font-weight: 600 !important;
+  font-size: clamp(1.125rem, 2vw, 1.5rem);
+  line-height: 1.35;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
 }
 
 /* Responsive container padding */
