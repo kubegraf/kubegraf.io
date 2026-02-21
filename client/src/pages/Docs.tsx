@@ -1,5 +1,5 @@
 import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+import { FooterModern } from "@/components/sections/modern";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BookOpen, Bug, Code2, Cpu, HelpCircle, Layers, LifeBuoy, Network, ServerCog, Terminal } from "lucide-react";
@@ -48,8 +48,7 @@ export default function Docs() {
                 KubeGraf Documentation
               </h1>
               <p className="text-base md:text-lg text-muted-foreground max-w-2xl">
-                Local-first Kubernetes tool for detecting incidents, understanding root causes with evidence,
-                and safely responding to failures—without SaaS lock-in.
+                AI SRE Platform for Kubernetes — detect incidents, understand root causes with evidence, and safely remediate without SaaS lock-in or cloud dependency.
               </p>
             </div>
 
@@ -226,7 +225,7 @@ export default function Docs() {
         </section>
       </main>
 
-      <Footer />
+      <FooterModern />
     </div>
   );
 }

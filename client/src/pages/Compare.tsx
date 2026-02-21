@@ -49,7 +49,7 @@ export default function Compare() {
             }}>Compares</span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            KubeGraf focuses on incident understanding and safe action, not just visibility.
+            KubeGraf is an AI SRE Platform for Kubernetes — root cause clarity and safe remediation, not just cluster visibility.
           </p>
         </motion.div>
       </section>

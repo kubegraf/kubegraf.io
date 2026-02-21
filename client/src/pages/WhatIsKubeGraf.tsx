@@ -44,8 +44,7 @@ export default function WhatIsKubeGraf() {
                   }}>KubeGraf?</span>
                 </h1>
                 <p className="text-xl md:text-2xl text-foreground opacity-90 leading-relaxed font-medium">
-                  A local-first Kubernetes intelligence brain for detecting incidents, understanding root causes, and safely
-                  responding to failures—without SaaS lock-in.
+                  An AI SRE Platform for Kubernetes — root cause clarity and safe remediation in minutes, without SaaS lock-in or data leaving your environment.
                 </p>
               </motion.div>
             </div>

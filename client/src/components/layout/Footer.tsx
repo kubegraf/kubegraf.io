@@ -119,7 +119,7 @@ export default function Footer({ variant = "default" }: FooterProps) {
                 </div>
               </Link>
               <p className="text-sm text-muted-foreground mb-4 max-w-sm">
-                Local-first Kubernetes incident detection and diagnosis. No SaaS lock-in.
+                AI SRE Platform for Kubernetes — root cause clarity and safe remediation without cloud dependency.
               </p>
               <div className="mb-4 p-3 bg-muted/30 border border-border/50 rounded-lg max-w-sm">
                 <p className="text-xs text-muted-foreground leading-relaxed">

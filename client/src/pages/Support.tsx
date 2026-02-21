@@ -71,7 +71,7 @@ export default function Support() {
             }}>Support</span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Get help, report issues, or share feedback. We're here to help.
+            Get help with KubeGraf — the AI SRE Platform for Kubernetes. Report issues, request features, or reach out directly.
           </p>
         </motion.div>
       </section>

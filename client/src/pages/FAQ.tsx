@@ -78,7 +78,7 @@ export default function FAQ() {
   const faqs = [
     {
       question: "What is KubeGraf?",
-      answer: "KubeGraf is a local-first Kubernetes tool that detects incidents, explains why they happen with evidence, and previews safe fixes—without SaaS lock-in. It runs on your laptop or inside your environment."
+      answer: "KubeGraf is an AI SRE Platform for Kubernetes — it detects incidents, explains root causes with evidence, and previews safe fixes, all running locally without SaaS lock-in or cloud dependency."
     },
     {
       question: "Do I need an account to use KubeGraf?",
@@ -177,7 +177,7 @@ export default function FAQ() {
             }}>Questions</span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Common questions about installing, using, and understanding KubeGraf
+            Common questions about KubeGraf — the AI SRE Platform for Kubernetes
           </p>
         </motion.div>
       </section>
