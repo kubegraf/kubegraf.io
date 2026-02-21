@@ -65,6 +65,7 @@ export default function CTASectionModern() {
   }, []);
 
   return (
+    <>
     <section className={styles.section} aria-label="Call to action">
       <div className={styles.container}>
         <div className={styles.content}>
@@ -172,5 +173,6 @@ export default function CTASectionModern() {
     </section>
 
     <DemoRequestModal open={demoModalOpen} onOpenChange={setDemoModalOpen} />
+    </>
   );
 }
