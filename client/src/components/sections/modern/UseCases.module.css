@@ -128,8 +128,7 @@
 
 .grid {
   display: grid;
-  /* Always 3 columns on desktop/tablet (3 on first row, 2 on second) */
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
 }
 
@@ -228,7 +227,6 @@
 
   .grid {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
   }
 
   .timelineStep {

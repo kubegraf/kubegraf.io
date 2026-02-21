@@ -173,7 +173,7 @@ export default function WaitlistForm({ size = "lg", placeholder = "Enter your em
               className={inputBase}
             />
 
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-1 gap-2 min-[480px]:grid-cols-2">
               <select
                 value={teamSize}
                 onChange={(e) => setTeamSize(e.target.value)}

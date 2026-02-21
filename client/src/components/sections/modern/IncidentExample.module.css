@@ -249,8 +249,18 @@
   }
 
   .cardBody {
-    padding: 1rem 1.25rem;
-    font-size: 0.75rem;
+    padding: 0.875rem 1rem;
+    font-size: 0.6875rem;
+    overflow-x: auto;
+  }
+
+  .rowKey {
+    min-width: 68px;
+  }
+
+  .sectionLine {
+    font-size: 0.5rem;
+    letter-spacing: 0;
   }
 
   .outcomes {
