@@ -82,7 +82,7 @@ export default function WaitlistForm({ size = "lg", placeholder = "Enter your em
             exit={{ opacity: 0, x: -12 }}
             transition={{ duration: 0.2 }}
           >
-            <div className="flex gap-2">
+            <div className="flex flex-col gap-2 min-[480px]:flex-row">
               <Input
                 type="email"
                 value={email}
@@ -95,7 +95,7 @@ export default function WaitlistForm({ size = "lg", placeholder = "Enter your em
               />
               <Button
                 type="submit"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 px-5 font-semibold whitespace-nowrap"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 px-5 font-semibold whitespace-nowrap w-full min-[480px]:w-auto"
                 style={{ height: size === "lg" ? "2.75rem" : "2.5rem" }}
                 data-testid="button-waitlist-email"
               >
