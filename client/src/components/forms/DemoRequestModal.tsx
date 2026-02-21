@@ -1,15 +1,9 @@
-import { useState } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { ArrowRight, Check, Loader2 } from "lucide-react";
+import { ArrowRight, Check, Loader2, X } from "lucide-react";
 import { requestDemo } from "@/lib/waitlist";
 
 interface DemoRequestModalProps {
@@ -28,7 +22,24 @@ export default function DemoRequestModal({ open, onOpenChange }: DemoRequestModa
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
 
-  const inputBase = "h-10 text-sm border-border focus:border-primary/50 transition-all placeholder:text-muted-foreground/50 bg-background";
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
+
+  // Close on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && open) onOpenChange(false);
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [open, onOpenChange]);
 
   const reset = () => {
     setEmail(""); setName(""); setCompany(""); setRole("");
@@ -36,9 +47,9 @@ export default function DemoRequestModal({ open, onOpenChange }: DemoRequestModa
     setStatus("idle"); setMessage("");
   };
 
-  const handleOpenChange = (open: boolean) => {
-    if (!open) reset();
-    onOpenChange(open);
+  const handleClose = () => {
+    reset();
+    onOpenChange(false);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -62,118 +73,159 @@ export default function DemoRequestModal({ open, onOpenChange }: DemoRequestModa
     }
   };
 
+  const inputBase = "h-10 text-sm border-border focus:border-primary/50 transition-all placeholder:text-muted-foreground/50 bg-background";
+
   return (
-    <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="sm:max-w-[480px] max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle className="text-xl font-bold">Request a Demo</DialogTitle>
-          <DialogDescription>
-            Tell us about your setup — we'll reach out within 1 business day to schedule.
-          </DialogDescription>
-        </DialogHeader>
+    <AnimatePresence>
+      {open && (
+        <>
+          {/* Backdrop */}
+          <motion.div
+            key="demo-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm"
+            onClick={handleClose}
+            aria-hidden="true"
+          />
 
-        {status === "success" ? (
-          <div className="flex flex-col items-center gap-3 py-8 text-center">
-            <div className="w-12 h-12 rounded-full bg-green-500/10 border border-green-500/30 flex items-center justify-center">
-              <Check className="w-6 h-6 text-green-500" />
-            </div>
-            <p className="font-semibold text-foreground">Demo request received!</p>
-            <p className="text-sm text-muted-foreground">{message}</p>
-            <Button variant="outline" size="sm" className="mt-2" onClick={() => handleOpenChange(false)}>
-              Close
-            </Button>
-          </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="flex flex-col gap-2.5 mt-1">
-            <Input
-              type="email"
-              placeholder="you@company.com (required)"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className={inputBase}
-              autoComplete="email"
-              required
-            />
-            <Input
-              type="text"
-              placeholder="Your name (required)"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className={inputBase}
-              autoComplete="name"
-            />
-            <Input
-              type="text"
-              placeholder="Company / organization"
-              value={company}
-              onChange={(e) => setCompany(e.target.value)}
-              className={inputBase}
-              autoComplete="organization"
-            />
-            <Input
-              type="text"
-              placeholder="Role — SRE, Platform Eng, DevOps"
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-              className={inputBase}
-            />
-
-            <div className="grid grid-cols-1 gap-2.5 min-[420px]:grid-cols-2">
-              <select
-                value={teamSize}
-                onChange={(e) => setTeamSize(e.target.value)}
-                className={`${inputBase} rounded-md border border-border pl-3 pr-8 cursor-pointer`}
+          {/* Modal card */}
+          <motion.div
+            key="demo-modal"
+            initial={{ opacity: 0, scale: 0.95, y: 16 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 16 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Request a Demo"
+            className="fixed left-1/2 top-1/2 z-50 w-full max-w-[480px] max-h-[90vh] overflow-y-auto -translate-x-1/2 -translate-y-1/2 rounded-xl border border-border bg-background p-6 shadow-2xl mx-4"
+            style={{ width: "calc(100% - 2rem)" }}
+          >
+            {/* Header */}
+            <div className="flex items-start justify-between mb-1">
+              <div>
+                <h2 className="text-xl font-bold text-foreground">Request a Demo</h2>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Tell us about your setup — we'll reach out within 1 business day to schedule.
+                </p>
+              </div>
+              <button
+                onClick={handleClose}
+                className="ml-4 flex-shrink-0 rounded-md p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                aria-label="Close dialog"
               >
-                <option value="">Team size</option>
-                <option value="1–10">1–10 engineers</option>
-                <option value="11–50">11–50 engineers</option>
-                <option value="51–200">51–200 engineers</option>
-                <option value="200+">200+ engineers</option>
-              </select>
-              <select
-                value={clusters}
-                onChange={(e) => setClusters(e.target.value)}
-                className={`${inputBase} rounded-md border border-border pl-3 pr-8 cursor-pointer`}
-              >
-                <option value="">No. of clusters</option>
-                <option value="1–2">1–2 clusters</option>
-                <option value="3–10">3–10 clusters</option>
-                <option value="10+">10+ clusters</option>
-              </select>
+                <X size={18} />
+              </button>
             </div>
 
-            <Textarea
-              placeholder="What would you like to see in the demo? (optional)"
-              value={useCase}
-              onChange={(e) => setUseCase(e.target.value)}
-              className={`${inputBase} h-auto text-sm`}
-              rows={3}
-            />
+            {/* Success state */}
+            {status === "success" ? (
+              <div className="flex flex-col items-center gap-3 py-8 text-center">
+                <div className="w-12 h-12 rounded-full bg-green-500/10 border border-green-500/30 flex items-center justify-center">
+                  <Check className="w-6 h-6 text-green-500" />
+                </div>
+                <p className="font-semibold text-foreground">Demo request received!</p>
+                <p className="text-sm text-muted-foreground">{message}</p>
+                <Button variant="outline" size="sm" className="mt-2" onClick={handleClose}>
+                  Close
+                </Button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="flex flex-col gap-2.5 mt-4">
+                <Input
+                  type="email"
+                  placeholder="you@company.com (required)"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className={inputBase}
+                  autoComplete="email"
+                  required
+                />
+                <Input
+                  type="text"
+                  placeholder="Your name (required)"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className={inputBase}
+                  autoComplete="name"
+                />
+                <Input
+                  type="text"
+                  placeholder="Company / organization"
+                  value={company}
+                  onChange={(e) => setCompany(e.target.value)}
+                  className={inputBase}
+                  autoComplete="organization"
+                />
+                <Input
+                  type="text"
+                  placeholder="Role — SRE, Platform Eng, DevOps"
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
+                  className={inputBase}
+                />
 
-            {message && (
-              <p className={`text-xs ${status === "error" ? "text-red-500" : "text-green-500"}`}>
-                {message}
-              </p>
+                <div className="grid grid-cols-1 gap-2.5 min-[420px]:grid-cols-2">
+                  <select
+                    value={teamSize}
+                    onChange={(e) => setTeamSize(e.target.value)}
+                    className={`${inputBase} rounded-md border border-border pl-3 pr-8 cursor-pointer`}
+                  >
+                    <option value="">Team size</option>
+                    <option value="1–10">1–10 engineers</option>
+                    <option value="11–50">11–50 engineers</option>
+                    <option value="51–200">51–200 engineers</option>
+                    <option value="200+">200+ engineers</option>
+                  </select>
+                  <select
+                    value={clusters}
+                    onChange={(e) => setClusters(e.target.value)}
+                    className={`${inputBase} rounded-md border border-border pl-3 pr-8 cursor-pointer`}
+                  >
+                    <option value="">No. of clusters</option>
+                    <option value="1–2">1–2 clusters</option>
+                    <option value="3–10">3–10 clusters</option>
+                    <option value="10+">10+ clusters</option>
+                  </select>
+                </div>
+
+                <Textarea
+                  placeholder="What would you like to see in the demo? (optional)"
+                  value={useCase}
+                  onChange={(e) => setUseCase(e.target.value)}
+                  className={`${inputBase} h-auto text-sm`}
+                  rows={3}
+                />
+
+                {message && (
+                  <p className={`text-xs ${status === "error" ? "text-red-500" : "text-green-500"}`}>
+                    {message}
+                  </p>
+                )}
+
+                <Button
+                  type="submit"
+                  disabled={status === "loading"}
+                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-semibold mt-1"
+                >
+                  {status === "loading" ? (
+                    <><Loader2 className="w-4 h-4 animate-spin mr-2" />Submitting…</>
+                  ) : (
+                    <>Request Demo <ArrowRight className="w-4 h-4 ml-2" /></>
+                  )}
+                </Button>
+
+                <p className="text-xs text-center text-muted-foreground">
+                  No spam. No sales pressure. Unsubscribe anytime.
+                </p>
+              </form>
             )}
-
-            <Button
-              type="submit"
-              disabled={status === "loading"}
-              className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-semibold mt-1"
-            >
-              {status === "loading" ? (
-                <><Loader2 className="w-4 h-4 animate-spin mr-2" />Submitting…</>
-              ) : (
-                <>Request Demo <ArrowRight className="w-4 h-4 ml-2" /></>
-              )}
-            </Button>
-
-            <p className="text-xs text-center text-muted-foreground">
-              No spam. No sales pressure. Unsubscribe anytime.
-            </p>
-          </form>
-        )}
-      </DialogContent>
-    </Dialog>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
   );
 }
