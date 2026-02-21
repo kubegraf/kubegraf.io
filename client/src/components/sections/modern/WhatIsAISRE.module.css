@@ -1,0 +1,299 @@
+/* What Is An AI SRE Platform Section */
+.section {
+  padding: 5rem 1rem;
+  position: relative;
+  background: hsl(var(--muted) / 0.35);
+  border-top: 1px solid hsl(var(--border));
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.5rem;
+}
+
+/* ── Header ── */
+.header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  max-width: 720px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.9rem;
+  background: rgba(6, 182, 212, 0.08);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: hsl(var(--primary));
+}
+
+.title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: hsl(var(--foreground));
+  margin: 0;
+}
+
+.titleMuted {
+  color: hsl(var(--muted-foreground));
+  font-weight: 400;
+}
+
+/* Strikethrough effect on "dashboards" */
+.titleStrike {
+  text-decoration: line-through;
+  text-decoration-color: hsl(var(--primary) / 0.6);
+  text-decoration-thickness: 3px;
+  color: hsl(var(--muted-foreground));
+}
+
+.titleHighlight {
+  background: linear-gradient(135deg, hsl(var(--primary)), #0891b2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+:global(:root[data-theme="dark"]) .titleHighlight {
+  background: linear-gradient(135deg, #06b6d4, #22d3ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.titleAccent {
+  font-weight: 900;
+  color: hsl(var(--foreground));
+}
+
+.subtitle {
+  font-size: clamp(1rem, 1.5vw, 1.125rem);
+  line-height: 1.7;
+  color: hsl(var(--muted-foreground));
+  margin: 0;
+}
+
+/* ── Comparison Grid ── */
+.compareGrid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 1.5rem;
+  width: 100%;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .compareGrid {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+  }
+}
+
+/* VS Arrow */
+.vsWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.vsArrow {
+  font-size: 1.5rem;
+  color: hsl(var(--muted-foreground));
+  opacity: 0.5;
+}
+
+.vsLabel {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: hsl(var(--muted-foreground));
+  opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+  .vsWrapper {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .vsArrow {
+    transform: rotate(90deg);
+  }
+}
+
+/* Cards */
+.cardNeg,
+.cardPos {
+  padding: 1.75rem;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  height: 100%;
+}
+
+.cardNeg {
+  background: hsl(var(--muted) / 0.3);
+  border: 1px solid hsl(var(--border));
+}
+
+.cardPos {
+  background: rgba(6, 182, 212, 0.05);
+  border: 1px solid rgba(6, 182, 212, 0.25);
+  box-shadow: 0 0 0 1px rgba(6, 182, 212, 0.08), 0 8px 24px rgba(6, 182, 212, 0.06);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.iconWrapNeg {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  background: hsl(var(--muted));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: hsl(var(--muted-foreground));
+  flex-shrink: 0;
+}
+
+.iconWrapPos {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  background: rgba(6, 182, 212, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: hsl(var(--primary));
+  flex-shrink: 0;
+}
+
+.cardLabelNeg {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: hsl(var(--muted-foreground));
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.cardLabelPos {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: hsl(var(--primary));
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* Lists */
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.listItemNeg,
+.listItemPos {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.listItemNeg {
+  color: hsl(var(--muted-foreground));
+}
+
+.listItemPos {
+  color: hsl(var(--foreground));
+  font-weight: 500;
+}
+
+.iconNeg {
+  flex-shrink: 0;
+  color: #ef4444;
+  margin-top: 2px;
+}
+
+.iconPos {
+  flex-shrink: 0;
+  color: #10b981;
+  margin-top: 2px;
+}
+
+/* ── Definition callout ── */
+.definition {
+  width: 100%;
+  max-width: 720px;
+}
+
+.definitionInner {
+  padding: 1.5rem 2rem;
+  background: hsl(var(--muted) / 0.4);
+  border-left: 3px solid hsl(var(--primary));
+  border-radius: 0 0.75rem 0.75rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.definitionLabel {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: hsl(var(--primary));
+}
+
+.definitionText {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: hsl(var(--muted-foreground));
+  margin: 0;
+}
+
+.definitionText strong {
+  color: hsl(var(--foreground));
+  font-weight: 700;
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .section {
+    padding: 4rem 1rem;
+  }
+
+  .title {
+    font-size: clamp(1.625rem, 6vw, 2.25rem);
+  }
+
+  .definitionInner {
+    padding: 1.25rem 1.25rem;
+  }
+}

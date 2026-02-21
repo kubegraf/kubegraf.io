@@ -1,0 +1,264 @@
+/* Incident Example Section */
+.section {
+  padding: 5rem 1rem;
+}
+
+.container {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+}
+
+/* ── Header ── */
+.header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  max-width: 600px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.9rem;
+  background: rgba(6, 182, 212, 0.08);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: hsl(var(--primary));
+}
+
+.title {
+  font-size: clamp(1.875rem, 3.5vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: hsl(var(--foreground));
+  margin: 0;
+}
+
+.titleHighlight {
+  background: linear-gradient(135deg, hsl(var(--primary)), #0891b2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+:global(:root[data-theme="dark"]) .titleHighlight {
+  background: linear-gradient(135deg, #06b6d4, #22d3ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  font-size: clamp(0.9375rem, 1.4vw, 1rem);
+  line-height: 1.7;
+  color: hsl(var(--muted-foreground));
+  margin: 0;
+}
+
+.inlineCode {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.875em;
+  background: hsl(var(--muted));
+  padding: 0.1em 0.4em;
+  border-radius: 0.3rem;
+  color: hsl(var(--primary));
+  border: 1px solid hsl(var(--border));
+}
+
+/* ── Terminal Card ── */
+.card {
+  width: 100%;
+  background: #0d1117;
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.25), 0 1px 0 rgba(255, 255, 255, 0.04) inset;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1.25rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.dots {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.cardTitle {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.35);
+  font-family: var(--font-mono, monospace);
+  flex: 1;
+}
+
+.cardBadge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #f59e0b;
+  background: rgba(245, 158, 11, 0.1);
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(245, 158, 11, 0.25);
+}
+
+.cardBody {
+  padding: 1.5rem 2rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+
+/* Terminal lines */
+.termLine {
+  margin-bottom: 1rem;
+}
+
+.prompt {
+  color: #10b981;
+  font-weight: 700;
+}
+
+.cmd {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.blank {
+  height: 0.5rem;
+}
+
+.sectionLine {
+  color: rgba(255, 255, 255, 0.2);
+  letter-spacing: 0.02em;
+}
+
+.rowLine {
+  display: flex;
+  gap: 1rem;
+}
+
+.rowKey {
+  color: rgba(255, 255, 255, 0.3);
+  min-width: 90px;
+  flex-shrink: 0;
+}
+
+.rowVal {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.rowValWarn {
+  color: #f59e0b;
+  font-weight: 600;
+}
+
+.successLine {
+  color: #10b981;
+  font-weight: 600;
+}
+
+.bulletLine {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.infoLine {
+  color: #06b6d4;
+  font-weight: 500;
+}
+
+.confidenceLine {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #10b981;
+  font-weight: 700;
+  margin-top: 0.25rem;
+  padding: 0.5rem 0.75rem;
+  background: rgba(16, 185, 129, 0.08);
+  border-radius: 0.375rem;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  width: fit-content;
+}
+
+/* ── Outcome timeline ── */
+.outcomes {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.outcomeItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  text-align: center;
+}
+
+.outcomeNum {
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: hsl(var(--foreground));
+  letter-spacing: -0.02em;
+  font-family: var(--font-mono, monospace);
+}
+
+.outcomeLbl {
+  font-size: 0.8125rem;
+  color: hsl(var(--muted-foreground));
+}
+
+.outcomeDivider {
+  font-size: 1.25rem;
+  color: hsl(var(--primary));
+  opacity: 0.6;
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .section {
+    padding: 4rem 1rem;
+  }
+
+  .cardBody {
+    padding: 1rem 1.25rem;
+    font-size: 0.75rem;
+  }
+
+  .outcomes {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .outcomeDivider {
+    transform: rotate(90deg);
+  }
+}

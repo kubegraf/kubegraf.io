@@ -139,26 +139,6 @@
   margin: 0;
 }
 
-.licenseSection {
-  margin-bottom: 3rem;
-}
-
-.licenseCard {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 1.25rem;
-  background: transparent;
-  border: 1px solid hsl(var(--border));
-  border-radius: 0.75rem;
-  text-align: center;
-}
-
-.licenseDescription {
-  font-size: 0.875rem;
-  line-height: 1.6;
-  color: hsl(var(--muted-foreground));
-  margin: 0;
-}
 
 .ctaContainer {
   text-align: center;
@@ -203,7 +183,4 @@
     padding: 1.5rem;
   }
 
-  .licenseCard {
-    padding: 1.5rem;
-  }
 }

@@ -1,4 +1,4 @@
-import { TrendingDown, ShieldCheck, Clock } from "lucide-react";
+import { TrendingDown, ShieldCheck, Clock, Calculator, ArrowRight } from "lucide-react";
 import styles from "./EnterpriseVC.module.css";
 
 const kpis = [
@@ -73,6 +73,32 @@ export default function EnterpriseVC() {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* ROI CTA — prominent link to /roi */}
+        <div className={styles.roiCta}>
+          <div className={styles.roiStats}>
+            <div className={styles.roiStat}>
+              <span className={styles.roiStatNum}>$624K</span>
+              <span className={styles.roiStatLabel}>avg annual savings · 100-person team</span>
+            </div>
+            <span className={styles.roiDivider} aria-hidden="true" />
+            <div className={styles.roiStat}>
+              <span className={styles.roiStatNum}>80%</span>
+              <span className={styles.roiStatLabel}>faster MTTR</span>
+            </div>
+            <span className={styles.roiDivider} aria-hidden="true" />
+            <div className={styles.roiStat}>
+              <span className={styles.roiStatNum}>3×</span>
+              <span className={styles.roiStatLabel}>first-year ROI</span>
+            </div>
+          </div>
+
+          <a href="/roi" className={styles.roiButton} aria-label="See full ROI analysis">
+            <Calculator size={18} aria-hidden="true" />
+            Calculate Your ROI
+            <ArrowRight size={16} aria-hidden="true" />
+          </a>
         </div>
 
       </div>

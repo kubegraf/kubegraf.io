@@ -42,16 +42,16 @@ export default function HowItWorks() {
       <div className={styles.container}>
         <div className={styles.header}>
           <h2 className={styles.title}>
-            <span className={styles.highlight}>Evidence-Based</span>{" "}
-            <span className={styles.highlightAmber}>Root Cause Analysis</span>
+            <span className={styles.highlight}>Incident → Root Cause</span>{" "}
+            <span className={styles.highlightAmber}>→ SafeFix → Resolved</span>
           </h2>
           <p className={styles.subtitle}>
-            How KubeGraf reduces Mean Time To Recovery (MTTR) by 80%: Detect anomalies, correlate evidence, simulate fixes, execute with control. No guesswork.
+            Four deterministic steps. No guesswork. No manual grepping. KubeGraf works the incident so you can fix it — with evidence, confidence, and full control at every step.
           </p>
         </div>
 
         <div className={styles.stepsContainer}>
-          {steps.map((step) => {
+          {steps.map((step, index) => {
             const IconComponent = step.icon;
             return (
               <div
@@ -59,7 +59,7 @@ export default function HowItWorks() {
                 className={styles.stepCard}
               >
                 <div className={styles.stepHeader}>
-                  <div className={styles.stepNumber}>{step.number}</div>
+                  <div className={styles.stepNumber}>{index + 1}</div>
                   <div className={styles.stepIcon} aria-hidden="true">
                     <IconComponent className={styles.iconSvg} />
                   </div>
@@ -74,16 +74,17 @@ export default function HowItWorks() {
           })}
         </div>
 
-        {/* Interactive Visual Placeholder */}
-        <div className={styles.visualPlaceholder}>
-          <div className={styles.visualContainer}>
-            <p className={styles.placeholderText}>
-              [Interactive Visual: Step-by-step flow diagram showing the four-step process]
-            </p>
-            <p className={styles.placeholderSubtext}>
-              Replace with interactive visual diagram or animation
-            </p>
-          </div>
+        {/* Flow summary */}
+        <div className={styles.flowSummary}>
+          {["Detect", "Correlate", "Simulate", "Execute"].map((label, i, arr) => (
+            <span key={label} className={styles.flowGroup}>
+              <span className={styles.flowStep}>{label}</span>
+              {i < arr.length - 1 && (
+                <span className={styles.flowArrow} aria-hidden="true">→</span>
+              )}
+            </span>
+          ))}
+          <span className={styles.flowResolved}>· Resolved</span>
         </div>
       </div>
     </section>
