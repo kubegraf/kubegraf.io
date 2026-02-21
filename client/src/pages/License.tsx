@@ -17,7 +17,7 @@ export default function License() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-4">
             <span style={{
               background: 'linear-gradient(135deg, #FE5000, #0891b2)',
               backgroundClip: 'text',
@@ -36,7 +36,7 @@ export default function License() {
             Local-first tool. Free for individuals and small teams. Enterprise plans for advanced features.
           </p>
 
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 mb-12">
             <div className="p-6 rounded-xl border border-white/10 bg-white/5">
               <h3 className="text-lg font-bold text-foreground mb-2">Free Edition</h3>
               <p className="text-sm text-muted-foreground mb-3">

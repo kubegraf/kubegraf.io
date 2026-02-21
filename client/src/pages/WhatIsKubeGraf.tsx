@@ -29,7 +29,7 @@ export default function WhatIsKubeGraf() {
                 <div className="text-sm font-bold tracking-[0.2em] text-primary uppercase mb-4">
                   Everything you need to know
                 </div>
-                <h1 className="text-4xl md:text-7xl font-bold mb-8 leading-[1.1] tracking-tight">
+                <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold mb-8 leading-[1.1] tracking-tight">
                   <span style={{
                     background: 'linear-gradient(135deg, #FE5000, #0891b2)',
                     backgroundClip: 'text',
@@ -63,7 +63,7 @@ export default function WhatIsKubeGraf() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="p-8 rounded-2xl border border-border/50 bg-card dark:bg-card/30 backdrop-blur-sm text-center hover:border-primary/50 transition-all group shadow-md dark:shadow-sm"
+                  className="p-4 sm:p-6 md:p-8 rounded-2xl border border-border/50 bg-card dark:bg-card/30 backdrop-blur-sm text-center hover:border-primary/50 transition-all group shadow-md dark:shadow-sm"
                 >
                   <div
                     className="text-4xl font-bold mb-2 group-hover:scale-110 transition-transform"
@@ -86,10 +86,10 @@ export default function WhatIsKubeGraf() {
         </section>
 
         {/* How It Works Section */}
-        <section className="py-24 relative overflow-hidden">
+        <section className="py-12 md:py-24 relative overflow-hidden">
           <div className="container mx-auto px-4 max-w-6xl">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-5xl font-bold mb-6">
+            <div className="text-center mb-10 md:mb-16">
+              <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-6">
                 <span style={{
                   background: 'linear-gradient(135deg, #f59e0b, #ef4444)',
                   backgroundClip: 'text',
@@ -135,7 +135,7 @@ export default function WhatIsKubeGraf() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="p-8 rounded-2xl border border-border/50 bg-card/10 backdrop-blur-md hover:border-primary/30 transition-all flex flex-col items-center text-center group"
+                  className="p-5 md:p-8 rounded-2xl border border-border/50 bg-card/10 backdrop-blur-md hover:border-primary/30 transition-all flex flex-col items-center text-center group"
                 >
                   <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`} style={{ backgroundColor: `${step.color}20` }}>
                     <step.icon className={`w-8 h-8`} style={{ color: step.color }} />
@@ -151,10 +151,10 @@ export default function WhatIsKubeGraf() {
         </section>
 
         {/* Core Capabilities */}
-        <section className="py-24 bg-card/20 dark:bg-card/5">
+        <section className="py-12 md:py-24 bg-card/20 dark:bg-card/5">
           <div className="container mx-auto px-4 max-w-6xl">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">
+            <div className="text-center mb-10 md:mb-16">
+              <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-6 tracking-tight">
                 <span style={{
                   background: 'linear-gradient(135deg, #FE5000, #0891b2)',
                   backgroundClip: 'text',
@@ -201,7 +201,7 @@ export default function WhatIsKubeGraf() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
-                  className="p-8 rounded-3xl border border-border/50 bg-card/20 backdrop-blur-sm hover:border-primary/50 transition-all group"
+                  className="p-5 md:p-8 rounded-3xl border border-border/50 bg-card/20 backdrop-blur-sm hover:border-primary/50 transition-all group"
                 >
                   <div className="flex items-start gap-6">
                     <div className="w-16 h-16 rounded-2xl bg-card border border-border flex items-center justify-center flex-shrink-0 group-hover:border-primary/50 transition-colors">
@@ -228,10 +228,10 @@ export default function WhatIsKubeGraf() {
         </section>
 
         {/* Use Cases Grid */}
-        <section className="py-24">
+        <section className="py-12 md:py-24">
           <div className="container mx-auto px-4 max-w-6xl">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-5xl font-bold mb-6">
+            <div className="text-center mb-10 md:mb-16">
+              <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-6">
                 <span style={{
                   background: 'linear-gradient(135deg, #f59e0b, #ef4444)',
                   backgroundClip: 'text',
@@ -247,7 +247,7 @@ export default function WhatIsKubeGraf() {
                 { title: "Platform Teams", desc: "Track recurring incidents across namespaces. Identify patterns. Export reports for postmortems." },
                 { title: "DevOps Engineers", desc: "Multi-cluster visibility without SaaS overhead. Switch contexts instantly. No agents to manage." }
               ].map((useCase, i) => (
-                <div key={i} className="p-8 rounded-2xl border border-border/50 bg-card/10 hover:border-primary/30 transition-all">
+                <div key={i} className="p-5 md:p-8 rounded-2xl border border-border/50 bg-card/10 hover:border-primary/30 transition-all">
                   <h3 className="text-xl font-bold mb-4">{useCase.title}</h3>
                   <p className="text-foreground/75 dark:text-muted-foreground leading-relaxed">
                     {useCase.desc}
@@ -259,9 +259,9 @@ export default function WhatIsKubeGraf() {
         </section>
 
         {/* What KubeGraf is NOT */}
-        <section className="py-24 bg-card/10 border-y border-border/50">
+        <section className="py-12 md:py-24 bg-card/10 border-y border-border/50">
           <div className="container mx-auto px-4 max-w-6xl">
-            <h2 className="text-3xl md:text-5xl font-bold mb-12 text-center tracking-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-8 md:mb-12 text-center tracking-tight">
               <span style={{
                 background: 'linear-gradient(135deg, #FE5000, #0891b2)',
                 backgroundClip: 'text',
@@ -292,10 +292,10 @@ export default function WhatIsKubeGraf() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-32 relative overflow-hidden">
+        <section className="py-16 md:py-32 relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(6,182,212,0.1),transparent)]" />
           <div className="container relative z-10 mx-auto px-4 text-center">
-            <h2 className="text-4xl md:text-6xl font-bold mb-8 tracking-tight">
+            <h2 className="text-2xl sm:text-4xl md:text-6xl font-bold mb-8 tracking-tight">
               <span style={{
                 background: 'linear-gradient(135deg, #FE5000, #0891b2)',
                 backgroundClip: 'text',

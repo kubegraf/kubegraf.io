@@ -28,7 +28,7 @@ export default function Pricing() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-6">
             <span style={{
               background: 'linear-gradient(135deg, #FE5000, #0891b2)',
               backgroundClip: 'text',
@@ -50,7 +50,7 @@ export default function Pricing() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="glass-card rounded-2xl border border-white/10 p-8"
+            className="glass-card rounded-2xl border border-white/10 p-5 sm:p-8"
           >
             <div className="mb-6">
               <h2 className="text-2xl font-bold mb-2">Free</h2>
@@ -96,7 +96,7 @@ export default function Pricing() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="glass-card rounded-2xl border border-primary/50 p-8"
+            className="glass-card rounded-2xl border border-primary/50 p-5 sm:p-8"
           >
             <div className="mb-6">
               <h2 className="text-2xl font-bold mb-2">Pro</h2>

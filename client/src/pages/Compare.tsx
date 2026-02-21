@@ -34,7 +34,7 @@ export default function Compare() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-4">
             <span style={{
               background: 'linear-gradient(135deg, #FE5000, #0891b2)',
               backgroundClip: 'text',
@@ -62,7 +62,7 @@ export default function Compare() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0"
         >
-          <p className="text-sm text-muted-foreground mb-4 md:hidden">
+          <p className="text-sm text-muted-foreground mb-4 lg:hidden">
             Scroll horizontally to see all comparisons →
           </p>
           <table className="w-full border-collapse min-w-[640px]">

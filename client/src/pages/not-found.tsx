@@ -8,10 +8,10 @@ export default function NotFound() {
       <div className="max-w-2xl w-full text-center">
         {/* Large 404 */}
         <div className="mb-8">
-          <h1 className="text-9xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-500 to-accent">
+          <h1 className="text-6xl sm:text-9xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-500 to-accent">
             404
           </h1>
-          <p className="text-2xl font-semibold mt-4 mb-2">Page Not Found</p>
+          <p className="text-xl sm:text-2xl font-semibold mt-4 mb-2">Page Not Found</p>
           <p className="text-muted-foreground">
             The page you're looking for doesn't exist or has been moved.
           </p>

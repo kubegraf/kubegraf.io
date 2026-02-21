@@ -162,7 +162,7 @@ export default function FAQ() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-4">
             <span style={{
               background: 'linear-gradient(135deg, #FE5000, #0891b2)',
               backgroundClip: 'text',
