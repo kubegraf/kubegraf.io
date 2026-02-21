@@ -79,30 +79,30 @@ export default function DemoRequestModal({ open, onOpenChange }: DemoRequestModa
     <AnimatePresence>
       {open && (
         <>
-          {/* Backdrop */}
+          {/* Backdrop — semi-transparent so landing page stays visible behind */}
           <motion.div
             key="demo-backdrop"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm"
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-[9998] bg-black/40"
             onClick={handleClose}
             aria-hidden="true"
           />
 
-          {/* Modal card */}
+          {/* Modal card — sits above backdrop */}
           <motion.div
             key="demo-modal"
-            initial={{ opacity: 0, scale: 0.95, y: 16 }}
+            initial={{ opacity: 0, scale: 0.96, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 16 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
+            exit={{ opacity: 0, scale: 0.96, y: 20 }}
+            transition={{ duration: 0.22, ease: "easeOut" }}
             role="dialog"
             aria-modal="true"
             aria-label="Request a Demo"
-            className="fixed left-1/2 top-1/2 z-50 w-full max-w-[480px] max-h-[90vh] overflow-y-auto -translate-x-1/2 -translate-y-1/2 rounded-xl border border-border bg-background p-6 shadow-2xl mx-4"
-            style={{ width: "calc(100% - 2rem)" }}
+            className="fixed left-1/2 top-1/2 z-[9999] -translate-x-1/2 -translate-y-1/2 rounded-xl border border-border bg-background p-6 shadow-2xl"
+            style={{ width: "min(480px, calc(100vw - 2rem))", maxHeight: "90vh", overflowY: "auto" }}
           >
             {/* Header */}
             <div className="flex items-start justify-between mb-1">
