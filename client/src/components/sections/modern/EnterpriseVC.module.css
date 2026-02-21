@@ -1,7 +1,9 @@
 /* Enterprise VC Section */
 .section {
   padding: 5rem 1rem;
-  background: transparent;
+  background: hsl(var(--muted) / 0.35);
+  border-top: 1px solid hsl(var(--border));
+  border-bottom: 1px solid hsl(var(--border));
 }
 
 .container {
@@ -207,6 +209,79 @@
 }
 
 
+/* ── ROI CTA ── */
+.roiCta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.75rem;
+  padding: 2.5rem 2rem;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.07), rgba(6, 182, 212, 0.07));
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: 1.25rem;
+  text-align: center;
+}
+
+.roiStats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.roiStat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.roiStatNum {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 800;
+  font-family: var(--font-mono, monospace);
+  background: linear-gradient(135deg, #10b981, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.roiStatLabel {
+  font-size: 0.8125rem;
+  color: hsl(var(--muted-foreground));
+  font-weight: 500;
+}
+
+.roiDivider {
+  width: 1px;
+  height: 3rem;
+  background: hsl(var(--border));
+  flex-shrink: 0;
+}
+
+.roiButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.875rem 2rem;
+  background: linear-gradient(135deg, #10b981, #06b6d4);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 0.625rem;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.35);
+}
+
+.roiButton:hover {
+  opacity: 0.92;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(16, 185, 129, 0.45);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .section {
@@ -238,5 +313,18 @@
     font-size: 3rem;
     top: -0.5rem;
     left: -0.5rem;
+  }
+
+  .roiStats {
+    gap: 1.25rem;
+  }
+
+  .roiDivider {
+    display: none;
+  }
+
+  .roiButton {
+    width: 100%;
+    justify-content: center;
   }
 }

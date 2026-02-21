@@ -1,0 +1,586 @@
+/* SafeFix™ Section */
+.section {
+  padding: 6rem 1rem;
+  position: relative;
+  background: radial-gradient(
+    ellipse 70% 50% at 50% 50%,
+    rgba(16, 185, 129, 0.04) 0%,
+    transparent 100%
+  );
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.5rem;
+}
+
+/* ── Header ── */
+.header {
+  text-align: center;
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.9rem;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #10b981;
+}
+
+.title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: hsl(var(--foreground));
+  margin: 0;
+}
+
+.titleHighlight {
+  background: linear-gradient(135deg, #10b981, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  font-size: clamp(0.9375rem, 1.4vw, 1.0625rem);
+  line-height: 1.7;
+  color: hsl(var(--muted-foreground));
+  margin: 0;
+}
+
+/* ── Demo Panel ── */
+.demoPanel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  width: 100%;
+  border: 1px solid hsl(var(--border));
+  border-radius: 1.25rem;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12), 0 1px 0 rgba(255, 255, 255, 0.04) inset;
+}
+
+@media (max-width: 900px) {
+  .demoPanel {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Terminal (Left panel) ── */
+.terminal {
+  background: #0d1117;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.terminalHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1.25rem;
+  background: rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  /* allow live dot to push to right edge */
+  flex: none;
+}
+
+.termDots {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.termTitle {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: var(--font-mono, monospace);
+}
+
+.termBody {
+  padding: 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  flex: 1;
+}
+
+.termLine {
+  margin-bottom: 0.75rem;
+}
+
+.termPrompt {
+  color: #10b981;
+  font-weight: 700;
+}
+
+.termCmd {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.termSection {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.25);
+  margin-top: 0.75rem;
+  margin-bottom: 0.35rem;
+}
+
+.termRow {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 0.1rem;
+}
+
+.termKey {
+  color: rgba(255, 255, 255, 0.35);
+  min-width: 80px;
+  flex-shrink: 0;
+}
+
+.termVal {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.termWarn {
+  color: #f59e0b;
+  font-weight: 600;
+}
+
+.termInfo {
+  color: #06b6d4;
+}
+
+.termSpacer {
+  height: 0.5rem;
+}
+
+.termEvidenceRow {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.1rem;
+}
+
+.termBullet {
+  color: #10b981;
+  font-size: 0.7rem;
+  flex-shrink: 0;
+}
+
+/* Confidence bar */
+.termConfidence {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.termConfLabel {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.35);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  flex-shrink: 0;
+}
+
+.termConfBar {
+  flex: 1;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.termConfFill {
+  display: block;
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #10b981, #06b6d4);
+  border-radius: 9999px;
+  transition: width 1.2s ease-out;
+}
+
+.termConfPct {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #10b981;
+  flex-shrink: 0;
+}
+
+.termCrit {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+/* Blinking cursor */
+.cursor {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.8125rem;
+  animation: blink 1s step-end infinite;
+  line-height: 1;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* Live indicator dot in terminal header */
+.termLive {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  margin-left: auto;
+  animation: pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.8); }
+}
+
+/* Per-line fade-in when revealed */
+.termLine,
+.termRow,
+.termSection,
+.termEvidenceRow,
+.termConfidence {
+  animation: termLineIn 0.18s ease-out both;
+}
+
+@keyframes termLineIn {
+  from { opacity: 0; transform: translateX(-6px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ── Fix Card (Right panel) ── */
+.fixCard {
+  background: hsl(var(--card));
+  display: flex;
+  flex-direction: column;
+  animation: fixCardIn 0.35s ease-out both;
+}
+
+@keyframes fixCardIn {
+  from { opacity: 0; transform: translateX(16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.fixHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1.5rem;
+  background: rgba(16, 185, 129, 0.06);
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+.fixHeaderIcon {
+  color: #10b981;
+  flex-shrink: 0;
+}
+
+.fixHeaderLabel {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #10b981;
+}
+
+.fixBody {
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  flex: 1;
+}
+
+/* Fix description */
+.fixDescription {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.fixDescTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: hsl(var(--foreground));
+  margin: 0;
+}
+
+.fixDescTitle code {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.875rem;
+  background: hsl(var(--muted));
+  padding: 0.1em 0.4em;
+  border-radius: 0.3rem;
+  color: hsl(var(--primary));
+}
+
+.fixChange {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.fixFrom {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: #ef4444;
+  font-family: var(--font-mono, monospace);
+  text-decoration: line-through;
+  text-decoration-color: #ef4444;
+  opacity: 0.7;
+}
+
+.fixArrow {
+  color: hsl(var(--muted-foreground));
+}
+
+.fixTo {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: #10b981;
+  font-family: var(--font-mono, monospace);
+}
+
+.fixDescSub {
+  font-size: 0.875rem;
+  color: hsl(var(--muted-foreground));
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Meta badges */
+.metaBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+}
+
+.metaBadge {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.75rem;
+  background: hsl(var(--muted) / 0.5);
+  border: 1px solid hsl(var(--border));
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+}
+
+.metaKey {
+  color: hsl(var(--muted-foreground));
+  font-weight: 500;
+}
+
+.metaVal {
+  color: hsl(var(--foreground));
+  font-weight: 600;
+}
+
+.metaValLow {
+  color: #10b981;
+  font-weight: 700;
+}
+
+.metaValMedium {
+  color: #f59e0b;
+  font-weight: 700;
+}
+
+.metaValReady {
+  color: #06b6d4;
+  font-weight: 600;
+}
+
+/* Diff section */
+.diffSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.diffLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: hsl(var(--muted-foreground));
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.diffCode {
+  margin: 0;
+  padding: 1rem 1.25rem;
+  background: #0d1117;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 0.625rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  overflow-x: auto;
+}
+
+.diffCtx { color: rgba(255, 255, 255, 0.5); }
+.diffAdd { color: #4ade80; background: rgba(74, 222, 128, 0.08); display: block; }
+.diffRemove { color: #f87171; background: rgba(248, 113, 113, 0.08); display: block; }
+
+/* Approval buttons */
+.fixActions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.applyBtn {
+  background: #10b981;
+  color: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 700;
+}
+
+.applyBtn:hover {
+  background: #059669;
+}
+
+.rollbackBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.appliedBadge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #10b981;
+  padding: 0.5rem 1rem;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 0.625rem;
+}
+
+.approvalNote {
+  font-size: 0.75rem;
+  color: hsl(var(--muted-foreground));
+  margin: 0;
+  font-style: italic;
+}
+
+/* ── Feature Grid ── */
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .featureGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .featureGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.featureItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  background: hsl(var(--card) / 0.4);
+  border: 1px solid hsl(var(--border));
+  border-radius: 0.75rem;
+}
+
+.featureIcon {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #10b981;
+}
+
+.featureLabel {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: hsl(var(--foreground));
+  margin: 0 0 0.2rem 0;
+}
+
+.featureDesc {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: hsl(var(--muted-foreground));
+  margin: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .section {
+    padding: 4rem 1rem;
+  }
+
+  .fixBody {
+    padding: 1.25rem;
+    gap: 1.25rem;
+  }
+
+  .termBody {
+    padding: 1rem;
+    font-size: 0.75rem;
+  }
+}

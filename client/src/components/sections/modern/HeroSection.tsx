@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Download, Shield, Zap, Lock, TrendingUp } from "lucide-react";
+import { ArrowRight, Download, Shield, Zap, Lock, TrendingUp, Calculator } from "lucide-react";
 import styles from "./HeroSection.module.css";
 
 const terminalLines = [
@@ -79,21 +79,31 @@ export default function HeroSection() {
         <div className={styles.content}>
           {/* Left Column - Text Content */}
           <div className={styles.textContent}>
-            {/* Badge */}
+            {/* Eyebrow badge — above the headline */}
             <div className={styles.badge}>
-              <span className={styles.badgeDot}></span>
-              <span className={styles.badgeText}>AI-Powered Kubernetes Incident Intelligence</span>
+              <span className={styles.badgeDot} aria-hidden="true" />
+              <span className={styles.badgeText}>AI SRE Platform for Kubernetes</span>
             </div>
 
-            {/* Headline */}
+            {/* Headline — layered typographic treatment */}
             <h1 className={styles.headline}>
-              <span className={styles.highlight}>Fix Kubernetes Incidents</span>{" "}
-              in Minutes, <span className={styles.highlightAmber}>Not Hours</span>
+              <span className={styles.headlineDisplay}>
+                Root Cause.
+              </span>
+              <span className={styles.headlineScale}>
+                <span className={styles.highlight}>SafeFix™</span>
+                <span className={styles.headlinePunctuation}>.</span>
+              </span>
+              <span className={styles.headlineContrast}>
+                In <span className={styles.highlightAmber}>Minutes.</span>
+              </span>
             </h1>
 
             {/* Subheadline */}
             <p className={styles.subheadline}>
-              AI-powered root cause analysis that cuts incident resolution by 80%—saving $500K+ annually. Correlates logs, metrics, traces, and events into evidence-based diagnostics. Built for SREs who need answers, not dashboards.
+              KubeGraf acts like an AI SRE — correlating logs, metrics, events, and deployments to diagnose incidents and recommend{" "}
+              <strong className={styles.subheadlineStrong}>safe, validated fixes.</strong>{" "}
+              Built for SREs who need answers, not dashboards.
             </p>
 
             {/* CTA Buttons */}
@@ -101,10 +111,12 @@ export default function HeroSection() {
               <Button
                 size="lg"
                 className={styles.primaryCTA}
-                onClick={() => (window.location.href = "/docs/installation.html")}
-                aria-label="Install KubeGraf in 60 seconds"
+                onClick={() => {
+                  document.getElementById("early-access")?.scrollIntoView({ behavior: "smooth" });
+                }}
+                aria-label="Join the KubeGraf early access waitlist"
               >
-                Install in 60 Seconds
+                Get Early Access
                 <ArrowRight className={styles.ctaIcon} aria-hidden="true" />
               </Button>
 
@@ -112,7 +124,7 @@ export default function HeroSection() {
                 size="lg"
                 className={styles.roiCTA}
                 onClick={() => (window.location.href = "/roi")}
-                aria-label="See ROI and business impact - $500K+ savings"
+                aria-label="Calculate your ROI with KubeGraf"
                 style={{
                   background: 'linear-gradient(135deg, #10b981 0%, #14b8a6 100%)',
                   color: 'white',
@@ -120,8 +132,8 @@ export default function HeroSection() {
                   boxShadow: '0 10px 25px -5px rgba(16, 185, 129, 0.3), 0 4px 10px -2px rgba(16, 185, 129, 0.2)',
                 }}
               >
-                <TrendingUp className={styles.ctaIcon} aria-hidden="true" />
-                See ROI – $500K+ Savings
+                <Calculator className={styles.ctaIcon} aria-hidden="true" />
+                Calculate Your ROI
               </Button>
 
               <Button
@@ -136,25 +148,29 @@ export default function HeroSection() {
               </Button>
             </div>
 
-            {/* Trust Indicators */}
+            {/* Trust Strip */}
             <div className={styles.trustIndicators}>
               <div className={styles.trustItem}>
-                <Zap className={styles.trustLucideIcon} aria-hidden="true" />
-                <span>80% Faster MTTR</span>
+                <Shield className={styles.trustLucideIcon} aria-hidden="true" />
+                <span>Local-first</span>
               </div>
               <div className={styles.trustItem}>
                 <Lock className={styles.trustLucideIcon} aria-hidden="true" />
-                <span>Zero Data Exfiltration</span>
+                <span>Zero data exfiltration</span>
               </div>
               <div className={styles.trustItem}>
-                <Shield className={styles.trustLucideIcon} aria-hidden="true" />
-                <span>Enterprise-Grade Security</span>
+                <Zap className={styles.trustLucideIcon} aria-hidden="true" />
+                <span>Human-approved fixes</span>
+              </div>
+              <div className={styles.trustItem}>
+                <TrendingUp className={styles.trustLucideIcon} aria-hidden="true" />
+                <span>Dry-run validated</span>
               </div>
             </div>
 
-            {/* Optional Micro-Text for Social Proof */}
+            {/* Social Proof */}
             <p className={styles.socialProof}>
-              Reduces Mean Time To Recovery (MTTR) by 80% | Built for SREs and Platform Engineers | Enterprise-Ready
+              80% faster MTTR · Built for SREs &amp; Platform Engineers · Enterprise-ready
             </p>
 
             {/* Terminal Demo - Mobile: appears after social proof */}

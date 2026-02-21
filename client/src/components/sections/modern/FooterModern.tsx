@@ -1,11 +1,14 @@
 import { Link } from "wouter";
-import { Github, BookOpen, Download, Mail, FileText, Shield } from "lucide-react";
-import { useEffect, useState } from "react";
+import { BookOpen, Download, Mail, FileText, Shield } from "lucide-react";
+import React, { useEffect, useState } from "react";
 import styles from "./FooterModern.module.css";
 
-const footerLinks = {
+const footerLinks: {
+  product: { label: string; href: string; icon?: React.ElementType; external?: boolean }[];
+  company: { label: string; href: string; external?: boolean; icon?: React.ElementType }[];
+  legal: { label: string; href: string; icon?: React.ElementType }[];
+} = {
   product: [
-    { label: "GitHub", href: "https://github.com/kubegraf/kubegraf", external: true, icon: Github },
     { label: "Docs", href: "/docs/", icon: BookOpen },
     { label: "Install", href: "/docs/installation.html", icon: Download },
   ],
@@ -99,10 +102,7 @@ export default function FooterModern() {
               </div>
             </Link>
             <p className={styles.tagline}>
-              Local-first Kubernetes incident detection & diagnosis
-            </p>
-            <p className={styles.disclaimer}>
-              KubeGraf is independent, not affiliated with Kubernetes, CNCF, or Grafana Labs
+              AI SRE platform for Kubernetes — root cause to safe fix in minutes.
             </p>
           </div>
 

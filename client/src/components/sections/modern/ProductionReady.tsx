@@ -1,31 +1,31 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Shield, Lock, CheckCircle, Zap } from "lucide-react";
+import { ArrowRight, GitBranch, ClipboardList, Users, Key } from "lucide-react";
 import styles from "./ProductionReady.module.css";
 
 const features = [
   {
     id: 1,
-    icon: Shield,
-    title: "Local-First Design",
-    description: "Safe for 3am incidents. All data stays on your machine.",
+    icon: GitBranch,
+    title: "Multi-Cluster Management",
+    description: "Investigate and remediate incidents across multiple clusters from a single interface. Switch context without losing your investigation thread.",
   },
   {
     id: 2,
-    icon: CheckCircle,
-    title: "Evidence-Backed Recommendations",
-    description: "Every suggestion is backed by logs, events, and metrics.",
+    icon: ClipboardList,
+    title: "Full Audit Trail",
+    description: "Every analysis, recommendation, and applied fix is logged with timestamps and user context—ready for post-mortems and compliance reviews.",
   },
   {
     id: 3,
-    icon: Zap,
-    title: "Human-in-Loop",
-    description: "You approve or reject every change. No blind automation.",
+    icon: Key,
+    title: "RBAC-Aware Operations",
+    description: "Respects your cluster's RBAC policies. Suggested fixes adapt to what your user can actually apply, preventing permission errors at 3am.",
   },
   {
     id: 4,
-    icon: Lock,
-    title: "Dry-Run & Rollback Support",
-    description: "Preview changes before applying. One-click rollback available.",
+    icon: Users,
+    title: "Team Collaboration",
+    description: "Assign incidents, annotate root causes, and share investigation context with your on-call team without leaving the tool.",
   },
 ];
 
@@ -35,11 +35,11 @@ export default function ProductionReady() {
       <div className={styles.container}>
         <div className={styles.header}>
           <h2 className={styles.title}>
-            <span className={styles.highlight}>Production-Ready</span>{" "}
-            <span className={styles.highlightAmber}>& Trusted</span>
+            <span className={styles.highlight}>Built for</span>{" "}
+            <span className={styles.highlightAmber}>Engineering Teams</span>
           </h2>
           <p className={styles.subtitle}>
-            Built for engineers who need trust, safety, and control during critical moments
+            Operational tooling designed around how real SRE teams work—at scale, under pressure, with compliance requirements
           </p>
         </div>
 
@@ -59,14 +59,6 @@ export default function ProductionReady() {
               </div>
             );
           })}
-        </div>
-
-        <div className={styles.licenseSection}>
-          <div className={styles.licenseCard}>
-            <p className={styles.licenseDescription}>
-              Open source, no SaaS lock-in. Use KubeGraf in production with confidence.
-            </p>
-          </div>
         </div>
 
         <div className={styles.ctaContainer}>

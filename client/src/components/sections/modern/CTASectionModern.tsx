@@ -68,11 +68,11 @@ export default function CTASectionModern() {
         <div className={styles.content}>
           <div className={styles.textContent}>
             <h2 className={styles.title}>
-              <span className={styles.highlight}>Start Reducing</span>{" "}
-              <span className={styles.highlightAmber}>MTTR Today</span>
+              <span className={styles.highlight}>Get Started</span>{" "}
+              <span className={styles.highlightAmber}>in 60 Seconds</span>
             </h2>
             <p className={styles.subtitle}>
-              Install in 60 seconds. No cloud dependencies. Works with your existing Kubernetes clusters. Free for teams under 50 pods.
+              Install KubeGraf free. Works with your existing clusters — EKS, GKE, AKS, OpenShift, K3s. No cloud dependencies. No data leaves your environment.
             </p>
 
             <div className={styles.ctaGroup}>
@@ -113,18 +113,20 @@ export default function CTASectionModern() {
                   size="lg"
                   variant="outline"
                   className={styles.tertiaryCTA}
-                  onClick={() => (window.open("https://github.com/kubegraf/kubegraf/discussions", "_blank"))}
-                  aria-label="Join early access or community"
+                  onClick={() => {
+                    document.getElementById("early-access")?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  aria-label="Join early access program"
                 >
                   <Users className={styles.ctaIcon} aria-hidden="true" />
-                  Join Early Access / Community
+                  Join Early Access
                 </Button>
               </div>
             </div>
 
             <div className={styles.trustMessage}>
               <p className={styles.trustText}>
-                Trust, safety, and evidence-driven decisions. That's what KubeGraf delivers.
+                KubeGraf is an AI SRE platform for Kubernetes — delivering root cause clarity and safe remediation without cloud dependency.
               </p>
             </div>
           </div>

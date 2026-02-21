@@ -1,7 +1,9 @@
 /* How It Works Section */
 .section {
   padding: 5rem 1rem;
-  background: transparent;
+  background: hsl(var(--muted) / 0.35);
+  border-top: 1px solid hsl(var(--border));
+  border-bottom: 1px solid hsl(var(--border));
 }
 
 .container {
@@ -191,6 +193,42 @@
 
 .stepDetails p {
   margin: 0;
+}
+
+/* Flow summary bar */
+.flowSummary {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 3rem;
+  padding: 1rem 2rem;
+  background: hsl(var(--muted) / 0.4);
+  border: 1px solid hsl(var(--border));
+  border-radius: 9999px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.flowGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.flowStep {
+  color: hsl(var(--foreground));
+}
+
+.flowArrow {
+  color: hsl(var(--primary));
+  font-weight: 400;
+}
+
+.flowResolved {
+  color: #10b981;
+  font-weight: 700;
 }
 
 .visualPlaceholder {

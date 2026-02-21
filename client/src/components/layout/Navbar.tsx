@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import { Terminal, Menu, X, BookOpen, ChevronDown, Zap, Shield, Brain, Network, FileCode, HelpCircle, Users, BookMarked, Github, MessageSquare, Download, TrendingUp } from "lucide-react";
+import { Terminal, Menu, X, BookOpen, ChevronDown, Zap, Shield, Brain, Network, FileCode, HelpCircle, Users, BookMarked, MessageSquare, Download, TrendingUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 
@@ -338,29 +338,26 @@ export default function Navbar({ disableScrollEffects = false }: NavbarProps) {
                 onClose={() => setOpenDropdown(null)}
                 theme={theme}
               />
+              {/* Direct ROI link — always visible */}
+              <motion.a
+                href="/roi"
+                className="flex items-center gap-1.5 px-4 py-2 rounded-lg font-semibold transition-all duration-200 outline-none"
+                style={{
+                  color: theme === 'dark' ? 'rgb(110, 231, 183)' : 'rgb(5, 150, 105)',
+                  fontSize: '1rem',
+                }}
+                whileHover={{
+                  backgroundColor: theme === 'dark' ? 'rgba(16, 185, 129, 0.12)' : 'rgba(5, 150, 105, 0.08)',
+                }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <TrendingUp className="w-4 h-4" />
+                ROI
+              </motion.a>
             </div>
 
             {/* CTA Buttons - Portainer style */}
             <div className="hidden lg:flex items-center gap-3">
-              <motion.a
-                href="https://github.com/kubegraf/kubegraf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`${disableScrollEffects ? '' : 'transition-all duration-200'} flex items-center gap-2 px-3 py-1.5 rounded-lg font-medium`}
-                style={{
-                  color: theme === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(17, 24, 39, 0.8)',
-                  fontSize: '0.9375rem',
-                }}
-                whileHover={disableScrollEffects ? {} : {
-                  color: theme === 'dark' ? 'rgba(255, 255, 255, 1)' : 'rgba(17, 24, 39, 1)',
-                  backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)',
-                }}
-                whileTap={disableScrollEffects ? {} : { scale: 0.98 }}
-              >
-                <Github className="w-4 h-4" />
-                <span className="hidden xl:inline">GitHub</span>
-              </motion.a>
-
               {/* Docs and Install combined CTA */}
               <div
                 className={`relative rounded-lg group p-[1px] ${disableScrollEffects ? '' : 'transition-all duration-500'}`}

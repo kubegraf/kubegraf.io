@@ -94,54 +94,55 @@
   letter-spacing: 0.08em;
 }
 
+/* ── Headline — layered typographic treatment ── */
 .headline {
-  font-size: clamp(2rem, 4vw + 0.5rem, 3rem);
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-  color: hsl(var(--foreground));
+  display: flex;
+  flex-direction: column;
+  gap: 0;
   margin: 0 0 1.5rem 0;
   max-width: 100%;
 }
 
-/* Ensure headline text is visible in dark theme */
-:global(:root[data-theme="dark"]) .headline {
-  color: #ffffff;
+/* Main heavy display line — Space Grotesk */
+.headlineDisplay {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 6.5vw, 5.25rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  color: hsl(var(--foreground));
 }
 
-:global(:root[data-theme="dark"]) .headline .highlight {
-  background: linear-gradient(135deg, #06b6d4, #22d3ee);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* Second line — same size as display so "SafeFix™" matches "Root Cause." weight */
+.headlineScale {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 6.5vw, 5.25rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  color: hsl(var(--foreground));
 }
 
-:global(:root[data-theme="dark"]) .headline .highlightAmber {
-  background: linear-gradient(135deg, #fbbf24, #f59e0b);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.headlinePunctuation {
+  font-weight: 300;
+  color: hsl(var(--muted-foreground));
+  letter-spacing: 0;
 }
 
-:global(:root[data-theme="light"]) .headline,
-:global(:root:not([data-theme])) .headline {
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+/* Third line — lighter contrast, but not a cliff drop */
+.headlineContrast {
+  display: block;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: hsl(var(--muted-foreground));
+  margin-top: 0.25em;
 }
 
-@media (min-width: 768px) {
-  .headline {
-    font-size: clamp(2.5rem, 4vw + 0.5rem, 3.5rem);
-    line-height: 1.25;
-  }
-}
-
-@media (min-width: 1024px) {
-  .headline {
-    font-size: clamp(3rem, 4vw + 0.5rem, 4rem);
-    line-height: 1.2;
-  }
-}
-
+/* Cyan gradient highlight */
 .highlight {
   background: linear-gradient(135deg, hsl(var(--primary)), #0891b2);
   -webkit-background-clip: text;
@@ -156,26 +157,56 @@
   background-clip: text;
 }
 
-/* Fallback for dark theme if gradient doesn't work */
-:global(:root[data-theme="dark"]) .headline {
-  color: hsl(var(--foreground));
-}
-
+/* Amber gradient highlight */
 .highlightAmber {
   background: linear-gradient(135deg, #f59e0b, #ef4444);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  font-weight: 700;
+}
+
+:global(:root[data-theme="dark"]) .headlineDisplay,
+:global(:root[data-theme="dark"]) .headlineScale {
+  color: #ffffff;
+}
+
+:global(:root[data-theme="dark"]) .headlineContrast {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+:global(:root[data-theme="dark"]) .headlineLight {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+@media (max-width: 640px) {
+  .headlineDisplay {
+    font-size: clamp(2.5rem, 10vw, 3rem);
+  }
+
+  .headlineScale {
+    font-size: clamp(2.5rem, 10vw, 3rem);
+  }
+
+  .headlineContrast {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+  }
 }
 
 .subheadline {
-  font-size: clamp(1.25rem, 1.75vw + 0.5rem, 1.5rem);
-  line-height: 1.6;
+  font-size: clamp(1rem, 1.5vw + 0.25rem, 1.25rem);
+  line-height: 1.7;
   color: hsl(var(--foreground));
-  opacity: 0.9;
-  max-width: 650px;
+  opacity: 0.85;
+  max-width: 580px;
   margin: 0 0 2rem 0;
   font-weight: 400;
+}
+
+.subheadlineStrong {
+  font-weight: 700;
+  color: hsl(var(--foreground));
+  opacity: 1;
 }
 
 .ctaGroup {
