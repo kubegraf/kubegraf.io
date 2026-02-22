@@ -685,12 +685,15 @@ body {
 
 /* Footer Container - matches Tailwind: border-t border-border/50 bg-muted/20 */
 /* Footer is full-width like landing page, NOT offset by sidebar */
+/* position: relative + z-index > sidebar ensures footer covers the fixed sidebar at bottom */
 /* Footer - Light theme */
 .docs-footer {
   border-top: 1px solid #e5e5e5;
   background: #f5e8d5; /* brighter oat/biscuit blend - warm golden beige */
   margin-left: 0;
   width: 100%;
+  position: relative;
+  z-index: 200;
 }
 
 /* Footer - Dark theme */
