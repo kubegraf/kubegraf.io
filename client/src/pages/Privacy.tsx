@@ -1,8 +1,14 @@
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 import Navbar from "@/components/layout/Navbar";
 import { FooterModern } from "@/components/sections/modern";
 
 export default function Privacy() {
+  useEffect(() => {
+    document.title = 'Privacy Policy – KubēGraf';
+    const meta = document.querySelector('meta[name="description"]');
+    if (meta) meta.setAttribute('content', 'KubeGraf Privacy Policy — no cluster data collected, no telemetry, no third-party analytics. Local-first by design.');
+  }, []);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -92,7 +98,7 @@ export default function Privacy() {
             </p>
 
             <p className="text-sm text-muted-foreground/70 mt-12">
-              Last updated: December 19, 2025
+              Last updated: February 2026
             </p>
           </div>
         </motion.div>

@@ -291,6 +291,26 @@
   }
 }
 
+@media (max-width: 640px) {
+  .section {
+    padding: 3rem 1rem;
+  }
+
+  .stepsContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .stepCard {
+    padding: 1.25rem;
+  }
+
+  .flowSummary {
+    border-radius: 0.75rem;
+    padding: 0.875rem 1rem;
+    font-size: 0.8125rem;
+  }
+}
+
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
   .stepCard {

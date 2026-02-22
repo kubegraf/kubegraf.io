@@ -184,3 +184,13 @@
   }
 
 }
+
+@media (max-width: 640px) {
+  .section {
+    padding: 3rem 1rem;
+  }
+  .featuresGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}

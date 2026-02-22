@@ -178,3 +178,16 @@
     padding: 1.5rem;
   }
 }
+
+@media (max-width: 640px) {
+  .section {
+    padding: 3rem 1rem;
+  }
+  .evidenceGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .evidenceCard {
+    padding: 1.25rem;
+  }
+}

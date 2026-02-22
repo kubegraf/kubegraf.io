@@ -23,6 +23,12 @@ export default function ROI() {
   const [demoModalOpen, setDemoModalOpen] = useState(false);
 
   useEffect(() => {
+    document.title = 'ROI Calculator – KubēGraf | Reduce Kubernetes Incident Costs';
+    const meta = document.querySelector('meta[name="description"]');
+    if (meta) meta.setAttribute('content', 'See the ROI of KubeGraf — reduce MTTR by 80%, save $624K/year for a 100-person engineering team, and move to elite Kubernetes incident response performance.');
+  }, []);
+
+  useEffect(() => {
     // Read theme from localStorage
     const saved = localStorage.getItem('kubegraf-theme') as 'light' | 'dark' | null;
     if (saved) {

@@ -17,6 +17,7 @@
  * 13. CTASectionModern — Second CTA for those who read everything
  */
 
+import { useEffect } from "react";
 import Navbar from "@/components/layout/Navbar";
 import {
   HeroSection,
@@ -36,6 +37,12 @@ import {
 } from "@/components/sections/modern";
 
 export default function HomeModern() {
+  useEffect(() => {
+    document.title = 'KubēGraf — AI SRE Platform for Kubernetes';
+    const meta = document.querySelector('meta[name="description"]');
+    if (meta) meta.setAttribute('content', 'KubeGraf is an AI SRE Platform for Kubernetes — root cause clarity and safe remediation in minutes, without SaaS lock-in or cloud dependency.');
+  }, []);
+
   return (
     <div className="bg-background text-foreground selection:bg-primary/30 scroll-smooth min-h-screen">
       <Navbar disableScrollEffects={true} />

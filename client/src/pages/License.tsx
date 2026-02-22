@@ -1,9 +1,15 @@
 import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
+import { useEffect } from "react";
 import Navbar from "@/components/layout/Navbar";
 import { FooterModern } from "@/components/sections/modern";
 
 export default function License() {
+  useEffect(() => {
+    document.title = 'Licensing & Usage – KubēGraf';
+    const meta = document.querySelector('meta[name="description"]');
+    if (meta) meta.setAttribute('content', 'KubeGraf licensing — Free for individuals, Pro for teams, Enterprise for large organizations. Apache 2.0 open source. Local-first, no data exfiltration.');
+  }, []);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -33,7 +39,7 @@ export default function License() {
           </h1>
 
           <p className="text-xl text-muted-foreground mb-12 max-w-3xl">
-            Local-first tool. Free for individuals and small teams. Enterprise plans for advanced features.
+            AI SRE Platform for Kubernetes. Free for individuals and small teams. Enterprise plans for advanced features.
           </p>
 
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 mb-12">

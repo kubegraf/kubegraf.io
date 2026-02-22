@@ -1,11 +1,17 @@
 import { Terminal, Globe, Code, Database, Lock, Zap, AlertCircle, CheckCircle, Clock, FileText, Shield, Search, Wrench, Download, ArrowRight, Play } from "lucide-react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 import Navbar from "@/components/layout/Navbar";
 import { Button } from "@/components/ui/button";
 import { FooterModern } from "@/components/sections/modern";
 
 export default function WhatIsKubeGraf() {
+  useEffect(() => {
+    document.title = 'What is KubēGraf? – AI SRE Platform for Kubernetes';
+    const meta = document.querySelector('meta[name="description"]');
+    if (meta) meta.setAttribute('content', 'Learn what KubeGraf is — an AI SRE Platform for Kubernetes that detects incidents, explains root causes with evidence, and previews safe fixes locally.');
+  }, []);
 
   return (
     <div className="bg-background text-foreground selection:bg-primary/30 scroll-smooth min-h-screen">

@@ -196,6 +196,21 @@
   }
 }
 
+@media (max-width: 640px) {
+  .section {
+    padding: 2.5rem 1rem;
+  }
+
+  .container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .formCard {
+    padding: 1.25rem;
+  }
+}
+
 @media (max-width: 480px) {
   .socialDivider {
     display: none;
