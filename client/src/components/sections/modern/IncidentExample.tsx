@@ -141,7 +141,7 @@ export default function IncidentExample() {
           <div className={styles.outcomeDivider} aria-hidden="true">→</div>
           <div className={styles.outcomeItem}>
             <span className={styles.outcomeNum}>T+5 min</span>
-            <span className={styles.outcomeLbl}>SafeFix applied &amp; resolved</span>
+            <span className={styles.outcomeLbl}>SafeFix™ applied &amp; resolved</span>
           </div>
         </div>
       </div>

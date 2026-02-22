@@ -16,6 +16,8 @@ function FAQItem({ question, answer, isOpen, onToggle }: FAQItemProps) {
     <div className="glass-card rounded-xl border border-white/10 overflow-hidden">
       <button
         onClick={onToggle}
+        aria-expanded={isOpen}
+        aria-label={`${isOpen ? "Collapse" : "Expand"} answer: ${question}`}
         className="w-full text-left px-6 py-4 flex items-center justify-between hover:bg-white/5 transition-colors"
       >
         <h3 className="text-lg font-semibold pr-4">{question}</h3>

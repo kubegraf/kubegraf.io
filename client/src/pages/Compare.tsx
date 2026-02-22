@@ -249,13 +249,13 @@ export default function Compare() {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link href="/docs/installation.html">
-              <Button size="lg" className="h-12 px-8 text-base font-bold bg-primary hover:bg-primary/90 shadow-xl shadow-primary/20 transition-all rounded-full group">
+              <Button aria-label="Install KubeGraf free" size="lg" className="h-12 px-8 text-base font-bold bg-primary hover:bg-primary/90 shadow-xl shadow-primary/20 transition-all rounded-full group">
                 <Download className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" aria-hidden="true" />
                 Install KubeGraf Free
               </Button>
             </Link>
             <Link href="/docs/quickstart.html">
-              <Button variant="outline" size="lg" className="h-12 px-8 text-base font-bold border-border hover:bg-card/50 transition-all rounded-full group">
+              <Button aria-label="Open KubeGraf quick start guide" variant="outline" size="lg" className="h-12 px-8 text-base font-bold border-border hover:bg-card/50 transition-all rounded-full group">
                 <Play className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" aria-hidden="true" />
                 Quick Start Guide
               </Button>

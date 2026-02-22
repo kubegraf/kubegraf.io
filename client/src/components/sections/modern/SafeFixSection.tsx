@@ -173,7 +173,7 @@ export default function SafeFixSection() {
     <section
       className={styles.section}
       id="safefix"
-      aria-label="SafeFix — safe remediation with control"
+      aria-label="SafeFix™ — safe remediation with control"
     >
       <div className={styles.container}>
         {/* Header */}
