@@ -62,9 +62,9 @@ export default function DemoRequestModal({ open, onOpenChange }: DemoRequestModa
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !name) {
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !name) {
       setStatus("error");
-      setMessage("Email and name are required.");
+      setMessage(!name ? "Email and name are required." : "Please enter a valid email address.");
       setTimeout(() => { setStatus("idle"); setMessage(""); }, 3000);
       return;
     }
@@ -179,6 +179,7 @@ export default function DemoRequestModal({ open, onOpenChange }: DemoRequestModa
                     onChange={(e) => setEmail(e.target.value)}
                     className={inputBase}
                     autoComplete="email"
+                    aria-label="Email address"
                     required
                   />
                   <Input
@@ -188,6 +189,7 @@ export default function DemoRequestModal({ open, onOpenChange }: DemoRequestModa
                     onChange={(e) => setName(e.target.value)}
                     className={inputBase}
                     autoComplete="name"
+                    aria-label="Your name"
                   />
                   <Input
                     type="text"
@@ -196,6 +198,7 @@ export default function DemoRequestModal({ open, onOpenChange }: DemoRequestModa
                     onChange={(e) => setCompany(e.target.value)}
                     className={inputBase}
                     autoComplete="organization"
+                    aria-label="Company or organization"
                   />
                   <Input
                     type="text"
@@ -203,6 +206,7 @@ export default function DemoRequestModal({ open, onOpenChange }: DemoRequestModa
                     value={role}
                     onChange={(e) => setRole(e.target.value)}
                     className={inputBase}
+                    aria-label="Your role"
                   />
 
                   <div className="grid grid-cols-1 gap-2.5 min-[420px]:grid-cols-2">
@@ -210,6 +214,7 @@ export default function DemoRequestModal({ open, onOpenChange }: DemoRequestModa
                       value={teamSize}
                       onChange={(e) => setTeamSize(e.target.value)}
                       className={`${inputBase} rounded-md border border-border pl-3 pr-8 cursor-pointer`}
+                      aria-label="Team size"
                     >
                       <option value="">Team size</option>
                       <option value="1–10">1–10 engineers</option>
@@ -221,6 +226,7 @@ export default function DemoRequestModal({ open, onOpenChange }: DemoRequestModa
                       value={clusters}
                       onChange={(e) => setClusters(e.target.value)}
                       className={`${inputBase} rounded-md border border-border pl-3 pr-8 cursor-pointer`}
+                      aria-label="Number of clusters"
                     >
                       <option value="">No. of clusters</option>
                       <option value="1–2">1–2 clusters</option>
@@ -235,6 +241,7 @@ export default function DemoRequestModal({ open, onOpenChange }: DemoRequestModa
                     onChange={(e) => setUseCase(e.target.value)}
                     className={`${inputBase} h-auto text-sm`}
                     rows={3}
+                    aria-label="What you'd like to see in the demo"
                   />
 
                   {message && (

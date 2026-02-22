@@ -4,16 +4,16 @@ import styles from "./EnterpriseVC.module.css";
 const kpis = [
   {
     id: 1,
-    metric: "50%",
-    label: "Reduction in incident resolution time",
-    description: "Teams using KubeGraf resolve Kubernetes incidents 50% faster on average.",
+    metric: "80%",
+    label: "Faster MTTR",
+    description: "Resolve Kubernetes incidents 80% faster with evidence-backed root cause analysis and guided safe fixes.",
     icon: TrendingDown,
   },
   {
     id: 2,
-    metric: "80%",
-    label: "Prevention rate",
-    description: "Predict and prevent downtime before it impacts users.",
+    metric: "33%",
+    label: "Engineering time reclaimed",
+    description: "Reduce firefighting overhead and give your team back the time to build instead of debug.",
     icon: ShieldCheck,
   },
   {

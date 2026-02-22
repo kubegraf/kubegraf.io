@@ -23,7 +23,7 @@ export default function WaitlistForm({ size = "lg", placeholder = "Enter your em
 
   const handleEmailStep = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !email.includes("@")) {
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setStatus("error");
       setMessage("Please enter a valid email address");
       setTimeout(() => { setStatus("idle"); setMessage(""); }, 3000);
@@ -92,6 +92,7 @@ export default function WaitlistForm({ size = "lg", placeholder = "Enter your em
                 className={`flex-1 ${size === "lg" ? "h-11 text-base" : "h-10 text-sm"} border-border focus:border-primary/50 bg-background placeholder:text-muted-foreground/50`}
                 data-testid="input-waitlist-email"
                 autoComplete="email"
+                aria-label="Email address"
               />
               <Button
                 type="submit"
@@ -153,6 +154,7 @@ export default function WaitlistForm({ size = "lg", placeholder = "Enter your em
               disabled={status === "loading"}
               className={inputBase}
               autoComplete="name"
+              aria-label="Your name"
               autoFocus
             />
             <Input
@@ -163,6 +165,7 @@ export default function WaitlistForm({ size = "lg", placeholder = "Enter your em
               disabled={status === "loading"}
               className={inputBase}
               autoComplete="organization"
+              aria-label="Company or organization"
             />
             <Input
               type="text"
@@ -171,6 +174,7 @@ export default function WaitlistForm({ size = "lg", placeholder = "Enter your em
               placeholder="Role — SRE, Platform Eng, DevOps (optional)"
               disabled={status === "loading"}
               className={inputBase}
+              aria-label="Your role"
             />
 
             <div className="grid grid-cols-1 gap-2 min-[560px]:grid-cols-2">
@@ -179,6 +183,7 @@ export default function WaitlistForm({ size = "lg", placeholder = "Enter your em
                 onChange={(e) => setTeamSize(e.target.value)}
                 disabled={status === "loading"}
                 className={`${inputBase} rounded-md border border-border pl-3 pr-8 cursor-pointer`}
+                aria-label="Team size"
               >
                 <option value="">Team size</option>
                 <option value="1–10">1–10 engineers</option>
@@ -192,6 +197,7 @@ export default function WaitlistForm({ size = "lg", placeholder = "Enter your em
                 onChange={(e) => setClusters(e.target.value)}
                 disabled={status === "loading"}
                 className={`${inputBase} rounded-md border border-border pl-3 pr-8 cursor-pointer`}
+                aria-label="Number of clusters"
               >
                 <option value="">No. of clusters</option>
                 <option value="1–2">1–2 clusters</option>
