@@ -25,6 +25,7 @@ export default function CTASection() {
           <div className="mb-8 md:mb-10 max-w-2xl mx-auto">
             <div className="bg-card/50 border border-border/50 rounded-lg p-3 sm:p-4 md:p-6 font-mono text-left overflow-x-auto">
               <div className="text-xs sm:text-sm text-muted-foreground mb-2"># Install</div>
+              <div className="text-sm sm:text-base text-primary whitespace-nowrap">$ brew tap kubegraf/tap</div>
               <div className="text-sm sm:text-base text-primary mb-3 md:mb-4 whitespace-nowrap">$ brew install kubegraf</div>
               <div className="text-xs sm:text-sm text-muted-foreground mb-2"># Analyze</div>
               <div className="text-sm sm:text-base text-primary whitespace-nowrap">$ kubegraf analyze --cluster prod</div>
