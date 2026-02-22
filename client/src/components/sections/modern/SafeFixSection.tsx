@@ -188,7 +188,7 @@ export default function SafeFixSection() {
           </h2>
           <p className={styles.subtitle}>
             When KubeGraf identifies root cause, it doesn't stop there. It generates a
-            SafeFix recommendation — with confidence score, risk level, YAML diff preview,
+            SafeFix™ recommendation — with confidence score, risk level, YAML diff preview,
             blast radius analysis, and one-command rollback. Every change requires your
             explicit approval.
           </p>
@@ -383,7 +383,7 @@ export default function SafeFixSection() {
                 {applied ? (
                   <div className={styles.appliedBadge}>
                     <CheckCircle2 size={16} />
-                    <span>SafeFix applied — rollback ready</span>
+                    <span>SafeFix™ applied — rollback ready</span>
                   </div>
                 ) : (
                   <>
@@ -391,10 +391,10 @@ export default function SafeFixSection() {
                       size="sm"
                       className={styles.applyBtn}
                       onClick={handleApply}
-                      aria-label="Apply SafeFix"
+                      aria-label="Apply SafeFix™"
                     >
                       <CheckCircle2 size={14} aria-hidden="true" />
-                      Apply SafeFix
+                      Apply SafeFix™
                     </Button>
                     <Button
                       size="sm"

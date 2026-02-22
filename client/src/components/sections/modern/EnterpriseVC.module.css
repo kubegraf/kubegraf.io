@@ -328,3 +328,32 @@
     justify-content: center;
   }
 }
+
+@media (max-width: 640px) {
+  .section {
+    padding: 3rem 1rem;
+  }
+
+  .kpiMetric {
+    font-size: 2rem;
+  }
+
+  .kpiCard {
+    padding: 1.25rem;
+  }
+
+  .roiStats {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .roiStatNum {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+  }
+
+  .roiCta {
+    padding: 1.25rem;
+    border-radius: 0.75rem;
+  }
+}

@@ -44,7 +44,7 @@ export default function IncidentExample() {
           <p className={styles.subtitle}>
             This is what KubeGraf returns when you run{" "}
             <code className={styles.inlineCode}>kubegraf diagnose</code>. Clear root
-            cause, evidence, and a ready-to-apply SafeFix — in one command.
+            cause, evidence, and a ready-to-apply SafeFix™ — in one command.
           </p>
         </div>
 

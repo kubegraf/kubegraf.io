@@ -5,7 +5,7 @@ import styles from "./EarlyAccessSection.module.css";
 const benefits = [
   "Early feature access before public release",
   "Shape the roadmap — your incidents influence what we build next",
-  "First access to every new SafeFix pattern and diagnostic capability as we ship",
+  "First access to every new SafeFix™ pattern and diagnostic capability as we ship",
 ];
 
 export default function EarlyAccessSection() {

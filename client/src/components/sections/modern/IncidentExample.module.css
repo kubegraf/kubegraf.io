@@ -243,6 +243,25 @@
 }
 
 /* ── Responsive ── */
+@media (max-width: 768px) {
+  .section {
+    padding: 4rem 1rem;
+  }
+
+  .cardBody {
+    padding: 1rem 1.25rem;
+    font-size: 0.75rem;
+  }
+
+  .rowKey {
+    min-width: 78px;
+  }
+
+  .outcomes {
+    gap: 1rem;
+  }
+}
+
 @media (max-width: 640px) {
   .section {
     padding: 4rem 1rem;

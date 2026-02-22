@@ -43,7 +43,7 @@ export default function HowItWorks() {
         <div className={styles.header}>
           <h2 className={styles.title}>
             <span className={styles.highlight}>Incident → Root Cause</span>{" "}
-            <span className={styles.highlightAmber}>→ SafeFix → Resolved</span>
+            <span className={styles.highlightAmber}>→ SafeFix™ → Resolved</span>
           </h2>
           <p className={styles.subtitle}>
             Four deterministic steps. No guesswork. No manual grepping. KubeGraf works the incident so you can fix it — with evidence, confidence, and full control at every step.

@@ -14,7 +14,6 @@ export const LINKS = {
   
   // Contact
   CONTACT_MAILTO: "mailto:contact@kubegraf.io",
-  CONTACT_EMAIL: "contact@kubegraf.io",
   
   // Internal routes
   PRIVACY: "/privacy",
