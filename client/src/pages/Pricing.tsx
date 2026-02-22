@@ -88,7 +88,7 @@ export default function Pricing() {
               Get started free
             </Button>
             <p className="text-center text-sm text-muted-foreground mt-3">
-              No account required.
+              No account required. Free forever.
             </p>
           </motion.div>
 
