@@ -8,10 +8,10 @@ import { LINKS } from "@/config/links";
 export default function Support() {
   useEffect(() => {
     // Set page title and meta description
-    document.title = 'Support - KubēGraf';
+    document.title = 'Support – KubēGraf | Bug Reports, Feature Requests & Help';
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Get support for KubeGraf. Report bugs, request features, or contact us for security issues and general inquiries.');
+      metaDescription.setAttribute('content', 'Get help with KubeGraf. Report bugs on GitHub, request new features, contact us for security disclosures, or reach us directly at contact@kubegraf.io.');
     }
   }, []);
 

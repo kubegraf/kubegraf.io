@@ -580,6 +580,24 @@
 }
 
 /* ── Responsive ── */
+@media (max-width: 768px) {
+  .section {
+    padding: 4.5rem 1rem;
+  }
+
+  .container {
+    gap: 2.5rem;
+  }
+
+  .demoPanel {
+    border-radius: 1rem;
+  }
+
+  .fixBody {
+    padding: 1.25rem;
+  }
+}
+
 @media (max-width: 640px) {
   .section {
     padding: 4rem 1rem;

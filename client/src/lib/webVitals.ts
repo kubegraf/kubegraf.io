@@ -40,24 +40,24 @@ export function reportWebVitals(onPerfEntry?: (metric: Metric) => void) {
         console.warn('CLS measurement not supported');
       }
 
-      // First Input Delay (FID)
+      // Interaction to Next Paint (INP) — replaced FID as Core Web Vital in March 2024
       try {
-        const fidObserver = new PerformanceObserver((list) => {
+        const inpObserver = new PerformanceObserver((list) => {
           for (const entry of list.getEntries()) {
-            const fidValue = (entry as any).processingStart - entry.startTime;
-            const rating = fidValue < 100 ? 'good' : fidValue < 300 ? 'needs-improvement' : 'poor';
+            const inpValue = (entry as any).duration;
+            const rating = inpValue < 200 ? 'good' : inpValue < 500 ? 'needs-improvement' : 'poor';
             onPerfEntry({
-              name: 'FID',
-              value: fidValue,
+              name: 'INP',
+              value: inpValue,
               rating,
-              delta: fidValue,
+              delta: inpValue,
               id: `v1-${Date.now()}-${Math.random()}`
             });
           }
         });
-        fidObserver.observe({ type: 'first-input', buffered: true });
+        inpObserver.observe({ type: 'event', buffered: true, durationThreshold: 16 } as PerformanceObserverInit);
       } catch (e) {
-        console.warn('FID measurement not supported');
+        console.warn('INP measurement not supported');
       }
 
       // Largest Contentful Paint (LCP)

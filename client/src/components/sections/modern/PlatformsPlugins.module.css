@@ -168,6 +168,16 @@
   transform: scale(1.15);
 }
 
+:global(:root[data-theme="light"]) .logoContainer,
+:global(:root:not([data-theme])) .logoContainer {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+:global(:root[data-theme="light"]) .platformCard:hover .logoContainer,
+:global(:root:not([data-theme])) .platformCard:hover .logoContainer {
+  background: rgba(0, 0, 0, 0.1);
+}
+
 .logoImage {
   width: 100%;
   height: 100%;

@@ -1,4 +1,4 @@
-import { Check } from "lucide-react";
+import { Check, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
@@ -100,6 +100,10 @@ export default function Pricing() {
             className="glass-card rounded-2xl border border-primary/50 p-5 sm:p-8"
           >
             <div className="mb-6">
+              <div className="inline-flex items-center gap-1.5 bg-primary/10 text-primary text-xs font-semibold px-2.5 py-1 rounded-full mb-3">
+                <Star className="w-3 h-3" aria-hidden="true" />
+                Recommended for Teams
+              </div>
               <h2 className="text-2xl font-bold mb-2">Pro</h2>
               <p className="text-muted-foreground">
                 For teams operating production clusters that need deeper diagnosis and shared incident learning
