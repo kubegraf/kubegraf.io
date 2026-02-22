@@ -67,7 +67,7 @@ export default function FAQ() {
     document.title = 'FAQ - KubēGraf | Frequently Asked Questions';
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Common questions about installing, using, and understanding KubeGraf - the local-first Kubernetes incident detection and diagnosis tool.');
+      metaDescription.setAttribute('content', 'Common questions about KubeGraf — the AI SRE Platform for Kubernetes. Installation, usage, pricing, and how it compares to other tools.');
     }
 
     return () => {

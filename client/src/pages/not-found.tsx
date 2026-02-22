@@ -8,6 +8,8 @@ import { FooterModern } from "@/components/sections/modern";
 export default function NotFound() {
   useEffect(() => {
     document.title = '404 – Page Not Found | KubēGraf';
+    const meta = document.querySelector('meta[name="description"]');
+    if (meta) meta.setAttribute('content', 'Page not found. Return to KubēGraf — the AI SRE Platform for Kubernetes.');
   }, []);
 
   return (
@@ -42,7 +44,7 @@ export default function NotFound() {
               <Button
                 variant="outline"
                 className="w-full justify-start gap-2 border-primary/50 hover:bg-primary/10"
-                onClick={() => window.location.href = '/docs/index.html'}
+                onClick={() => window.location.href = '/docs/'}
               >
                 <Book className="w-4 h-4" />
                 Documentation

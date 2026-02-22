@@ -5,7 +5,7 @@
 
 export const LINKS = {
   // Documentation
-  DOCS_URL: "/docs-overview",
+  DOCS_URL: "/docs/",
   
   // GitHub Issues
   BUG_URL: "https://github.com/kubegraf/kubegraf/issues/new?template=bug_report.yml",
