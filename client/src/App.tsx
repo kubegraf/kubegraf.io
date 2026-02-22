@@ -10,7 +10,6 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 const Home = lazy(() => import("@/pages/Home"));
 const HomeModern = lazy(() => import("@/pages/HomeModern"));
 const Pricing = lazy(() => import("@/pages/Pricing"));
-const Docs = lazy(() => import("@/pages/Docs"));
 const WhatIsKubeGraf = lazy(() => import("@/pages/WhatIsKubeGraf"));
 const Compare = lazy(() => import("@/pages/Compare"));
 const Privacy = lazy(() => import("@/pages/Privacy"));
@@ -39,7 +38,6 @@ function Routes() {
         <Route path="/kubegraf" component={WhatIsKubeGraf} />
         <Route path="/pricing" component={Pricing} />
         <Route path="/compare" component={Compare} />
-        <Route path="/docs-overview" component={Docs} />
         <Route path="/faq" component={FAQ} />
         <Route path="/roi" component={ROI} />
         <Route path="/privacy" component={Privacy} />

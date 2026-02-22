@@ -83,6 +83,7 @@ export default function Pricing() {
             <Button
               className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
               onClick={() => window.location.href = '/docs/installation.html'}
+              aria-label="Get started with KubeGraf free plan"
             >
               Get started free
             </Button>
@@ -133,6 +134,7 @@ export default function Pricing() {
             <Button
               className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
               onClick={() => window.location.href = 'https://app.kubegraf.io/signup'}
+              aria-label="Start KubeGraf Pro 14-day trial"
             >
               Start 14-day trial
             </Button>
