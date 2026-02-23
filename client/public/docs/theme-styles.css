@@ -107,7 +107,7 @@ body {
 }
 
 :root[data-theme="light"] .sidebar {
-  background: var(--bg-secondary);
+  background: var(--bg); /* warm cream #faf6e9 — matches page background */
   border-right: 1px solid var(--border);
   box-shadow: 2px 0 4px rgba(0, 0, 0, 0.03);
 }
