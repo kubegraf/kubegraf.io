@@ -123,8 +123,20 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(6, 1fr);
   gap: 1.5rem;
+}
+
+.grid > *:nth-child(-n+3) {
+  grid-column: span 2;
+}
+
+.grid > *:nth-child(4) {
+  grid-column: 2 / span 2;
+}
+
+.grid > *:nth-child(5) {
+  grid-column: 4 / span 2;
 }
 
 .card {
@@ -204,6 +216,18 @@
 }
 
 /* Responsive Design */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid > *:nth-child(-n+3),
+  .grid > *:nth-child(4),
+  .grid > *:nth-child(5) {
+    grid-column: span 1;
+  }
+}
+
 @media (max-width: 768px) {
   .section {
     padding: 4rem 1rem;
