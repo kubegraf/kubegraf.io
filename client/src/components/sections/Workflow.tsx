@@ -31,15 +31,15 @@ const steps = [
 export default function Workflow() {
   return (
     <section className="relative py-12 sm:py-16 lg:py-20 border-t border-border/50">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
         {/* Section header */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 mb-10 sm:mb-12">
+        <div className="text-center mb-10 sm:mb-12">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             style={{ fontSize: 'clamp(2rem, 1.6rem + 2vw, 3.5rem)' }}
-            className="font-mono font-bold leading-tight"
+            className="font-mono font-bold mb-4 leading-tight"
           >
             <span className="text-foreground/90">How </span>
             <span className="text-primary">it</span>
@@ -51,7 +51,7 @@ export default function Workflow() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-lg sm:text-xl text-foreground/85 lg:max-w-xs lg:text-right leading-relaxed"
+            className="text-lg sm:text-xl text-foreground/85 max-w-2xl mx-auto leading-relaxed"
           >
             From incident detection to safe remediation in four steps
           </motion.p>
