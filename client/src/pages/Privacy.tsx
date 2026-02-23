@@ -99,9 +99,6 @@ export default function Privacy() {
             <p className="text-sm text-muted-foreground/70 mt-12">
               KubēGraf is a product of Kontrolity Ltd, a UK-registered company.
             </p>
-            <p className="text-sm text-muted-foreground/70">
-              Last updated: February 2026
-            </p>
           </div>
         </motion.div>
       </section>
