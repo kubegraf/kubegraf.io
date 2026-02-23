@@ -278,8 +278,8 @@ export default function Navbar({ disableScrollEffects = false }: NavbarProps) {
         }}
       >
         <div className="container mx-auto h-full px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-full">
-            {/* Logo */}
+          <div className="grid grid-cols-[1fr_auto_1fr] items-center h-full">
+            {/* Logo — left col */}
             <a href="/" className="flex items-center gap-3 group">
               <motion.img
                 key={theme}
@@ -358,7 +358,9 @@ export default function Navbar({ disableScrollEffects = false }: NavbarProps) {
               </motion.a>
             </div>
 
-            {/* CTA Buttons - Portainer style */}
+            {/* Right col — CTAs + mobile hamburger */}
+            <div className="flex items-center justify-end gap-3">
+            {/* CTA Buttons */}
             <div className="hidden lg:flex items-center gap-3">
               {/* Docs and Install combined CTA */}
               <div
@@ -446,6 +448,7 @@ export default function Navbar({ disableScrollEffects = false }: NavbarProps) {
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </Button>
+            </div>
           </div>
         </div>
       </motion.nav>
