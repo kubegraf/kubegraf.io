@@ -123,29 +123,25 @@ a:hover { text-decoration: underline; }
 /* ── Page layout ────────────────────────────────────────────── */
 .docs-layout {
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
+  flex-direction: column;
   min-height: 100vh;
 }
 .docs-main-wrapper {
   display: block;
   flex: 1;
-  min-width: 0;
 }
 
 /* ── Sidebar ────────────────────────────────────────────────── */
 /* Base sidebar — spacing overrides are in theme-styles.css */
 .sidebar {
   width: 280px;
-  flex-shrink: 0;
-  align-self: flex-start;
   background: var(--bg);
   border-right: 1px solid var(--border);
   padding: 1.25rem 1rem 4rem;
-  position: sticky;
-  top: 64px;
-  height: calc(100vh - 64px);
+  position: fixed;
+  height: 100vh;
   overflow-y: auto;
+  top: 0;
 }
 .sidebar-logo { display: none !important; }
 
@@ -237,7 +233,7 @@ a:hover { text-decoration: underline; }
 /* ── Main content area ──────────────────────────────────────── */
 .docs-content {
   flex: 1;
-  margin-left: 0;
+  margin-left: 280px;
   padding: 2.5rem 3.5rem 3rem 3rem;
   max-width: 860px;       /* optimal prose reading width */
   position: relative;
@@ -619,16 +615,10 @@ kbd {
   .mobile-menu-btn,
   .mobile-home-btn { display: flex; }
 
-  /* Revert to fixed slide-in on mobile */
-  .docs-layout {
-    flex-direction: column;
-  }
-
   .sidebar {
     position: fixed !important;
     left: -280px !important;
     top: 0;
-    height: 100vh !important;
     z-index: 1000;
     transition: left 0.28s ease;
     box-shadow: 4px 0 16px rgba(0,0,0,0.25);
