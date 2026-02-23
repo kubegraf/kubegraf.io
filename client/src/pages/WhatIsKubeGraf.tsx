@@ -322,12 +322,12 @@ export default function WhatIsKubeGraf() {
                 <Download className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
                 Install KubeGraf
               </Button>
-              <Link href="/docs/quickstart.html">
+              <a href="/docs/quickstart.html">
                 <Button variant="outline" size="lg" className="h-14 px-10 text-lg font-bold border-border hover:bg-card/50 transition-all rounded-full group">
                   <Play className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
                   Quick Start Guide
                 </Button>
-              </Link>
+              </a>
             </div>
           </div>
         </section>
