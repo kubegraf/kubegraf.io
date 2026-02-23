@@ -10,17 +10,13 @@
 export default function DemoExecution() {
   return (
     <section className="relative py-12 sm:py-16 lg:py-20 border-t border-border/50">
-      <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 max-w-6xl">
-        <div className="text-center mb-8 sm:mb-10 px-2">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-4 leading-tight">
+      <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 max-w-7xl">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 mb-8 sm:mb-10 px-2">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold leading-tight">
             See It In Action
           </h2>
-          <p className="text-lg sm:text-xl text-muted-foreground mb-2 leading-relaxed">
-            Real incident detection and diagnosis in action.
-            No edits. No marketing. Just evidence.
-          </p>
-          <p className="text-base sm:text-lg text-muted-foreground">
-            Same incident, two interfaces
+          <p className="text-lg sm:text-xl text-muted-foreground lg:max-w-xs leading-relaxed lg:text-right">
+            Real output. No edits. No marketing. Same incident, two interfaces.
           </p>
         </div>
 
@@ -28,7 +24,7 @@ export default function DemoExecution() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 items-start">
           {/* Terminal UI */}
           <div className="flex flex-col">
-            <div className="mb-3 md:mb-4 text-center px-2">
+            <div className="mb-3 md:mb-4 px-2">
               <h3 className="text-base md:text-lg font-display font-semibold mb-1">Terminal UI</h3>
               <p className="text-xs text-muted-foreground">
                 For SSH sessions and remote debugging
@@ -120,7 +116,7 @@ Confidence: 92%
 
           {/* Web UI */}
           <div className="flex flex-col">
-            <div className="mb-3 md:mb-4 text-center px-2">
+            <div className="mb-3 md:mb-4 px-2">
               <h3 className="text-base md:text-lg font-display font-semibold mb-1">Web Dashboard</h3>
               <p className="text-xs text-muted-foreground">
                 Visual timeline, metrics graphs, evidence browser
@@ -154,8 +150,8 @@ Confidence: 92%
         </div>
 
         {/* Bottom note */}
-        <div className="text-center mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-border/50 px-3">
-          <p className="text-xs sm:text-sm text-muted-foreground max-w-2xl mx-auto">
+        <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-border/50 px-3">
+          <p className="text-xs sm:text-sm text-muted-foreground">
             Every diagnosis is backed by collected evidence. Every fix requires human approval.
           </p>
         </div>
