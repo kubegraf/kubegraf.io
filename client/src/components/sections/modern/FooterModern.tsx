@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { BookOpen, Download, Mail, FileText, Shield } from "lucide-react";
+import { BookOpen, Download, Mail, FileText, Shield, Linkedin, Twitter, Instagram } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import styles from "./FooterModern.module.css";
 
@@ -104,6 +104,17 @@ export default function FooterModern() {
             <p className={styles.tagline}>
               AI SRE platform for Kubernetes — root cause to safe fix in minutes.
             </p>
+            <div className={styles.socialLinks}>
+              <a href="https://www.linkedin.com/company/kubegraf/" target="_blank" rel="noopener noreferrer" className={styles.socialLink} aria-label="KubeGraf on LinkedIn">
+                <Linkedin className={styles.socialIcon} aria-hidden="true" />
+              </a>
+              <a href="https://x.com/kubegraf" target="_blank" rel="noopener noreferrer" className={styles.socialLink} aria-label="KubeGraf on X">
+                <Twitter className={styles.socialIcon} aria-hidden="true" />
+              </a>
+              <a href="https://www.instagram.com/kubegraf.io/" target="_blank" rel="noopener noreferrer" className={styles.socialLink} aria-label="KubeGraf on Instagram">
+                <Instagram className={styles.socialIcon} aria-hidden="true" />
+              </a>
+            </div>
           </div>
 
           {/* Links Sections */}
