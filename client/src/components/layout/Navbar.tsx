@@ -295,7 +295,7 @@ export default function Navbar({ disableScrollEffects = false }: NavbarProps) {
                 whileHover={disableScrollEffects ? {} : { scale: 1.05 }}
               />
               <motion.span
-                className="font-display font-bold whitespace-nowrap transition-colors duration-300 text-lg sm:text-xl md:text-2xl lg:text-3xl"
+                className="font-mono font-bold tracking-tight whitespace-nowrap transition-colors duration-300 text-lg sm:text-xl md:text-2xl lg:text-3xl"
                 animate={disableScrollEffects ? {} : {
                   fontSize: scrolled ? '1.5rem' : undefined, // Only animate on scroll when effects enabled
                 }}
