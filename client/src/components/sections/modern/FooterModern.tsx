@@ -179,7 +179,7 @@ export default function FooterModern() {
         {/* Bottom Bar */}
         <div className={styles.bottomBar}>
           <p className={styles.copyright}>
-            &copy; 2026 KubēGraf
+            &copy; 2026 KubēGraf. All rights reserved.
           </p>
           <ThemePreferenceControl />
         </div>
