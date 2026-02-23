@@ -179,7 +179,7 @@ export default function FooterModern() {
         {/* Bottom Bar */}
         <div className={styles.bottomBar}>
           <p className={styles.copyright}>
-            &copy; {new Date().getFullYear()} KubēGraf. All rights reserved.
+            &copy; 2026 KubēGraf. A product of Kontrolity Ltd, a UK-registered company.
           </p>
           <ThemePreferenceControl />
         </div>

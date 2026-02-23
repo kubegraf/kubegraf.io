@@ -96,6 +96,10 @@ export default function License() {
               <ExternalLink className="w-4 h-4" />
             </a>
           </div>
+
+          <p className="text-sm text-muted-foreground/70 mt-12">
+            © 2026 KubēGraf. A product of Kontrolity Ltd, a UK-registered company.
+          </p>
         </motion.div>
       </section>
       </main>
