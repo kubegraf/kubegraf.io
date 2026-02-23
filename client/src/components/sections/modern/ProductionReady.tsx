@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, GitBranch, ClipboardList, Users, Key } from "lucide-react";
 import styles from "./ProductionReady.module.css";
+import WaitlistModal from "@/components/forms/WaitlistModal";
 
 const features = [
   {
@@ -30,6 +32,8 @@ const features = [
 ];
 
 export default function ProductionReady() {
+  const [waitlistOpen, setWaitlistOpen] = useState(false);
+
   return (
     <section className={styles.section} aria-label="Production ready">
       <div className={styles.container}>
@@ -65,7 +69,7 @@ export default function ProductionReady() {
           <Button
             size="lg"
             className={styles.ctaButton}
-            onClick={() => (window.location.href = "/docs/installation.html")}
+            onClick={() => setWaitlistOpen(true)}
             aria-label="Get started with free install"
           >
             Get Started – Free Install
@@ -73,6 +77,8 @@ export default function ProductionReady() {
           </Button>
         </div>
       </div>
+
+      <WaitlistModal open={waitlistOpen} onOpenChange={setWaitlistOpen} />
     </section>
   );
 }
