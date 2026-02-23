@@ -1,12 +1,16 @@
 import { Check, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { useEffect } from "react";
-import { Link } from "wouter";
+import { useEffect, useState } from "react";
 import Navbar from "@/components/layout/Navbar";
 import { FooterModern } from "@/components/sections/modern";
+import WaitlistModal from "@/components/forms/WaitlistModal";
+import DemoRequestModal from "@/components/forms/DemoRequestModal";
 
 export default function Pricing() {
+  const [waitlistOpen, setWaitlistOpen] = useState(false);
+  const [demoOpen, setDemoOpen] = useState(false);
+
   useEffect(() => {
     // Set page title and meta description
     document.title = 'Pricing - KubēGraf | Free and Pro Plans';
@@ -50,7 +54,7 @@ export default function Pricing() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="glass-card rounded-2xl border border-white/10 p-5 sm:p-8"
+            className="glass-card rounded-2xl border border-border/50 p-5 sm:p-8"
           >
             <div className="mb-6">
               <h2 className="text-2xl font-bold mb-2">Free</h2>
@@ -82,7 +86,7 @@ export default function Pricing() {
 
             <Button
               className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
-              onClick={() => window.location.href = '/docs/installation.html'}
+              onClick={() => setWaitlistOpen(true)}
               aria-label="Get started with KubeGraf free plan"
             >
               Get started free
@@ -137,7 +141,7 @@ export default function Pricing() {
 
             <Button
               className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
-              onClick={() => window.location.href = 'https://app.kubegraf.io/signup'}
+              onClick={() => setDemoOpen(true)}
               aria-label="Start KubeGraf Pro 14-day trial"
             >
               Start 14-day trial
@@ -155,7 +159,7 @@ export default function Pricing() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="glass-card rounded-2xl border border-white/10 p-8"
+          className="glass-card rounded-2xl border border-border/50 p-8"
         >
           <h2 className="text-2xl font-bold mb-4">Trust & Transparency</h2>
           <p className="text-muted-foreground leading-relaxed">
@@ -176,7 +180,7 @@ export default function Pricing() {
           <h2 className="text-3xl font-bold mb-8 text-center">FAQ</h2>
 
           <div className="space-y-6">
-            <div className="glass-card rounded-xl border border-white/10 p-6">
+            <div className="glass-card rounded-xl border border-border/50 p-6">
               <h3 className="text-lg font-semibold mb-3">Do I need an account to use KubeGraf?</h3>
               <p className="text-muted-foreground">
                 No. The Free plan requires no account, no registration, and no telemetry. Download the binary
@@ -184,7 +188,7 @@ export default function Pricing() {
               </p>
             </div>
 
-            <div className="glass-card rounded-xl border border-white/10 p-6">
+            <div className="glass-card rounded-xl border border-border/50 p-6">
               <h3 className="text-lg font-semibold mb-3">Does KubeGraf send my data to the cloud?</h3>
               <p className="text-muted-foreground">
                 No. All cluster data stays on your machine. Pro features run locally. The only data sent during
@@ -192,7 +196,7 @@ export default function Pricing() {
               </p>
             </div>
 
-            <div className="glass-card rounded-xl border border-white/10 p-6">
+            <div className="glass-card rounded-xl border border-border/50 p-6">
               <h3 className="text-lg font-semibold mb-3">Can I downgrade or stop using Pro later?</h3>
               <p className="text-muted-foreground">
                 Yes. You can stop using Pro at any time. The Free plan continues working without interruption.
@@ -209,23 +213,27 @@ export default function Pricing() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="text-center glass-card rounded-2xl border border-white/10 p-8"
+          className="text-center glass-card rounded-2xl border border-border/50 p-8"
         >
           <h2 className="text-2xl font-bold mb-4">Enterprise & Offline Usage</h2>
           <p className="text-muted-foreground mb-4">
             Looking for enterprise support, custom licensing, or offline distribution?
           </p>
-          <a
-            href="mailto:contact@kubegraf.io"
-            className="text-primary hover:text-primary/80 font-semibold"
+          <Button
+            onClick={() => setDemoOpen(true)}
+            className="bg-primary text-primary-foreground hover:bg-primary/90"
+            aria-label="Contact us for enterprise or offline usage"
           >
-            Contact us at contact@kubegraf.io
-          </a>
+            Contact us
+          </Button>
         </motion.div>
       </section>
       </main>
 
       <FooterModern />
+
+      <WaitlistModal open={waitlistOpen} onOpenChange={setWaitlistOpen} />
+      <DemoRequestModal open={demoOpen} onOpenChange={setDemoOpen} />
     </div>
   );
 }
