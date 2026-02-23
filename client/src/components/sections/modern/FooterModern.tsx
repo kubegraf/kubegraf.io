@@ -124,23 +124,13 @@ export default function FooterModern() {
               <ul className={styles.linksList}>
                 {footerLinks.product.map((link) => (
                   <li key={link.label}>
-                    {link.external ? (
-                      <a
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={styles.link}
-                        aria-label={`${link.label} (opens in new tab)`}
-                      >
-                        {link.icon && <link.icon className={styles.linkIcon} aria-hidden="true" />}
-                        {link.label}
-                      </a>
-                    ) : (
-                      <Link href={link.href} className={styles.link}>
-                        {link.icon && <link.icon className={styles.linkIcon} aria-hidden="true" />}
-                        {link.label}
-                      </Link>
-                    )}
+                    <a
+                      href={link.href}
+                      className={styles.link}
+                    >
+                      {link.icon && <link.icon className={styles.linkIcon} aria-hidden="true" />}
+                      {link.label}
+                    </a>
                   </li>
                 ))}
               </ul>
