@@ -1,12 +1,15 @@
 import { Terminal, Globe, Code, Database, Lock, Zap, AlertCircle, CheckCircle, Clock, FileText, Shield, Search, Wrench, Download, ArrowRight, Play } from "lucide-react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "@/components/layout/Navbar";
 import { Button } from "@/components/ui/button";
 import { FooterModern } from "@/components/sections/modern";
+import WaitlistModal from "@/components/forms/WaitlistModal";
 
 export default function WhatIsKubeGraf() {
+  const [waitlistOpen, setWaitlistOpen] = useState(false);
+
   useEffect(() => {
     document.title = 'What is KubēGraf? – AI SRE Platform for Kubernetes';
     const meta = document.querySelector('meta[name="description"]');
@@ -315,12 +318,10 @@ export default function WhatIsKubeGraf() {
               }}>KubeGraf?</span>
             </h2>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href="/docs/installation.html">
-                <Button size="lg" className="h-14 px-10 text-lg font-bold bg-primary hover:bg-primary/90 shadow-xl shadow-primary/20 transition-all rounded-full group">
-                  <Download className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
-                  Install KubeGraf
-                </Button>
-              </Link>
+              <Button size="lg" className="h-14 px-10 text-lg font-bold bg-primary hover:bg-primary/90 shadow-xl shadow-primary/20 transition-all rounded-full group" onClick={() => setWaitlistOpen(true)}>
+                <Download className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
+                Install KubeGraf
+              </Button>
               <Link href="/docs/quickstart.html">
                 <Button variant="outline" size="lg" className="h-14 px-10 text-lg font-bold border-border hover:bg-card/50 transition-all rounded-full group">
                   <Play className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
@@ -333,6 +334,7 @@ export default function WhatIsKubeGraf() {
       </main>
 
       <FooterModern />
+      <WaitlistModal open={waitlistOpen} onOpenChange={setWaitlistOpen} />
     </div>
   );
 }

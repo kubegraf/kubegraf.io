@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Terminal, Menu, X, BookOpen, ChevronDown, Zap, Shield, Brain, Network, FileCode, HelpCircle, Users, BookMarked, MessageSquare, Download, TrendingUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
+import WaitlistModal from "@/components/forms/WaitlistModal";
 
 // Dropdown menu items
 const productItems = [
@@ -141,6 +142,7 @@ function NavDropdown({ label, items, isOpen, onToggle, onClose, theme }: Dropdow
 
 export default function Navbar({ disableScrollEffects = false }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [waitlistOpen, setWaitlistOpen] = useState(false);
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
@@ -394,7 +396,7 @@ export default function Navbar({ disableScrollEffects = false }: NavbarProps) {
                   <div className="w-[1px] h-4 bg-border/50 mx-1" />
 
                   <motion.button
-                    onClick={() => window.location.href = '/docs/installation.html'}
+                    onClick={() => setWaitlistOpen(true)}
                     className={`px-3 py-1.5 font-bold ${disableScrollEffects ? '' : 'transition-all duration-200'} rounded-md`}
                     style={{
                       color: theme === 'dark' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(17, 24, 39, 0.9)',
@@ -423,7 +425,7 @@ export default function Navbar({ disableScrollEffects = false }: NavbarProps) {
                     fontSize: '0.9375rem',
                     boxShadow: '0 10px 15px -3px rgba(6, 182, 212, 0.25)',
                   }}
-                  onClick={() => window.location.href = '/docs/quickstart.html'}
+                  onClick={() => setWaitlistOpen(true)}
                 >
                   Get Started
                   <Terminal className="w-4 h-4 ml-2 opacity-80" />
@@ -585,7 +587,7 @@ export default function Navbar({ disableScrollEffects = false }: NavbarProps) {
                     color: theme === 'dark' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(17, 24, 39, 1)',
                   }}
                   onClick={() => {
-                    window.location.href = '/docs/installation.html';
+                    setWaitlistOpen(true);
                     setMobileMenuOpen(false);
                   }}
                 >
@@ -605,7 +607,7 @@ export default function Navbar({ disableScrollEffects = false }: NavbarProps) {
                     e.currentTarget.style.opacity = '1';
                   }}
                   onClick={() => {
-                    window.location.href = '/docs/quickstart.html';
+                    setWaitlistOpen(true);
                     setMobileMenuOpen(false);
                   }}
                 >
@@ -617,6 +619,8 @@ export default function Navbar({ disableScrollEffects = false }: NavbarProps) {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <WaitlistModal open={waitlistOpen} onOpenChange={setWaitlistOpen} />
     </>
   );
 }

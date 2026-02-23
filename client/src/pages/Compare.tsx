@@ -1,12 +1,15 @@
 import { Check, X, AlertTriangle, Download, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "wouter";
 import Navbar from "@/components/layout/Navbar";
 import { FooterModern } from "@/components/sections/modern";
+import WaitlistModal from "@/components/forms/WaitlistModal";
 
 export default function Compare() {
+  const [waitlistOpen, setWaitlistOpen] = useState(false);
+
   useEffect(() => {
     // Set page title and meta description
     document.title = 'Compare - KubēGraf vs Lens, k9s, kubectl, Datadog';
@@ -248,12 +251,10 @@ export default function Compare() {
             Free to install. No account required. Runs locally in minutes.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/docs/installation.html">
-              <Button aria-label="Install KubeGraf free" size="lg" className="h-12 px-8 text-base font-bold bg-primary hover:bg-primary/90 shadow-xl shadow-primary/20 transition-all rounded-full group">
-                <Download className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" aria-hidden="true" />
-                Install KubeGraf Free
-              </Button>
-            </Link>
+            <Button aria-label="Install KubeGraf free" size="lg" className="h-12 px-8 text-base font-bold bg-primary hover:bg-primary/90 shadow-xl shadow-primary/20 transition-all rounded-full group" onClick={() => setWaitlistOpen(true)}>
+              <Download className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" aria-hidden="true" />
+              Install KubeGraf Free
+            </Button>
             <Link href="/docs/quickstart.html">
               <Button aria-label="Open KubeGraf quick start guide" variant="outline" size="lg" className="h-12 px-8 text-base font-bold border-border hover:bg-card/50 transition-all rounded-full group">
                 <Play className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" aria-hidden="true" />
@@ -266,6 +267,7 @@ export default function Compare() {
       </main>
 
       <FooterModern />
+      <WaitlistModal open={waitlistOpen} onOpenChange={setWaitlistOpen} />
     </div>
   );
 }

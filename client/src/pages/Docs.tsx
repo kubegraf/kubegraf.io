@@ -1,9 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "@/components/layout/Navbar";
 import { FooterModern } from "@/components/sections/modern";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BookOpen, Bug, Code2, Cpu, HelpCircle, Layers, LifeBuoy, Network, ServerCog, Terminal } from "lucide-react";
+import WaitlistModal from "@/components/forms/WaitlistModal";
 
 type DocCardProps = {
   title: string;
@@ -35,6 +36,8 @@ function DocCard({ title, description, href, badge }: DocCardProps) {
 }
 
 export default function Docs() {
+  const [waitlistOpen, setWaitlistOpen] = useState(false);
+
   useEffect(() => {
     document.title = 'Documentation – KubēGraf';
     const meta = document.querySelector('meta[name="description"]');
@@ -62,7 +65,7 @@ export default function Docs() {
               <Button
                 size="lg"
                 className="rounded-full px-6 sm:px-8 text-sm font-medium"
-                onClick={() => (window.location.href = "/docs/quickstart.html")}
+                onClick={() => setWaitlistOpen(true)}
               >
                 Get started in 5 minutes
               </Button>
@@ -232,6 +235,7 @@ export default function Docs() {
       </main>
 
       <FooterModern />
+      <WaitlistModal open={waitlistOpen} onOpenChange={setWaitlistOpen} />
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { useState, useEffect, lazy, Suspense } from "react";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { Button } from "@/components/ui/button";
 import { Terminal, Download, ArrowRight, Play } from "lucide-react";
+import WaitlistModal from "@/components/forms/WaitlistModal";
 
 // Lazy load the interactive dot grid for performance
 const InteractiveDotGrid = lazy(() => import("@/components/InteractiveDotGrid"));
@@ -171,6 +172,7 @@ function AnimatedTerminal() {
 export default function Hero() {
   const isMobile = useIsMobile();
   const [showGrid, setShowGrid] = useState(false);
+  const [waitlistOpen, setWaitlistOpen] = useState(false);
 
   useEffect(() => {
     // Delay loading the interactive grid
@@ -253,7 +255,7 @@ export default function Hero() {
               <Button
                 size="lg"
                 className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20 text-[1rem] px-8 h-[3.25rem] font-medium transition-all duration-200"
-                onClick={() => window.location.href = '/docs/quickstart.html'}
+                onClick={() => setWaitlistOpen(true)}
               >
                 Get Started
                 <ArrowRight className="w-4 h-4 ml-2" />
@@ -262,7 +264,7 @@ export default function Hero() {
                 size="lg"
                 variant="outline"
                 className="text-[1rem] px-8 h-[3.25rem] font-medium border-border/50 hover:bg-muted/50 transition-all duration-200"
-                onClick={() => window.location.href = '/docs/installation.html'}
+                onClick={() => setWaitlistOpen(true)}
               >
                 <Download className="w-4 h-4 mr-2" />
                 Download
@@ -323,6 +325,8 @@ export default function Hero() {
           </motion.div>
         </div>
       </motion.div>
+
+      <WaitlistModal open={waitlistOpen} onOpenChange={setWaitlistOpen} />
     </section>
   );
 }

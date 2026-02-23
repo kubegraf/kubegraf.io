@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, BarChart3, Search, Terminal, Fingerprint } from "lucide-react";
 import styles from "./EvidenceDesign.module.css";
+import WaitlistModal from "@/components/forms/WaitlistModal";
 
 const evidencePoints = [
   {
@@ -30,6 +32,8 @@ const evidencePoints = [
 ];
 
 export default function EvidenceDesign() {
+  const [waitlistOpen, setWaitlistOpen] = useState(false);
+
   return (
     <section className={styles.section} aria-label="Evidence-driven design">
       <div className={styles.container}>
@@ -63,7 +67,7 @@ export default function EvidenceDesign() {
           <Button
             size="lg"
             className={styles.ctaButton}
-            onClick={() => (window.location.href = "/docs/quickstart.html")}
+            onClick={() => setWaitlistOpen(true)}
             aria-label="See KubeGraf in action"
           >
             See It In Action
@@ -71,6 +75,8 @@ export default function EvidenceDesign() {
           </Button>
         </div>
       </div>
+
+      <WaitlistModal open={waitlistOpen} onOpenChange={setWaitlistOpen} />
     </section>
   );
 }

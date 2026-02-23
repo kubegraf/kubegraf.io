@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Download, Users, Play, Terminal, Globe, TrendingUp } from "lucide-react";
 import styles from "./CTASectionModern.module.css";
 import DemoRequestModal from "@/components/forms/DemoRequestModal";
+import WaitlistModal from "@/components/forms/WaitlistModal";
 
 const terminalLines = [
   { type: 'command', text: '$ kubegraf scan' },
@@ -56,6 +57,7 @@ function DashboardView() {
 export default function CTASectionModern() {
   const [activeTab, setActiveTab] = useState<'terminal' | 'dashboard'>('terminal');
   const [demoModalOpen, setDemoModalOpen] = useState(false);
+  const [waitlistOpen, setWaitlistOpen] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -82,7 +84,7 @@ export default function CTASectionModern() {
               <Button
                 size="lg"
                 className={styles.primaryCTA}
-                onClick={() => (window.location.href = "/docs/installation.html")}
+                onClick={() => setWaitlistOpen(true)}
                 aria-label="Get started with free install"
               >
                 <Download className={styles.ctaIcon} aria-hidden="true" />
@@ -173,6 +175,7 @@ export default function CTASectionModern() {
     </section>
 
     <DemoRequestModal open={demoModalOpen} onOpenChange={setDemoModalOpen} />
+    <WaitlistModal open={waitlistOpen} onOpenChange={setWaitlistOpen} />
     </>
   );
 }
