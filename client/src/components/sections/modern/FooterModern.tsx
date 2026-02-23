@@ -179,7 +179,7 @@ export default function FooterModern() {
         {/* Bottom Bar */}
         <div className={styles.bottomBar}>
           <p className={styles.copyright}>
-            &copy; 2026 KubēGraf. A product of Kontrolity Ltd, a UK-registered company.
+            &copy; 2026 KubēGraf
           </p>
           <ThemePreferenceControl />
         </div>

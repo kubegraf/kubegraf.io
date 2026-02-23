@@ -97,6 +97,10 @@ export default function License() {
             </a>
           </div>
 
+          <p className="text-sm text-muted-foreground/70 mt-12">
+            KubēGraf is a product of Kontrolity Ltd, a UK-registered company.
+          </p>
+
         </motion.div>
       </section>
       </main>
