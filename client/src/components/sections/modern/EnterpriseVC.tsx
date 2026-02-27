@@ -35,7 +35,7 @@ export default function EnterpriseVC() {
             <span className={styles.highlightAmber}>& Enterprise</span>
           </h2>
           <p className={styles.subtitle}>
-            KubeGraf delivers measurable ROI and is designed for enterprise Kubernetes environments
+            KubeGraf, a flagship product of Orkastor, delivers measurable ROI and is designed for enterprise Kubernetes environments
           </p>
         </div>
 

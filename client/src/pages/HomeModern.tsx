@@ -40,7 +40,7 @@ export default function HomeModern() {
   useEffect(() => {
     document.title = 'KubēGraf — AI SRE Platform for Kubernetes';
     const meta = document.querySelector('meta[name="description"]');
-    if (meta) meta.setAttribute('content', 'KubeGraf is an AI SRE Platform for Kubernetes — root cause clarity and safe remediation in minutes, without SaaS lock-in or cloud dependency.');
+    if (meta) meta.setAttribute('content', 'KubeGraf by Orkastor is an AI SRE Platform for Kubernetes — root cause clarity and safe remediation in minutes, powered by OrkaAI. No SaaS lock-in or cloud dependency.');
   }, []);
 
   return (

@@ -1,4 +1,4 @@
-import { Terminal, Globe, Code, Database, Lock, Zap, AlertCircle, CheckCircle, Clock, FileText, Shield, Search, Wrench, Download, ArrowRight, Play } from "lucide-react";
+import { Terminal, Globe, Code, Database, Lock, Zap, AlertCircle, CheckCircle, Clock, FileText, Shield, Search, Wrench, Download, ArrowRight, Play, Brain, Cpu, Network } from "lucide-react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -11,9 +11,9 @@ export default function WhatIsKubeGraf() {
   const [waitlistOpen, setWaitlistOpen] = useState(false);
 
   useEffect(() => {
-    document.title = 'What is KubēGraf? – AI SRE Platform for Kubernetes';
+    document.title = 'What is KubēGraf? – AI SRE by Orkastor';
     const meta = document.querySelector('meta[name="description"]');
-    if (meta) meta.setAttribute('content', 'Learn what KubeGraf is — an AI SRE Platform for Kubernetes that detects incidents, explains root causes with evidence, and previews safe fixes locally.');
+    if (meta) meta.setAttribute('content', 'KubeGraf by Orkastor — an AI SRE Platform for Kubernetes powered by OrkaAI. Detects incidents, explains root causes with evidence, and previews safe fixes locally.');
   }, []);
 
   return (
@@ -295,6 +295,87 @@ export default function WhatIsKubeGraf() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Built by Orkastor */}
+        <section className="py-12 md:py-24 relative overflow-hidden">
+          <div className="container mx-auto px-4 max-w-6xl">
+            <div className="text-center mb-10 md:mb-16">
+              <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-6 tracking-tight">
+                <span style={{
+                  background: 'linear-gradient(135deg, #FE5000, #0891b2)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}>Built by</span>{" "}
+                <span style={{
+                  background: 'linear-gradient(135deg, #f59e0b, #ef4444)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}>Orkastor</span>
+              </h2>
+              <p className="text-lg max-w-3xl mx-auto text-foreground/75 dark:text-muted-foreground leading-relaxed">
+                Orkastor is the AI DevOps &amp; Cloud Orchestration platform. KubeGraf is its flagship product —
+                the in-environment AI SRE for Kubernetes. OrkaAI powers the intelligence layer with multi-model reasoning,
+                RAG knowledge base, and confidence-scored diagnostics.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6 mb-10">
+              {[
+                {
+                  icon: Globe,
+                  title: "Orkastor Platform",
+                  desc: "The modular AI DevOps platform. Add specialized AI agents for any part of your infrastructure lifecycle — Kubernetes, cloud costs, security, and beyond.",
+                  color: "#06b6d4",
+                },
+                {
+                  icon: Brain,
+                  title: "OrkaAI Engine",
+                  desc: "Multi-model AI reasoning engine powering all Orkastor modules. RAG knowledge base, live cluster analysis, incident RCA, and confidence-scored diagnostics.",
+                  color: "#f59e0b",
+                },
+                {
+                  icon: Network,
+                  title: "KubeGraf — Flagship Product",
+                  desc: "The in-environment AI SRE for Kubernetes. Monitor, diagnose, and auto-remediate — zero data exfiltration. Everything runs inside your own environment.",
+                  color: "#10b981",
+                },
+              ].map((item, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className="p-5 md:p-8 rounded-2xl border border-border/50 bg-card/10 backdrop-blur-md hover:border-primary/30 transition-all flex flex-col items-center text-center group"
+                >
+                  <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform" style={{ backgroundColor: `${item.color}20` }}>
+                    <item.icon className="w-8 h-8" style={{ color: item.color }} />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3">{item.title}</h3>
+                  <p className="text-foreground/75 dark:text-muted-foreground leading-relaxed">
+                    {item.desc}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+
+            <div className="flex justify-center">
+              <a
+                href="https://orkastor.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button variant="outline" size="lg" className="h-14 px-10 text-lg font-bold border-border hover:bg-card/50 transition-all rounded-full group">
+                  <Globe className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
+                  Visit orkastor.com
+                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </a>
             </div>
           </div>
         </section>

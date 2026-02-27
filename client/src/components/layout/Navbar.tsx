@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import { Terminal, Menu, X, BookOpen, ChevronDown, Zap, Shield, Brain, Network, FileCode, HelpCircle, Users, BookMarked, MessageSquare, Download, TrendingUp } from "lucide-react";
+import { Terminal, Menu, X, BookOpen, ChevronDown, Zap, Shield, Brain, Network, FileCode, HelpCircle, Users, BookMarked, MessageSquare, Download, TrendingUp, Globe } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import WaitlistModal from "@/components/forms/WaitlistModal";
@@ -22,7 +22,9 @@ const resourcesItems = [
 ];
 
 const companyItems = [
-  { label: "About KubeGraf", href: "/kubegraf", icon: Brain, description: "Our mission" },
+  { label: "Orkastor", href: "https://orkastor.com", icon: Globe, description: "AI DevOps Platform" },
+  { label: "OrkaAI", href: "https://orkastor.com/#platform", icon: Brain, description: "Multi-model AI engine" },
+  { label: "About KubeGraf", href: "/kubegraf", icon: Shield, description: "Our flagship AI SRE" },
   { label: "ROI & Business Impact", href: "/roi", icon: TrendingUp, description: "Cost savings analysis" },
   { label: "Compare", href: "/compare", icon: FileCode, description: "vs. alternatives" },
 ];

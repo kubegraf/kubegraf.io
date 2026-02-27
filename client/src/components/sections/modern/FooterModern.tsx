@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { BookOpen, Download, Mail, FileText, Shield, Linkedin, Twitter, Instagram } from "lucide-react";
+import { BookOpen, Download, Mail, FileText, Shield, Linkedin, Twitter, Instagram, Globe } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import styles from "./FooterModern.module.css";
 
@@ -13,7 +13,8 @@ const footerLinks: {
     { label: "Install", href: "/docs/installation.html", icon: Download },
   ],
   company: [
-    { label: "Company", href: "/kubegraf" },
+    { label: "Orkastor", href: "https://orkastor.com", external: true, icon: Globe },
+    { label: "About KubeGraf", href: "/kubegraf" },
     { label: "Contact", href: "mailto:contact@kubegraf.io", external: true, icon: Mail },
   ],
   legal: [
@@ -104,6 +105,12 @@ export default function FooterModern() {
             <p className={styles.tagline}>
               AI SRE platform for Kubernetes — root cause to safe fix in minutes.
             </p>
+            <p className={styles.tagline} style={{ opacity: 0.7, marginTop: '0.25rem' }}>
+              A flagship product of{" "}
+              <a href="https://orkastor.com" target="_blank" rel="noopener noreferrer" style={{ color: 'hsl(var(--primary))', textDecoration: 'none' }}>
+                Orkastor
+              </a>
+            </p>
             <div className={styles.socialLinks}>
               <a href="https://www.linkedin.com/company/kubegraf/" target="_blank" rel="noopener noreferrer" className={styles.socialLink} aria-label="KubeGraf on LinkedIn">
                 <Linkedin className={styles.socialIcon} aria-hidden="true" />
@@ -179,7 +186,7 @@ export default function FooterModern() {
         {/* Bottom Bar */}
         <div className={styles.bottomBar}>
           <p className={styles.copyright}>
-            &copy; 2026 KubēGraf. All rights reserved.
+            &copy; 2026 KubēGraf by Orkastor. All rights reserved.
           </p>
           <ThemePreferenceControl />
         </div>

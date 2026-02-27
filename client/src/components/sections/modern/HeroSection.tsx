@@ -101,9 +101,10 @@ export default function HeroSection() {
 
             {/* Subheadline */}
             <p className={styles.subheadline}>
-              KubeGraf acts like an AI SRE — correlating logs, metrics, events, and deployments to diagnose incidents and recommend{" "}
+              Powered by OrkaAI's multi-model reasoning engine — KubeGraf correlates logs, metrics, events, and deployments to diagnose incidents and recommend{" "}
               <strong className={styles.subheadlineStrong}>safe, validated fixes.</strong>{" "}
-              Built for SREs who need answers, not dashboards.
+              A flagship product of{" "}
+              <a href="https://orkastor.com" target="_blank" rel="noopener noreferrer" className={styles.subheadlineStrong} style={{ textDecoration: 'none' }}>Orkastor</a>.
             </p>
 
             {/* CTA Buttons */}
