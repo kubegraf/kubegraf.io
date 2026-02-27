@@ -101,10 +101,12 @@ export default function HeroSection() {
 
             {/* Subheadline */}
             <p className={styles.subheadline}>
-              Powered by OrkaAI's multi-model reasoning engine — KubeGraf correlates logs, metrics, events, and deployments to diagnose incidents and recommend{" "}
-              <strong className={styles.subheadlineStrong}>safe, validated fixes.</strong>{" "}
-              A flagship product of{" "}
-              <a href="https://orkastor.com" target="_blank" rel="noopener noreferrer" className={styles.subheadlineStrong} style={{ textDecoration: 'none' }}>Orkastor</a>.
+              Powered by{" "}
+              <strong style={{ color: 'hsl(var(--primary))' }}>OrkaAI</strong>
+              {" "}— KubeGraf acts as your AI SRE, correlating logs, metrics, events, and deployments to diagnose incidents and deliver{" "}
+              <strong className={styles.subheadlineStrong}>safe, evidence-backed fixes.</strong>
+              {" "}From{" "}
+              <a href="https://orkastor.com" target="_blank" rel="noopener noreferrer" style={{ color: 'hsl(var(--primary))', fontWeight: 700, textDecoration: 'none' }}>Orkastor</a>.
             </p>
 
             {/* CTA Buttons */}
