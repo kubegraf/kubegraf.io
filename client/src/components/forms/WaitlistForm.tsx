@@ -118,6 +118,10 @@ export default function WaitlistForm({ size = "lg", placeholder = "Enter your em
                 </motion.p>
               )}
             </AnimatePresence>
+            <p className="mt-2 text-xs text-muted-foreground/50">
+              By continuing you agree to our{" "}
+              <a href="/privacy" className="hover:text-muted-foreground underline underline-offset-2">Privacy Policy</a>.
+            </p>
           </motion.form>
         )}
 
@@ -232,6 +236,10 @@ export default function WaitlistForm({ size = "lg", placeholder = "Enter your em
                 </motion.p>
               )}
             </AnimatePresence>
+            <p className="text-xs text-center text-muted-foreground/50">
+              We'll only use your details to contact you about KubeGraf.{" "}
+              <a href="/privacy" className="hover:text-muted-foreground underline underline-offset-2">Privacy Policy</a>.
+            </p>
           </motion.form>
         )}
 
