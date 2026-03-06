@@ -35,6 +35,7 @@ export default function Privacy() {
               WebkitTextFillColor: 'transparent',
             }}>Policy</span>
           </h1>
+
           <p className="text-sm text-muted-foreground/60 mb-10">Last updated: 6 March 2026</p>
 
           <div className="prose prose-invert max-w-none space-y-6 text-muted-foreground leading-relaxed">
