@@ -914,9 +914,6 @@ sudo mv kubegraf /usr/local/bin/</code></pre>
                         Manual Download
                         <span class="badge" style="margin-left: 0.5rem;">Recommended</span>
                     </button>
-                    <button class="tab-button" data-tab="gui">
-                        GUI Installer
-                    </button>
                     <button class="tab-button" data-tab="scoop">
                         Scoop
                     </button>
@@ -967,38 +964,6 @@ sudo mv kubegraf /usr/local/bin/</code></pre>
                             <p><strong>📖 Need help with PATH?</strong> See the detailed <a href="#troubleshooting-path" style="color: var(--primary); text-decoration: underline;">PATH troubleshooting section below</a> for step-by-step instructions and common issues.</p>
                         </div>
                     </div>
-                </div>
-
-                <!-- GUI Installer Tab -->
-                <div class="tab-content" id="tab-gui">
-            <div class="install-method">
-                <h3>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/></svg>
-                    GUI Installer
-                </h3>
-                <p>Graphical installation wizard with automatic PATH setup:</p>
-                <ol>
-                    <li><a href="https://github.com/kubegraf/kubegraf/releases/latest/download/kubegraf-setup.exe" id="download-windows-exe" style="font-weight: 600;">Download Latest Installer (.exe)</a> - Get the kubegraf-X.X.X-setup.exe file</li>
-                    <li>Double-click the downloaded .exe file to run the installer</li>
-                    <li>Follow the installation wizard (click Next, Accept, Install)</li>
-                    <li><strong>Make sure "Add KubeGraf to PATH" is checked during installation</strong></li>
-                    <li><strong>IMPORTANT:</strong> Close any open terminals, then open a <strong>NEW</strong> Command Prompt or PowerShell window</li>
-                    <li>Start the application:
-                        <ul style="margin-top: 0.5rem;">
-                            <li><strong>Option 1:</strong> The installer will automatically launch the app in your browser at <code>localhost:3000</code></li>
-                            <li><strong>Option 2:</strong> Manually start from terminal with <code>kubegraf --web</code></li>
-                        </ul>
-                    </li>
-                </ol>
-                <div class="note" style="background: rgba(56, 189, 248, 0.1); border-left-color: var(--primary);">
-                    <p><strong>💡 In-App Updates:</strong> The app UI supports updating directly from the interface. After clicking the update button, wait approximately 60 seconds for the update to complete.</p>
-                </div>
-                <div class="note" style="background: rgba(251, 191, 36, 0.1); border-left-color: #fbbf24; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
-                    <p style="margin: 0; flex: 1;"><strong>⚠️ Windows SmartScreen Warning:</strong> When you download and run the installer, Windows may show a "Windows protected your PC" warning. This is normal for unsigned installers.</p>
-                    <a href="/docs/windows-smartscreen.html" style="display: inline-block; padding: 0.5rem 1rem; background: #fbbf24; color: #09090b; border-radius: 6px; font-weight: 600; text-decoration: none; white-space: nowrap; transition: all 0.2s;">Learn How to Proceed →</a>
-                </div>
-                <p><strong>What you get:</strong> Automatic PATH setup, Start Menu shortcuts, Desktop shortcut (optional), Professional uninstaller</p>
-            </div>
                 </div>
 
                 <!-- Scoop Tab -->
