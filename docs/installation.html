@@ -986,7 +986,7 @@ sudo mv kubegraf /usr/local/bin/</code></pre>
                     <li>Start the application:
                         <ul style="margin-top: 0.5rem;">
                             <li><strong>Option 1:</strong> The installer will automatically launch the app in your browser at <code>localhost:3000</code></li>
-                            <li><strong>Option 2:</strong> Manually start from terminal with <code>kubegraf web</code></li>
+                            <li><strong>Option 2:</strong> Manually start from terminal with <code>kubegraf --web</code></li>
                         </ul>
                     </li>
                 </ol>
@@ -1019,6 +1019,14 @@ scoop install kubegraf</code></pre>
             <pre><code>kubegraf --version</code></pre>
             <p>You should see output like:</p>
             <pre><code>kubegraf version 1.0.0 (go1.21.0)</code></pre>
+
+            <h2>Launch the Web Dashboard</h2>
+            <p>Once installed, start the KubeGraf web interface:</p>
+            <pre><code>kubegraf --web</code></pre>
+            <p>Then open <a href="http://localhost:3000" target="_blank" rel="noopener noreferrer" style="color: var(--primary);">http://localhost:3000</a> in your browser.</p>
+            <div class="note" style="background: rgba(56, 189, 248, 0.1); border-left-color: var(--primary);">
+                <p><strong>💡 Tip:</strong> Keep the terminal open while using the dashboard — closing it will stop the server. To run in the background, use <code>kubegraf --web &amp;</code> on macOS/Linux.</p>
+            </div>
 
             <h2>Need Help?</h2>
 
