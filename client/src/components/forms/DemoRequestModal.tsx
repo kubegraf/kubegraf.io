@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
+import { Link } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -263,7 +264,8 @@ export default function DemoRequestModal({ open, onOpenChange }: DemoRequestModa
                   </Button>
 
                   <p className="text-xs text-center text-muted-foreground">
-                    No spam. No sales pressure. Unsubscribe anytime.
+                    No spam. No sales pressure.{" "}
+                    <Link href="/privacy" className="underline underline-offset-2 hover:text-foreground transition-colors">Privacy Policy</Link>.
                   </p>
                 </form>
               )}
