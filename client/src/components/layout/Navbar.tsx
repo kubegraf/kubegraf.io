@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import { Terminal, Menu, X, BookOpen, ChevronDown, Zap, Shield, Brain, Network, FileCode, HelpCircle, Users, BookMarked, MessageSquare, Download, TrendingUp, Globe } from "lucide-react";
+import { Terminal, Menu, X, BookOpen, ChevronDown, Zap, Shield, Brain, Network, FileCode, HelpCircle, Users, BookMarked, MessageSquare, Download, TrendingUp, Globe, Hash } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import WaitlistModal from "@/components/forms/WaitlistModal";
@@ -17,6 +17,7 @@ const resourcesItems = [
   { label: "Documentation", href: "/docs/", icon: BookOpen, description: "Getting started guides" },
   { label: "Quick Start", href: "/docs/quickstart.html", icon: Zap, description: "5-minute setup" },
   { label: "Installation", href: "/docs/installation.html", icon: Download, description: "Platform-specific guides" },
+  { label: "Community", href: "https://discord.gg/GKpbU3pQ", icon: Hash, description: "Join us on Discord" },
   { label: "ROI & Business Impact", href: "/roi", icon: TrendingUp, description: "Cost savings analysis" },
   { label: "FAQ", href: "/faq", icon: HelpCircle, description: "Common questions" },
 ];

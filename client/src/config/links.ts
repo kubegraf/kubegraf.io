@@ -12,6 +12,9 @@ export const LINKS = {
   FEATURE_URL: "https://github.com/kubegraf/kubegraf/issues/new?template=feature_request.yml",
   ISSUES_URL: "https://github.com/kubegraf/kubegraf/issues",
   
+  // Community
+  DISCORD_URL: "https://discord.gg/GKpbU3pQ",
+
   // Contact
   CONTACT_MAILTO: "mailto:contact@kubegraf.io",
   CONTACT_EMAIL: "contact@kubegraf.io",

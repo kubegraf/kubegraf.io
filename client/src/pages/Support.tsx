@@ -1,4 +1,4 @@
-import { Bug, Lightbulb, Shield, Mail, ExternalLink } from "lucide-react";
+import { Bug, Lightbulb, Shield, Mail, ExternalLink, Hash } from "lucide-react";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 import Navbar from "@/components/layout/Navbar";
@@ -16,6 +16,14 @@ export default function Support() {
   }, []);
 
   const supportItems = [
+    {
+      icon: Hash,
+      title: "Discord Community",
+      description: "Ask questions, get help from the community, and share feedback in real time.",
+      action: "Join Discord",
+      href: LINKS.DISCORD_URL,
+      external: true,
+    },
     {
       icon: Bug,
       title: "Report a Bug",
