@@ -98,7 +98,7 @@ export default function License() {
           </div>
 
           <p className="text-sm text-muted-foreground/70 mt-12">
-            KubēGraf is a flagship product of Orkastor (Kontrolity Ltd), a UK-registered company.
+            KubēGraf is a flagship product of Orkastor.
           </p>
 
         </motion.div>
