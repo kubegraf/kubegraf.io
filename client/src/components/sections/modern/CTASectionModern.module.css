@@ -407,4 +407,33 @@
   .placeholderButtons {
     display: none;
   }
+
+  .discordCTA {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Discord community CTA link */
+.discordCTA {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: hsl(var(--muted-foreground));
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid hsl(var(--border) / 0.6);
+  transition: all 0.2s ease;
+  flex: 1;
+  min-width: 160px;
+}
+
+.discordCTA:hover {
+  color: hsl(var(--foreground));
+  border-color: hsl(var(--border));
+  background: hsl(var(--muted) / 0.4);
 }

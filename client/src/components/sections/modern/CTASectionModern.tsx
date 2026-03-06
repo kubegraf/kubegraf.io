@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Download, Users, Play, Terminal, Globe, TrendingUp } from "lucide-react";
+import { ArrowRight, Download, Users, Play, Terminal, Globe, TrendingUp, Hash } from "lucide-react";
 import styles from "./CTASectionModern.module.css";
 import DemoRequestModal from "@/components/forms/DemoRequestModal";
 import WaitlistModal from "@/components/forms/WaitlistModal";
+import { LINKS } from "@/config/links";
 
 const terminalLines = [
   { type: 'command', text: '$ kubegraf scan' },
@@ -126,6 +127,17 @@ export default function CTASectionModern() {
                   <Users className={styles.ctaIcon} aria-hidden="true" />
                   Join Early Access
                 </Button>
+
+                <a
+                  href={LINKS.DISCORD_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={styles.discordCTA}
+                  aria-label="Join the KubeGraf Discord community"
+                >
+                  <Hash size={16} aria-hidden="true" />
+                  Join Community
+                </a>
               </div>
             </div>
 
