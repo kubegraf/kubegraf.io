@@ -89,41 +89,47 @@ export default function FeedbackWidget() {
       {/* Floating Tab — hidden while panel is open */}
       <AnimatePresence>
         {!open && (
-          <motion.button
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-            transition={{ duration: 0.2 }}
-            onClick={() => setOpen(true)}
-            aria-label="Open feedback panel"
+          /* Outer div owns the fixed positioning — no transform conflict with Framer Motion */
+          <div
             style={{
               position: "fixed",
               right: 0,
               top: "50%",
               transform: "translateY(-50%)",
               zIndex: 49,
-              writingMode: "vertical-rl",
-              textOrientation: "mixed",
-              background: "hsl(var(--primary))",
-              color: "white",
-              border: "none",
-              padding: "16px 10px",
-              borderRadius: "8px 0 0 8px",
-              cursor: "pointer",
-              fontSize: "12px",
-              fontWeight: 700,
-              letterSpacing: "0.06em",
-              textTransform: "uppercase",
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-              boxShadow: "-3px 0 18px rgba(0,0,0,0.18)",
-              userSelect: "none",
             }}
           >
-            <MessageSquarePlus size={14} aria-hidden="true" />
-            Feedback
-          </motion.button>
+            <motion.button
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 20 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setOpen(true)}
+              aria-label="Open feedback panel"
+              style={{
+                writingMode: "vertical-rl",
+                textOrientation: "mixed",
+                background: "hsl(var(--primary))",
+                color: "white",
+                border: "none",
+                padding: "16px 10px",
+                borderRadius: "8px 0 0 8px",
+                cursor: "pointer",
+                fontSize: "12px",
+                fontWeight: 700,
+                letterSpacing: "0.06em",
+                textTransform: "uppercase",
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                boxShadow: "-3px 0 18px rgba(0,0,0,0.18)",
+                userSelect: "none",
+              }}
+            >
+              <MessageSquarePlus size={14} aria-hidden="true" />
+              Feedback
+            </motion.button>
+          </div>
         )}
       </AnimatePresence>
 
@@ -152,6 +158,17 @@ export default function FeedbackWidget() {
       {/* Slide-out Panel */}
       <AnimatePresence>
         {open && (
+          /* Outer div owns the fixed positioning — no transform conflict with Framer Motion */
+          <div
+            style={{
+              position: "fixed",
+              right: 0,
+              top: "50%",
+              transform: "translateY(-50%)",
+              zIndex: 50,
+              width: "min(360px, 100vw)",
+            }}
+          >
           <motion.div
             key="panel"
             role="dialog"
@@ -162,12 +179,6 @@ export default function FeedbackWidget() {
             exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 28, stiffness: 280 }}
             style={{
-              position: "fixed",
-              right: 0,
-              top: "50%",
-              transform: "translateY(-50%)",
-              zIndex: 50,
-              width: "min(360px, 100vw)",
               maxHeight: "90vh",
               display: "flex",
               flexDirection: "column",
@@ -581,6 +592,7 @@ export default function FeedbackWidget() {
               )}
             </div>
           </motion.div>
+          </div>
         )}
       </AnimatePresence>
 
