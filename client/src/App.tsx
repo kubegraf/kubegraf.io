@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { lazy, Suspense, useEffect, useState } from "react";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import CookieBanner from "@/components/ui/CookieBanner";
+import FeedbackWidget from "@/components/ui/FeedbackWidget";
 
 // Lazy load all pages for code splitting
 const Home = lazy(() => import("@/pages/Home"));
@@ -70,6 +71,7 @@ function App() {
           )}
           <Toaster />
           <CookieBanner />
+          <FeedbackWidget />
           <Routes />
         </TooltipProvider>
       </QueryClientProvider>
