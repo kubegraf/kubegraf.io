@@ -503,10 +503,6 @@
 }
 
 /* Discord community link */
-.discordLink {
-  margin-top: 1rem;
-}
-
 .discordText {
   display: inline-flex;
   align-items: center;

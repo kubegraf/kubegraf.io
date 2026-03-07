@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Download, Shield, Zap, Lock, TrendingUp, Calculator } from "lucide-react";
+import { ArrowRight, Shield, Zap, Lock, TrendingUp, Calculator } from "lucide-react";
 import styles from "./HeroSection.module.css";
 import { LINKS } from "@/config/links";
 
@@ -146,20 +146,6 @@ export default function HeroSection() {
                 Calculate Your ROI
               </Button>
 
-              <Button
-                size="lg"
-                variant="outline"
-                className={styles.secondaryCTA}
-                onClick={() => (window.location.href = "/docs/installation.html")}
-                aria-label="View documentation"
-              >
-                View Docs
-                <Download className={styles.ctaIcon} aria-hidden="true" />
-              </Button>
-            </div>
-
-            {/* Discord community link */}
-            <div className={styles.discordLink}>
               <a
                 href={LINKS.DISCORD_URL}
                 target="_blank"
