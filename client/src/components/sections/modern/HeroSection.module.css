@@ -502,21 +502,32 @@
   }
 }
 
-/* Discord community subtle link */
+/* Discord community link */
 .discordLink {
-  margin-top: 0.75rem;
+  margin-top: 1rem;
 }
 
 .discordText {
   display: inline-flex;
   align-items: center;
-  gap: 0.375rem;
-  font-size: 0.8125rem;
-  color: hsl(var(--muted-foreground));
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #fff;
   text-decoration: none;
-  transition: color 0.2s ease;
+  background: #5865F2;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: background 0.2s ease, transform 0.15s ease;
 }
 
 .discordText:hover {
-  color: hsl(var(--foreground));
+  background: #4752c4;
+  transform: translateY(-1px);
+}
+
+.discordIcon {
+  width: 1.1rem;
+  height: 1.1rem;
+  flex-shrink: 0;
 }
