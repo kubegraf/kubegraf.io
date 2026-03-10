@@ -944,19 +944,29 @@ sudo mv kubegraf /usr/local/bin/</code></pre>
                             <p><strong>Which version?</strong> Most Windows PCs use <strong>x64 (AMD64)</strong>. Use ARM64 only for Surface Pro X, Windows on ARM devices, or Snapdragon-powered laptops.</p>
                         </div>
 
+                        <div class="note" style="background: rgba(239, 68, 68, 0.08); border-left-color: #ef4444; margin-bottom: 1rem;">
+                            <p><strong>⚠️ Windows syntax:</strong> The binary is named <code>kubegraf.exe</code>. Always use a <strong>backslash</strong> (<code>.\</code>) when running from the extracted folder — <strong>not</strong> <code>./kubegraf</code> (that is macOS/Linux syntax and will not work on Windows).</p>
+                        </div>
+
                         <p><strong>After downloading:</strong></p>
                         <ol>
-                            <li>Extract the ZIP file to a folder of your choice (e.g., <code>C:\kubegraf</code> or <code>C:\Program Files\kubegraf</code>)</li>
-                            <li>Add the folder to your system PATH:
-                                <ul style="margin-top: 0.5rem;">
-                                    <li>Open PowerShell as Administrator</li>
-                                    <li>Run: <code>[Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\kubegraf", [EnvironmentVariableTarget]::User)</code></li>
-                                    <li>Replace <code>C:\kubegraf</code> with your actual folder path</li>
-                                    <li><strong>IMPORTANT:</strong> Close all terminals and open a NEW Command Prompt or PowerShell</li>
-                                </ul>
+                            <li>Extract the ZIP file to a folder of your choice (e.g., <code>C:\kubegraf</code>). The archive contains <code>kubegraf.exe</code>.</li>
+                            <li>Open PowerShell or Command Prompt, navigate to the folder, and run:
+                                <pre style="margin: 0.5rem 0 0 0;"><code>cd C:\kubegraf
+.\kubegraf.exe --version
+.\kubegraf.exe web</code></pre>
                             </li>
-                            <li>Verify: Run <code>kubegraf --version</code> in your new terminal</li>
                         </ol>
+
+                        <details style="margin: 1rem 0; border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem 1rem;">
+                            <summary style="cursor: pointer; font-weight: 600; color: var(--text);">Optional: Add to PATH to run <code>kubegraf</code> from anywhere</summary>
+                            <div style="margin-top: 0.75rem;">
+                                <p style="margin: 0 0 0.5rem 0; font-size: 0.9rem; color: var(--text-muted);">Open PowerShell and run:</p>
+                                <pre style="margin: 0 0 0.75rem 0;"><code>[Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\kubegraf", [EnvironmentVariableTarget]::User)</code></pre>
+                                <p style="margin: 0; font-size: 0.9rem; color: var(--text-muted);">Replace <code>C:\kubegraf</code> with your actual folder path. Then close all terminals and open a <strong>new</strong> PowerShell — you can now run <code>kubegraf web</code> from any directory.</p>
+                            </div>
+                        </details>
+
                         <div class="note" style="background: rgba(56, 189, 248, 0.1); border-left-color: var(--primary);">
                             <p><strong>💡 In-App Updates:</strong> The app UI supports updating directly from the interface. After clicking the update button, wait approximately 60 seconds for the update to complete.</p>
                         </div>
@@ -981,16 +991,30 @@ scoop install kubegraf</code></pre>
 
             <h2>Verify Installation</h2>
             <p>After installation, verify KubeGraf is working:</p>
+            <p><strong>macOS / Linux:</strong></p>
             <pre><code>kubegraf --version</code></pre>
+            <p><strong>Windows (after PATH setup):</strong></p>
+            <pre><code>kubegraf --version</code></pre>
+            <p><strong>Windows (running directly from the extracted folder):</strong></p>
+            <pre><code>.\kubegraf.exe --version</code></pre>
             <p>You should see output like:</p>
             <pre><code>kubegraf version 1.0.0 (go1.21.0)</code></pre>
 
             <h2>Launch the Web Dashboard</h2>
             <p>Once installed, start the KubeGraf web interface:</p>
-            <pre><code>kubegraf --web</code></pre>
+            <p><strong>macOS / Linux:</strong></p>
+            <pre><code>kubegraf web</code></pre>
+            <p><strong>Windows (after PATH setup):</strong></p>
+            <pre><code>kubegraf web</code></pre>
+            <p><strong>Windows (running directly from the extracted folder):</strong></p>
+            <pre><code>.\kubegraf.exe web</code></pre>
             <p>Then open <a href="http://localhost:3000" target="_blank" rel="noopener noreferrer" style="color: var(--primary);">http://localhost:3000</a> in your browser.</p>
             <div class="note" style="background: rgba(56, 189, 248, 0.1); border-left-color: var(--primary);">
-                <p><strong>💡 Tip:</strong> Keep the terminal open while using the dashboard — closing it will stop the server. To run in the background, use <code>kubegraf --web &amp;</code> on macOS/Linux.</p>
+                <p><strong>💡 Tip:</strong> Keep the terminal open while using the dashboard — closing it will stop the server.</p>
+                <ul style="margin: 0.5rem 0 0 0; padding-left: 1.2rem;">
+                    <li><strong>macOS / Linux</strong> — run in the background: <code>kubegraf web &amp;</code></li>
+                    <li><strong>Windows (PowerShell)</strong> — run in a new window: <code>Start-Process kubegraf.exe -ArgumentList "web"</code></li>
+                </ul>
             </div>
 
             <h2>Need Help?</h2>
