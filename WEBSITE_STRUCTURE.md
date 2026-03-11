@@ -364,6 +364,7 @@ Located in `/docs/` directory:
 **Install Command Block:**
 ```
 # Install
+$ brew tap kubegraf/tap
 $ brew install kubegraf
 # Analyze
 $ kubegraf analyze --cluster prod
