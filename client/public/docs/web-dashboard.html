@@ -466,19 +466,13 @@
 
             <h2>Starting the Dashboard</h2>
             <pre><code># Start on default port (3000)
-kubegraf --web
+kubegraf web
 
-# Start on custom port
-kubegraf web --port 4000
-
-# Auto-open browser
-kubegraf web --open
-
-# Bind to all interfaces (for remote access)
-kubegraf web --host 0.0.0.0 --port 8080</code></pre>
+# Start on a custom port
+kubegraf web --port=8080</code></pre>
 
             <div class="tip">
-                <p><strong>Note:</strong> By default, the dashboard binds to <code>localhost</code> only. Use <code>--host 0.0.0.0</code> to allow remote connections.</p>
+                <p><strong>Note:</strong> The dashboard binds to <code>localhost:3000</code> by default. If port 3000 is already in use, KubeGraf automatically finds the next available port. Then open <code>http://localhost:3000</code> (or the printed URL) in your browser.</p>
             </div>
 
             <h2>Dashboard Preview</h2>
