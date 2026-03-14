@@ -37,11 +37,11 @@ export default function PlatformsPlugins() {
       <div className={styles.container}>
         <div className={styles.header}>
           <h2 className={styles.title}>
-            <span className={styles.highlight}>Works with Your</span>{" "}
-            <span className={styles.highlightAmber}>Kubernetes Stack</span>
+            <span className={styles.highlight}>Kubernetes Platform Support:</span>{" "}
+            <span className={styles.highlightAmber}>EKS, GKE, AKS, OpenShift & More</span>
           </h2>
           <p className={styles.subtitle}>
-            Any cluster • Built-in plugins
+            Any Kubernetes cluster, on-prem or cloud — with native support for GitOps tools (Helm, ArgoCD, Flux), service meshes (Istio, Cilium), and all major cloud providers
           </p>
         </div>
 

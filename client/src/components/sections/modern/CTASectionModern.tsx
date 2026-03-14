@@ -80,11 +80,11 @@ export default function CTASectionModern() {
         <div className={styles.content}>
           <div className={styles.textContent}>
             <h2 className={styles.title}>
-              <span className={styles.highlight}>Get Started</span>{" "}
-              <span className={styles.highlightAmber}>in 60 Seconds</span>
+              <span className={styles.highlight}>Start Automating Kubernetes</span>{" "}
+              <span className={styles.highlightAmber}>Incident Response in 60 Seconds</span>
             </h2>
             <p className={styles.subtitle}>
-              Install KubeGraf free. Works with your existing clusters — EKS, GKE, AKS, OpenShift, K3s. No cloud dependencies. No data leaves your environment.
+              Install KubeGraf free — works with your existing EKS, GKE, AKS, OpenShift, or K3s clusters. No cloud dependencies. No data leaves your environment. Automated root cause analysis from first run.
             </p>
 
             <div className={styles.ctaGroup}>

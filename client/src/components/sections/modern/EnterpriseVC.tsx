@@ -31,11 +31,11 @@ export default function EnterpriseVC() {
       <div className={styles.container}>
         <div className={styles.header}>
           <h2 className={styles.title}>
-            <span className={styles.highlight}>Built for Scale</span>{" "}
-            <span className={styles.highlightAmber}>& Enterprise</span>
+            <span className={styles.highlight}>Kubernetes SRE Platform ROI:</span>{" "}
+            <span className={styles.highlightAmber}>80% Faster MTTR, $624K Annual Savings</span>
           </h2>
           <p className={styles.subtitle}>
-            KubeGraf, a flagship product of Orkastor, delivers measurable ROI and is designed for enterprise Kubernetes environments
+            KubeGraf by Orkastor delivers measurable ROI for enterprise Kubernetes teams — reducing mean time to recovery (MTTR), eliminating alert fatigue, and freeing engineers from manual incident firefighting
           </p>
         </div>
 

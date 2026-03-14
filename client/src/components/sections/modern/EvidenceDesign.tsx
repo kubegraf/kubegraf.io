@@ -39,12 +39,13 @@ export default function EvidenceDesign() {
       <div className={styles.container}>
         <div className={styles.header}>
           <h2 className={styles.title}>
-            <span className={styles.highlight}>Every Diagnosis</span>{" "}
-            <span className={styles.highlightAmber}>is Backed by Evidence</span>
+            <span className={styles.highlight}>AI Kubernetes Root Cause Analysis</span>{" "}
+            <span className={styles.highlightAmber}>— Every Diagnosis Backed by Evidence</span>
           </h2>
           <p className={styles.subtitle}>
-            KubeGraf provides transparent, verifiable diagnostics with confidence scores and
-            reproducible root cause analysis
+            Unlike black-box AI tools, KubeGraf shows its reasoning. Every Kubernetes incident
+            diagnosis comes with a reproducible evidence chain, confidence scores, and verifiable
+            logs and metrics — so your team always knows why before they act.
           </p>
         </div>
 

@@ -43,7 +43,7 @@ export default function EarlyAccessSection() {
             </span>
             <span className={styles.socialDivider} aria-hidden="true" />
             <span className={styles.socialItem}>
-              Beta <span className={styles.socialNum}>Q2 2025</span>
+              Early Access <span className={styles.socialNum}>2026</span>
             </span>
             <span className={styles.socialDivider} aria-hidden="true" />
             <span className={styles.socialItem}>

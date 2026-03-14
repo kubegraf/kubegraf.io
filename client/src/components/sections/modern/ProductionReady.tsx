@@ -39,11 +39,11 @@ export default function ProductionReady() {
       <div className={styles.container}>
         <div className={styles.header}>
           <h2 className={styles.title}>
-            <span className={styles.highlight}>Built for</span>{" "}
-            <span className={styles.highlightAmber}>Engineering Teams</span>
+            <span className={styles.highlight}>Enterprise Kubernetes Incident Management</span>{" "}
+            <span className={styles.highlightAmber}>for SRE & Platform Engineering Teams</span>
           </h2>
           <p className={styles.subtitle}>
-            Operational tooling designed around how real SRE teams work on Kubernetes—at scale, under pressure, with compliance requirements
+            Teams switching from Komodor, Rootly, and Incident.io choose KubeGraf because it doesn't just track changes or manage on-call rotations — it diagnoses and fixes Kubernetes incidents automatically, with full audit trail and RBAC-aware controls.
           </p>
         </div>
 

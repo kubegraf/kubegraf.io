@@ -183,14 +183,14 @@ export default function SafeFixSection() {
             <span>SafeFix™</span>
           </div>
           <h2 className={styles.title}>
-            Safe Remediation.{" "}
-            <span className={styles.titleHighlight}>Human Control.</span>
+            Kubernetes Incident Remediation —{" "}
+            <span className={styles.titleHighlight}>Dry-Run Validated, Human-Approved.</span>
           </h2>
           <p className={styles.subtitle}>
-            When KubeGraf identifies root cause, it doesn't stop there. It generates a
-            SafeFix™ recommendation — with confidence score, risk level, YAML diff preview,
-            blast radius analysis, and one-command rollback. Every change requires your
-            explicit approval.
+            When KubeGraf identifies root cause — CrashLoopBackOff, OOMKilled, CPU throttling,
+            or misconfigured secrets — it generates a SafeFix™ recommendation with confidence
+            score, YAML diff preview, blast radius analysis, and one-command rollback. Every
+            change requires your explicit approval before anything touches your cluster.
           </p>
         </div>
 
