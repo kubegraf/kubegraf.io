@@ -12,10 +12,10 @@ export default function Compare() {
 
   useEffect(() => {
     // Set page title and meta description
-    document.title = 'Compare - KubēGraf vs Lens, k9s, kubectl, Datadog';
+    document.title = 'KubeGraf vs Komodor vs Rootly vs Incident.io vs SRE.ai — Kubernetes AI SRE Platform Comparison';
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Compare KubeGraf to Lens Desktop, k9s, kubectl, and Datadog. See how KubeGraf focuses on incident understanding with evidence-backed diagnostics and safe fix recommendations.');
+      metaDescription.setAttribute('content', 'KubeGraf is a Kubernetes-native, local-first autonomous AI SRE platform. Compare vs Komodor (change tracking, no remediation), Rootly (generic on-call, not K8s-native), Incident.io (no Kubernetes depth), SRE.ai (cloud-dependent). SafeFix™ dry-run. Zero data exfiltration.');
     }
   }, []);
 
@@ -44,16 +44,16 @@ export default function Compare() {
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
-            }}>How KubeGraf</span>{" "}
+            }}>KubeGraf vs Komodor, Rootly,</span>{" "}
             <span style={{
               background: 'linear-gradient(135deg, #f59e0b, #ef4444)',
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
-            }}>Compares</span>
+            }}>Incident.io & SRE.ai</span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            KubeGraf is an AI SRE Platform for Kubernetes — root cause clarity and safe remediation, not just cluster visibility.
+            KubeGraf is an autonomous, Kubernetes-native AI SRE platform with local-first architecture — built for root cause analysis and safe remediation, not just change tracking, on-call routing, or cloud-based AI triage.
           </p>
         </motion.div>
       </section>
@@ -74,71 +74,62 @@ export default function Compare() {
               <tr className="border-b border-white/10">
                 <th className="text-left py-4 px-4 font-semibold text-sm">Capability</th>
                 <th className="text-center py-4 px-4 font-bold text-primary text-sm">KubeGraf</th>
-                <th className="text-center py-4 px-4 font-semibold text-muted-foreground text-sm">Lens Desktop</th>
-                <th className="text-center py-4 px-4 font-semibold text-muted-foreground text-sm">k9s</th>
-                <th className="text-center py-4 px-4 font-semibold text-muted-foreground text-sm">kubectl</th>
-                <th className="text-center py-4 px-4 font-semibold text-muted-foreground text-sm">Datadog</th>
+                <th className="text-center py-4 px-4 font-semibold text-muted-foreground text-sm">Komodor</th>
+                <th className="text-center py-4 px-4 font-semibold text-muted-foreground text-sm">Rootly</th>
+                <th className="text-center py-4 px-4 font-semibold text-muted-foreground text-sm">Incident.io</th>
+                <th className="text-center py-4 px-4 font-semibold text-muted-foreground text-sm">SRE.ai</th>
               </tr>
             </thead>
             <tbody className="text-sm">
               <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
-                <td className="py-4 px-4 font-medium">Primary purpose</td>
-                <td className="py-4 px-4 text-center text-primary font-semibold">Incident intelligence & safe ops</td>
-                <td className="py-4 px-4 text-center text-muted-foreground">Cluster visibility</td>
-                <td className="py-4 px-4 text-center text-muted-foreground">CLI navigation</td>
-                <td className="py-4 px-4 text-center text-muted-foreground">Raw control</td>
-                <td className="py-4 px-4 text-center text-muted-foreground">Observability SaaS</td>
+                <td className="py-4 px-4 font-medium">Primary focus</td>
+                <td className="py-4 px-4 text-center text-primary font-semibold">AI root cause analysis & remediation</td>
+                <td className="py-4 px-4 text-center text-muted-foreground">K8s change tracking</td>
+                <td className="py-4 px-4 text-center text-muted-foreground">On-call & incident management</td>
+                <td className="py-4 px-4 text-center text-muted-foreground">On-call, incident response & status pages</td>
+                <td className="py-4 px-4 text-center text-muted-foreground">AI DevOps agents & reliability</td>
               </tr>
 
               <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
-                <td className="py-4 px-4 font-medium">Local-first</td>
+                <td className="py-4 px-4 font-medium">Kubernetes-native</td>
+                <td className="py-4 px-4 text-center"><Icon status="✅" /></td>
                 <td className="py-4 px-4 text-center"><Icon status="✅" /></td>
                 <td className="py-4 px-4 text-center"><Icon status="⚠️" /></td>
-                <td className="py-4 px-4 text-center"><Icon status="✅" /></td>
-                <td className="py-4 px-4 text-center"><Icon status="✅" /></td>
-                <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
-              </tr>
-
-              <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
-                <td className="py-4 px-4 font-medium">Mandatory SaaS</td>
-                <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
-                <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
-                <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
-                <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
-                <td className="py-4 px-4 text-center"><Icon status="✅" /></td>
-              </tr>
-
-              <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
-                <td className="py-4 px-4 font-medium">Automatic incident detection</td>
-                <td className="py-4 px-4 text-center"><Icon status="✅" /></td>
-                <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
-                <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
-                <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
+                <td className="py-4 px-4 text-center"><Icon status="⚠️" /></td>
                 <td className="py-4 px-4 text-center"><Icon status="⚠️" /></td>
               </tr>
 
               <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
-                <td className="py-4 px-4 font-medium">Explains <em>why</em> failures happen</td>
+                <td className="py-4 px-4 font-medium">Local-first / no data exfiltration</td>
                 <td className="py-4 px-4 text-center"><Icon status="✅" /></td>
                 <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
                 <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
                 <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
                 <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
+              </tr>
+
+              <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                <td className="py-4 px-4 font-medium">AI root cause analysis</td>
+                <td className="py-4 px-4 text-center"><Icon status="✅" /></td>
+                <td className="py-4 px-4 text-center"><Icon status="⚠️" /></td>
+                <td className="py-4 px-4 text-center"><Icon status="⚠️" /></td>
+                <td className="py-4 px-4 text-center"><Icon status="⚠️" /></td>
+                <td className="py-4 px-4 text-center"><Icon status="✅" /></td>
               </tr>
 
               <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
                 <td className="py-4 px-4 font-medium">Evidence-backed diagnosis</td>
                 <td className="py-4 px-4 text-center"><Icon status="✅" /></td>
-                <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
+                <td className="py-4 px-4 text-center"><Icon status="⚠️" /></td>
                 <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
                 <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
                 <td className="py-4 px-4 text-center"><Icon status="⚠️" /></td>
               </tr>
 
               <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
-                <td className="py-4 px-4 font-medium">Change correlation</td>
+                <td className="py-4 px-4 font-medium">Kubernetes change correlation</td>
                 <td className="py-4 px-4 text-center"><Icon status="✅" /></td>
-                <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
+                <td className="py-4 px-4 text-center"><Icon status="✅" /></td>
                 <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
                 <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
                 <td className="py-4 px-4 text-center"><Icon status="⚠️" /></td>
@@ -148,81 +139,54 @@ export default function Compare() {
                 <td className="py-4 px-4 font-medium">Safe fix recommendations</td>
                 <td className="py-4 px-4 text-center"><Icon status="✅" /></td>
                 <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
+                <td className="py-4 px-4 text-center"><Icon status="⚠️" /></td>
+                <td className="py-4 px-4 text-center"><Icon status="⚠️" /></td>
+                <td className="py-4 px-4 text-center"><Icon status="✅" /></td>
+              </tr>
+
+              <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                <td className="py-4 px-4 font-medium">Dry-run fix preview (SafeFix™)</td>
+                <td className="py-4 px-4 text-center"><Icon status="✅" /></td>
                 <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
                 <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
+                <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
+                <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
+              </tr>
+
+              <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                <td className="py-4 px-4 font-medium">Human-in-the-loop approval</td>
+                <td className="py-4 px-4 text-center"><Icon status="✅" /></td>
+                <td className="py-4 px-4 text-center"><Icon status="⚠️" /></td>
+                <td className="py-4 px-4 text-center"><Icon status="✅" /></td>
+                <td className="py-4 px-4 text-center"><Icon status="✅" /></td>
                 <td className="py-4 px-4 text-center"><Icon status="⚠️" /></td>
               </tr>
 
               <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
-                <td className="py-4 px-4 font-medium">Dry-run fix preview</td>
+                <td className="py-4 px-4 font-medium">On-call management</td>
+                <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
+                <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
                 <td className="py-4 px-4 text-center"><Icon status="✅" /></td>
-                <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
-                <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
-                <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
-                <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
-              </tr>
-
-              <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
-                <td className="py-4 px-4 font-medium">Human-in-the-loop actions</td>
                 <td className="py-4 px-4 text-center"><Icon status="✅" /></td>
-                <td className="py-4 px-4 text-center"><Icon status="⚠️" /></td>
-                <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
-                <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
                 <td className="py-4 px-4 text-center"><Icon status="⚠️" /></td>
               </tr>
 
               <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
-                <td className="py-4 px-4 font-medium">Terminal UI (TUI)</td>
-                <td className="py-4 px-4 text-center"><Icon status="✅" /></td>
-                <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
-                <td className="py-4 px-4 text-center"><Icon status="✅" /></td>
-                <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
-                <td className="py-4 px-4 text-center"></td>
-              </tr>
-
-              <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
-                <td className="py-4 px-4 font-medium">Web / SPA interface</td>
-                <td className="py-4 px-4 text-center"><Icon status="✅" /></td>
-                <td className="py-4 px-4 text-center"><Icon status="✅" /></td>
+                <td className="py-4 px-4 font-medium">Status pages</td>
                 <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
                 <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
-                <td className="py-4 px-4 text-center"></td>
-              </tr>
-
-              <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
-                <td className="py-4 px-4 font-medium">Unified multi-cluster incidents</td>
-                <td className="py-4 px-4 text-center"><Icon status="✅" /></td>
-                <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
-                <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
-                <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
-                <td className="py-4 px-4 text-center"></td>
-              </tr>
-
-              <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
-                <td className="py-4 px-4 font-medium">Incident knowledge retention</td>
-                <td className="py-4 px-4 text-center"><Icon status="✅" /></td>
-                <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
-                <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
-                <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
-                <td className="py-4 px-4 text-center"></td>
-              </tr>
-
-              <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
-                <td className="py-4 px-4 font-medium">Runs fully offline</td>
-                <td className="py-4 px-4 text-center"><Icon status="✅" /></td>
-                <td className="py-4 px-4 text-center"><Icon status="⚠️" /></td>
                 <td className="py-4 px-4 text-center"><Icon status="✅" /></td>
                 <td className="py-4 px-4 text-center"><Icon status="✅" /></td>
                 <td className="py-4 px-4 text-center"><Icon status="❌" /></td>
               </tr>
 
               <tr className="hover:bg-white/5 transition-colors">
-                <td className="py-4 px-4 font-medium">Binary footprint</td>
-                <td className="py-4 px-4 text-center text-primary font-semibold">~15 MB</td>
-                <td className="py-4 px-4 text-center text-muted-foreground">~300 MB+</td>
-                <td className="py-4 px-4 text-center text-muted-foreground">~20 MB</td>
-                <td className="py-4 px-4 text-center text-muted-foreground">~50 MB</td>
-                <td className="py-4 px-4 text-center"></td>
+                <td className="py-4 px-4 font-medium">Multi-cluster support</td>
+                <td className="py-4 px-4 text-center"><Icon status="✅" /></td>
+                <td className="py-4 px-4 text-center"><Icon status="✅" /></td>
+                <td className="py-4 px-4 text-center"><Icon status="⚠️" /></td>
+                <td className="py-4 px-4 text-center"><Icon status="⚠️" /></td>
+                <td className="py-4 px-4 text-center"><Icon status="⚠️" /></td>
               </tr>
             </tbody>
           </table>

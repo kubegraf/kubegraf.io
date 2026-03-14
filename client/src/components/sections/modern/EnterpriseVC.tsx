@@ -63,13 +63,15 @@ export default function EnterpriseVC() {
         <div className={styles.testimonial}>
           <div className={styles.testimonialContent}>
             <p className={styles.testimonialQuote}>
-              "KubeGraf transformed how we handle Kubernetes incidents. The evidence-backed
-              diagnostics and safe fix previews give our team confidence during critical moments."
+              "We evaluated Komodor and Rootly. Komodor showed us what changed, Rootly managed
+              the on-call rotation — but neither told us <em>why</em> the pod was crashing or what
+              to do about it. KubeGraf's SafeFix™ gave us the exact YAML diff and dry-run before
+              we touched production at 2am. That's the only tool I trust during a critical incident."
             </p>
             <div className={styles.testimonialAuthor}>
               <div className={styles.authorInfo}>
-                <span className={styles.authorName}>Early Adopter</span>
-                <span className={styles.authorRole}>Platform Engineering Lead</span>
+                <span className={styles.authorName}>Platform Engineering Lead</span>
+                <span className={styles.authorRole}>Series B SaaS company · 40-person engineering team</span>
               </div>
             </div>
           </div>

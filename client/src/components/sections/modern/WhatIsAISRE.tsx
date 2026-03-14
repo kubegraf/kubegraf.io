@@ -105,7 +105,7 @@ export default function WhatIsAISRE() {
           <div className={styles.definitionInner}>
             <span className={styles.definitionLabel}>How KubeGraf Differs</span>
             <p className={styles.definitionText}>
-              <strong>Komodor</strong> tracks Kubernetes changes. <strong>Rootly</strong> &amp; <strong>Incident.io</strong> manage on-call workflows. <strong>Harness</strong> automates CI/CD. <strong>Dash0</strong> collects OpenTelemetry signals. <strong>Deductive AI</strong> &amp; <strong>SRE.ai</strong> do AI incident triage. KubeGraf does all of this in one step: it detects the incident, diagnoses the root cause with evidence, and delivers a SafeFix™ — without you ever leaving your terminal.
+              <strong>Komodor</strong> tracks Kubernetes changes but doesn't fix them. <strong>Rootly</strong>, <strong>Incident.io</strong>, and <strong>SRE.ai</strong> are generic on-call and incident management platforms — none are Kubernetes-native and all require SaaS pipelines. <strong>Deductive AI</strong> needs cloud data pipelines for its knowledge graph. <strong>Dash0</strong> is an observability tool, not a remediation platform. KubeGraf is different in three ways that matter: (1) <strong>Kubernetes-native</strong> — understands every K8s failure mode from CrashLoopBackOff to OOMKilled natively; (2) <strong>Local-first</strong> — your cluster data and logs never leave your environment, no SaaS pipeline required; (3) <strong>SafeFix™ with dry-run</strong> — every proposed remediation is simulated before execution, with full YAML diff and blast radius. KubeGraf runs entirely inside your infrastructure — no SaaS pipeline, no data exfiltration.
             </p>
           </div>
         </div>

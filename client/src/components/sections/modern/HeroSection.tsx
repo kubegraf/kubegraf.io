@@ -89,7 +89,7 @@ export default function HeroSection() {
             {/* Eyebrow badge — above the headline */}
             <div className={styles.badge}>
               <span className={styles.badgeDot} aria-hidden="true" />
-              <span className={styles.badgeText}>AI SRE Platform for Kubernetes</span>
+              <span className={styles.badgeText}>Autonomous AI SRE — Kubernetes-Native · Local-First</span>
             </div>
 
             {/* Headline — layered typographic treatment */}
@@ -108,12 +108,13 @@ export default function HeroSection() {
 
             {/* Subheadline */}
             <p className={styles.subheadline}>
-              Powered by{" "}
-              <strong style={{ color: 'hsl(var(--primary))' }}>OrkaAI</strong>
-              {" "}— KubeGraf acts as your AI SRE, correlating logs, metrics, events, and deployments to diagnose incidents and deliver{" "}
-              <strong className={styles.subheadlineStrong}>safe, evidence-backed fixes.</strong>
-              {" "}From{" "}
-              <a href="https://orkastor.com" target="_blank" rel="noopener noreferrer" style={{ color: 'hsl(var(--primary))', fontWeight: 700, textDecoration: 'none' }}>Orkastor</a>.
+              KubeGraf is your{" "}
+              <strong style={{ color: 'hsl(var(--primary))' }}>autonomous, always-on AI SRE</strong>
+              {" "}— built exclusively for Kubernetes. It detects incidents, self-heals where safe, and delivers{" "}
+              <strong className={styles.subheadlineStrong}>evidence-backed SafeFix™ remediations</strong>
+              {" "}with dry-run validation. Powered by{" "}
+              <a href="https://orkastor.com" target="_blank" rel="noopener noreferrer" style={{ color: 'hsl(var(--primary))', fontWeight: 700, textDecoration: 'none' }}>OrkaAI</a>
+              {" "}— your data never leaves your environment.
             </p>
 
             {/* CTA Buttons */}
@@ -180,7 +181,7 @@ export default function HeroSection() {
 
             {/* Social Proof */}
             <p className={styles.socialProof}>
-              80% faster MTTR · Built for SREs &amp; Platform Engineers · Enterprise-ready
+              Kubernetes-native · 80% faster MTTR · Always-on autonomous remediation · No SaaS required
             </p>
 
             {/* Terminal Demo - Mobile: appears after social proof */}

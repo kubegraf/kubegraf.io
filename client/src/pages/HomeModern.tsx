@@ -38,9 +38,9 @@ import {
 
 export default function HomeModern() {
   useEffect(() => {
-    document.title = 'KubeGraf — AI SRE Platform for Kubernetes | Root Cause Analysis & Incident Remediation';
+    document.title = 'KubeGraf — Autonomous AI SRE for Kubernetes | Self-Healing Incidents, Zero Data Exfiltration';
     const meta = document.querySelector('meta[name="description"]');
-    if (meta) meta.setAttribute('content', 'AI SRE platform for Kubernetes. Automated root cause analysis, CrashLoopBackOff & OOMKilled remediation, incident response automation. SafeFix™ in minutes. No SaaS lock-in.');
+    if (meta) meta.setAttribute('content', 'A local-first, autonomous AI SRE platform built for Kubernetes. SafeFix™ dry-run remediation, evidence-backed root cause analysis, CrashLoopBackOff & OOMKilled self-healing — your data never leaves your cluster.');
   }, []);
 
   return (
