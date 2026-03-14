@@ -34,6 +34,7 @@ import {
   EarlyAccessSection,
   CTASectionModern,
   FooterModern,
+  FeaturedPosts,
 } from "@/components/sections/modern";
 
 export default function HomeModern() {
@@ -83,7 +84,10 @@ export default function HomeModern() {
         {/* 12. Enterprise / ROI */}
         <EnterpriseVC />
 
-        {/* 13. Final CTA — second ask for those who read everything */}
+        {/* 13. Featured Blog Posts */}
+        <FeaturedPosts />
+
+        {/* 14. Final CTA — second ask for those who read everything */}
         <CTASectionModern />
       </main>
       <FooterModern />

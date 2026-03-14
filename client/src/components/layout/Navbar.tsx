@@ -21,6 +21,7 @@ const productItems = [
 ];
 
 const resourcesItems = [
+  { label: "Blog", href: "/blog", icon: BookMarked, description: "Kubernetes guides & playbooks" },
   { label: "Documentation", href: "/docs/", icon: BookOpen, description: "Getting started guides" },
   { label: "Quick Start", href: "/docs/quickstart.html", icon: Zap, description: "5-minute setup" },
   { label: "Installation", href: "/docs/installation.html", icon: Download, description: "Platform-specific guides" },

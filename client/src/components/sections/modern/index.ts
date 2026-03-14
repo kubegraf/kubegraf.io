@@ -15,3 +15,4 @@ export { default as EnterpriseVC } from "./EnterpriseVC";
 export { default as EarlyAccessSection } from "./EarlyAccessSection";
 export { default as CTASectionModern } from "./CTASectionModern";
 export { default as FooterModern } from "./FooterModern";
+export { default as FeaturedPosts } from "./FeaturedPosts";

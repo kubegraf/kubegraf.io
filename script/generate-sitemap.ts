@@ -23,6 +23,47 @@ export async function generateSitemap() {
     priority: "0.9",
   });
 
+  // Blog listing
+  urls.push({
+    loc: `${BASE_URL}/blog`,
+    changefreq: "weekly",
+    priority: "0.9",
+  });
+
+  // Blog posts
+  const blogSlugs = [
+    "crashloopbackoff-fix-kubernetes",
+    "oomkilled-kubernetes-root-cause",
+    "kubernetes-incident-management-reduce-mttr",
+    "ai-sre-platform-vs-traditional-monitoring",
+    "kubernetes-deployment-rollback-automation",
+    "prometheus-alert-fatigue-kubernetes",
+    "self-healing-kubernetes-autonomous-remediation",
+    "kubernetes-root-cause-analysis-guide",
+  ];
+  for (const slug of blogSlugs) {
+    urls.push({
+      loc: `${BASE_URL}/blog/${slug}`,
+      changefreq: "monthly",
+      priority: "0.8",
+    });
+  }
+
+  // Other app pages
+  const appPages = [
+    { path: "/compare", priority: "0.8" },
+    { path: "/pricing", priority: "0.8" },
+    { path: "/faq", priority: "0.7" },
+    { path: "/roi", priority: "0.8" },
+  ];
+  for (const page of appPages) {
+    urls.push({
+      loc: `${BASE_URL}${page.path}`,
+      changefreq: "monthly",
+      priority: page.priority,
+    });
+  }
+
   // Docs index + individual docs HTML files
   try {
     const entries = await readdir(docsDir, { withFileTypes: true });
