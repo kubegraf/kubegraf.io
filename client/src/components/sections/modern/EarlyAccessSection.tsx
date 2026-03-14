@@ -4,7 +4,7 @@ import styles from "./EarlyAccessSection.module.css";
 
 const benefits = [
   "Early feature access before public release",
-  "Powered by OrkaAI — Orkastor's multi-model reasoning engine",
+  "Powered by OrkasAI — Orkastor's multi-model reasoning engine",
   "Shape the roadmap — your incidents influence what we build next",
   "First access to every new SafeFix™ pattern and diagnostic capability as we ship",
 ];

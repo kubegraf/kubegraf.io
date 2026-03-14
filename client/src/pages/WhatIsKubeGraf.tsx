@@ -13,7 +13,7 @@ export default function WhatIsKubeGraf() {
   useEffect(() => {
     document.title = 'What is KubēGraf? – AI SRE by Orkastor';
     const meta = document.querySelector('meta[name="description"]');
-    if (meta) meta.setAttribute('content', 'KubeGraf by Orkastor — an AI SRE Platform for Kubernetes powered by OrkaAI. Detects incidents, explains root causes with evidence, and previews safe fixes locally.');
+    if (meta) meta.setAttribute('content', 'KubeGraf by Orkastor — an AI SRE Platform for Kubernetes powered by OrkasAI. Detects incidents, explains root causes with evidence, and previews safe fixes locally.');
   }, []);
 
   return (
@@ -319,7 +319,7 @@ export default function WhatIsKubeGraf() {
               </h2>
               <p className="text-lg max-w-3xl mx-auto text-foreground/75 dark:text-muted-foreground leading-relaxed">
                 Orkastor is the AI DevOps &amp; Cloud Orchestration platform. KubeGraf is its flagship product —
-                the in-environment AI SRE for Kubernetes. OrkaAI powers the intelligence layer with multi-model reasoning,
+                the in-environment AI SRE for Kubernetes. OrkasAI powers the intelligence layer with multi-model reasoning,
                 RAG knowledge base, and confidence-scored diagnostics.
               </p>
             </div>
@@ -334,7 +334,7 @@ export default function WhatIsKubeGraf() {
                 },
                 {
                   icon: Brain,
-                  title: "OrkaAI Engine",
+                  title: "OrkasAI Engine",
                   desc: "Multi-model AI reasoning engine powering all Orkastor modules. RAG knowledge base, live cluster analysis, incident RCA, and confidence-scored diagnostics.",
                   color: "#f59e0b",
                 },

@@ -31,7 +31,7 @@ const resourcesItems = [
 
 const companyItems = [
   { label: "Orkastor", href: "https://orkastor.com", icon: Globe, description: "AI DevOps Platform" },
-  { label: "OrkaAI", href: "https://orkastor.com/#platform", icon: Brain, description: "Multi-model AI engine" },
+  { label: "OrkasAI", href: "https://orkastor.com/#platform", icon: Brain, description: "Multi-model AI engine" },
   { label: "About KubeGraf", href: "/kubegraf", icon: Shield, description: "Our flagship AI SRE" },
   { label: "ROI & Business Impact", href: "/roi", icon: TrendingUp, description: "Cost savings analysis" },
   { label: "Compare", href: "/compare", icon: FileCode, description: "vs. alternatives" },

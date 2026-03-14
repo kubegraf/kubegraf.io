@@ -113,7 +113,7 @@ export default function HeroSection() {
               {" "}— built exclusively for Kubernetes. It detects incidents, self-heals where safe, and delivers{" "}
               <strong className={styles.subheadlineStrong}>evidence-backed SafeFix™ remediations</strong>
               {" "}with dry-run validation. Powered by{" "}
-              <a href="https://orkastor.com" target="_blank" rel="noopener noreferrer" style={{ color: 'hsl(var(--primary))', fontWeight: 700, textDecoration: 'none' }}>OrkaAI</a>
+              <a href="https://orkastor.com" target="_blank" rel="noopener noreferrer" style={{ color: 'hsl(var(--primary))', fontWeight: 700, textDecoration: 'none' }}>OrkasAI</a>
               {" "}— your data never leaves your environment.
             </p>
 
