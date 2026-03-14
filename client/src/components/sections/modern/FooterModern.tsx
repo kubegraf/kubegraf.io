@@ -110,7 +110,10 @@ export default function FooterModern() {
               </div>
             </Link>
             <p className={styles.tagline}>
-              AI SRE platform for Kubernetes — root cause to safe fix in minutes.
+              AI SRE platform for Kubernetes — automated root cause analysis, incident response automation, and SafeFix™ in minutes.
+            </p>
+            <p className={styles.tagline} style={{ opacity: 0.55, marginTop: '0.5rem', fontSize: '0.7rem' }}>
+              Used by teams switching from Komodor, Rootly, Incident.io, Harness &amp; Deductive AI
             </p>
             <p className={styles.tagline} style={{ opacity: 0.7, marginTop: '0.25rem' }}>
               A flagship product of{" "}

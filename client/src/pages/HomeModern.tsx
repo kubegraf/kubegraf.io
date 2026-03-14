@@ -38,9 +38,9 @@ import {
 
 export default function HomeModern() {
   useEffect(() => {
-    document.title = 'KubēGraf — AI SRE Platform for Kubernetes';
+    document.title = 'KubeGraf — AI SRE Platform for Kubernetes | Root Cause Analysis & Incident Remediation';
     const meta = document.querySelector('meta[name="description"]');
-    if (meta) meta.setAttribute('content', 'KubeGraf by Orkastor is an AI SRE Platform for Kubernetes — root cause clarity and safe remediation in minutes, powered by OrkaAI. No SaaS lock-in or cloud dependency.');
+    if (meta) meta.setAttribute('content', 'AI SRE platform for Kubernetes. Automated root cause analysis, CrashLoopBackOff & OOMKilled remediation, incident response automation. SafeFix™ in minutes. No SaaS lock-in.');
   }, []);
 
   return (

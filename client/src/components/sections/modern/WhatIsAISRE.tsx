@@ -35,9 +35,10 @@ export default function WhatIsAISRE() {
             <span className={styles.titleAccent}>what to do.</span>
           </h2>
           <p className={styles.subtitle}>
-            An AI SRE platform doesn't just surface telemetry. It understands incidents and
-            guides remediation with evidence and confidence scoring — like having a senior SRE
-            on call 24/7.
+            An AI SRE platform doesn't just surface telemetry. It understands incidents,
+            replaces manual runbook automation with AI-driven diagnosis, and guides remediation
+            with evidence and confidence scoring — like having a senior SRE on-call automation
+            running 24/7.
           </p>
         </div>
 

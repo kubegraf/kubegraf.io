@@ -4,43 +4,43 @@ import styles from "./UseCases.module.css";
 const useCases = [
   {
     id: 1,
-    title: "PreStop / terminationGracePeriod Conflicts",
+    title: "CrashLoopBackOff Fix & Kubernetes Incident Remediation",
     description:
-      "Identify and resolve conflicts between PreStop hooks and termination grace periods that cause pod termination issues.",
-    impact: "Prevents unexpected pod terminations during deployments",
+      "Automatically diagnose CrashLoopBackOff causes — OOM kills, failed probes, bad config mounts, or missing secrets — and deliver a SafeFix™ with dry-run validation before applying.",
+    impact: "Reduces CrashLoopBackOff MTTR from hours to minutes",
     icon: AlertCircle,
   },
   {
     id: 2,
-    title: "Spot Node Preemption Pod Restarts",
+    title: "OOMKilled Remediation & Memory Limit Tuning",
     description:
-      "Detect and handle pod restarts caused by spot instance preemptions in cloud environments.",
-    impact: "Reduces downtime from unexpected node terminations",
+      "Detect OOMKilled pods, analyze actual memory usage vs. configured limits, and recommend precise resource limit adjustments backed by historical Prometheus metrics.",
+    impact: "Eliminates recurring OOMKilled incidents with evidence-based fixes",
     icon: Zap,
   },
   {
     id: 3,
-    title: "Database Connection Failures During Deployment",
+    title: "Prometheus Alert Automation & Kubernetes Alert Management",
     description:
-      "Identify connection pool exhaustion and database connectivity issues that occur during rolling updates.",
-    impact: "Prevents application failures during deployments",
-    icon: Database,
+      "Correlate Prometheus alerts with Kubernetes events, deployment changes, and pod logs to automatically triage alert storms, eliminate false positives, and route to the right fix.",
+    impact: "Cuts alert fatigue and automates incident response from first signal",
+    icon: Activity,
   },
   {
     id: 4,
-    title: "Missing Environment Variables / Pod Anti-Affinity Misconfigurations",
+    title: "Kubernetes Deployment Rollback Automation",
     description:
-      "Detect missing required environment variables and incorrect pod anti-affinity rules causing scheduling failures.",
-    impact: "Ensures proper pod scheduling and configuration",
+      "Detect failed rollouts caused by bad images, misconfigurations, or resource constraints. Automatically trigger a safe rollback with full audit trail and pre-rollback dry-run.",
+    impact: "Automated rollback in seconds — no manual kubectl intervention needed",
     icon: Settings,
   },
   {
     id: 5,
-    title: "Resource Exhaustion and Failed Health Checks",
+    title: "Kubernetes Observability AI: Root Cause from Logs, Metrics & Traces",
     description:
-      "Identify CPU/memory exhaustion and health check failures that prevent pods from becoming ready.",
-    impact: "Prevents cascading failures and improves reliability",
-    icon: Activity,
+      "Correlate OpenTelemetry traces, distributed tracing spans, Grafana metrics, and Kubernetes events into a single root cause chain — so you never manually grep across five tools again.",
+    impact: "Full-stack root cause analysis in one view, not five dashboards",
+    icon: Database,
   },
 ];
 
@@ -50,11 +50,11 @@ export default function UseCases() {
       <div className={styles.container}>
         <div className={styles.header}>
           <h2 className={styles.title}>
-            <span className={styles.highlight}>Solve Real</span>{" "}
-            <span className={styles.highlightAmber}>Kubernetes Problems</span>
+            <span className={styles.highlight}>Automated Kubernetes</span>{" "}
+            <span className={styles.highlightAmber}>Incident Remediation</span>
           </h2>
           <p className={styles.subtitle}>
-            KubeGraf helps you diagnose and fix the most common production Kubernetes incidents
+            From CrashLoopBackOff to OOMKilled to deployment rollbacks — KubeGraf diagnoses and remediates the most common Kubernetes incidents automatically
           </p>
         </div>
 
