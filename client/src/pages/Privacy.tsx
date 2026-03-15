@@ -36,7 +36,7 @@ export default function Privacy() {
             }}>Policy</span>
           </h1>
 
-          <p className="text-sm text-muted-foreground/60 mb-10">Last updated: 6 March 2026</p>
+          <p className="text-sm text-muted-foreground/60 mb-10">Last updated: 15 March 2026</p>
 
           <div className="prose prose-invert max-w-none space-y-6 text-muted-foreground leading-relaxed">
             <p>
@@ -51,6 +51,20 @@ export default function Privacy() {
             <h2 className="text-xl sm:text-2xl font-bold text-foreground mt-10 mb-3">KubeGraf Pro — license verification</h2>
             <p>
               The free version sends us nothing. The Pro version sends your license key to our license server to confirm it is valid. That's it — no cluster data, no usage patterns, no user profiling. We do not log client IP addresses beyond what a standard web server requires for the connection to work. Verification logs are deleted after 90 days.
+            </p>
+
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mt-10 mb-3">KubeGraf app — anonymous usage analytics</h2>
+            <p>
+              The KubeGraf app uses <strong>PostHog</strong> (EU Cloud, hosted at <code className="text-xs bg-muted px-1 py-0.5 rounded font-mono">eu.i.posthog.com</code>) to collect anonymous product analytics. This helps us understand which features are used so we can improve the product.
+            </p>
+            <p>
+              What PostHog <strong>does</strong> collect: which view you navigated to (e.g. "pods", "cost", "incidents") — nothing more.
+            </p>
+            <p>
+              What PostHog <strong>never</strong> collects: your name, email, IP address, cluster names, namespace names, resource data, or any personally identifiable information. Session recording is disabled. Autocapture (DOM scraping) is disabled.
+            </p>
+            <p>
+              You can <strong>opt out</strong> at any time from <em>Settings → Privacy</em> inside the app. Once opted out, no data is sent for any subsequent session.
             </p>
 
             <h2 className="text-xl sm:text-2xl font-bold text-foreground mt-10 mb-3">This website — cookies and storage</h2>
